@@ -73,6 +73,6 @@ public class ContactServicesOfferedController extends BaseController{
     @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Contact Services Offered Report");
-        forceDownLoad(officeExportService.exportExcelFile(reportService.getDefaultReport(item.getInstance(item)), name), name, response);
+        forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(reportService.getDefaultReport(item.getInstance(item)), name), name, response);
     }
 }

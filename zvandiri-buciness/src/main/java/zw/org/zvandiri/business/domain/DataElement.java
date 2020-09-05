@@ -16,13 +16,13 @@
 package zw.org.zvandiri.business.domain;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 
 /**
  *
  * @author Judge Muzinda
  */
-@Entity
+@Entity @JsonIgnoreProperties(ignoreUnknown = true)
 public class DataElement extends BaseName {
  
     @Column(unique = true)

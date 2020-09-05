@@ -106,12 +106,13 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public List<Contact> getByPatient(Patient patient) {
+        //patient.getContacts();
         return contactRepo.findByPatient(patient);
     }
 
     @Override
     public List<Contact> findByPatientAndContactDate(Patient patient, Date start, Date end) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return contactRepo.findByPatientAndContactDate(patient,start,end);
     }
 
     @Override

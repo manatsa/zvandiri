@@ -17,16 +17,9 @@ package zw.org.zvandiri.business.domain;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.UserLevel;
 import zw.org.zvandiri.business.domain.util.UserType;
@@ -35,7 +28,7 @@ import zw.org.zvandiri.business.domain.util.UserType;
  *
  * @author Judge Muzinda
  */
-@Entity
+@Entity @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "user")
 public class User extends BaseEntity {
 
@@ -47,14 +40,18 @@ public class User extends BaseEntity {
     private String confirmPassword;
     private String firstName;
     private String lastName;
+
+    @Column(unique = true)
     private String userName;
     @Enumerated
     private UserType userType = UserType.ZVANDIRI_STAFF;
     @Enumerated
     private UserLevel userLevel;
     @ManyToOne
+    @JoinColumn(name = "province")
     private Province province;
     @ManyToOne
+    @JoinColumn(name = "district")
     private District district;
     @Transient
     private String displayName;
@@ -190,5 +187,10 @@ public class User extends BaseEntity {
     public void setCurrentElement(String currentElement) {
         this.currentElement = currentElement;
     }
-    
+
+    @Override
+    public String toString()
+    {
+       return "FirstName:"+firstName+"\tLastName:"+lastName+"\tUsername:"+userName;
+    }
 }

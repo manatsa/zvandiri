@@ -151,6 +151,6 @@ public class DetailedReportController extends BaseController {
                 items = patientReportService.getPatientLabResultsList(item.getInstance(item));
             }
         }
-        forceDownLoad(officeExportService.exportExcelFile(detailedReportService.get(items), name), name, response);
+        forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(detailedReportService.get(items), name), name, response);
     }
 }

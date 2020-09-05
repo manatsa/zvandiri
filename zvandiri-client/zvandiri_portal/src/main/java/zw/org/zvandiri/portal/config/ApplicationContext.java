@@ -16,6 +16,7 @@ import org.springframework.data.web.PageableArgumentResolver;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -63,6 +64,8 @@ public class ApplicationContext extends WebMvcConfigurerAdapter {
     public DataSource dataSource() {
         BoneCPDataSource dataSource = new BoneCPDataSource();
 
+        //SecurityContextHolder.clearContext();
+        //System.err.println("************************************************************************Security cleared!");
         dataSource.setDriverClass(environment.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
         dataSource.setJdbcUrl(environment.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
         dataSource.setUsername(environment.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));

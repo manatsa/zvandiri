@@ -18,7 +18,7 @@ package zw.org.zvandiri.business.domain;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
-import javax.persistence.Entity;
+import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 import javax.persistence.ManyToMany;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import zw.org.zvandiri.business.domain.util.ContactAssessment;
@@ -27,7 +27,7 @@ import zw.org.zvandiri.business.domain.util.ContactAssessment;
  *
  * @author Judge Muzinda
  */
-@Entity
+@Entity @JsonIgnoreProperties(ignoreUnknown = true)
 public class Assessment extends BaseName {
 
     @ManyToMany(mappedBy = "clinicalAssessments", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

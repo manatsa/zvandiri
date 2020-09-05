@@ -98,6 +98,32 @@ public class DetailedReportServiceImpl implements DetailedReportService {
     }
 
     @Override
+    public List<GenericReportModel> getDeceased(List<Patient> patients) {
+        String[] headers = {"Name", "OI/ ART Number", "Age", "Date of Birth", "Gender"
+                , "Region", "District", "Primary Clinic", "Support Group", "Referer", "Date Modified"};
+
+        List<GenericReportModel> items = new ArrayList<>();
+        items.add(new GenericReportModel(Arrays.asList(headers)));
+        for (Patient item : patients) {
+            String[] inner = {
+                    item.getName(),
+                    item.getoINumber(),
+                    item.getAge() + "",
+                    DateUtil.getStringFromDate(item.getDateOfBirth()),
+                    item.getGender().getName(),
+                    item.getPrimaryClinic().getDistrict().getProvince().getName(),
+                    item.getPrimaryClinic().getDistrict().getName(),
+                    item.getPrimaryClinic().getName(),
+                    item.getSupportGroup() != null ? item.getSupportGroup().getName() : "",
+                    item.getReferer() != null ? item.getReferer().getName() : "",
+                    DateUtil.getStringFromDate(item.getDateModified())
+            };
+            items.add(new GenericReportModel(Arrays.asList(inner)));
+        }
+        return items;
+    }
+
+    @Override
     public List<GenericReportModel> getDefaultReportB(SearchDTO dto) {
         String[] headers = {"Name", "Age", "Gender", "Phone No.",
             "District", "Clinic", "Current Care Level", "Contact Date", "Follow Up", "Place of Contact", "New Level of Care", "Contacted By"};

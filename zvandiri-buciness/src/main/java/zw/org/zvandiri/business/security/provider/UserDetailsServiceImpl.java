@@ -27,6 +27,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import zw.org.zvandiri.business.domain.UserRole;
 import zw.org.zvandiri.business.service.UserService;
 
@@ -45,11 +46,15 @@ public class UserDetailsServiceImpl implements org.springframework.security.core
     public UserDetails loadUserByUsername(String userName)
             throws UsernameNotFoundException {
 
-        logger.info("Loading user record for user name: {}", userName);
+        //logger.info("Loading user record for user name: {}", userName);
         UserDetails userDetails = null;
+
         zw.org.zvandiri.business.domain.User user = (zw.org.zvandiri.business.domain.User) userService.findByUserName(userName);
+        //logger.info("**********************************************Hello");
+
         if (user != null) {
             String password = user.getPassword();
+            //System.out.println("++++++++++++++++++++++++++++++++++++++++++++ "+user.toString());
             Set<UserRole> roles = user.getUserRoles();
             List<GrantedAuthority> authorities = new ArrayList<>();
             for (UserRole role : roles) {
@@ -60,7 +65,9 @@ public class UserDetailsServiceImpl implements org.springframework.security.core
 
         } else {
             // If username not found, throw exception
+
             throw new UsernameNotFoundException("User " + userName + " not found");
+
         }
         return userDetails;
     }

@@ -18,7 +18,7 @@ package zw.org.zvandiri.business.domain;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Entity;
+import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -28,7 +28,7 @@ import zw.org.zvandiri.business.util.StringUtils;
  *
  * @author Judge Muzinda
  */
-@Entity
+@Entity @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "role")
 public class UserRole extends BaseName {
 

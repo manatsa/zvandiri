@@ -19,7 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import zw.org.zvandiri.business.domain.util.RecordSource;
 
-import javax.persistence.*;
+import javax.persistence.*;import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.util.Date;
 import org.codehaus.jackson.annotate.JsonIgnore;

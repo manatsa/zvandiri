@@ -144,12 +144,12 @@ public class ContactLevelOfCareController extends BaseController{
     @RequestMapping(value = "/contact-carelevel-support-group/export/excel", method = RequestMethod.GET)
     public void getExcelExportSupportGroup(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Aggregate_Contact_Care_Level_Cross_Tabulation");
-        forceDownLoad(officeExportService.exportExcelFile(contactLevelOfCareReportService.getDefaultReportB(item.getInstance(item)), name), name, response);
+        forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(contactLevelOfCareReportService.getDefaultReportB(item.getInstance(item)), name), name, response);
     }
 
     @RequestMapping(value = "/contact-carelevel-healthcenter/export/excel", method = RequestMethod.GET)
     public void getExcelExportHealthCenter(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Aggregate_Contact_Care_Level_Cross_Tabulation");
-        forceDownLoad(officeExportService.exportExcelFile(contactLevelOfCareReportService.getDefaultReport(item.getInstance(item)), name), name, response);
+        forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(contactLevelOfCareReportService.getDefaultReport(item.getInstance(item)), name), name, response);
     }
 }

@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
-import javax.persistence.Entity;
+import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -36,7 +36,7 @@ import zw.org.zvandiri.business.domain.util.ReferralActionTaken;
  *
  * @author Judge Muzinda
  */
-@Entity
+@Entity @JsonIgnoreProperties(ignoreUnknown = true)
 public class Referral extends BaseEntity {
 
     @ManyToOne

@@ -16,7 +16,7 @@
 package zw.org.zvandiri.business.domain;
 
 import java.util.Date;
-import javax.persistence.Entity;
+import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,7 +30,7 @@ import zw.org.zvandiri.business.util.DateUtil;
  *
  * @author Judge Muzinda
  */
-@Entity
+@Entity @JsonIgnoreProperties(ignoreUnknown = true)
 public class CatDetail extends BaseEntity {
     
     @JsonIgnore

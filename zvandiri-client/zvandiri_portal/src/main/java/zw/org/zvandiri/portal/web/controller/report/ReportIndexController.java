@@ -57,7 +57,7 @@ public class ReportIndexController extends BaseController {
     @RequestMapping(value = "/catlist/excel", method = RequestMethod.GET)
     public void getExcelExport(HttpServletResponse response){
         String name = DateUtil.getFriendlyFileName("CAT_Age_Group_Province_Cross_Tabulation");
-        forceDownLoad(officeExportService.exportExcelFile(catLoc(), name), name, response);
+        forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(catLoc(), name), name, response);
     }
     
     private List<GenericReportModel> catLoc(){

@@ -212,32 +212,7 @@ public class PatientServiceImpl implements PatientService {
         return patientsWithPossibleDuplicates;
     }
 
-    /*@Override
-     @Transactional
-     public void mergePatients(String patientId, String patientToBeMergedId) {
-     // ignore merging fields only merge associated data
-     // its assummed that the associated data will not be duplicated, otherwise tough luck
-     Patient patient = patientRepo.getPatient(patientId);
-     Patient patientToBeMerged = patientRepo.getPatient(patientToBeMergedId);
-     patient.getDisabilityCategorys().addAll(patientToBeMerged.getDisabilityCategorys());
-     patient.getDependents().addAll(patientToBeMerged.getDependents());
-     patient.getMedicalHists().addAll(patientToBeMerged.getMedicalHists());
-     patient.getChronicInfectionItems().addAll(patientToBeMerged.getChronicInfectionItems());
-     patient.getHivConInfectionItems().addAll(patientToBeMerged.getHivConInfectionItems());
-     patient.getArvHists().addAll(patientToBeMerged.getArvHists());
-     patient.getMentalHealthItems().addAll(patientToBeMerged.getMentalHealthItems());
-     patient.getSrhHists().addAll(patientToBeMerged.getSrhHists());
-     patient.getObstercHists().addAll(patientToBeMerged.getObstercHists());
-     patient.getSocialHists().addAll(patientToBeMerged.getSocialHists());
-     patient.getSubstanceItems().addAll(patientToBeMerged.getSubstanceItems());
-     patient.getFamilys().addAll(patientToBeMerged.getFamilys());
-     patient.getContacts().addAll(patientToBeMerged.getContacts());
-     patient.getEidTests().addAll(patientToBeMerged.getEidTests());
-     patient.getInvestigationTests().addAll(patientToBeMerged.getInvestigationTests());
-     patient.getPatientHistories().addAll(patientHistoryService.getByPatient(patientToBeMerged));
-     save(patient);
-     delete(patientToBeMerged);
-     }*/
+
     @Override
     @Transactional
     public void mergePatients(String patientId, String patientToBeMergedId) {

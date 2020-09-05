@@ -27,5 +27,6 @@ import zw.org.zvandiri.report.api.GenericReportModel;
 public interface DetailedReportService extends GenericReportService<GenericReportModel> {
     
     public List<GenericReportModel> get(List<Patient> patients);
+    public List<GenericReportModel> getDeceased(List<Patient> patients);
     List<GenericReportModel> getCatsDetailExcel(List<CatDetail> list);
 }

@@ -16,6 +16,8 @@
 package zw.org.zvandiri.business.service;
 
 import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.HIVStatus;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -50,4 +52,6 @@ public interface PatientReportService {
     public Long getPatientWithContact(SearchDTO dto);
     
     public Long getPatientWithViralLoad(SearchDTO dto);
+
+    public List<Patient> getPatientDeceased(SearchDTO dto);
 }

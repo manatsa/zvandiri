@@ -15,7 +15,7 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import javax.persistence.Entity;
+import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 import javax.persistence.Enumerated;
 import zw.org.zvandiri.business.domain.util.ARVDrugRegimen;
 
@@ -23,7 +23,7 @@ import zw.org.zvandiri.business.domain.util.ARVDrugRegimen;
  *
  * @author Judge Muzinda
  */
-@Entity
+@Entity @JsonIgnoreProperties(ignoreUnknown = true)
 public class ArvMedicine extends BaseName {
     
     @Enumerated

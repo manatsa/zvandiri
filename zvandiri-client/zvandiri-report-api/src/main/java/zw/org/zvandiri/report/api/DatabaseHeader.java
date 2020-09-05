@@ -55,7 +55,7 @@ public interface DatabaseHeader {
     public final String [] CONTACT_HEADER = {
         "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Contact Date", "Care Level", "Location", "Position",
         "Reason", "Followup", "Subjective", "Objective", "Plan", "Action Taken",
-        "Last Clinic Appointmet Date", "Attended Clinic Appointment"
+        "Last Clinic Appointmet Date", "Attended Clinic Appointment", "Next Clinic Appointment", "Visit Outcome"
     };
     
     public final String [] ASSESSMENT_HEADER = {
@@ -89,7 +89,7 @@ public interface DatabaseHeader {
     
     public final String [] CD4_COUNT_HEADER =  {
         "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Test Type", "Date Taken", 
-        "Count", "Source", "Next Lab Due"
+        "Count", "Source", "Next Lab Due","VLSuppressionStatus","Result Taken","TND","Record Source"
     };
     
     public final String [] ARV_HISTORY_HEADER = {

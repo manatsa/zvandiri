@@ -104,12 +104,12 @@ public class LocAgeGroupController extends BaseController {
     @RequestMapping(value = "/loc-age-group-support-group/export/excel", method = RequestMethod.GET)
     public void getExcelExportSupportGroup(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Aggregate_Location_Gender_Cross_Tabulation");
-        forceDownLoad(officeExportService.exportExcelFile(locAgeGroupReportService.getDefaultReportB(item.getInstance(item)), name), name, response);
+        forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(locAgeGroupReportService.getDefaultReportB(item.getInstance(item)), name), name, response);
     }
 
     @RequestMapping(value = "/loc-age-group-healthcenter/export/excel", method = RequestMethod.GET)
     public void getExcelExportHealthCenter(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Aggregate_Location_Gender_Cross_Tabulation");
-        forceDownLoad(officeExportService.exportExcelFile(locAgeGroupReportService.getDefaultReport(item.getInstance(item)), name), name, response);
+        forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(locAgeGroupReportService.getDefaultReport(item.getInstance(item)), name), name, response);
     }
 }

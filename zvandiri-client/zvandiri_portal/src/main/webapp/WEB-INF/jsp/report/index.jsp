@@ -101,6 +101,14 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>
+                                    <a href="${page}/report/mortality/range.htm">Mortality Report</a>
+                                <td><a href="${page}/report/morbidity/range.htm">Morbidity Report</a></td>
+                                </td>
+                            </tr>
+
+
+                            <tr>
                                 <th colspan="2">Visual Reports</th>
                             </tr>
                             <tr>

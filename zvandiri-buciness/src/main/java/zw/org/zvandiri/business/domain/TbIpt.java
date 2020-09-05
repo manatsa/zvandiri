@@ -10,7 +10,7 @@ import java.util.Set;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
+import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,7 +26,7 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  *
  * @author tasu
  */
-@Entity
+@Entity @JsonIgnoreProperties(ignoreUnknown = true)
 public class TbIpt extends BaseEntity {
 
     @ManyToOne

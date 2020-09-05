@@ -6,7 +6,7 @@
         </div>
         <div class="panel-body">
             <a href="${page}/report/index.htm">&DoubleLeftArrow; Back To Reports DashBoard Home</a><br/>
-            <form:form commandName="item" role="form">
+            <form:form modelAttribute="item" role="form">
                 <table class="table">
                     <tbody>
                         <tr>
@@ -49,6 +49,24 @@
                                         <form:errors path="primaryClinic"/>
                                     </p>
                                 </div> 
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    <form:input path="startDate" class="form-control general"/>
+                                    <p class="help-block">
+                                        <form:errors path="startDate"/>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label>End Date</label>
+                                    <form:input path="endDate" class="form-control general"/>
+                                    <p class="help-block">
+                                        <form:errors path="endDate"/>
+                                    </p>
+                                </div>
                             </td>
                             <td>
                                 <div class="form-group">

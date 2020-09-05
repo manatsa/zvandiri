@@ -31,6 +31,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import zw.org.zvandiri.business.domain.CatDetail;
 import zw.org.zvandiri.business.domain.Contact;
@@ -73,6 +74,7 @@ public class PatientProcessResource {
     @GET
     @Path("/cats-patients")
     public List<NameIdDTO> getCatPatients(@QueryParam("email") String email) {
+
         return catDetailService.getCatPatients(catDetailService.getByEmail(email));
     }
 

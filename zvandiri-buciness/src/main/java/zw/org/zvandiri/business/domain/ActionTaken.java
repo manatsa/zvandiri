@@ -15,13 +15,16 @@
  */
 package zw.org.zvandiri.business.domain;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 
 /**
  *
  * @author User
  */
-@Entity
+@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+
 public class ActionTaken extends BaseName{
     
 }

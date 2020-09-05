@@ -98,6 +98,6 @@ public class ProblemReportController extends BaseController {
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_ZM') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E') or hasRole('ROLE_MANAGEMENT')")
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Combined Statistical Report");
-        forceDownLoad(officeExportService.exportExcelFile(problemReportService.getDefaultReport(item.getInstance(item)), name), name, response);
+        forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(problemReportService.getDefaultReport(item.getInstance(item)), name), name, response);
     }
 }

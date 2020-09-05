@@ -13,7 +13,7 @@ import zw.org.zvandiri.business.util.StringUtils;
  */
 public enum CauseOfDeath {
     
-    TB(1), CRYPROCOCCAL_MENENGITIS(2), CANCER(3), ANAEMIA(4), ACUTE_INFECTION(5), OTHER_CAUSE_OF_DEATH(6);
+    TB(1), CRYPROCOCCAL_MENENGITIS(2), CANCER(3), ANAEMIA(4), ACUTE_INFECTION(5), OTHERS(6);
 
     private final Integer code;
 

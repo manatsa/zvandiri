@@ -77,6 +77,6 @@ public class CatDetailReportController extends BaseController{
     @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Detailed_CATS_Report");
-        forceDownLoad(officeExportService.exportExcelFile(detailedReportService.getCatsDetailExcel(reportService.get(item.getInstance(item))), name), name, response);
+        forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(detailedReportService.getCatsDetailExcel(reportService.get(item.getInstance(item))), name), name, response);
     }
 }

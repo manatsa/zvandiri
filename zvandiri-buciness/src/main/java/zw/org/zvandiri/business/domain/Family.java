@@ -15,7 +15,7 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import javax.persistence.Entity;
+import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 import javax.persistence.ManyToOne;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -23,7 +23,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  *
  * @author Judge Muzinda
  */
-@Entity
+@Entity @JsonIgnoreProperties(ignoreUnknown = true)
 public class Family extends BaseEntity {
     
     @ManyToOne

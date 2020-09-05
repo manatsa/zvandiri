@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="zvandiriwar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/zvandiriwar</output-path>
+    <root id="archive" name="zvandiriwar.war">
+      <element id="artifact" artifact-name="zvandiri" />
+    </root>
+  </artifact>
+</component>

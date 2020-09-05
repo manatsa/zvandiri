@@ -143,12 +143,12 @@ public class LocGenderController extends BaseController {
     @RequestMapping(value = "/loc-gender-support-group/export/excel", method = RequestMethod.GET)
     public void getExcelExportSupportGroup(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Aggregate_Location_Gender_Cross_Tabulation");
-        forceDownLoad(officeExportService.exportExcelFile(locGenderReportService.getDefaultReportB(item.getInstance(item)), name), name, response);
+        forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(locGenderReportService.getDefaultReportB(item.getInstance(item)), name), name, response);
     }
 
     @RequestMapping(value = "/loc-gender-healthcenter/export/excel", method = RequestMethod.GET)
     public void getExcelExportHealthCenter(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Aggregate_Location_Gender_Cross_Tabulation");
-        forceDownLoad(officeExportService.exportExcelFile(locGenderReportService.getDefaultReport(item.getInstance(item)), name), name, response);
+        forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(locGenderReportService.getDefaultReport(item.getInstance(item)), name), name, response);
     }
 }

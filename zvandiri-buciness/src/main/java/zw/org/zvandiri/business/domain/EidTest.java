@@ -15,14 +15,14 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import javax.persistence.Entity;
+import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 import javax.persistence.Transient;
 
 /**
  *
  * @author jmuzinda
  */
-@Entity
+@Entity @JsonIgnoreProperties(ignoreUnknown = true)
 public class EidTest extends TestResult {
 
     private Boolean status;

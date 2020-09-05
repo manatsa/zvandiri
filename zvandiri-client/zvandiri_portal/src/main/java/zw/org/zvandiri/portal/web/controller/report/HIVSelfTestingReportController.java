@@ -70,6 +70,6 @@ public class HIVSelfTestingReportController extends BaseController{
     @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
     public void getExcelExportHealthCenter(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("HIV Self Testing Report");
-        forceDownLoad(officeExportService.exportExcelFile(hIVSelfTestingReportService.getDefaultReport(item.getInstance(item)), name), name, response);
+        forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(hIVSelfTestingReportService.getDefaultReport(item.getInstance(item)), name), name, response);
     }
 }

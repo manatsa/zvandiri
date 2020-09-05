@@ -74,6 +74,6 @@ public class ExportDataBaseController extends BaseController {
     public void getExcelExport(HttpServletResponse response, @ModelAttribute("item") SearchDTO dto) {
         dto = getUserLevelObjectState(dto);
         String name = DateUtil.getFriendlyFileName("Zvandiri_Database");
-        forceDownLoad(officeExportService.exportDatabase( name, dto), name, response);
+        forceDownLoadDatabase(officeExportService.exportDatabase( name, dto), name, response);
     }
 }

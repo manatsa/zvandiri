@@ -30,6 +30,8 @@ public interface OfficeExportService {
     public XWPFDocument exportWordFile(List<GenericReportModel> rows, String name);
 
     public Workbook exportExcelFile(List<GenericReportModel> rows, String name);
+
+    public Workbook exportExcelXLSXFile(List<GenericReportModel> rows, String name);
     
     public Workbook exportDatabase(String name, SearchDTO dto);
 }

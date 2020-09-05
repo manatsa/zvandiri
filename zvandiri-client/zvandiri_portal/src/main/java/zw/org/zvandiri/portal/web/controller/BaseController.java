@@ -15,15 +15,20 @@
  */
 package zw.org.zvandiri.portal.web.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.ResponseBody;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.Settings;
@@ -149,16 +154,37 @@ abstract public class BaseController implements IAppTitle {
         }
         return "National " + desc;
     }
-    
+
+    @ResponseBody
     public void forceDownLoad(Workbook workbook, String name, HttpServletResponse response) {
-        try {
+        try(ServletOutputStream myOut = response.getOutputStream();) {
             //Write the workbook in file system
             response.setContentType("application/vnd.ms-excel");
             response.setHeader("Content-Disposition", "filename=" + name + ".xls");
-            workbook.write(response.getOutputStream());
+            workbook.write(myOut);
+            myOut.flush();
+            myOut.close();
         } catch (IOException e) {
-            System.err.println("Error occured writing file");
+            System.err.println("ForceDOWNLOAD Method: ");            e.printStackTrace();
         }
+    }
+
+
+    @ResponseBody
+    public void forceDownLoadDatabase(Workbook workbook, String name, HttpServletResponse response) {
+
+            //Write the workbook in file system
+            response.setContentType("application/vnd.ms-excel");
+            response.setHeader("Content-Disposition", "filename=" + name + ".xlsx");
+
+        try {
+            workbook.write(response.getOutputStream());
+            response.getOutputStream().flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
     
     public void setViralLoad(ModelMap model, Patient item) {

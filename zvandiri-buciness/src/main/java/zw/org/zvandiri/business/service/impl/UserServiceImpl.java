@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalStateException("Item to be deleted is in an inconsistent state");
         }
         t.setActive(Boolean.FALSE);
+        t.setDeleted(Boolean.TRUE);
         userRepo.save(t);
     }
 

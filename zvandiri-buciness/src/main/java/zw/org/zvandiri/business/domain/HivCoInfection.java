@@ -15,13 +15,13 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import javax.persistence.Entity;
+import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 
 /**
  *
  * @author Judge Muzinda
  */
-@Entity
+@Entity @JsonIgnoreProperties(ignoreUnknown = true)
 public class HivCoInfection extends BaseName {
 
     public HivCoInfection() {
