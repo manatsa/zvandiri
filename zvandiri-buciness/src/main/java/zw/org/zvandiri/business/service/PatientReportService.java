@@ -54,4 +54,6 @@ public interface PatientReportService {
     public Long getPatientWithViralLoad(SearchDTO dto);
 
     public List<Patient> getPatientDeceased(SearchDTO dto);
+
+    public List<Patient> getUncontactedClients(SearchDTO dto);
 }

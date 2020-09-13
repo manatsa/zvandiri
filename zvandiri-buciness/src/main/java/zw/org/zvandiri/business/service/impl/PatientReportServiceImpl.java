@@ -1552,4 +1552,56 @@ public class PatientReportServiceImpl implements PatientReportService {
         return  patients;
     }
 
+    @Override
+    public List<Patient> getUncontactedClients(SearchDTO dto) {
+
+        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p where p.id not in " +
+                "(select c.patient from Contact c where contact_date between :startDate and :endDate) ");
+
+        if (dto.getProvince() != null) {
+
+                builder.append(" and p.primaryClinic.district.province=:province");
+        }
+
+        if (dto.getDistrict() != null) {
+
+                builder.append(" and p.primaryClinic.district=:district");
+        }
+
+        if (dto.getPrimaryClinic() != null) {
+                builder.append(" and p.primaryClinic=:primaryClinic");
+        }
+
+        if (dto.getSupportGroup() != null) {
+                builder.append(" and p.gender=:gender");
+        }
+
+
+
+        TypedQuery query = entityManager.createQuery(builder.toString(), Patient.class);
+        if (dto.getProvince() != null) {
+            query.setParameter("province", dto.getProvince());
+        }
+
+        if (dto.getDistrict() != null) {
+            query.setParameter("district", dto.getDistrict());
+        }
+
+        if (dto.getPrimaryClinic() != null) {
+            query.setParameter("primaryClinic", dto.getPrimaryClinic());
+        }
+
+        if (dto.getSupportGroup() != null) {
+            query.setParameter("gender", dto.getGender());
+        }
+
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            query.setParameter("startDate", dto.getStartDate());
+            query.setParameter("endDate", dto.getEndDate());
+        }
+        List<Patient> patients=query.getResultList();
+
+        return  patients;
+    }
+
 }

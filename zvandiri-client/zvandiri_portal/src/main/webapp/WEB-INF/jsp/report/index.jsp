@@ -100,10 +100,17 @@
                                     <td><a href="${page}/report/test-results/index.htm?type=cd4-count">CD4 Count Results Report</a></td>
                                 </td>
                             </tr>
+                            Caused by: org.springframework.beans.factory.parsing.BeanDefinitionParsingException: Configuration problem: Unable to locate Spring NamespaceHandler for XML schema namespace [http://www.springframework.org/schema/webflow-config]
                             <tr>
                                 <td>
                                     <a href="${page}/report/mortality/range.htm">Mortality Report</a>
                                 <td><a href="${page}/report/morbidity/range.htm">Morbidity Report</a></td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="${page}/report/contact/uncontacted/range.htm">Uncontact Clients Report</a>
+                                <td><a href="${page}/report/contact/unique-contacts/range.htm">Unique Contacts Report</a></td>
                                 </td>
                             </tr>
 

@@ -46,4 +46,6 @@ public interface PatientService extends GenericService<Patient> {
     public void updatePatientUAC();
     
     public String getPatientUAC(Patient patient);
+
+
 }

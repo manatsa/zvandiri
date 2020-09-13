@@ -47,4 +47,6 @@ public interface ContactRepo extends AbstractRepo<Contact, String> {
     public List<Contact> findByReferredPersonAndOpenOrderByContactDateDesc(@Param("referredPerson") User referredPerson, @Param("open") Boolean open);
     
     public List<Contact> findTop1ByPatientOrderByContactDateDesc(Patient patient);
+
+
 }

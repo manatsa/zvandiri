@@ -6,7 +6,7 @@
         </div>
         <div class="panel-body">
             <a href="${page}/report/index.htm">&DoubleLeftArrow; Back To Reports DashBoard Home</a><br/>
-            <form:form modelAttribute="item" role="form">
+            <form:form modelAttribute="item" role="form" >
                 <table class="table">
                     <tbody>
                         <tr>

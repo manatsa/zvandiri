@@ -48,7 +48,7 @@
 								<td>${item.primaryClinic.name}</td>
 								<td>${item.supportGroup.name}</td>
 								<td>${item.referer.name}</td>
-								<th>${item.date_modified}</th>
+								<th>${item.dateModified}</th>
 							</tr>
 						</c:forEach>
 						</tbody>
