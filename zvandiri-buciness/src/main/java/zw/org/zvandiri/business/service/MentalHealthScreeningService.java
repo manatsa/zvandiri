@@ -17,4 +17,5 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 public interface MentalHealthScreeningService extends GenericPatientHistoryService<MentalHealthScreening>{
     List<MentalHealthScreening> findByPatient(Patient patient);
     public List<MentalHealthScreening> get(SearchDTO dto);
+    Long count(SearchDTO dto);
 }

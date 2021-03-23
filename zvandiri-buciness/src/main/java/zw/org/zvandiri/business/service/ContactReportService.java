@@ -25,13 +25,10 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
  *
  * @author Judge Muzinda
  */
-public interface ContactReportService {
+public interface ContactReportService extends GenericReportService<Contact, SearchDTO> {
 
     List<Patient> getUnique(SearchDTO dto);
-
-    public List<Contact> get(SearchDTO dto);
+    Long countUnique(SearchDTO dto);
 
     public  List<Contact> getContactListByPatient(Patient patient, SearchDTO dto);
-    
-    public Long getCount(SearchDTO dto); 
 }

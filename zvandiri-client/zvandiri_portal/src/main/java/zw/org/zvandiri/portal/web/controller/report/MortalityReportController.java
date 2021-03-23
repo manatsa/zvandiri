@@ -30,12 +30,13 @@ import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.report.api.DatabaseHeader;
-import zw.org.zvandiri.report.api.service.DetailedReportService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
+import zw.org.zvandiri.portal.web.controller.report.parallel.MortalityTask;
 
 /**
  *
@@ -44,7 +45,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/report/mortality")
 public class MortalityReportController extends BaseController {
-
 
     @Resource
     private ProvinceService provinceService;
@@ -59,7 +59,6 @@ public class MortalityReportController extends BaseController {
     @Resource
     MortalityService mortalityService;
 
-
     public void setUpModel(ModelMap model, SearchDTO item, Boolean post, Boolean hei) {
         item = getUserLevelObjectState(item);
         model.addAttribute("provinces", provinceService.getAll());
@@ -71,14 +70,12 @@ public class MortalityReportController extends BaseController {
                 model.addAttribute("supportGroups", supportGroupService.getByDistrict(item.getDistrict()));
             }
         }
-
-
         if (post) {
             model.addAttribute("excelExport", "/report/mortality/export/excel" + item.getQueryString(item.getInstance(item)));
-            model.addAttribute("items", mortalityService.get(item.getInstance(item)));
+            ForkJoinPool pool = ForkJoinPool.commonPool();
+            List results = pool.invoke(new MortalityTask(DateUtil.generateArray(mortalityService.count(item)), mortalityService, item));
+            model.addAttribute("items", results);
         }
-
-
         model.addAttribute("item", item.getInstance(item));
     }
 
@@ -93,26 +90,18 @@ public class MortalityReportController extends BaseController {
         return "report/mortalityDetailedReport";
     }
 
-
-
     @RequestMapping(value = {"/range"}, method = RequestMethod.POST)
     public String getMortalityRangeIndexPost(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item) {
-        //System.err.println("************************************************Now checking mortalities ++++++++++++++++++++++++++++++++");
         model.addAttribute("pageTitle", APP_PREFIX + "Mortality Detailed Report");
         setUpModel(model, item, Boolean.TRUE, Boolean.FALSE);
         return "report/mortalityDetailedReport";
     }
-
-
 
     @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Detailed_Mortality_Report");
         forceDownLoadDatabase(createMortalityWorkbook(item), name, response);
     }
-
-
-
 
     public XSSFWorkbook createMortalityWorkbook(SearchDTO dto) {
         XSSFWorkbook workbook = new XSSFWorkbook();
@@ -121,7 +110,8 @@ public class MortalityReportController extends BaseController {
         XSSFCellStyle.setDataFormat(
                 createHelper.createDataFormat().getFormat("dd/MM/yyyy"));
 
-        List<Mortality> mortalitys=mortalityService.get(dto);
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+        List<Mortality> mortalitys = pool.invoke(new MortalityTask(DateUtil.generateArray(mortalityService.count(dto)), mortalityService, dto));
 
         XSSFSheet mortalityDetails = workbook.createSheet("Patient_Mortality");
         int mortalityRowNum = 0;
@@ -147,7 +137,7 @@ public class MortalityReportController extends BaseController {
             XSSFCell sex = mortalityRow.createCell(++count);
             sex.setCellValue(mortality.getPatient().getGender().getName());
             Cell cat = mortalityRow.createCell(++count);
-            cat.setCellValue(mortality.getPatient().getCat()!=null?mortality.getPatient().getCat().getName():"");
+            cat.setCellValue(mortality.getPatient().getCat() != null ? mortality.getPatient().getCat().getName() : "");
             XSSFCell province = mortalityRow.createCell(++count);
             province.setCellValue(mortality.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             XSSFCell district = mortalityRow.createCell(++count);

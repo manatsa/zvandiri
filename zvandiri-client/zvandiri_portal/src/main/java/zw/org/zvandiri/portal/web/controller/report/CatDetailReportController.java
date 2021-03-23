@@ -5,6 +5,8 @@
  */
 package zw.org.zvandiri.portal.web.controller.report;
 
+import java.util.List;
+import java.util.concurrent.ForkJoinPool;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -14,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import zw.org.zvandiri.business.domain.CatDetail;
 import zw.org.zvandiri.business.service.CatDetailReportService;
 import zw.org.zvandiri.business.service.DistrictService;
 import zw.org.zvandiri.business.service.FacilityService;
@@ -22,6 +25,7 @@ import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+import zw.org.zvandiri.portal.web.controller.report.parallel.GenericCountReportTask;
 import zw.org.zvandiri.report.api.service.DetailedReportService;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 
@@ -31,8 +35,8 @@ import zw.org.zvandiri.report.api.service.OfficeExportService;
  */
 @Controller
 @RequestMapping("/report/cat")
-public class CatDetailReportController extends BaseController{
-    
+public class CatDetailReportController extends BaseController {
+
     @Resource
     private ProvinceService provinceService;
     @Resource
@@ -58,7 +62,9 @@ public class CatDetailReportController extends BaseController{
         }
         if (post) {
             model.addAttribute("excelExport", "/report/cat/export/excel" + item.getQueryString(item.getInstance(item)));
-            model.addAttribute("items", reportService.get(item.getInstance(item)));
+            ForkJoinPool pool = ForkJoinPool.commonPool();
+            List items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(reportService.getCount(item)), reportService, item));
+            model.addAttribute("items", items);
         }
         model.addAttribute("item", item.getInstance(item));
         return "report/catDetailedReport";
@@ -77,6 +83,8 @@ public class CatDetailReportController extends BaseController{
     @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Detailed_CATS_Report");
-        forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(detailedReportService.getCatsDetailExcel(reportService.get(item.getInstance(item))), name), name, response);
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+        List<CatDetail> items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(reportService.getCount(item)), reportService, item));
+        forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(detailedReportService.getCatsDetailExcel(items), name), name, response);
     }
 }

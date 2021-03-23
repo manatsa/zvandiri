@@ -18,6 +18,7 @@ package zw.org.zvandiri.report.api.service.impl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.CatDetail;
@@ -27,6 +28,7 @@ import zw.org.zvandiri.business.service.ContactReportService;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
+import zw.org.zvandiri.portal.web.controller.report.parallel.GenericCountReportTask;
 import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.DetailedReportService;
 
@@ -130,7 +132,9 @@ public class DetailedReportServiceImpl implements DetailedReportService {
 
         List<GenericReportModel> items = new ArrayList<>();
         items.add(new GenericReportModel(Arrays.asList(headers)));
-        for (Contact item : contactReportService.get(dto.getInstance(dto))) {
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+        List<Contact> result = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(contactReportService.getCount(dto)), contactReportService, dto));
+        for (Contact item : result) {
             String[] inner = {
                 item.getPatient().getName(),
                 item.getPatient().getAge() + "",

@@ -16,4 +16,5 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 public interface MortalityService extends GenericPatientHistoryService<Mortality>{
     
     public List<Mortality> get(SearchDTO searchDTO);
+    Long count(SearchDTO searchDTO);
 }

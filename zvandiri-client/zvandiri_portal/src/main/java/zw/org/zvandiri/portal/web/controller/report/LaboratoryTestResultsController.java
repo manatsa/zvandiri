@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import zw.org.zvandiri.business.domain.InvestigationTest;
-import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.service.DistrictService;
 import zw.org.zvandiri.business.service.FacilityService;
@@ -43,6 +42,8 @@ import zw.org.zvandiri.report.api.DatabaseHeader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
+import zw.org.zvandiri.portal.web.controller.report.parallel.LabTestTask;
 
 /**
  *
@@ -60,7 +61,7 @@ public class LaboratoryTestResultsController extends BaseController {
     private FacilityService facilityService;
     @Resource
     private PatientReportService patientReportService;
-    List<InvestigationTest> results=new ArrayList<>();
+    List<InvestigationTest> results = new ArrayList<>();
 
     public String setUpModel(ModelMap model, SearchDTO item, String type, boolean post) {
         item = getUserLevelObjectState(item);
@@ -97,10 +98,10 @@ public class LaboratoryTestResultsController extends BaseController {
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_ZM') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
     public String getReferralReportIndex(ModelMap model, @RequestParam String type, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
         item = getUserLevelObjectState(item);
-        results=patientReportService.getPatientLabResultList(item.getInstance(item));
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+        results = pool.invoke(new LabTestTask(DateUtil.generateArray(patientReportService.getPatientWithViralLoad(item)), patientReportService, item));
         return setUpModel(model, item, type, true);
     }
-
 
     @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
@@ -124,7 +125,6 @@ public class LaboratoryTestResultsController extends BaseController {
             cell.setCellValue(title);
         }
 
-
         for (InvestigationTest test : results) {
 
             int count = 0;
@@ -144,7 +144,7 @@ public class LaboratoryTestResultsController extends BaseController {
             sex.setCellValue(test.getPatient().getGender().getName());
 
             Cell TestResult = resultsRow.createCell(count++);
-            TestResult.setCellValue(test.getResult()!=null? test.getResult().toString():"");
+            TestResult.setCellValue(test.getResult() != null ? test.getResult().toString() : "");
 
             Cell TestType = resultsRow.createCell(count++);
             TestType.setCellValue(test.getTestType().getName());
@@ -161,33 +161,30 @@ public class LaboratoryTestResultsController extends BaseController {
             }
 
             Cell cat = resultsRow.createCell(count++);
-            cat.setCellValue(test.getPatient().getCat()!=null?test.getPatient().getCat().getName():"");
+            cat.setCellValue(test.getPatient().getCat() != null ? test.getPatient().getCat().getName() : "");
 
             Cell ymm = resultsRow.createCell(count++);
-            ymm.setCellValue(test.getPatient().getYoungMumGroup()!=null?test.getPatient().getYoungMumGroup().getName():"");
+            ymm.setCellValue(test.getPatient().getYoungMumGroup() != null ? test.getPatient().getYoungMumGroup().getName() : "");
 
-            Cell address=resultsRow.createCell(count++);
+            Cell address = resultsRow.createCell(count++);
             address.setCellValue(test.getPatient().getAddress());
 
-            Cell phone=resultsRow.createCell(count++);
-            phone.setCellValue(test.getPatient().getMobileNumber()==null?"":test.getPatient().getMobileNumber());
+            Cell phone = resultsRow.createCell(count++);
+            phone.setCellValue(test.getPatient().getMobileNumber() == null ? "" : test.getPatient().getMobileNumber());
 
-            Cell referer=resultsRow.createCell(count++);
-            referer.setCellValue(test.getPatient().getRefererName()!=null?test.getPatient().getRefererName():"");
+            Cell referer = resultsRow.createCell(count++);
+            referer.setCellValue(test.getPatient().getRefererName() != null ? test.getPatient().getRefererName() : "");
 
             Cell province = resultsRow.createCell(count++);
             province.setCellValue(test.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             Cell district = resultsRow.createCell(count++);
-            district.setCellValue(test.getPatient().getPrimaryClinic().getDistrict().getName()==null?"":test.getPatient().getPrimaryClinic().getDistrict().getName());
+            district.setCellValue(test.getPatient().getPrimaryClinic().getDistrict().getName() == null ? "" : test.getPatient().getPrimaryClinic().getDistrict().getName());
             Cell primaryClinic = resultsRow.createCell(count++);
-            primaryClinic.setCellValue(test.getPatient().getPrimaryClinic().getName()==null?"":test.getPatient().getPrimaryClinic().getName());
-
-
+            primaryClinic.setCellValue(test.getPatient().getPrimaryClinic().getName() == null ? "" : test.getPatient().getPrimaryClinic().getName());
 
         }
 
         return workbook;
     }
-
 
 }

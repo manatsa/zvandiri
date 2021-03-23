@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.service.ProblemReportHeaderNames;
@@ -39,6 +40,7 @@ import zw.org.zvandiri.business.service.FacilityService;
 import zw.org.zvandiri.business.service.PatientReportService;
 import zw.org.zvandiri.business.service.ProvinceService;
 import zw.org.zvandiri.business.util.DateUtil;
+import zw.org.zvandiri.report.api.service.parallel.CombinedReportTask;
 
 /**
  *
@@ -112,29 +114,22 @@ public class ProblemReportServiceImpl implements ProblemReportService {
 
     public List<GenericReportModel> getDistrictReport(SearchDTO dto) {
         List<GenericReportModel> list = new ArrayList<>();
+        List<String> provinces = new ArrayList<>();
+        List<String> districts = new ArrayList<>();
         List<String> items = new ArrayList<>();
         items.addAll(Arrays.asList(ProblemReportHeaderNames.headerNames));
         list.add(new GenericReportModel(items));
         District district = dto.getDistrict();
-        int pos = 0;
-        int inner = 0;
-        for (Facility facility : facilityService.getOptByDistrict(district)) {
-            dto.setPrimaryClinic(facility);
-            GenericReportModel model = new GenericReportModel();
-            List<String> row = new ArrayList<>();
-            row.add(pos == 0 ? district.getProvince().getName() : "");
-            row.add(inner == 0 ? district.getName() : "");
-            row.add(facility.getName());
-            model.setRow(getProblemReport(row, dto.getInstance(dto)));
-            list.add(model);
-            inner++;
-            pos++;
-        }
+        List<Facility> facilitys = facilityService.getOptByDistrict(district);
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+        pool.invoke(new CombinedReportTask(facilitys, this, dto, list, provinces, districts));
         return list;
     }
 
     public List<GenericReportModel> getNationalReport(SearchDTO dto) {
         List<GenericReportModel> list = new ArrayList<>();
+        List<String> provinces = new ArrayList<>();
+        List<String> districts = new ArrayList<>();
         List<String> items = new ArrayList<>();
         items.addAll(Arrays.asList(ProblemReportHeaderNames.headerNames));
         list.add(new GenericReportModel(items));
@@ -145,18 +140,9 @@ public class ProblemReportServiceImpl implements ProblemReportService {
             for (District district : districtService.getDistrictByProvince(province)) {
                 dto.setDistrict(district);
                 int inner = 0;
-                for (Facility facility : facilityService.getOptByDistrict(district)) {
-                    dto.setPrimaryClinic(facility);
-                    GenericReportModel model = new GenericReportModel();
-                    List<String> row = new ArrayList<>();
-                    row.add(pos == 0 ? province.getName() : "");
-                    row.add(inner == 0 ? district.getName() : "");
-                    row.add(facility.getName());
-                    model.setRow(getProblemReport(row, dto.getInstance(dto)));
-                    list.add(model);
-                    inner++;
-                    pos++;
-                }
+                List<Facility> facilitys = facilityService.getOptByDistrict(district);
+                ForkJoinPool pool = ForkJoinPool.commonPool();
+                pool.invoke(new CombinedReportTask(facilitys, this, dto, list, provinces, districts));
             }
         }
         return list;
@@ -183,6 +169,8 @@ public class ProblemReportServiceImpl implements ProblemReportService {
 
     public List<GenericReportModel> getProvinceReport(SearchDTO dto) {
         List<GenericReportModel> list = new ArrayList<>();
+        List<String> provinces = new ArrayList<>();
+        List<String> districts = new ArrayList<>();
         List<String> items = new ArrayList<>();
         items.addAll(Arrays.asList(ProblemReportHeaderNames.headerNames));
         list.add(new GenericReportModel(items));
@@ -191,18 +179,9 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         for (District district : districtService.getDistrictByProvince(province)) {
             dto.setDistrict(district);
             int inner = 0;
-            for (Facility facility : facilityService.getOptByDistrict(district)) {
-                dto.setPrimaryClinic(facility);
-                GenericReportModel model = new GenericReportModel();
-                List<String> row = new ArrayList<>();
-                row.add(pos == 0 ? province.getName() : "");
-                row.add(inner == 0 ? district.getName() : "");
-                row.add(facility.getName());
-                model.setRow(getProblemReport(row, dto.getInstance(dto)));
-                list.add(model);
-                inner++;
-                pos++;
-            }
+            List<Facility> facilitys = facilityService.getOptByDistrict(district);
+            ForkJoinPool pool = ForkJoinPool.commonPool();
+            pool.invoke(new CombinedReportTask(facilitys, this, dto, list, provinces, districts));
         }
         return list;
     }
@@ -725,7 +704,8 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         }
     }
 
-    private List<String> getProblemReport(List<String> row, SearchDTO dto) {
+    @Override
+    public List<String> getProblemReport(List<String> row, SearchDTO dto) {
         Long count = contactReportService.getCount(dto.getInstance(dto));
         row.add(count.toString());
         count = patientReportService.getCount(dto.getInstance(dto));

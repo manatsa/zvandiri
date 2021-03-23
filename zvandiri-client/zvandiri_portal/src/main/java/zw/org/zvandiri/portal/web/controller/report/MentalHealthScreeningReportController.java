@@ -8,25 +8,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.MentalHealthScreening;
-import zw.org.zvandiri.business.domain.Mortality;
-import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.report.api.DatabaseHeader;
-import zw.org.zvandiri.report.api.service.DetailedReportService;
-import zw.org.zvandiri.report.api.service.OfficeExportService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
+import java.util.concurrent.ForkJoinPool;
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+import zw.org.zvandiri.portal.web.controller.report.parallel.MentalHealthTask;
 
 /**
  *
@@ -67,8 +63,6 @@ public class MentalHealthScreeningReportController extends BaseController {
 
 
         if (post) {
-            //JOptionPane.showMessageDialog(null, item2.toString());
-        //System.err.println("+++++++++++++++++++++"+item2+"*********************************************************");
             model.addAttribute("excelExport", "/report/mental-health/export/excel" + item.getQueryString(item.getInstance(item)));
             model.addAttribute("items", mentalHealthScreenings);
         }
@@ -94,8 +88,8 @@ public class MentalHealthScreeningReportController extends BaseController {
     @RequestMapping(value = {"/range"}, method = RequestMethod.POST)
     public String getMentalRangeIndexPost(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item) {
         item = getUserLevelObjectState(item);
-        mentalHealthScreenings=mentalHealthScreeningService.get(item);
-        //System.err.println("+++++++++++++++++++++"+item+"*********************************************************");
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+        mentalHealthScreenings = pool.invoke(new MentalHealthTask(DateUtil.generateArray(mentalHealthScreeningService.count(item)), mentalHealthScreeningService, item));
         model.addAttribute("pageTitle", APP_PREFIX + "Mental Health  Report");
         setUpModel(model, item, Boolean.TRUE, Boolean.FALSE);
         return "report/mentalHealthScreening";

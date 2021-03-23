@@ -32,14 +32,15 @@ import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.report.api.DatabaseHeader;
-import zw.org.zvandiri.report.api.service.DetailedReportService;
-import zw.org.zvandiri.report.api.service.OfficeExportService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
+import zw.org.zvandiri.portal.web.controller.report.parallel.UncontactedClientTask;
+import zw.org.zvandiri.portal.web.controller.report.parallel.UniqueContactTask;
 
 /**
  *
@@ -57,10 +58,6 @@ public class UniqueContactReportController extends BaseController {
     private FacilityService facilityService;
     @Resource
     private ContactReportService contactReportService;
-    @Resource
-    private OfficeExportService officeExportService;
-    @Resource
-    private DetailedReportService detailedReportService;
 
     List<Patient> patients=new ArrayList<>();
 
@@ -90,7 +87,8 @@ public class UniqueContactReportController extends BaseController {
     @RequestMapping(value = "/range", method = RequestMethod.POST)
     public String getReferralReportIndex(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
         item = getUserLevelObjectState(item);
-        patients=contactReportService.getUnique(item);
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+        patients = pool.invoke(new UniqueContactTask(DateUtil.generateArray(contactReportService.countUnique(item)), contactReportService, item));
         model.addAttribute("items", patients);
         return setUpModel(model, item, true);
     }

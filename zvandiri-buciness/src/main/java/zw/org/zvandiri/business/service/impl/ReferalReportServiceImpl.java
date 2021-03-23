@@ -161,6 +161,8 @@ public class ReferalReportServiceImpl implements ReferalReportService {
         if (dto.getStatus()!= null) {
             query.setParameter("status", dto.getStatus());
         }
+        query.setFirstResult(dto.getFirstResult());
+        query.setMaxResults(dto.getPageSize());
         return query.getResultList();
     }
 

@@ -10,30 +10,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.ArvHist;
 import zw.org.zvandiri.business.domain.Contact;
-import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.repo.ContactRepo;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
-import zw.org.zvandiri.business.util.PatientInnerJoin;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.report.api.DatabaseHeader;
-import zw.org.zvandiri.report.api.service.DetailedReportService;
-import zw.org.zvandiri.report.api.service.OfficeExportService;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
+import zw.org.zvandiri.portal.web.controller.report.parallel.GenericCountReportTask;
 
 @Controller
 @RequestMapping("/report/arvhist")
 public class ArvHistoryController extends BaseController {
+
     @Resource
     private ProvinceService provinceService;
     @Resource
@@ -41,17 +38,7 @@ public class ArvHistoryController extends BaseController {
     @Resource
     private FacilityService facilityService;
     @Resource
-    private ContactReportService contactReportService;
-
-    @Resource
-    private DetailedPatientReportService detailedPatientReportService;
-
-    @PersistenceContext
-    private EntityManager entityManager;
-
-
-
-    List<Contact> contacts=new ArrayList<>();
+    private ArvHistReportService reportService;
     List<ArvHist> arvHists = new ArrayList<>();
 
     public String setUpModel(ModelMap model, SearchDTO item, boolean post) {
@@ -66,9 +53,7 @@ public class ArvHistoryController extends BaseController {
         }
         if (post) {
             model.addAttribute("excelExport", "/report/arvhist/export/excel" + item.getQueryString(item.getInstance(item)));
-//            System.err.println("*********************************************"+item.toString());
-            //contacts=contactReportService.get(item.getInstance(item));
-            model.addAttribute("items",arvHists );
+            model.addAttribute("items", arvHists);
         }
         model.addAttribute("item", item.getInstance(item));
         return "report/arvHistDetailedReport";
@@ -81,20 +66,17 @@ public class ArvHistoryController extends BaseController {
 
     @RequestMapping(value = "/range", method = RequestMethod.POST)
     public String getReferralReportIndex(HttpServletResponse response, ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
-        item=getUserLevelObjectState(item);
-
-            arvHists=getPatients(item);
-
+        item = getUserLevelObjectState(item);
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+        arvHists = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(reportService.getCount(item)), reportService, item));
         return setUpModel(model, item, true);
     }
 
-    @RequestMapping(value="/export/excel", method = RequestMethod.GET)
-    public void downloadAll(HttpServletResponse response, @ModelAttribute("item") @Valid SearchDTO item){
+    @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
+    public void downloadAll(HttpServletResponse response, @ModelAttribute("item") @Valid SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Detailed_ARVHist_Report");
         forceDownLoadDatabase(getARVHistoryWorkbook(item), name, response);
     }
-
-
 
     public XSSFWorkbook getARVHistoryWorkbook(SearchDTO dto) {
         XSSFWorkbook workbook = new XSSFWorkbook();
@@ -111,123 +93,51 @@ public class ArvHistoryController extends BaseController {
             XSSFCell.setCellValue(title);
         }
 
+        for (ArvHist arvHist : arvHists) {
+            int count = 0;
+            arvHistXSSFRow = arvHistDetails.createRow(arvHistXSSFRowNum++);
+            XSSFCell id = arvHistXSSFRow.createCell(count);
+            id.setCellValue(arvHist.getPatient().getPatientNumber());
+            XSSFCell patientName = arvHistXSSFRow.createCell(++count);
+            patientName.setCellValue(arvHist.getPatient().getName());
+            XSSFCell dateOfBirth = arvHistXSSFRow.createCell(++count);
+            dateOfBirth.setCellValue(arvHist.getPatient().getDateOfBirth());
+            dateOfBirth.setCellStyle(XSSFCellStyle);
+            XSSFCell age = arvHistXSSFRow.createCell(++count);
+            age.setCellValue(arvHist.getPatient().getAge());
+            XSSFCell sex = arvHistXSSFRow.createCell(++count);
+            sex.setCellValue(arvHist.getPatient().getGender().getName());
 
-            for (ArvHist arvHist : arvHists) {
-                int count = 0;
-                arvHistXSSFRow = arvHistDetails.createRow(arvHistXSSFRowNum++);
-                XSSFCell id = arvHistXSSFRow.createCell(count);
-                id.setCellValue(arvHist.getPatient().getPatientNumber());
-                XSSFCell patientName = arvHistXSSFRow.createCell(++count);
-                patientName.setCellValue(arvHist.getPatient().getName());
-                XSSFCell dateOfBirth = arvHistXSSFRow.createCell(++count);
-                dateOfBirth.setCellValue(arvHist.getPatient().getDateOfBirth());
-                dateOfBirth.setCellStyle(XSSFCellStyle);
-                XSSFCell age = arvHistXSSFRow.createCell(++count);
-                age.setCellValue(arvHist.getPatient().getAge());
-                XSSFCell sex = arvHistXSSFRow.createCell(++count);
-                sex.setCellValue(arvHist.getPatient().getGender().getName());
+            XSSFCell cat = arvHistXSSFRow.createCell(++count);
+            cat.setCellValue(arvHist.getPatient().getCat() != null ? arvHist.getPatient().getCat().getName() : "");
+            XSSFCell ymm = arvHistXSSFRow.createCell(++count);
+            ymm.setCellValue((arvHist.getPatient().getYoungMumGroup() != null) ? arvHist.getPatient().getYoungMumGroup().getName() : "");
 
-                XSSFCell cat = arvHistXSSFRow.createCell(++count);
-                cat.setCellValue(arvHist.getPatient().getCat()!=null?arvHist.getPatient().getCat().getName():"");
-                XSSFCell ymm = arvHistXSSFRow.createCell(++count);
-                ymm.setCellValue((arvHist.getPatient().getYoungMumGroup()!=null)?arvHist.getPatient().getYoungMumGroup().getName():"");
+            XSSFCell province = arvHistXSSFRow.createCell(++count);
+            province.setCellValue(arvHist.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+            XSSFCell district = arvHistXSSFRow.createCell(++count);
+            district.setCellValue(arvHist.getPatient().getPrimaryClinic().getDistrict().getName());
+            XSSFCell primaryClinic = arvHistXSSFRow.createCell(++count);
+            primaryClinic.setCellValue(arvHist.getPatient().getPrimaryClinic().getName());
 
-                XSSFCell province = arvHistXSSFRow.createCell(++count);
-                province.setCellValue(arvHist.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
-                XSSFCell district = arvHistXSSFRow.createCell(++count);
-                district.setCellValue(arvHist.getPatient().getPrimaryClinic().getDistrict().getName());
-                XSSFCell primaryClinic = arvHistXSSFRow.createCell(++count);
-                primaryClinic.setCellValue(arvHist.getPatient().getPrimaryClinic().getName());
-
-                XSSFCell arvHistMedicine = arvHistXSSFRow.createCell(++count);
-                arvHistMedicine.setCellValue(arvHist.getMedicines());
-                XSSFCell startDate = arvHistXSSFRow.createCell(++count);
-                if (arvHist.getStartDate() != null) {
-                    startDate.setCellValue(arvHist.getStartDate());
-                    startDate.setCellStyle(XSSFCellStyle);
-                } else {
-                    startDate.setCellValue("");
-                }
-                XSSFCell endDate = arvHistXSSFRow.createCell(++count);
-                if (arvHist.getEndDate() != null) {
-                    endDate.setCellValue(arvHist.getEndDate());
-                    endDate.setCellStyle(XSSFCellStyle);
-                } else {
-                    endDate.setCellValue("");
-                }
+            XSSFCell arvHistMedicine = arvHistXSSFRow.createCell(++count);
+            arvHistMedicine.setCellValue(arvHist.getMedicines());
+            XSSFCell startDate = arvHistXSSFRow.createCell(++count);
+            if (arvHist.getStartDate() != null) {
+                startDate.setCellValue(arvHist.getStartDate());
+                startDate.setCellStyle(XSSFCellStyle);
+            } else {
+                startDate.setCellValue("");
             }
-
+            XSSFCell endDate = arvHistXSSFRow.createCell(++count);
+            if (arvHist.getEndDate() != null) {
+                endDate.setCellValue(arvHist.getEndDate());
+                endDate.setCellStyle(XSSFCellStyle);
+            } else {
+                endDate.setCellValue("");
+            }
+        }
 
         return workbook;
-    }
-
-    private List<ArvHist> getPatients(SearchDTO dto)
-    {
-        StringBuilder builder=new StringBuilder("select distinct a from ArvHist a left join  a.patient as p  ");
-        int position = 0;
-
-        if (dto.getSearch(dto)) {
-            builder.append(" where ");
-            if (dto.getProvince() != null) {
-                if (position == 0) {
-                    builder.append("p.primaryClinic.district.province=:province");
-                    position++;
-                } else {
-                    builder.append(" and p.primaryClinic.district.province=:province");
-                }
-            }
-            if (dto.getDistrict() != null) {
-                if (position == 0) {
-                    builder.append("p.primaryClinic.district=:district");
-                    position++;
-                } else {
-                    builder.append(" and p.primaryClinic.district=:district");
-                }
-            }
-            if (dto.getPrimaryClinic() != null) {
-                if (position == 0) {
-                    builder.append("p.primaryClinic=:primaryClinic");
-                    position++;
-                } else {
-                    builder.append(" and p.primaryClinic=:primaryClinic");
-                }
-            }
-
-
-            if (dto.getStartDate() != null && dto.getEndDate() != null) {
-
-                if (position == 0) {
-                    builder.append(" (a.dateCreated between :startDate and  :endDate)");
-                    position++;
-                } else {
-                    builder.append(" and (a.dateCreated between :startDate and :endDate)");
-                }
-
-            }
-
-
-        }
-
-        builder.append(" )");
-        //builder.append(" Order By p.first_name, p.last_name DESC");
-        Query query = entityManager.createQuery(builder.toString(), ArvHist.class);
-
-        if (dto.getProvince() != null) {
-            query.setParameter("province", dto.getProvince());
-        }
-        if (dto.getDistrict() != null) {
-            query.setParameter("district", dto.getDistrict());
-        }
-        if (dto.getPrimaryClinic() != null) {
-            query.setParameter("primaryClinic", dto.getPrimaryClinic());
-        }
-
-        if (dto.getStartDate() != null && dto.getEndDate() != null) {
-            query.setParameter("startDate", dto.getStartDate());
-            query.setParameter("endDate", dto.getEndDate());
-        }
-
-
-        return query.getResultList();
     }
 }

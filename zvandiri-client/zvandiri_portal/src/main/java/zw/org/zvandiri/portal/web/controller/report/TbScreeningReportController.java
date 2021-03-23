@@ -22,22 +22,18 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import zw.org.zvandiri.business.domain.MentalHealthScreening;
-import zw.org.zvandiri.business.domain.Mortality;
 import zw.org.zvandiri.business.domain.TbIpt;
-import zw.org.zvandiri.business.service.PeriodService;
 import zw.org.zvandiri.business.service.ProvinceService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.report.api.DatabaseHeader;
-import zw.org.zvandiri.report.api.service.OfficeExportService;
-import zw.org.zvandiri.report.api.service.TbScreeningReportReportService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
@@ -47,6 +43,7 @@ import zw.org.zvandiri.business.service.DistrictService;
 import zw.org.zvandiri.business.service.FacilityService;
 import zw.org.zvandiri.business.service.SupportGroupService;
 import zw.org.zvandiri.business.service.TbIptService;
+import zw.org.zvandiri.portal.web.controller.report.parallel.TbIptTask;
 
 /**
  *
@@ -54,54 +51,43 @@ import zw.org.zvandiri.business.service.TbIptService;
  */
 @Controller
 @RequestMapping("/report/tb-screening")
-public class TbScreeningReportController extends BaseController{
-    
+public class TbScreeningReportController extends BaseController {
 
     @Resource
     private ProvinceService provinceService;
-    
+
     @Resource
     private DistrictService districtService;
-    
+
     @Resource
     private FacilityService facilityService;
-    
+
     @Resource
     private SupportGroupService supportGroupService;
-    
+
     @Resource
     TbIptService tbIptService;
-    
-     List<TbIpt> tbIpts=new ArrayList<>();
-    
-//    @Resource
-//    private PeriodService periodService;
+
+    List<TbIpt> tbIpts = new ArrayList<>();
 
     public void setUpModel(ModelMap model, SearchDTO item, boolean post) {
         item = getUserLevelObjectState(item);
-        //System.err.println("***********************************************************************************************************\n"+item);
         model.addAttribute("pageTitle", APP_PREFIX + "TB Screening Report");
         model.addAttribute("provinces", provinceService.getAll());
-//        model.addAttribute("periods", periodService.getActivePeriods());
         model.addAttribute("item", item.getInstance(item));
         model.addAttribute("excelExport", "/report/tb-screening/screening/export/excel" + item.getQueryString(item.getInstance(item)));
-        
-         if (item.getProvince() != null) {
+
+        if (item.getProvince() != null) {
             model.addAttribute("districts", districtService.getDistrictByProvince(item.getProvince()));
             if (item.getDistrict() != null) {
                 model.addAttribute("facilities", facilityService.getOptByDistrict(item.getDistrict()));
                 model.addAttribute("supportGroups", supportGroupService.getByDistrict(item.getDistrict()));
             }
         }
-
-
         if (post) {
             model.addAttribute("excelExport", "/report/tb-screening/screening/export/excel" + item.getQueryString(item.getInstance(item)));
-             model.addAttribute("items", tbIpts);
+            model.addAttribute("items", tbIpts);
         }
-        
-       
-        
     }
 
     @RequestMapping(value = "/screening", method = RequestMethod.GET)
@@ -113,7 +99,8 @@ public class TbScreeningReportController extends BaseController{
     @RequestMapping(value = "/screening", method = RequestMethod.POST)
     public String getReportResult(ModelMap model, @ModelAttribute("item") SearchDTO item) {
         item = getUserLevelObjectState(item);
-        tbIpts = tbIptService.get(item);
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+        tbIpts = pool.invoke(new TbIptTask(DateUtil.generateArray(tbIptService.count(item)), tbIptService, item));
         setUpModel(model, item, true);
         return "report/tbScreenReport";
     }
@@ -121,9 +108,8 @@ public class TbScreeningReportController extends BaseController{
     @RequestMapping(value = "/screening/export/excel", method = RequestMethod.GET)
     public void getExcelExportHealthCenter(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("TB_Screening_Report");
-        forceDownLoadXLSX(createTBIPTWorkbook(item),name, response);
+        forceDownLoadXLSX(createTBIPTWorkbook(item), name, response);
     }
-
 
     public XSSFWorkbook createTBIPTWorkbook(SearchDTO dto) {
 
@@ -132,8 +118,6 @@ public class TbScreeningReportController extends BaseController{
         XSSFCreationHelper createHelper = workbook.getCreationHelper();
         cellStyle.setDataFormat(
                 createHelper.createDataFormat().getFormat("dd/MM/yyyy"));
-
-       
 
         // tb Ipt here
         XSSFSheet tbIptDetails = workbook.createSheet("Patient_TBIPT");
@@ -160,7 +144,7 @@ public class TbScreeningReportController extends BaseController{
             XSSFCell sex = tbIptRow.createCell(++count);
             sex.setCellValue(tbIpt.getPatient().getGender().getName());
             Cell cat = tbIptRow.createCell(++count);
-            cat.setCellValue(tbIpt.getPatient().getCat()!=null?tbIpt.getPatient().getCat().getName():"");
+            cat.setCellValue(tbIpt.getPatient().getCat() != null ? tbIpt.getPatient().getCat().getName() : "");
             XSSFCell province = tbIptRow.createCell(++count);
             province.setCellValue(tbIpt.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             XSSFCell district = tbIptRow.createCell(++count);

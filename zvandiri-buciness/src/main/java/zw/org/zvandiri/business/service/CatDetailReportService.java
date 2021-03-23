@@ -23,7 +23,7 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
  *
  * @author jmuzinda
  */
-public interface CatDetailReportService {
+public interface CatDetailReportService extends GenericReportService<CatDetail, SearchDTO>{
     public Long getPatientAboutToGraduate(SearchDTO dto);
     List<CatDetail> get(SearchDTO dto);
 }

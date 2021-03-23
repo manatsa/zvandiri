@@ -16,12 +16,15 @@
 package zw.org.zvandiri.business.service.impl;
 
 import java.util.Date;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import zw.org.zvandiri.business.domain.ArvHist;
 import zw.org.zvandiri.business.domain.util.DateRangeItem;
 import zw.org.zvandiri.business.repo.ArvHistRepo;
 import zw.org.zvandiri.business.service.ArvHistReportService;
@@ -375,4 +378,137 @@ public class ArvHistReportServiceImpl implements ArvHistReportService {
     public long count() {
         return arvHistRepo.count();
     }
+
+    @Override
+    public List<ArvHist> get(SearchDTO dto) {
+        StringBuilder builder = new StringBuilder("select distinct a from ArvHist a left join  a.patient as p  ");
+        int position = 0;
+
+        if (dto.getSearch(dto)) {
+            builder.append(" where ");
+            if (dto.getProvince() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic.district.province=:province");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district.province=:province");
+                }
+            }
+            if (dto.getDistrict() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic.district=:district");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district=:district");
+                }
+            }
+            if (dto.getPrimaryClinic() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic=:primaryClinic");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic=:primaryClinic");
+                }
+            }
+
+            if (dto.getStartDate() != null && dto.getEndDate() != null) {
+
+                if (position == 0) {
+                    builder.append(" (a.dateCreated between :startDate and  :endDate)");
+                    position++;
+                } else {
+                    builder.append(" and (a.dateCreated between :startDate and :endDate)");
+                }
+
+            }
+
+        }
+
+        builder.append(" )");
+        Query query = entityManager.createQuery(builder.toString(), ArvHist.class);
+
+        if (dto.getProvince() != null) {
+            query.setParameter("province", dto.getProvince());
+        }
+        if (dto.getDistrict() != null) {
+            query.setParameter("district", dto.getDistrict());
+        }
+        if (dto.getPrimaryClinic() != null) {
+            query.setParameter("primaryClinic", dto.getPrimaryClinic());
+        }
+
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            query.setParameter("startDate", dto.getStartDate());
+            query.setParameter("endDate", dto.getEndDate());
+        }
+        query.setFirstResult(dto.getFirstResult());
+        query.setMaxResults(dto.getPageSize());
+        return query.getResultList();
+    }
+
+    @Override
+    public Long getCount(SearchDTO dto) {
+        StringBuilder builder = new StringBuilder("select count(distinct a) from ArvHist a");
+        int position = 0;
+
+        if (dto.getSearch(dto)) {
+            builder.append(" where ");
+            if (dto.getProvince() != null) {
+                if (position == 0) {
+                    builder.append("a.patient.primaryClinic.district.province=:province");
+                    position++;
+                } else {
+                    builder.append(" and a.patient.primaryClinic.district.province=:province");
+                }
+            }
+            if (dto.getDistrict() != null) {
+                if (position == 0) {
+                    builder.append("a.patient.primaryClinic.district=:district");
+                    position++;
+                } else {
+                    builder.append(" and a.patient.primaryClinic.district=:district");
+                }
+            }
+            if (dto.getPrimaryClinic() != null) {
+                if (position == 0) {
+                    builder.append("a.patient.primaryClinic=:primaryClinic");
+                    position++;
+                } else {
+                    builder.append(" and a.patient.primaryClinic=:primaryClinic");
+                }
+            }
+
+            if (dto.getStartDate() != null && dto.getEndDate() != null) {
+
+                if (position == 0) {
+                    builder.append(" (a.dateCreated between :startDate and  :endDate)");
+                    position++;
+                } else {
+                    builder.append(" and (a.dateCreated between :startDate and :endDate)");
+                }
+
+            }
+
+        }
+
+        builder.append(" )");
+        Query query = entityManager.createQuery(builder.toString(), Long.class);
+
+        if (dto.getProvince() != null) {
+            query.setParameter("province", dto.getProvince());
+        }
+        if (dto.getDistrict() != null) {
+            query.setParameter("district", dto.getDistrict());
+        }
+        if (dto.getPrimaryClinic() != null) {
+            query.setParameter("primaryClinic", dto.getPrimaryClinic());
+        }
+
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            query.setParameter("startDate", dto.getStartDate());
+            query.setParameter("endDate", dto.getEndDate());
+        }
+        return (Long) query.getSingleResult();
+    }
+
 }

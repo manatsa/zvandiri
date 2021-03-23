@@ -344,4 +344,12 @@ public class DateUtil {
         }
         return quarters;
     }
+    
+    public static List<Integer> generateArray(Long size) {
+        List<Integer> list = new ArrayList<>();
+        for(int i = 0; i <= size; i++) {
+            list.add(i);
+        }
+        return list;
+    }
 }

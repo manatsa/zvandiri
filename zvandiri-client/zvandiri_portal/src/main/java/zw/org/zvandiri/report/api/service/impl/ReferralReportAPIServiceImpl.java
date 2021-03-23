@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.Period;
@@ -35,6 +36,7 @@ import zw.org.zvandiri.business.service.PeriodService;
 import zw.org.zvandiri.business.service.ReferalReportService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
+import zw.org.zvandiri.portal.web.controller.report.parallel.GenericCountReportTask;
 import zw.org.zvandiri.report.api.BasicNameNumber;
 import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.Notifications;
@@ -219,7 +221,9 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
             "Referral Date", "Organisation", "Services Requested", "Services Received"};
         List<GenericReportModel> items = new ArrayList<>();
         items.add(new GenericReportModel(Arrays.asList(headers)));
-        for (Referral item : referalReportService.get(dto.getInstance(dto))) {
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+        List<Referral> result = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(referalReportService.getCount(dto)), referalReportService, dto));
+        for (Referral item : result) {
             String[] inner = {
                 item.getPatient().getName(),
                 item.getPatient().getAge() + "",

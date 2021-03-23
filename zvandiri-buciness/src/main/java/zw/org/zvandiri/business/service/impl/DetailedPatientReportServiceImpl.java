@@ -581,6 +581,8 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
             query.setParameter("statuses", dto.getStatuses());
         }
+        query.setFirstResult(dto.getFirstResult());
+        query.setMaxResults(dto.getPageSize());
         return query.getResultList();
     }
 

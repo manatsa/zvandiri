@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.controller.report;
 
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -38,6 +39,8 @@ import zw.org.zvandiri.business.service.SupportGroupService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+import zw.org.zvandiri.portal.web.controller.report.parallel.GenericCountReportTask;
+import zw.org.zvandiri.portal.web.controller.report.parallel.LabResultTask;
 import zw.org.zvandiri.report.api.service.DetailedReportService;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 
@@ -82,21 +85,29 @@ public class DetailedReportController extends BaseController {
         if (item.getStatus() == null) {
             item.setStatus(PatientChangeEvent.ACTIVE);
         }
-         if (hei){
+        if (hei) {
             item.setHei(YesNo.YES);
         }
         model.addAttribute("excelExport", "/report/detailed/export/excel" + item.getQueryString(item.getInstance(item)));
         if (item.getMaxViralLoad() == null && item.getMinCd4Count() == null) {
-            model.addAttribute("items", post ? detailedPatientReportService.get(item.getInstance(item)) : null);
+            if (post) {
+                ForkJoinPool pool = ForkJoinPool.commonPool();
+                List items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(item)), detailedPatientReportService, item));
+                model.addAttribute("items", items);
+            }
         } else {
             if (item.getMaxViralLoad() != null) {
                 item.setTestType(TestType.VIRAL_LOAD);
-                model.addAttribute("items", patientReportService.getPatientLabResultsList(item.getInstance(item)));
+                ForkJoinPool pool = ForkJoinPool.commonPool();
+                List items = pool.invoke(new LabResultTask(DateUtil.generateArray(patientReportService.getPatientWithViralLoad(item)), patientReportService, item));
+                model.addAttribute("items", items);
             } else {
                 item.setTestType(TestType.CD4_COUNT);
-                model.addAttribute("items", patientReportService.getPatientLabResultsList(item.getInstance(item)));
+                ForkJoinPool pool = ForkJoinPool.commonPool();
+                List items = pool.invoke(new LabResultTask(DateUtil.generateArray(patientReportService.getPatientWithViralLoad(item)), patientReportService, item));
+                model.addAttribute("items", items);
             }
-        }      
+        }
         model.addAttribute("item", item.getInstance(item));
     }
 
@@ -117,7 +128,7 @@ public class DetailedReportController extends BaseController {
         setUpModel(model, item, Boolean.TRUE, Boolean.FALSE);
         return "report/patientDateRangeReport";
     }
-    
+
     @RequestMapping(value = "/hei", method = RequestMethod.GET)
     public String getHeiIndex(ModelMap model, SearchDTO dto) {
         Boolean post = Boolean.TRUE;
@@ -141,14 +152,17 @@ public class DetailedReportController extends BaseController {
         String name = DateUtil.getFriendlyFileName("Detailed_Beneficiary_Report");
         List<Patient> items;
         if (item.getMaxViralLoad() == null && item.getMinCd4Count() == null) {
-            items = detailedPatientReportService.get(item.getInstance(item));
+            ForkJoinPool pool = ForkJoinPool.commonPool();
+            items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(item)), detailedPatientReportService, item));
         } else {
             if (item.getMaxViralLoad() != null) {
                 item.setTestType(TestType.VIRAL_LOAD);
-                items = patientReportService.getPatientLabResultsList(item.getInstance(item));
+                ForkJoinPool pool = ForkJoinPool.commonPool();
+                items = pool.invoke(new LabResultTask(DateUtil.generateArray(patientReportService.getPatientWithViralLoad(item)), patientReportService, item));
             } else {
                 item.setTestType(TestType.CD4_COUNT);
-                items = patientReportService.getPatientLabResultsList(item.getInstance(item));
+                ForkJoinPool pool = ForkJoinPool.commonPool();
+                items = pool.invoke(new LabResultTask(DateUtil.generateArray(patientReportService.getPatientWithViralLoad(item)), patientReportService, item));
             }
         }
         forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(detailedReportService.get(items), name), name, response);

@@ -15,6 +15,8 @@
  */
 package zw.org.zvandiri.portal.web.controller.report;
 
+import java.util.List;
+import java.util.concurrent.ForkJoinPool;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -32,6 +34,7 @@ import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+import zw.org.zvandiri.portal.web.controller.report.parallel.GenericCountReportTask;
 import zw.org.zvandiri.report.api.service.DetailedReportService;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 
@@ -68,7 +71,9 @@ public class ContactReportController extends BaseController {
         }
         if (post) {
             model.addAttribute("excelExport", "/report/contact/export/excel" + item.getQueryString(item.getInstance(item)));
-            model.addAttribute("items", contactReportService.get(item.getInstance(item)));
+            ForkJoinPool pool = ForkJoinPool.commonPool();
+            List items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(contactReportService.getCount(item)), contactReportService, item));
+            model.addAttribute("items", items);
         }
         model.addAttribute("item", item.getInstance(item));
         return "report/contactDetailedReport";

@@ -15,6 +15,8 @@
  */
 package zw.org.zvandiri.portal.web.controller.report;
 
+import java.util.List;
+import java.util.concurrent.ForkJoinPool;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -33,6 +35,7 @@ import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+import zw.org.zvandiri.portal.web.controller.report.parallel.GenericCountReportTask;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 import zw.org.zvandiri.report.api.service.ReferralReportAPIService;
 
@@ -69,7 +72,9 @@ public class ReferralReportController extends BaseController {
         }
         model.addAttribute("excelExport", "/report/referral/export/excel" + item.getQueryString(item.getInstance(item)));
         if (post) {
-            model.addAttribute("items", referalReportService.get(item.getInstance(item)));
+            ForkJoinPool pool = ForkJoinPool.commonPool();
+            List items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(referalReportService.getCount(item)), referalReportService, item));
+            model.addAttribute("items", items);
         }
         model.addAttribute("item", item.getInstance(item));
         return "report/referralDetailedReport";
@@ -92,4 +97,6 @@ public class ReferralReportController extends BaseController {
         String name = DateUtil.getFriendlyFileName("Detailed_Referral_Report");
         forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(referralReportAPIService.getDefaultReport(item.getInstance(item)), name), name, response);
     }
+    
+    
 }

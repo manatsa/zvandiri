@@ -170,14 +170,6 @@ public class MortalityServiceImpl implements MortalityService{
                     builder.append(" and p.dateOfBirth between :start and :end");
                 }
             }
-            if (dto.getPeriod() != null) {
-                if (position == 0) {
-                    builder.append("p.period=:period");
-                    position++;
-                } else {
-                    builder.append(" and p.period=:period");
-                }
-            }
             if (dto.getStatuses() == null || dto.getStatuses().isEmpty()) {
                 if (dto.getStatus() != null) {
                     if (position == 0) {
@@ -236,8 +228,136 @@ public class MortalityServiceImpl implements MortalityService{
             query.setParameter("start", DateUtil.getDateFromAge(dto.getAgeGroup().getEnd()));
             query.setParameter("end", DateUtil.getEndDate(dto.getAgeGroup().getStart()));
         }
-        if (dto.getPeriod() != null) {
-            query.setParameter("period", dto.getPeriod());
+        if (dto.getStatus() != null) {
+            query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getHei() != null) {
+            query.setParameter("hei", dto.getHei());
+        }
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            query.setParameter("startDate", dto.getStartDate());
+            query.setParameter("endDate", dto.getEndDate());
+        }
+        if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
+            query.setParameter("statuses", dto.getStatuses());
+        }
+        query.setFirstResult(dto.getFirstResult());
+        query.setMaxResults(dto.getPageSize());
+        return query.getResultList();
+    }
+    
+    @Override
+    public Long count(SearchDTO dto) {
+        dto.setStatus(null);
+        StringBuilder builder = new StringBuilder("Select count(Distinct m) from Mortality m ");
+        int position = 0;
+
+        if (dto.getSearch(dto)) {
+            builder.append(" where ");
+            if (dto.getProvince() != null) {
+                if (position == 0) {
+                    builder.append("m.patient.primaryClinic.district.province=:province");
+                    position++;
+                } else {
+                    builder.append(" and m.patient.primaryClinic.district.province=:province");
+                }
+            }
+            if (dto.getDistrict() != null) {
+                if (position == 0) {
+                    builder.append("m.patient.primaryClinic.district=:district");
+                    position++;
+                } else {
+                    builder.append(" and m.patient.primaryClinic.district=:district");
+                }
+            }
+            if (dto.getPrimaryClinic() != null) {
+                if (position == 0) {
+                    builder.append("m.patient.primaryClinic=:primaryClinic");
+                    position++;
+                } else {
+                    builder.append(" and m.patient.primaryClinic=:primaryClinic");
+                }
+            }
+            if (dto.getSupportGroup() != null) {
+                if (position == 0) {
+                    builder.append("m.patient.supportGroup=:supportGroup");
+                    position++;
+                } else {
+                    builder.append(" and m.patient.supportGroup=:supportGroup");
+                }
+            }
+            if (dto.getGender() != null) {
+                if (position == 0) {
+                    builder.append("m.patient.gender=:gender");
+                    position++;
+                } else {
+                    builder.append(" and m.patient.gender=:gender");
+                }
+            }
+            if (dto.getAgeGroup() != null) {
+                if (position == 0) {
+                    builder.append("m.patient.dateOfBirth between :start and :end");
+                    position++;
+                } else {
+                    builder.append(" and m.patient.dateOfBirth between :start and :end");
+                }
+            }
+            if (dto.getStatuses() == null || dto.getStatuses().isEmpty()) {
+                if (dto.getStatus() != null) {
+                    if (position == 0) {
+                        builder.append("m.patient.status=:status");
+                        position++;
+                    } else {
+                        builder.append(" and m.patient.status=:status");
+                    }
+                }
+            }
+            if (dto.getHei() != null) {
+                if (position == 0) {
+                    builder.append("m.patient.hei=:hei");
+                    position++;
+                } else {
+                    builder.append(" and m.patient.hei=:hei");
+                }
+            }
+            if (dto.getStartDate() != null && dto.getEndDate() != null) {
+                if (position == 0) {
+                    builder.append(" m.dateOfDeath ");
+                    builder.append(" between :startDate and :endDate");
+                    position++;
+                } else {
+                    builder.append(" and m.dateOfDeath");
+                    builder.append(" between :startDate and :endDate)");
+                }
+            }
+            if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
+                if (position == 0) {
+                    builder.append("m.patient.status in (:statuses)");
+                    position++;
+                } else {
+                    builder.append(" and m.patient.status in (:statuses)");
+                }
+            }
+        }
+        TypedQuery<Long> query = entityManager.createQuery(builder.toString(), Long.class);
+        if (dto.getProvince() != null) {
+            query.setParameter("province", dto.getProvince());
+        }
+        if (dto.getDistrict() != null) {
+            query.setParameter("district", dto.getDistrict());
+        }
+        if (dto.getPrimaryClinic() != null) {
+            query.setParameter("primaryClinic", dto.getPrimaryClinic());
+        }
+        if (dto.getSupportGroup() != null) {
+            query.setParameter("supportGroup", dto.getSupportGroup());
+        }
+        if (dto.getGender() != null) {
+            query.setParameter("gender", dto.getGender());
+        }
+        if (dto.getAgeGroup() != null) {
+            query.setParameter("start", DateUtil.getDateFromAge(dto.getAgeGroup().getEnd()));
+            query.setParameter("end", DateUtil.getEndDate(dto.getAgeGroup().getStart()));
         }
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
@@ -252,6 +372,6 @@ public class MortalityServiceImpl implements MortalityService{
         if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
             query.setParameter("statuses", dto.getStatuses());
         }
-        return query.getResultList();
+        return query.getSingleResult();
     }
 }

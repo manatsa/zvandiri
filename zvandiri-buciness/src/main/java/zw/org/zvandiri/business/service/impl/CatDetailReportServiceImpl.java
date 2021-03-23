@@ -32,7 +32,6 @@ import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.SrhHist;
 import zw.org.zvandiri.business.domain.TbIpt;
-import zw.org.zvandiri.business.domain.TbScreening;
 import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.ArvHistService;
@@ -42,7 +41,6 @@ import zw.org.zvandiri.business.service.ContactService;
 import zw.org.zvandiri.business.service.InvestigationTestService;
 import zw.org.zvandiri.business.service.SrhHistService;
 import zw.org.zvandiri.business.service.TbIptService;
-import zw.org.zvandiri.business.service.TbScreeningService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
@@ -153,6 +151,8 @@ public class CatDetailReportServiceImpl implements CatDetailReportService {
             query.setParameter("startDate", dto.getStartDate());
             query.setParameter("endDate", dto.getEndDate());
         }
+        query.setFirstResult(dto.getFirstResult());
+        query.setMaxResults(dto.getPageSize());
         List<CatDetail> list = query.getResultList();
         for (CatDetail catDetail : list) {
             InvestigationTest test = investigationTestService.getLatestTestByTestType(catDetail.getPatient(), TestType.VIRAL_LOAD);
@@ -196,6 +196,96 @@ public class CatDetailReportServiceImpl implements CatDetailReportService {
 
         return list;
     }
+
+    @Override
+    public Long getCount(SearchDTO dto) {
+        StringBuilder builder = new StringBuilder("Select count(p) from CatDetail p");
+        int position = 0;
+        builder.append(" where ");
+        if (dto.getProvince() != null) {
+            if (position == 0) {
+                builder.append("p.primaryClinic.district.province=:province");
+                position++;
+            } else {
+                builder.append(" and p.primaryClinic.district.province=:province");
+            }
+        }
+        if (dto.getDistrict() != null) {
+            if (position == 0) {
+                builder.append("p.primaryClinic.district=:district");
+                position++;
+            } else {
+                builder.append(" and p.primaryClinic.district=:district");
+            }
+        }
+        if (dto.getPrimaryClinic() != null) {
+            if (position == 0) {
+                builder.append("p.primaryClinic=:primaryClinic");
+                position++;
+            } else {
+                builder.append(" and p.primaryClinic=:primaryClinic");
+            }
+        }
+        if (dto.getSupportGroup() != null) {
+            if (position == 0) {
+                builder.append("p.patient.supportGroup=:supportGroup");
+                position++;
+            } else {
+                builder.append(" and p.patient.supportGroup=:supportGroup");
+            }
+        }
+        if (dto.getGender() != null) {
+            if (position == 0) {
+                builder.append("p.patient.gender=:gender");
+                position++;
+            } else {
+                builder.append(" and p.patient.gender=:gender");
+            }
+        }
+        if (dto.getStatus() != null) {
+            if (position == 0) {
+                builder.append("p.patient.status=:status");
+                position++;
+            } else {
+                builder.append(" and p.patient.status=:status");
+            }
+        }
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            if (position == 0) {
+                builder.append("p.dateAsCat between :startDate and :endDate");
+                position++;
+            } else {
+                builder.append(" and p.dateAsCat between :startDate and :endDate");
+            }
+        }
+
+        TypedQuery query = entityManager.createQuery(builder.toString(), Long.class);
+        if (dto.getProvince() != null) {
+            query.setParameter("province", dto.getProvince());
+        }
+        if (dto.getDistrict() != null) {
+            query.setParameter("district", dto.getDistrict());
+        }
+        if (dto.getPrimaryClinic() != null) {
+            query.setParameter("primaryClinic", dto.getPrimaryClinic());
+        }
+        if (dto.getSupportGroup() != null) {
+            query.setParameter("supportGroup", dto.getSupportGroup());
+        }
+        if (dto.getGender() != null) {
+            query.setParameter("gender", dto.getGender());
+        }
+        if (dto.getStatus() != null) {
+            query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            query.setParameter("startDate", dto.getStartDate());
+            query.setParameter("endDate", dto.getEndDate());
+        }
+        return (Long) query.getSingleResult();
+    }
+    
+    
 
     @Override
     public Long getPatientAboutToGraduate(SearchDTO dto) {
