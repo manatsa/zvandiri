@@ -48,6 +48,7 @@ public class GenericCountReportTask extends RecursiveTask<List> {
         searchData.setFirstResult(first);
         Integer pageSize = arrCount.get(arrCount.size() - 1) - searchData.getFirstResult();
         searchData.setPageSize(pageSize);
+        System.err.println("Size:" + pageSize);
         return reportService.get(searchData.getInstance(searchData));
     }
 }

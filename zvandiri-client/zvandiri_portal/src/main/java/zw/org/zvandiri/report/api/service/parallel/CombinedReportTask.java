@@ -26,8 +26,6 @@ public class CombinedReportTask extends RecursiveAction {
     private final List<GenericReportModel> list;
     private final List<String> provinces;
     private final List<String> districts;
-    private int pos;
-    private int inner;
 
     public CombinedReportTask(List<Facility> data, ProblemReportService reportService, SearchDTO dto, List<GenericReportModel> list, List<String> provinces, List<String> districts) {
         this.data = data;
@@ -69,8 +67,6 @@ public class CombinedReportTask extends RecursiveAction {
             row.add(facility.getName());
             model.setRow(reportService.getProblemReport(row, dto.getInstance(dto)));
             list.add(model);
-            inner++;
-            pos++;
         }
     }
 

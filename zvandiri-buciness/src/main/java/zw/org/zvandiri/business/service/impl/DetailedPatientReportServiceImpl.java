@@ -16,6 +16,7 @@
 package zw.org.zvandiri.business.service.impl;
 
 import java.util.List;
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -441,7 +442,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
 
     @Override
     public List<Patient> get(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p " + PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH);
+        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p "/* + PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH*/);
         int position = 0;
         String startDate = "dateJoined";
         if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
@@ -545,7 +546,156 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
             }
         }
         builder.append(" order by p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
+        EntityGraph<Patient> entityGraph = createEntityGraph();
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
+        if (dto.getProvince() != null) {
+            query.setParameter("province", dto.getProvince());
+        }
+        if (dto.getDistrict() != null) {
+            query.setParameter("district", dto.getDistrict());
+        }
+        if (dto.getPrimaryClinic() != null) {
+            query.setParameter("primaryClinic", dto.getPrimaryClinic());
+        }
+        if (dto.getSupportGroup() != null) {
+            query.setParameter("supportGroup", dto.getSupportGroup());
+        }
+        if (dto.getGender() != null) {
+            query.setParameter("gender", dto.getGender());
+        }
+        if (dto.getAgeGroup() != null) {
+            query.setParameter("start", DateUtil.getDateFromAge(dto.getAgeGroup().getEnd()));
+            query.setParameter("end", DateUtil.getEndDate(dto.getAgeGroup().getStart()));
+        }
+        if (dto.getPeriod() != null) {
+            query.setParameter("period", dto.getPeriod());
+        }
+        if (dto.getStatus() != null) {
+            query.setParameter("status", dto.getStatus());
+        }
+        if (dto.getHei() != null) {
+            query.setParameter("hei", dto.getHei());
+        }
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            query.setParameter("startDate", dto.getStartDate());
+            query.setParameter("endDate", dto.getEndDate());
+        }
+        if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
+            query.setParameter("statuses", dto.getStatuses());
+        }
+        query.setHint("javax.persistence.loadgraph", entityGraph);
+        query.setFirstResult(dto.getFirstResult());
+        query.setMaxResults(dto.getPageSize());
+        return query.getResultList();
+    }
+    
+    @Override
+    public List<String> getIds(SearchDTO dto) {
+        StringBuilder builder = new StringBuilder("Select p.id from Patient p "/* + PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH*/);
+        int position = 0;
+        String startDate = "dateJoined";
+        if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
+            startDate = "dateModified";
+        }
+        if (dto.getSearch(dto)) {
+            builder.append(" where ");
+            if (dto.getProvince() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic.district.province=:province");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district.province=:province");
+                }
+            }
+            if (dto.getDistrict() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic.district=:district");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district=:district");
+                }
+            }
+            if (dto.getPrimaryClinic() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic=:primaryClinic");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic=:primaryClinic");
+                }
+            }
+            if (dto.getSupportGroup() != null) {
+                if (position == 0) {
+                    builder.append("p.supportGroup=:supportGroup");
+                    position++;
+                } else {
+                    builder.append(" and p.supportGroup=:supportGroup");
+                }
+            }
+            if (dto.getGender() != null) {
+                if (position == 0) {
+                    builder.append("p.gender=:gender");
+                    position++;
+                } else {
+                    builder.append(" and p.gender=:gender");
+                }
+            }
+            if (dto.getAgeGroup() != null) {
+                if (position == 0) {
+                    builder.append("p.dateOfBirth between :start and :end");
+                    position++;
+                } else {
+                    builder.append(" and p.dateOfBirth between :start and :end");
+                }
+            }
+            if (dto.getPeriod() != null) {
+                if (position == 0) {
+                    builder.append("p.period=:period");
+                    position++;
+                } else {
+                    builder.append(" and p.period=:period");
+                }
+            }
+            if (dto.getStatuses() == null || dto.getStatuses().isEmpty()) {
+                if (dto.getStatus() != null) {
+                    if (position == 0) {
+                        builder.append("p.status=:status");
+                        position++;
+                    } else {
+                        builder.append(" and p.status=:status");
+                    }
+                }
+            }
+            if (dto.getHei() != null) {
+                if (position == 0) {
+                    builder.append("p.hei=:hei");
+                    position++;
+                } else {
+                    builder.append(" and p.hei=:hei");
+                }
+            }
+            if (dto.getStartDate() != null && dto.getEndDate() != null) {
+                if (position == 0) {
+                    builder.append("p.");
+                    builder.append(startDate);
+                    builder.append(" between :startDate and :endDate");
+                    position++;
+                } else {
+                    builder.append(" and (p.");
+                    builder.append(startDate);
+                    builder.append(" between :startDate and :endDate)");
+                }
+            }
+            if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
+                if (position == 0) {
+                    builder.append("p.status in (:statuses)");
+                    position++;
+                } else {
+                    builder.append(" and p.status in (:statuses)");
+                }
+            }
+        }
+        builder.append(" order by p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
+        TypedQuery<String> query = entityManager.createQuery(builder.toString(), String.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
         }
@@ -585,5 +735,22 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         query.setMaxResults(dto.getPageSize());
         return query.getResultList();
     }
+
+    @Override
+    public List<Patient> get(List<String> ids) {
+        System.err.println("Size::" + ids.size());
+        System.err.println("ID" + ids);
+        String builder = "Select Distinct p from Patient p " + PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH + " where p.id in (:ids)";
+        TypedQuery<Patient> query = entityManager.createQuery(builder, Patient.class);
+        query.setParameter("ids", ids);
+        return query.getResultList();
+    }
+    
+    private EntityGraph<Patient> createEntityGraph() {
+        EntityGraph<Patient> entityGraph = entityManager.createEntityGraph(Patient.class);
+        entityGraph.addAttributeNodes("disabilityCategorys");
+        return entityGraph;
+    }
+    
 
 }

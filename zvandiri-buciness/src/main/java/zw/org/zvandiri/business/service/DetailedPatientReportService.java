@@ -31,5 +31,6 @@ public interface DetailedPatientReportService extends GenericReportService<Patie
     public List<Patient> get(SearchDTO dto);
 
     public List<Patient> getSimplePatient(SearchDTO dto);
-    
+    List<String> getIds(SearchDTO dto);
+    List<Patient> get(List<String> ids);
 }
