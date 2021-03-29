@@ -16,7 +16,8 @@
 package zw.org.zvandiri.business.domain;
 
 import java.util.Date;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
+ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;

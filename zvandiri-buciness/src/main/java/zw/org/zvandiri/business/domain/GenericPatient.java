@@ -17,7 +17,6 @@ package zw.org.zvandiri.business.domain;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -31,10 +30,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import org.codehaus.jackson.annotate.JsonBackReference;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import zw.org.zvandiri.business.domain.util.Gender;
@@ -59,7 +56,7 @@ public class GenericPatient extends BaseEntity {
     private Gender gender;
     @Enumerated
     private YesNo consentToMHealth;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Period period;
     private String address;
     private String address1;
@@ -154,7 +151,7 @@ public class GenericPatient extends BaseEntity {
     private Set<Contact> contacts = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<EidTest> eidTests = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private Set<Referral> referrals = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<InvestigationTest> investigationTests = new HashSet<>();

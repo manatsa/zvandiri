@@ -179,7 +179,7 @@ public class ContactReportServiceImpl implements ContactReportService {
 
     @Override
     public List<Contact> get(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("Select Distinct c from Contact c " + ContactInnerJoin.CONTACT_INNER_JOIN);
+        StringBuilder builder = new StringBuilder("Select Distinct c from Contact c ");
         int position = 0;
         if (dto.getSearch(dto)) {
             builder.append(" where ");

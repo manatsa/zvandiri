@@ -19,11 +19,11 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import org.hibernate.annotations.Formula;
-
 import zw.org.zvandiri.business.domain.util.DisabilitySeverity;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
@@ -33,7 +33,8 @@ import zw.org.zvandiri.business.util.DateUtil;
  *
  * @author Judge Muzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Patient extends GenericPatient {
 
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
@@ -52,7 +53,6 @@ public class Patient extends GenericPatient {
 
 //    @Formula("(select (TIMESTAMPDIFF(YEAR,date_of_birth,CURDATE())) as age from patient p where p.id = id)")
 //    private int currentAge = 0;
-
     @Transient
     private String name;
     @Formula("(Select c.id From cat_detail c where c.patient = id)")
@@ -226,9 +226,8 @@ public class Patient extends GenericPatient {
         return null;
     }
 
-    public String toString()
-    {
-        return "ID :"+getId()+"\nFirstname : "+getFirstName()+"\nLastname : "+getLastName()+"\nFacility : "+getPrimaryClinic()+"\nDistrict : "+getPrimaryClinic().getDistrict().getName()+"\nProvince : "+getPrimaryClinic().getDistrict().getProvince().getName();
+    public String toString() {
+        return "ID :" + getId() + "\nFirstname : " + getFirstName() + "\nLastname : " + getLastName() + "\nFacility : " + getPrimaryClinic() + "\nDistrict : " + getPrimaryClinic().getDistrict().getName() + "\nProvince : " + getPrimaryClinic().getDistrict().getProvince().getName();
     }
-    
+
 }
