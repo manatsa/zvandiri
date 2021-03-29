@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="zvandiri-mobile archive">
-    <output-path>$PROJECT_DIR$/classes/artifacts/zvandiri_mobile_archive</output-path>
-    <root id="archive" name="zvandiri-mobile archive.war">
-      <element id="artifact" artifact-name="zvandiri-mobile" />
-    </root>
-  </artifact>
-</component>

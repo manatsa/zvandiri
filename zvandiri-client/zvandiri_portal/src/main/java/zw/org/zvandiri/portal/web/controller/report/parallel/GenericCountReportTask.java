@@ -17,7 +17,7 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 public class GenericCountReportTask extends RecursiveTask<List> {
 
     private GenericReportService reportService;
-    private static final int SEQUENTIAL_THRESHOLD = 500;
+    private static final int SEQUENTIAL_THRESHOLD = 2500;
     private SearchDTO searchData;
     private List<Integer> arrCount;
 
