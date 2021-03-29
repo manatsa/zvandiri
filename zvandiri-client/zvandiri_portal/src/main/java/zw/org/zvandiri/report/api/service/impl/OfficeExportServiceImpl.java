@@ -36,6 +36,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
+import org.hibernate.Hibernate;
 import zw.org.zvandiri.business.service.ArvHistService;
 import zw.org.zvandiri.business.service.ChronicInfectionItemService;
 import zw.org.zvandiri.business.service.DependentService;
@@ -169,12 +170,12 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         dto2.setPrimaryClinic(dto.getPrimaryClinic());
 
         //List<Patient> patients = detailedPatientReportService.get(dto2.getInstance(dto2));
-        //dto2.setFirstResult(0);
-        //dto2.setPageSize(detailedPatientReportService.getCount(dto2).intValue());
-        //List<String> ids = detailedPatientReportService.getIds(dto2);
+        dto2.setFirstResult(0);
+        dto2.setPageSize(detailedPatientReportService.getCount(dto2).intValue());
+        List<String> ids = detailedPatientReportService.getIds(dto2);
         ForkJoinPool pool = ForkJoinPool.commonPool();
-        //List<Patient> patients = pool.invoke(new PatientDatabaseExportTask(ids, detailedPatientReportService));
-        List<Patient> patients = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(dto2)), detailedPatientReportService, dto2));
+        List<Patient> patients = pool.invoke(new PatientDatabaseExportTask(ids, detailedPatientReportService));
+        //List<Patient> patients = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(dto2)), detailedPatientReportService, dto2));
         
         final long end = System.currentTimeMillis();
         final long time = end - start;
@@ -201,9 +202,8 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         System.err.println("C End::" + c_final);
         for (Patient patient : patients) {
             int count = 0;
-
+            //patient.getContacts().size();
             contacts.addAll(patient.getContacts());
-            referrals.addAll(patient.getReferrals());
             dependents.addAll(patient.getDependents());
             chronicInfectionItems.addAll(patient.getChronicInfectionItems());
             hivConInfectionItems.addAll(patient.getHivConInfectionItems());
@@ -214,9 +214,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             investigationTests.addAll(patient.getInvestigationTests());
             arvHists.addAll(patient.getArvHists());
             tbIpts.addAll(patient.getTbIpts());
-            List<Mortality> result = pool.invoke(new MortalityTask(DateUtil.generateArray(mortalityService.count(dto)), mortalityService, dto));
-            mortalitys.addAll(result);
+            mortalitys.addAll(patient.getMortalitys());
             mentalHealthScreenings.addAll(patient.getMentalHealthScreenings());
+            referrals.addAll(patient.getReferrals());
             header = patientDetails.createRow(XSSFRowNum++);
             XSSFCell id = header.createCell(count);
             id.setCellValue(patient.getPatientNumber());

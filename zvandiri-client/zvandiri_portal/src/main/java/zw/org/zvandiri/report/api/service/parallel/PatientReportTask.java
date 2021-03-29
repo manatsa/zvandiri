@@ -8,28 +8,9 @@ package zw.org.zvandiri.report.api.service.parallel;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.RecursiveTask;
-import zw.org.zvandiri.business.domain.InvestigationTest;
-import zw.org.zvandiri.business.domain.ObstercHist;
 import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.domain.SocialHist;
-import zw.org.zvandiri.business.domain.SubstanceItem;
-import zw.org.zvandiri.business.domain.TbIpt;
-import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.repo.ContactRepo;
-import zw.org.zvandiri.business.service.ArvHistService;
-import zw.org.zvandiri.business.service.ChronicInfectionItemService;
-import zw.org.zvandiri.business.service.DependentService;
-import zw.org.zvandiri.business.service.HivConInfectionItemService;
-import zw.org.zvandiri.business.service.InvestigationTestService;
-import zw.org.zvandiri.business.service.MentalHealthItemService;
-import zw.org.zvandiri.business.service.MentalHealthScreeningService;
-import zw.org.zvandiri.business.service.ObstercHistService;
-import zw.org.zvandiri.business.service.ReferralService;
-import zw.org.zvandiri.business.service.SocialHistService;
-import zw.org.zvandiri.business.service.SubstanceItemService;
-import zw.org.zvandiri.business.service.TbIptService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
@@ -66,7 +47,6 @@ public class PatientReportTask extends RecursiveTask<List<Patient>> {
     }
 
     private List<Patient> process() {
-        System.err.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         List<Patient> list = new ArrayList<>();
         for (Patient item : data) {
             if (dto.getStartDate() != null && dto.getEndDate() != null) {

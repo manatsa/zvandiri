@@ -56,7 +56,7 @@ public class GenericPatient extends BaseEntity {
     private Gender gender;
     @Enumerated
     private YesNo consentToMHealth;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Period period;
     private String address;
     private String address1;
@@ -151,7 +151,7 @@ public class GenericPatient extends BaseEntity {
     private Set<Contact> contacts = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<EidTest> eidTests = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private Set<Referral> referrals = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<InvestigationTest> investigationTests = new HashSet<>();

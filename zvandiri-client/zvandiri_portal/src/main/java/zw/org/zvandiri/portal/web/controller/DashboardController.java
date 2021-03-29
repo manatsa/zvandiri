@@ -59,13 +59,13 @@ public class DashboardController extends BaseController {
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String getIndex(ModelMap model) {
         SearchDTO dto = getUserLevelObjectState(new SearchDTO());
-        /*model.addAttribute("pageTitle", APP_PREFIX + "HOME");
+        model.addAttribute("pageTitle", APP_PREFIX + "HOME");
         model.addAttribute("patientStat", basicNameNumberReportService.getHomeStats(dto.getInstance(dto)));
         model.addAttribute("notifications", referralReportAPIService.getNotifications(dto.getInstance(dto)));
         model.addAttribute("contactLevelTrend", "/contact-trend-by-care-level/trend" + dto.getQueryString(dto.getInstance(dto)));
         model.addAttribute("patientAgeGroupDistribution", "/patient-age-group-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         model.addAttribute("contactLevelOfCareDistribution", "/contact-distribution-past-six-months/bar-graph" + dto.getQueryString(dto.getInstance(dto)));
-        model.addAttribute("patientStatusDistribution", "/patient-status-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));*/
+        model.addAttribute("patientStatusDistribution", "/patient-status-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         return "index";
     }
 

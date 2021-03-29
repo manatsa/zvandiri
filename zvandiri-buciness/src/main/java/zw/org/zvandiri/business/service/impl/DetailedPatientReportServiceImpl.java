@@ -16,15 +16,18 @@
 package zw.org.zvandiri.business.service.impl;
 
 import java.util.List;
+import javax.annotation.Resource;
 import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import org.hibernate.jpa.QueryHints;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
+import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.PatientInnerJoin;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -39,6 +42,8 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
 
     @PersistenceContext
     private EntityManager entityManager;
+    @Resource
+    private PatientService patientService;
 
     @Override
     public List<Patient> get(SearchDTO dto, Integer firstResult) {
@@ -439,10 +444,58 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
     public Integer getNumResults(SearchDTO dto) {
         return get(dto).size();
     }
+    
+    /*@Override
+    public List<Patient> get(SearchDTO dto) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Patient>  cq = cb.createQuery(Patient.class);
+        Root<Patient> root = cq.distinct(true).from(Patient.class);
+        root.fetch("referrals", JoinType.LEFT);
+        List<Predicate> predicates = new ArrayList<>();
+        if (dto.getSearch(dto)) {
+            if (dto.getProvince() != null) {
+                predicates.add(cb.equal(root.get("primaryClinic").get("district").get("province"), dto.getProvince()));
+            }
+            if (dto.getDistrict() != null) {
+                predicates.add(cb.equal(root.get("primaryClinic").get("district"), dto.getDistrict()));
+            }
+            if (dto.getPrimaryClinic() != null) {
+                predicates.add(cb.equal(root.get("primaryClinic"), dto.getPrimaryClinic()));
+            }
+            if (dto.getSupportGroup() != null) {
+                predicates.add(cb.equal(root.get("supportGroup"), dto.getSupportGroup()));
+            }
+            if (dto.getGender() != null) {
+                predicates.add(cb.equal(root.get("gender"), dto.getGender()));
+            }
+            if (dto.getAgeGroup() != null) {
+                predicates.add(cb.between(root.<Date>get("dateOfBirth"), DateUtil.getDateFromAge(dto.getAgeGroup().getEnd()), DateUtil.getDateFromAge(dto.getAgeGroup().getEnd())));
+            }
+            if (dto.getPeriod() != null) {
+                predicates.add(cb.equal(root.get("period"), dto.getPeriod()));
+            }
+            if (dto.getStatus() != null) {
+                predicates.add(cb.equal(root.get("status"), dto.getStatus()));
+            }
+            if (dto.getHei() != null) {
+                predicates.add(cb.equal(root.get("hei"), dto.getHei()));
+            }
+            if (dto.getStartDate() != null && dto.getEndDate() != null) {
+                predicates.add(cb.between(root.<Date>get("dateOfBirth"), dto.getStartDate(), dto.getEndDate()));
+            }
+        }
+        cq.where(predicates.toArray(new Predicate[0]));
+        cq.orderBy(cb.asc(root.get("lastName")), cb.asc(root.get("firstName")), cb.asc(root.get("middleName")), cb.desc(root.get("dateModified")), cb.desc(root.get("dateCreated")));
+        TypedQuery<Patient> query = entityManager.createQuery(cq);
+        query.setFirstResult(dto.getFirstResult());
+        query.setMaxResults(dto.getPageSize());
+        return query.getResultList();
+    }*/
 
     @Override
+    @Transactional
     public List<Patient> get(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p "/* + PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH*/);
+        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p " + PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH);
         int position = 0;
         String startDate = "dateJoined";
         if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
@@ -546,7 +599,6 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
             }
         }
         builder.append(" order by p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
-        EntityGraph<Patient> entityGraph = createEntityGraph();
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
@@ -583,11 +635,11 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
             query.setParameter("statuses", dto.getStatuses());
         }
-        query.setHint("javax.persistence.loadgraph", entityGraph);
         query.setFirstResult(dto.getFirstResult());
         query.setMaxResults(dto.getPageSize());
         return query.getResultList();
     }
+    
     
     @Override
     public List<String> getIds(SearchDTO dto) {
@@ -738,12 +790,18 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
 
     @Override
     public List<Patient> get(List<String> ids) {
+        final long start = System.currentTimeMillis();
         System.err.println("Size::" + ids.size());
-        System.err.println("ID" + ids);
         String builder = "Select Distinct p from Patient p " + PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH + " where p.id in (:ids)";
         TypedQuery<Patient> query = entityManager.createQuery(builder, Patient.class);
         query.setParameter("ids", ids);
-        return query.getResultList();
+        query.setHint(QueryHints.HINT_READONLY, true);
+        List<Patient> list = query.getResultList();
+        final long end = System.currentTimeMillis();
+        final long time = end -start;
+        System.err.println("Taken::" + time);
+        System.err.println("Records::" + list.size());
+        return list;
     }
     
     private EntityGraph<Patient> createEntityGraph() {
