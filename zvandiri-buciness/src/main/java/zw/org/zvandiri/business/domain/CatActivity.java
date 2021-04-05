@@ -6,14 +6,20 @@
 package zw.org.zvandiri.business.domain;
 
 import java.util.Date;
+
 import javax.persistence.Column;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import zw.org.zvandiri.business.domain.util.CatsMentorship;
 import zw.org.zvandiri.business.domain.util.PhoneStatus;
 import zw.org.zvandiri.business.domain.util.YesNo;
@@ -22,7 +28,12 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  *
  * @author jmuzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity 
+@Table(indexes = {
+		@Index(name = "cat_activity_cat_detail", columnList = "cat_detail"),
+		@Index(name = "cat_activity_created_by", columnList = "created_by")
+})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CatActivity extends BaseEntity {
     
     @ManyToOne
