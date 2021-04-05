@@ -3,17 +3,11 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			${pageTitle}
-			<a href="${page}${excelExport}"> <img
-				src="<c:url value="/resources/images/excel.jpeg"/>" />
-			</a>
 		</div>
 		<div class="panel-body">
 			<a href="${page}/report/index.htm">&DoubleLeftArrow; Back To
 				Reports DashBoard Home</a><br />
 			<%@include file="../template/contactSearchFragment.jspf"%>
-			<div style="text-align: right">
-				Export/ View As
-			</div>
 			<div class="row">
 				<div class="col-lg-12">
 					<table id="tableList" class="display" cellspacing="0">

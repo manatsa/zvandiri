@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Resource;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Enumerated;
@@ -39,7 +38,6 @@ import zw.org.zvandiri.business.domain.util.HIVDisclosureLocation;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.domain.util.TransmissionMode;
 import zw.org.zvandiri.business.domain.util.YesNo;
-import zw.org.zvandiri.business.repo.ContactRepo;
 import zw.org.zvandiri.business.util.StringUtils;
 
 /**
@@ -172,10 +170,6 @@ public class GenericPatient extends BaseEntity {
     private String oINumber;
     @Column(unique = true)
     private String patientNumber;
-
-    @Transient
-    @Resource
-    ContactRepo contactRepo;
 
     public String getFirstName() {
         return StringUtils.toCamelCase2(firstName);

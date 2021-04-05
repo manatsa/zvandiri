@@ -20,8 +20,11 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Index;
+
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import org.hibernate.annotations.Formula;
 import zw.org.zvandiri.business.domain.util.DisabilitySeverity;
@@ -34,6 +37,13 @@ import zw.org.zvandiri.business.util.DateUtil;
  * @author Judge Muzinda
  */
 @Entity
+@Table(indexes = {
+		@Index(name = "patient_first_name_last_name", columnList = "firstName, lastName"),
+		@Index(name = "patient_status", columnList = "status"),
+		@Index(name = "patient_primary_clinic", columnList = "primary_clinic"),
+		@Index(name = "patient_support_group", columnList = "support_group"),
+		@Index(name = "patient_created_by", columnList = "created_by")
+		})
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Patient extends GenericPatient {
 

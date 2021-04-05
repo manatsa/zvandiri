@@ -17,7 +17,6 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 public class TbIptTask extends RecursiveTask<List>{
     
     private final TbIptService reportService;
-    private static final int SEQUENTIAL_THRESHOLD = 500;
     private final SearchDTO searchData;
     private final List<Integer> arrCount;
 
@@ -29,7 +28,7 @@ public class TbIptTask extends RecursiveTask<List>{
 
     @Override
     protected List compute() {
-        if (arrCount.size() <= SEQUENTIAL_THRESHOLD) {
+        if (arrCount.size() <= ReportGenConstants.SEQUENTIAL_THRESHOLD) {
             return process();
         } else {
             int mid = arrCount.size() / 2;

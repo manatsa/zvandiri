@@ -39,7 +39,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
-import zw.org.zvandiri.portal.web.controller.report.parallel.UncontactedClientTask;
+import zw.org.zvandiri.portal.web.controller.report.parallel.UnContactedClientTask;
 import zw.org.zvandiri.portal.web.controller.report.parallel.UniqueContactTask;
 
 /**
