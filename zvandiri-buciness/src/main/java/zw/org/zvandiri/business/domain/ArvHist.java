@@ -16,8 +16,12 @@
 package zw.org.zvandiri.business.domain;
 
 import java.util.Date;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -30,7 +34,15 @@ import org.springframework.format.annotation.DateTimeFormat;
  *
  * @author Judge Muzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity 
+@Table(indexes = {
+		@Index(name = "arv_hist_patient", columnList = "patient"),
+		@Index(name = "arv_hist_arv_medicine", columnList = "arv_medicine"),
+		@Index(name = "arv_hist_arv_medicine2", columnList = "arv_medicine2"),
+		@Index(name = "arv_hist_arv_medicine3", columnList = "arv_medicine3"),
+		@Index(name = "arv_hist_start_date", columnList = "startDate")
+})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ArvHist extends BaseEntity {
 
     @ManyToOne

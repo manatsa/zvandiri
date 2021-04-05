@@ -22,10 +22,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -37,6 +39,10 @@ import zw.org.zvandiri.business.domain.util.ReferralActionTaken;
  * @author Judge Muzinda
  */
 @Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Table(indexes = {
+		@Index(name = "referral_patient", columnList = "patient"),
+		@Index(name = "referral_referral_date", columnList = "referralDate")
+})
 public class Referral extends BaseEntity {
 
     @ManyToOne
