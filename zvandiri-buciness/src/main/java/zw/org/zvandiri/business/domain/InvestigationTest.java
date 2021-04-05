@@ -15,9 +15,13 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import zw.org.zvandiri.business.domain.util.TestType;
 
@@ -25,7 +29,12 @@ import zw.org.zvandiri.business.domain.util.TestType;
  *
  * @author Judge Muzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity 
+@Table(indexes = {
+		@Index(name = "investigation_test_patient", columnList = "patient"),
+		@Index(name = "investigation_test_dateTaken", columnList = "dateTaken"),
+})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class InvestigationTest extends TestResult {
 
     @Enumerated

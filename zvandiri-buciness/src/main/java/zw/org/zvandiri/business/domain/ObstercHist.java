@@ -15,10 +15,15 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import zw.org.zvandiri.business.domain.util.ArtStarted;
 import zw.org.zvandiri.business.domain.util.GestationalAge;
 import zw.org.zvandiri.business.domain.util.NumberOfANCVisit;
@@ -28,7 +33,11 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  *
  * @author Judge Muzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity 
+@Table(indexes = {
+		@Index(name = "obsterc_hist_patient", columnList = "patient")
+})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ObstercHist extends BaseEntity {
     
     @ManyToOne

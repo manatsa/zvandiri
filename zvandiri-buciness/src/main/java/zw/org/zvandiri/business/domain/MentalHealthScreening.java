@@ -7,20 +7,25 @@ package zw.org.zvandiri.business.domain;
 
 import java.util.Date;
 import java.util.Set;
+
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
-import javax.persistence.Entity; 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import zw.org.zvandiri.business.domain.util.Diagnosis;
 import zw.org.zvandiri.business.domain.util.IdentifiedRisk;
 import zw.org.zvandiri.business.domain.util.Intervention;
@@ -33,7 +38,11 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  *
  * @author tasu
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity 
+@Table(indexes = {
+		@Index(name = "mental_health_screening_patient", columnList = "patient")
+})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MentalHealthScreening extends BaseEntity {
 
     @ManyToOne

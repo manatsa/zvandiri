@@ -15,7 +15,9 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 
 /**
  *

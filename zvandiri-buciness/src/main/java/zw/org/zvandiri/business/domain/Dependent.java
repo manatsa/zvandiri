@@ -19,7 +19,9 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 import javax.persistence.Enumerated;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -33,6 +35,9 @@ import zw.org.zvandiri.business.domain.util.HIVStatus;
  * @author Judge Muzinda
  */
 @Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Table(indexes = {
+		@Index(name = "dependend_patient", columnList = "patient")
+})
 public class Dependent extends BaseEntity {
     
     private String firstName;

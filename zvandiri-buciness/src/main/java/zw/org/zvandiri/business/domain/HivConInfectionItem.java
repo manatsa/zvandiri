@@ -16,18 +16,29 @@
 package zw.org.zvandiri.business.domain;
 
 import java.util.Date;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+
+import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
  * @author Judge Muzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity 
+@Table(indexes = {
+		@Index(name = "hiv_co_infection_item_patient", columnList = "patient"),
+		@Index(name = "hiv_co_infection_item_hiv_co_infection", columnList = "hiv_co_infection"),
+		@Index(name = "hiv_co_infection_item_infection_date", columnList = "infectionDate")
+})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class HivConInfectionItem extends BaseEntity {
     
     @ManyToOne
