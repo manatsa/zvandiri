@@ -5,6 +5,8 @@
  */
 package zw.org.zvandiri.business.repo;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import zw.org.zvandiri.business.domain.Patient;
@@ -22,4 +24,7 @@ public interface TbIptRepo extends AbstractRepo<TbIpt, String> {
     
     @Query("Select count(s) from TbIpt s where s.patient=:patient and s.tbIdentificationOutcome=:tbIdentificationOutcome")
     public int existsByPatientAndTbIdentificationOutcome(@Param("patient") Patient patient, @Param("tbIdentificationOutcome") TbIdentificationOutcome tbIdentificationOutcome);
+    
+    @Query("from TbIpt s left join fetch s.patient left join fetch s.modifiedBy left join fetch s.createdBy where s.patient=:patient")
+    public List<TbIpt> findTopByPatientOrderByDateStartedIptDesc(@Param("patient") Patient patient);
 }

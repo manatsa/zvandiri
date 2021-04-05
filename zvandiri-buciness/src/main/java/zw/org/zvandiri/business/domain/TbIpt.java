@@ -10,7 +10,8 @@ import java.util.Set;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity; 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -181,5 +182,14 @@ public class TbIpt extends BaseEntity {
         }
         return r.toString();
     }
+
+	@Override
+	public String toString() {
+		return "TbIpt [patient=" + patient + ", screenedForTb=" + screenedForTb + ", dateScreened=" + dateScreened
+				+ ", tbSymptoms=" + tbSymptoms + ", identifiedWithTb=" + identifiedWithTb + ", tbIdentificationOutcome="
+				+ tbIdentificationOutcome + ", dateStartedTreatment=" + dateStartedTreatment + ", referralForSputum="
+				+ referralForSputum + ", tbTreatmentOutcome=" + tbTreatmentOutcome + ", referredForIpt="
+				+ referredForIpt + ", onIpt=" + onIpt + ", dateStartedIpt=" + dateStartedIpt + "]";
+	}
     
 }

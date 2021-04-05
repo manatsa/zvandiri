@@ -21,8 +21,12 @@ package zw.org.zvandiri.business.domain.util;
  */
 public enum AgeGroup {
     
-    UNDER_ONE(0, 1, "<1"), ONE_TO_NINE(1, 9, "1-9"), TEN_TO_FOURTEEN(10, 14, "10-14"),
-    FIFTEEN_TO_NINETEEN(15, 19, "15-19"), TWENTY_TO_TWENTY_FOUR(20, 24, "20-24");
+    UNDER_ONE(0, 1, "<1"), ONE_TO_FOUR(1, 4, "1-4"),FIVE_TO_NINE(5, 9, "5-9"), TEN_TO_FOURTEEN(10, 14, "10-14"),
+    FIFTEEN_TO_NINETEEN(15, 19, "15-19"), TWENTY_TO_TWENTY_FOUR(20, 24, "20-24"), ABOVE_TWENTY_FIVE(25, 125, ">25");
+	
+	/*
+	 * <1, 1-4, 5-9, 10-14, 15-19, 20-24, > 25
+	 */
     
     private final Integer start;
     private final Integer end;
@@ -42,34 +46,32 @@ public enum AgeGroup {
         return end;
     }
     
-    public static AgeGroup get(Integer start){
-        switch(start){
-            case 0:
-                return UNDER_ONE;
-            case 5:
-                return ONE_TO_NINE;
-            case 10:
-                return TEN_TO_FOURTEEN;
-            case 15:
-                return FIFTEEN_TO_NINETEEN;
-            case 20:
-                return TWENTY_TO_TWENTY_FOUR;
-            default :
-                throw new IllegalArgumentException("Illegal parameter passed to method :"+start);
-        }
+    public static AgeGroup get(Integer start) {
+    	for (AgeGroup item : values()) {
+    		if (item.getStart().equals(start)) {
+    			return item;
+    		}
+    	}
+    	throw new IllegalArgumentException("Illegal parameter passed to method :"+start);
     }
+    
+    
     
     public static Integer getAgeRange(int age){
         if(age >= 0 && age < 1){
             return 0;
-        } else if(age >= 1 && age < 10){
+        } else if(age >= 1 && age < 4){
+            return 1;
+        }else if(age >= 5 && age < 9){
             return 5;
         }else if(age >= 10 && age < 15){
             return 10;
         } else if(age >= 15 && age < 20){
             return 15;
+        }else if(age >= 20 && age < 24){
+            return 20;
         }
-        return 20;
+        return 25;
     }
     
     public String getName(){
