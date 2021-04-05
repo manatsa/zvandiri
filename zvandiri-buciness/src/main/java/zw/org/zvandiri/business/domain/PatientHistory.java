@@ -15,14 +15,26 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  *
  * @author Judge Muzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity 
+@Table(indexes = {
+		@Index(name = "patient_history_patient", columnList = "patient"),
+		@Index(name = "patient_history_status", columnList = "status"),
+		@Index(name = "patient_history_primary_clinic", columnList = "primary_clinic"),
+		@Index(name = "patient_history_support_group", columnList = "support_group"),
+		@Index(name = "patient_history_created_by", columnList = "created_by")
+})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PatientHistory extends GenericPatient {
     
     @ManyToOne

@@ -7,18 +7,23 @@ package zw.org.zvandiri.business.domain;
 
 import java.util.Date;
 import java.util.Set;
+
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
-import javax.persistence.Entity; 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import zw.org.zvandiri.business.domain.util.TbIdentificationOutcome;
 import zw.org.zvandiri.business.domain.util.TbSymptom;
 import zw.org.zvandiri.business.domain.util.TbTreatmentOutcome;
@@ -29,6 +34,10 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  * @author tasu
  */
 @Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Table(indexes = {
+		@Index(name = "tb_ipt_patient", columnList = "patient"),
+		@Index(name = "tb_ipt_created_by", columnList = "created_by")
+})
 public class TbIpt extends BaseEntity {
 
     @ManyToOne

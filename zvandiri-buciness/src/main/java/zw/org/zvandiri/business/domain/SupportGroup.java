@@ -15,20 +15,30 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  *
  * @author Judge Muzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity 
+@Table(indexes = {
+		@Index(name = "support_group_district", columnList = "district"),
+		@Index(name = "support_group_created_by", columnList = "created_by")
+})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SupportGroup extends BaseName {
     
     @ManyToOne

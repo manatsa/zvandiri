@@ -9,7 +9,9 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -25,7 +27,12 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  *
  * @author tasu
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity 
+@Table(indexes = {
+		@Index(name = "tb_screening_patient", columnList = "patient"),
+		@Index(name = "tb_screening_created_by", columnList = "created_by")
+})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TbScreening extends BaseEntity {
 
     @Enumerated

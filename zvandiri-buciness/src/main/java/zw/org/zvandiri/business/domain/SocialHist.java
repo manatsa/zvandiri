@@ -16,12 +16,18 @@
 package zw.org.zvandiri.business.domain;
 
 import java.util.Set;
+
 import javax.persistence.ElementCollection;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import zw.org.zvandiri.business.domain.util.AbuseOutcome;
 import zw.org.zvandiri.business.domain.util.AbuseType;
 import zw.org.zvandiri.business.domain.util.YesNo;
@@ -30,7 +36,12 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  *
  * @author Judge Muzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
+@Table(indexes = {
+		@Index(name = "social_hist_patient", columnList = "patient"),
+		@Index(name = "social_hist_created_by", columnList = "created_by")
+})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SocialHist extends BaseEntity {
 
     @ManyToOne

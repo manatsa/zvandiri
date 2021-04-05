@@ -16,14 +16,20 @@
 package zw.org.zvandiri.business.domain;
 
 import java.util.Date;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import zw.org.zvandiri.business.domain.util.DrugIntervention;
 import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.util.DateUtil;
@@ -32,7 +38,13 @@ import zw.org.zvandiri.business.util.DateUtil;
  *
  * @author Judge Muzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity 
+@Table(indexes = {
+		@Index(name = "substance_item_patient", columnList = "patient"),
+		@Index(name = "substance_item_substance", columnList = "substance"),
+		@Index(name = "substance_item_created_by", columnList = "created_by")
+})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SubstanceItem extends BaseEntity {
     
     @ManyToOne
