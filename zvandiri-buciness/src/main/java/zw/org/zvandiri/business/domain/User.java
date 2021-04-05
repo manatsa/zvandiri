@@ -44,9 +44,9 @@ import zw.org.zvandiri.business.domain.util.UserType;
  */
 @Entity @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "user", indexes = {
-		@Index(columnList = "user_user_name", name = "userName"),
-		@Index(columnList = "user_user_province", name = "province"),
-		@Index(columnList = "user_user_district", name = "district")
+		@Index(name = "user_user_name", columnList = "userName"),
+		@Index(name = "user_user_province", columnList = "province"),
+		@Index(name = "user_user_district", columnList = "district")
 })
 
 public class User extends BaseEntity {
