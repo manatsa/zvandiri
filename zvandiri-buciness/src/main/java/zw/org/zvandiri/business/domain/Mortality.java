@@ -8,12 +8,17 @@ package zw.org.zvandiri.business.domain;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import zw.org.zvandiri.business.domain.util.CauseOfDeath;
 import zw.org.zvandiri.business.domain.util.YesNo;
 
@@ -21,7 +26,12 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  *
  * @author tasu
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity 
+@Table(indexes = {
+		@Index(name = "mortality_patient", columnList = "patient"), 
+		@Index(name = "mortality_date_of_death", columnList = "dateOfDeath")
+})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Mortality extends BaseEntity {
 
     @Temporal(TemporalType.DATE)

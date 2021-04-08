@@ -1,17 +1,21 @@
 package zw.org.zvandiri.business.domain;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  *
  * @author Judge Muzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Province extends BaseName {
 
     @JsonIgnore

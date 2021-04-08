@@ -15,15 +15,23 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  *
  * @author Judge Muzinda
  */
 @Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Table(indexes = {
+		@Index(name = "family_patient", columnList = "patient"),
+		@Index(name = "family_orphan_status", columnList = "orphan_status")
+})
 public class Family extends BaseEntity {
     
     @ManyToOne

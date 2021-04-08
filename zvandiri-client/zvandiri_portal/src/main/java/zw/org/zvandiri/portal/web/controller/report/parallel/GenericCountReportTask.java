@@ -7,6 +7,7 @@ package zw.org.zvandiri.portal.web.controller.report.parallel;
 
 import java.util.List;
 import java.util.concurrent.RecursiveTask;
+
 import zw.org.zvandiri.business.service.GenericReportService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
@@ -17,7 +18,6 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 public class GenericCountReportTask extends RecursiveTask<List> {
 
     private GenericReportService reportService;
-    private static final int SEQUENTIAL_THRESHOLD = 500;
     private SearchDTO searchData;
     private List<Integer> arrCount;
 
@@ -29,7 +29,7 @@ public class GenericCountReportTask extends RecursiveTask<List> {
 
     @Override
     protected List compute() {
-        if (arrCount.size() <= SEQUENTIAL_THRESHOLD) {
+        if (arrCount.size() <= ReportGenConstants.SEQUENTIAL_THRESHOLD) {
             return process();
         } else {
             int mid = arrCount.size() / 2;

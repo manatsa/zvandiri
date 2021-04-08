@@ -15,14 +15,22 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  *
  * @author jmuzinda
  */
 @Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Table(indexes = {
+		@Index(name = "eid_test_patient", columnList = "patient"),
+		@Index(name = "eid_test_dateTaken", columnList = "dateTaken"),
+})
 public class EidTest extends TestResult {
 
     private Boolean status;

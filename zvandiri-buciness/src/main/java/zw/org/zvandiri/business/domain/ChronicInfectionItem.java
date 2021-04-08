@@ -16,9 +16,12 @@
 package zw.org.zvandiri.business.domain;
 
 import java.util.Date;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity; 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import javax.persistence.Enumerated;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -30,6 +33,11 @@ import zw.org.zvandiri.business.domain.util.CurrentStatus;
  * @author Judge Muzinda
  */
 @Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Table(indexes = {
+		@Index(name = "chronic_infection_item_patient", columnList = "patient"),
+		@Index(name = "chronic_infection_item_chronic_infection", columnList = "chronic_infection"),
+		@Index(name = "chronic_infection_item_infection_date", columnList = "infectionDate")
+})
 public class ChronicInfectionItem extends BaseEntity {
     
     @ManyToOne

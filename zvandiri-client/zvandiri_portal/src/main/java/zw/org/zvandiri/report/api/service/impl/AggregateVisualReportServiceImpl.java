@@ -17,12 +17,12 @@ package zw.org.zvandiri.report.api.service.impl;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.Resource;
-import org.codehaus.jackson.map.ObjectMapper;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
@@ -48,6 +48,7 @@ import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.ui.RectangleInsets;
 import org.jfree.ui.TextAnchor;
 import org.springframework.stereotype.Repository;
+
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.report.api.BasicReportModel;
 import zw.org.zvandiri.report.api.BasicTrendModel;

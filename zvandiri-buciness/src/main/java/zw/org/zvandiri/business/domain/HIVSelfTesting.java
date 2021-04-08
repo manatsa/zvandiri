@@ -5,9 +5,14 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import zw.org.zvandiri.business.domain.util.Result;
 import zw.org.zvandiri.business.domain.util.YesNo;
 
@@ -16,6 +21,9 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  * @author tasu
  */
 @Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Table(indexes = {
+		@Index(name = "hiv_self_testing_person", columnList = "person")
+})
 public class HIVSelfTesting extends BaseEntity{
     
     @Enumerated

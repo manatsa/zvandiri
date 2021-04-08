@@ -15,8 +15,11 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import zw.org.zvandiri.business.domain.util.ReferalType;
 
 /**

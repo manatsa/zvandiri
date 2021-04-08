@@ -16,15 +16,18 @@
 package zw.org.zvandiri.business.service.impl;
 
 import java.util.List;
+
 import javax.annotation.Resource;
 import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
 import org.hibernate.jpa.QueryHints;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
 import zw.org.zvandiri.business.service.PatientService;
@@ -444,53 +447,6 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
     public Integer getNumResults(SearchDTO dto) {
         return get(dto).size();
     }
-    
-    /*@Override
-    public List<Patient> get(SearchDTO dto) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Patient>  cq = cb.createQuery(Patient.class);
-        Root<Patient> root = cq.distinct(true).from(Patient.class);
-        root.fetch("referrals", JoinType.LEFT);
-        List<Predicate> predicates = new ArrayList<>();
-        if (dto.getSearch(dto)) {
-            if (dto.getProvince() != null) {
-                predicates.add(cb.equal(root.get("primaryClinic").get("district").get("province"), dto.getProvince()));
-            }
-            if (dto.getDistrict() != null) {
-                predicates.add(cb.equal(root.get("primaryClinic").get("district"), dto.getDistrict()));
-            }
-            if (dto.getPrimaryClinic() != null) {
-                predicates.add(cb.equal(root.get("primaryClinic"), dto.getPrimaryClinic()));
-            }
-            if (dto.getSupportGroup() != null) {
-                predicates.add(cb.equal(root.get("supportGroup"), dto.getSupportGroup()));
-            }
-            if (dto.getGender() != null) {
-                predicates.add(cb.equal(root.get("gender"), dto.getGender()));
-            }
-            if (dto.getAgeGroup() != null) {
-                predicates.add(cb.between(root.<Date>get("dateOfBirth"), DateUtil.getDateFromAge(dto.getAgeGroup().getEnd()), DateUtil.getDateFromAge(dto.getAgeGroup().getEnd())));
-            }
-            if (dto.getPeriod() != null) {
-                predicates.add(cb.equal(root.get("period"), dto.getPeriod()));
-            }
-            if (dto.getStatus() != null) {
-                predicates.add(cb.equal(root.get("status"), dto.getStatus()));
-            }
-            if (dto.getHei() != null) {
-                predicates.add(cb.equal(root.get("hei"), dto.getHei()));
-            }
-            if (dto.getStartDate() != null && dto.getEndDate() != null) {
-                predicates.add(cb.between(root.<Date>get("dateOfBirth"), dto.getStartDate(), dto.getEndDate()));
-            }
-        }
-        cq.where(predicates.toArray(new Predicate[0]));
-        cq.orderBy(cb.asc(root.get("lastName")), cb.asc(root.get("firstName")), cb.asc(root.get("middleName")), cb.desc(root.get("dateModified")), cb.desc(root.get("dateCreated")));
-        TypedQuery<Patient> query = entityManager.createQuery(cq);
-        query.setFirstResult(dto.getFirstResult());
-        query.setMaxResults(dto.getPageSize());
-        return query.getResultList();
-    }*/
 
     @Override
     @Transactional
@@ -792,6 +748,9 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
     public List<Patient> get(List<String> ids) {
         final long start = System.currentTimeMillis();
         System.err.println("Size::" + ids.size());
+        if (ids == null || ids.isEmpty()) {
+        	return null;
+        }
         String builder = "Select Distinct p from Patient p " + PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH + " where p.id in (:ids)";
         TypedQuery<Patient> query = entityManager.createQuery(builder, Patient.class);
         query.setParameter("ids", ids);

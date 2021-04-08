@@ -169,13 +169,11 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         dto2.setDistrict(dto.getDistrict());
         dto2.setPrimaryClinic(dto.getPrimaryClinic());
 
-        //List<Patient> patients = detailedPatientReportService.get(dto2.getInstance(dto2));
         dto2.setFirstResult(0);
         dto2.setPageSize(detailedPatientReportService.getCount(dto2).intValue());
         List<String> ids = detailedPatientReportService.getIds(dto2);
         ForkJoinPool pool = ForkJoinPool.commonPool();
         List<Patient> patients = pool.invoke(new PatientDatabaseExportTask(ids, detailedPatientReportService));
-        //List<Patient> patients = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(dto2)), detailedPatientReportService, dto2));
         
         final long end = System.currentTimeMillis();
         final long time = end - start;

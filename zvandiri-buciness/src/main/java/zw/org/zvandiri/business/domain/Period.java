@@ -16,17 +16,23 @@
 
 package zw.org.zvandiri.business.domain;
 
-import java.util.Date;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
-import javax.persistence.Transient;
-import zw.org.zvandiri.business.domain.util.PeriodType;
 import static zw.org.zvandiri.business.util.DateUtil.getYearMonthName;
+
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import zw.org.zvandiri.business.domain.util.PeriodType;
 
 /**
  *
  * @author Judge Muzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Period extends GenericPeriod {
     
     @Transient

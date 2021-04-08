@@ -18,10 +18,14 @@ package zw.org.zvandiri.business.domain;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+
+import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import zw.org.zvandiri.business.util.StringUtils;
 
 /**

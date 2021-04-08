@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
-import zw.org.zvandiri.portal.web.controller.report.parallel.UncontactedClientTask;
+import zw.org.zvandiri.portal.web.controller.report.parallel.UnContactedClientTask;
 
 @Controller
 @RequestMapping("/report/uncontacted")
@@ -66,7 +66,7 @@ public class UncontactedReportController extends BaseController {
     public String getUncontactedClients(HttpServletResponse response, ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
         item = getUserLevelObjectState(item);
         ForkJoinPool pool = ForkJoinPool.commonPool();
-        patients = pool.invoke(new UncontactedClientTask(DateUtil.generateArray(patientReportService.countUncontacted(item)), patientReportService, item));
+        patients = pool.invoke(new UnContactedClientTask(DateUtil.generateArray(patientReportService.countUncontacted(item)), patientReportService, item));
         return setUpModel(model, item, true);
     }
 

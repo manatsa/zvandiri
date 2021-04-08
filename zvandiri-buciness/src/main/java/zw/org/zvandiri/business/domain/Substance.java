@@ -15,13 +15,16 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
 
 /**
  *
  * @author Judge Muzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Substance extends BaseName {
 
     public Substance() {

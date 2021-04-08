@@ -23,10 +23,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -48,7 +50,15 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  * @author Judge Muzinda
  */
 @Entity @JsonIgnoreProperties(ignoreUnknown = true)
-
+@Table(indexes = {
+		@Index(name = "contact_patient", columnList = "patient"),
+		@Index(name = "contact_internal_referral", columnList = "internal_referral"),
+		@Index(name = "contact_external_referral", columnList = "external_referral"),
+		@Index(name = "contact_contact_date", columnList = "contactDate"),
+		@Index(name = "contact_location", columnList = "location"),
+		@Index(name = "contact_period", columnList = "period"),
+		@Index(name = "contact_position", columnList = "position")
+})
 public class Contact extends BaseEntity {
 
     @ManyToOne

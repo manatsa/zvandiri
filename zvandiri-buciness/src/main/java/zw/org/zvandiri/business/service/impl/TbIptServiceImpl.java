@@ -5,6 +5,7 @@
  */
 package zw.org.zvandiri.business.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
@@ -105,7 +106,11 @@ public class TbIptServiceImpl implements TbIptService {
 
     @Override
     public TbIpt getByPatient(Patient patient) {
-        return repo.findByPatient(patient);
+    	List<TbIpt> items = repo.findTopByPatientOrderByDateStartedIptDesc(patient);
+    	if (items == null || items.isEmpty()) {
+    		return null;
+    	}
+        return items.get(0);
     }
 
     @Override

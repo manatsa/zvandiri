@@ -6,13 +6,19 @@
 package zw.org.zvandiri.business.domain;
 
 import java.util.Date;
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import zw.org.zvandiri.business.domain.util.DisabilitySeverity;
 import zw.org.zvandiri.business.domain.util.YesNo;
 
@@ -20,7 +26,12 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  *
  * @author jmuzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity 
+@Table(indexes = {
+		@Index(name = "patient_disability_patient", columnList = "patient"),
+		@Index(name = "patient_disability_disability_category", columnList = "disability_category")
+})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PatientDisability extends BaseEntity {
     
     @ManyToOne
