@@ -17,8 +17,12 @@ package zw.org.zvandiri.report.api.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
+
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
+
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.util.AgeGroup;
 import zw.org.zvandiri.business.service.ContactReportService;
@@ -28,6 +32,7 @@ import zw.org.zvandiri.business.util.pivot.dto.BaseContactPivotDTO;
 import zw.org.zvandiri.business.util.pivot.dto.ContactDistrictPivotDTO;
 import zw.org.zvandiri.business.util.pivot.dto.ContactNationalPivotDTO;
 import zw.org.zvandiri.business.util.pivot.dto.ContactProvincePivotDTO;
+import zw.org.zvandiri.portal.web.controller.report.parallel.GenericCountReportTask;
 import zw.org.zvandiri.report.api.service.ContactPivotService;
 
 /**
@@ -47,7 +52,9 @@ public class ContactPivotServiceImpl implements ContactPivotService {
 
     private List<BaseContactPivotDTO> convertList(SearchDTO dto) {
         List<BaseContactPivotDTO> items = new ArrayList<>();
-        for (Contact c : contactReportService.get(dto)) {
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+        List<Contact> contacts = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(contactReportService.getCount(dto)), contactReportService, dto));
+        for (Contact c : contacts) {
             if (dto.getDistrict() != null) {
                 dto.setProvince(null);
                 items.add(new ContactDistrictPivotDTO(
