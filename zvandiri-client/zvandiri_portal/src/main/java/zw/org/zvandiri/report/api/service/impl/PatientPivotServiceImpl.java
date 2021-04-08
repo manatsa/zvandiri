@@ -17,12 +17,15 @@ package zw.org.zvandiri.report.api.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
+
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
+
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.AgeGroup;
 import zw.org.zvandiri.business.domain.util.TbIdentificationOutcome;
-import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
 import zw.org.zvandiri.business.service.TbIptService;
 import zw.org.zvandiri.business.util.DateUtil;
@@ -35,6 +38,7 @@ import zw.org.zvandiri.business.util.pivot.dto.PatientExitingProgramNationalPivo
 import zw.org.zvandiri.business.util.pivot.dto.PatientExitingProgramProvincePivotDTO;
 import zw.org.zvandiri.business.util.pivot.dto.PatientNationalPivotDTO;
 import zw.org.zvandiri.business.util.pivot.dto.PatientProvincePivotDTO;
+import zw.org.zvandiri.portal.web.controller.report.parallel.GenericCountReportTask;
 import zw.org.zvandiri.report.api.service.PatientPivotService;
 
 /**
@@ -62,7 +66,10 @@ public class PatientPivotServiceImpl implements PatientPivotService {
     private List<BasePatientPivotDTO> convertList(SearchDTO dto) {
         
         List<BasePatientPivotDTO> items = new ArrayList<>();
-        for (Patient p : detailedPatientReportService.get(dto)) {
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+        List<Patient> patients = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(dto)), detailedPatientReportService, dto));
+        
+        for (Patient p : patients) {
             String isCats = (p.getCatId() != null && !p.getCatId().isEmpty()) ? "Yes" : "No";
             boolean onTbTreatment = tbIptService.existsOnTbTreatment(p, TbIdentificationOutcome.ON_TB_TREATMENT);
             boolean hasChildren =  p.getMotherOfHei() != null;
