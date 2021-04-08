@@ -55,7 +55,7 @@ public class ReferralValidator implements Validator {
             errors.rejectValue("dateAttended", "referraldate.after.dateattended");
         }
         // check that @least one section is checked
-        boolean serviceReq = false;
+        /*boolean serviceReq = false;
         if ((item.getHivStiServicesReq() != null && !item.getHivStiServicesReq().isEmpty())){
             serviceReq = true;
         }
@@ -79,7 +79,7 @@ public class ReferralValidator implements Validator {
         }
         if (!serviceReq) {
             errors.rejectValue("servicesRequestedError", "item.select.one");
-        }
+        }*/
         if (item.getDateAttended() != null) {
             ValidationUtils.rejectIfEmpty(errors, "attendingOfficer", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "designation", "field.empty");

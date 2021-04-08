@@ -5,7 +5,7 @@
 					class="fa fa-dashboard fa-fw"></i> Home</a></li>
 			<li><a href="${page}/report/index.htm"><i
 					class="fa fa-bar-chart-o fa-fw"></i> Reports</a></li>
-			<!-- <sec:authorize
+			<sec:authorize
 				access="
                            hasRole('ROLE_ZI') or 
                            hasRole('ROLE_ADMINISTRATOR') or 
@@ -29,7 +29,7 @@
 			</sec:authorize>
 			<li><a
 				href="${page}/admin/changepassword.htm?id=${currentuser.id}"><i
-					class="fa fatable fafw"></i>Change Password</a></li> -->
+					class="fa fatable fafw"></i>Change Password</a></li> 
 
 			<li><a href="${page}/logout.htm"><i class="fa fa-edit fa-fw"></i>${currentuser.firstName}
 					Log Out</a></li>
