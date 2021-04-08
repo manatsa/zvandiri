@@ -87,6 +87,15 @@ public class PatientDashboardController extends BaseController {
         if(item.getHeuReg()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(getHeu(item)).messageType(MessageType.WARNING).build());
         }
+        if(item.getContacts().isEmpty()) {
+            model.addAttribute("contactsMessage", new AppMessage.MessageBuilder(Boolean.TRUE).message(getContacts(item)).messageType(MessageType.WARNING).build());
+        }
+        if(item.getMentalHealthScreenings().isEmpty()) {
+            model.addAttribute("mentalHealthMessage", new AppMessage.MessageBuilder(Boolean.TRUE).message(getMentalHealth(item)).messageType(MessageType.WARNING).build());
+        }
+        if(item.getTbIpts().isEmpty()) {
+            model.addAttribute("tbScreeningMessage", new AppMessage.MessageBuilder(Boolean.TRUE).message(getTbScreening(item)).messageType(MessageType.WARNING).build());
+        }
         if (!item.getPatientStatus()) {
             getPatientStatus(item, model);
         }
@@ -108,6 +117,36 @@ public class PatientDashboardController extends BaseController {
         warning.append("<li><a class='alert-link' href='../cat/detail/item.form?patientId=");
         warning.append(patient.getId());
         warning.append("'>Add CATS Details</a></li>");
+        warning.append("</ul>");
+        return warning.toString();
+    }
+    
+    private String getContacts(Patient patient) {
+        StringBuilder warning = new StringBuilder();
+        warning.append("Please complete the following before proceeding<br/><ul>");
+        warning.append("<li><a class='alert-link' href='../../beneficiary/contact/item.form?patientId=");
+        warning.append(patient.getId());
+        warning.append("'>Add Contacts</a></li>");
+        warning.append("</ul>");
+        return warning.toString();
+    }
+    
+    private String getMentalHealth(Patient patient) {
+        StringBuilder warning = new StringBuilder();
+        warning.append("Please complete the following before proceeding<br/><ul>");
+        warning.append("<li><a class='alert-link' href='../../beneficiary/mental-health-screening/item.form?patientId=");
+        warning.append(patient.getId());
+        warning.append("'>Add Mental Health Screening</a></li>");
+        warning.append("</ul>");
+        return warning.toString();
+    }
+    
+    private String getTbScreening(Patient patient) {
+        StringBuilder warning = new StringBuilder();
+        warning.append("Please complete the following before proceeding<br/><ul>");
+        warning.append("<li><a class='alert-link' href='../tb-screening/item.form?patientId=");
+        warning.append(patient.getId());
+        warning.append("'>Add TB Screening</a></li>");
         warning.append("</ul>");
         return warning.toString();
     }

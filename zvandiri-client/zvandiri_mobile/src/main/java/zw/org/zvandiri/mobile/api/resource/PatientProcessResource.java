@@ -32,9 +32,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
 import zw.org.zvandiri.business.domain.CatDetail;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
@@ -144,6 +142,26 @@ public class PatientProcessResource {
                 disability.setPatient(item);
             }
             item.setDisabilityCategorys(disabilitys);
+            patientService.save(item);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("message", "System error occurred saving patient");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        response.put("message", "Patient created sucessfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    
+    @POST
+    @Path("/change-facility")
+    public ResponseEntity<Map<String, Object>> changeFacility(Patient patient) {
+        Map<String, Object> response = new HashMap<>();
+        if (!response.isEmpty()) {
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+        try {
+            Patient item = patientService.get(patient.getId());
+            item.setPrimaryClinic(patient.getPrimaryClinic());
             patientService.save(item);
         } catch (Exception e) {
             e.printStackTrace();

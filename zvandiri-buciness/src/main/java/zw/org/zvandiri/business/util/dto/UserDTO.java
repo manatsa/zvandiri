@@ -11,6 +11,7 @@ import java.util.List;
 import zw.org.zvandiri.business.domain.District;
 import zw.org.zvandiri.business.domain.Province;
 import zw.org.zvandiri.business.domain.User;
+import zw.org.zvandiri.business.domain.UserRole;
 import zw.org.zvandiri.business.domain.util.UserLevel;
 
 /**
@@ -27,6 +28,7 @@ public class UserDTO implements Serializable{
     private UserLevel userLevel;
     private Province province;
     private District district;
+    private String roles;
 
     public String getId() {
         return id;
@@ -91,6 +93,14 @@ public class UserDTO implements Serializable{
     public void setDistrict(District district) {
         this.district = district;
     }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
     
     public static UserDTO getInstance(User user) {
         UserDTO item = new UserDTO();
@@ -102,7 +112,24 @@ public class UserDTO implements Serializable{
         item.setUserLevel(user.getUserLevel());
         item.setDistrict(user.getDistrict());
         item.setProvince(user.getProvince());
+        item.setRoles(getRolesString(user));
         return item;
+    }
+    
+    private static String getRolesString(User user) {
+        String result = "";
+        if (user.getUserRoles() != null) {
+            int position = 0;
+            int size = user.getUserRoles().size();
+            for (UserRole item : user.getUserRoles()) {
+                result += item.getName();
+                position++;
+                if (position < size) {
+                    result += ",";
+                }
+            }
+        }
+        return result;
     }
     
     public static List<UserDTO> getInstance(List<User> users) {

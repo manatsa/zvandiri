@@ -85,6 +85,8 @@ public class SearchDTO implements Serializable {
     private Integer start;
     private Integer max;
     private Integer maxViralLoad;
+    private Integer minViralLoad;
+    private Boolean isDueForVL;
     private Integer minCd4Count;
     private Set<PatientChangeEvent> statuses = new HashSet<>();
     private UserType userType;
@@ -108,7 +110,7 @@ public class SearchDTO implements Serializable {
             LevelOfCare levelOfCare, PatientChangeEvent status, District supportGroupDistrict, CareLevel careLevel,
             Set<CrossTabOption> crossTabOptions, ReferralStatus referralStatus, YesNo yesNo, FollowUp followUp,
             User createdBy, Indicator indicator, Integer start, Integer max, Set<PatientChangeEvent> statuses,
-            Integer maxViralLoad, Integer minCd4Count, UserType userType, TestType testType, Reason reason, YesNo hei,
+            Integer maxViralLoad, Integer minViralLoad, Boolean isDueForVL, Integer minCd4Count, UserType userType, TestType testType, Reason reason, YesNo hei,
             Result result, TbTreatmentStatus tbTreatmentStatus, TbTreatmentOutcome tbTreatmentOutcome,
             UserLevel userLevel, Set<UserRole> userRoles, Integer firstResult, Integer pageSize) {
         this.period = period;
@@ -138,6 +140,8 @@ public class SearchDTO implements Serializable {
         this.max = max;
         this.statuses = statuses;
         this.maxViralLoad = maxViralLoad;
+        this.minViralLoad = minViralLoad;
+        this.isDueForVL = isDueForVL;
         this.minCd4Count = minCd4Count;
         this.userType = userType;
         this.testType = testType;
@@ -368,6 +372,22 @@ public class SearchDTO implements Serializable {
         this.maxViralLoad = maxViralLoad;
     }
 
+    public Integer getMinViralLoad() {
+        return minViralLoad;
+    }
+
+    public void setMinViralLoad(Integer minViralLoad) {
+        this.minViralLoad = minViralLoad;
+    }
+
+    public Boolean getIsDueForVL() {
+        return isDueForVL;
+    }
+
+    public void setIsDueForVL(Boolean isDueForVL) {
+        this.isDueForVL = isDueForVL;
+    }
+    
     public Integer getMinCd4Count() {
         return minCd4Count;
     }
@@ -673,6 +693,24 @@ public class SearchDTO implements Serializable {
                 query.append(dto.getMaxViralLoad());
             }
         }
+        if (dto.getMinViralLoad() != null) {
+            if (position == 0) {
+                query.append("?minViralLoad=");
+                query.append(dto.getMinViralLoad());
+            } else {
+                query.append("&minViralLoad=");
+                query.append(dto.getMinViralLoad());
+            }
+        }
+        if (dto.getIsDueForVL()!= null) {
+            if (position == 0) {
+                query.append("?isDueForVL=");
+                query.append(dto.getIsDueForVL());
+            } else {
+                query.append("&isDueForVL=");
+                query.append(dto.getIsDueForVL());
+            }
+        }
         if (dto.getMinCd4Count() != null) {
             if (position == 0) {
                 query.append("?minCd4Count=");
@@ -757,7 +795,7 @@ public class SearchDTO implements Serializable {
                 dto.getLevelOfCare(), dto.getStatus(), dto.getSupportGroupDistrict(), dto.getCareLevel(),
                 dto.getCrossTabOptions(), dto.getReferralStatus(), dto.getYesNo(), dto.getFollowUp(),
                 dto.getCreatedBy(), dto.getIndicator(), dto.getStart(), dto.getMax(), dto.getStatuses(),
-                dto.getMaxViralLoad(), dto.getMinCd4Count(), dto.getUserType(), dto.getTestType(), dto.getReason(),
+                dto.getMaxViralLoad(), dto.getMinViralLoad(), dto.getIsDueForVL(), dto.getMinCd4Count(), dto.getUserType(), dto.getTestType(), dto.getReason(),
                 dto.getHei(), dto.getResult(), dto.getTbTreatmentStatus(), dto.getTbTreatmentOutcome(),
                 dto.getUserLevel(), dto.getUserRoles(), dto.getFirstResult(), dto.getPageSize());
     }

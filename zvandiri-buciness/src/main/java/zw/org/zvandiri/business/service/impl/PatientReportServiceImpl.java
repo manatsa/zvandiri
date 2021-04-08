@@ -15,7 +15,6 @@
  */
 package zw.org.zvandiri.business.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -25,7 +24,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.InvestigationTest;
-import zw.org.zvandiri.business.domain.Mortality;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.HIVStatus;
 import zw.org.zvandiri.business.service.PatientReportService;
@@ -857,9 +855,9 @@ public class PatientReportServiceImpl implements PatientReportService {
         return query.getResultList();
     }
 
-    @Override
+   @Override
     public Long getPatientLabResults(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("Select count(Distinct v) from InvestigationTest v");
+        StringBuilder builder = new StringBuilder("Select count(Distinct v.patient) from InvestigationTest v");
         int position = 0;
         builder.append(" where ");
         if (dto.getMaxViralLoad() != null) {
@@ -871,6 +869,14 @@ public class PatientReportServiceImpl implements PatientReportService {
             }
         }
         if (dto.getMinCd4Count() != null) {
+            if (position == 0) {
+                builder.append("v.result <:result");
+                position++;
+            } else {
+                builder.append(" and v.result <:result");
+            }
+        }
+        if (dto.getMinViralLoad()!= null) {
             if (position == 0) {
                 builder.append("v.result <:result");
                 position++;
@@ -965,6 +971,14 @@ public class PatientReportServiceImpl implements PatientReportService {
                 position++;
             } else {
                 builder.append(" and (v.dateTaken between :startDate and :endDate)");
+            }
+        }
+        if (dto.getIsDueForVL() != null) {
+            if (position == 0) {
+                builder.append("v.nextTestDate between :vlStartDate and :vlEndDate");
+                position++;
+            } else {
+                builder.append(" and (v.nextTestDate between :vlStartDate and :vlEndDate)");
             }
         }
         if (dto.getStatus() != null) {
@@ -1012,11 +1026,18 @@ public class PatientReportServiceImpl implements PatientReportService {
             query.setParameter("startDate", dto.getStartDate());
             query.setParameter("endDate", dto.getEndDate());
         }
+        if(dto.getIsDueForVL() != null) {
+            query.setParameter("vlStartDate", new Date());
+            query.setParameter("vlEndDate", DateUtil.getDateDiffDate(7));
+        }
         if (dto.getMaxViralLoad() != null) {
             query.setParameter("result", dto.getMaxViralLoad());
         }
         if (dto.getMinCd4Count() != null) {
             query.setParameter("result", dto.getMinCd4Count());
+        }
+        if (dto.getMinViralLoad()!= null) {
+            query.setParameter("result", dto.getMinViralLoad());
         }
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
@@ -1037,7 +1058,14 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and v.result >:result");
             }
         }
-
+        if (dto.getMinViralLoad()!= null) {
+            if (position == 0) {
+                builder.append("v.result <:result");
+                position++;
+            } else {
+                builder.append(" and v.result <:result");
+            }
+        }
         if (dto.getMinCd4Count() != null) {
             if (position == 0) {
                 builder.append("v.result <:result");
@@ -1127,6 +1155,14 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and (v.dateTaken between :startDate and :endDate)");
             }
         }
+        if (dto.getIsDueForVL() != null) {
+            if (position == 0) {
+                builder.append("v.nextTestDate between :vlStartDate and :vlEndDate");
+                position++;
+            } else {
+                builder.append(" and (v.nextTestDate between :vlStartDate and :vlEndDate)");
+            }
+        }
         if (dto.getTestType() != null) {
             if (position == 0) {
                 builder.append("v.testType=:testType");
@@ -1158,6 +1194,10 @@ public class PatientReportServiceImpl implements PatientReportService {
         if (dto.getPeriod() != null) {
             query.setParameter("period", dto.getPeriod());
         }
+        if(dto.getIsDueForVL() != null) {
+            query.setParameter("vlStartDate", new Date());
+            query.setParameter("vlEndDate", DateUtil.getDateDiffDate(7));
+        }
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
         }
@@ -1173,6 +1213,9 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getMinCd4Count() != null) {
             query.setParameter("result", dto.getMinCd4Count());
+        }
+        if (dto.getMinViralLoad()!= null) {
+            query.setParameter("result", dto.getMinViralLoad());
         }
         if (dto.getTestType() != null) {
             query.setParameter("testType", dto.getTestType());

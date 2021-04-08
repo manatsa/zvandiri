@@ -1,6 +1,6 @@
 <div class="row">
     <!-- Start of new notifications -->
-    <div class="col-lg-2 col-md-6">
+    <div class="col-lg-3 col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
@@ -20,7 +20,7 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-2 col-md-6">
+    <div class="col-lg-3 col-md-6">
         <div class="panel panel-red">
             <div class="panel-heading">
                 <div class="row">
@@ -40,7 +40,7 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-2 col-md-6">
+    <div class="col-lg-3 col-md-6">
         <div class="panel panel-green">
             <div class="panel-heading">
                 <div class="row">
@@ -60,7 +60,7 @@
             </a>
         </div>
     </div>
-                <div class="col-lg-2 col-md-6">
+    <div class="col-lg-3 col-md-6">
         <div class="panel panel-red">
             <div class="panel-heading">
                 <div class="row">
@@ -80,7 +80,7 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-2 col-md-6">
+    <div class="col-lg-3 col-md-6">
         <div class="panel panel-yellow">
             <div class="panel-heading">
                 <div class="row">
@@ -100,7 +100,7 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-2 col-md-6">
+    <div class="col-lg-3 col-md-6">
         <div class="panel panel-red">
             <div class="panel-heading">
                 <div class="row">
@@ -111,6 +111,46 @@
                 </div>
             </div>
             <a href="${page}/report/detailed/range.htm?status=1">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right">
+                        <i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="medium">
+                        <div>${patientStat['VIRAL_LOAD_BELOW_MINIMUM']}</div>
+                        <div>Suppressed VL</div>
+                    </div>
+                </div>
+            </div>
+            <a href="${page}/report/detailed/range.htm?status=6&minViralLoad=1000">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right">
+                        <i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="medium">
+                        <div>${patientStat['DUE_FOR_VL']}</div>
+                        <div>Due For VL</div>
+                    </div>
+                </div>
+            </div>
+            <a href="${page}/report/detailed/range.htm?status=6&isDueForVL=true">
                 <div class="panel-footer">
                     <span class="pull-left">View Details</span>
                     <span class="pull-right">
