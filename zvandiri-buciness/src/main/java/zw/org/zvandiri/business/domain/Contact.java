@@ -95,17 +95,17 @@ public class Contact extends BaseEntity {
     private String objective;
     @Enumerated
     private DifferentiatedService differentiatedService;
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "contact_lab_service", joinColumns = {
         @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "lab_service_id", nullable = false)})
     private Set<LabTask> labTasks = new HashSet<>();
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "contact_clinical_assessment", joinColumns = {
         @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "assessment_id", nullable = false)})
     private Set<Assessment> clinicalAssessments = new HashSet<>();
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "contact_non_clinical_assessment", joinColumns = {
         @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "assessment_id", nullable = false)})
@@ -114,17 +114,17 @@ public class Contact extends BaseEntity {
     private String plan;
     @ManyToOne
     private ActionTaken actionTaken;
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "contact_stable", joinColumns = {
         @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "stable_id", nullable = false)})
     private Set<Stable> stables = new HashSet<>();
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "contact_enhanced", joinColumns = {
         @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "enhanced_id", nullable = false)})
     private Set<Enhanced> enhanceds = new HashSet<>();
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "contact_service_offered", joinColumns = {
         @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "service_offered_id", nullable = false)})
