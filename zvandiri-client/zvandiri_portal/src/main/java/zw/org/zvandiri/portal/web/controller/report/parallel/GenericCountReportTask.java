@@ -23,7 +23,7 @@ public class GenericCountReportTask extends RecursiveTask<List> {
 
     public GenericCountReportTask(List<Integer> arrCount, GenericReportService reportService, SearchDTO searchData) {
         this.reportService = reportService;
-        this.searchData = searchData;
+        this.searchData = searchData.getInstance(searchData);
         this.arrCount = arrCount;
     }
 

@@ -16,7 +16,10 @@
 package zw.org.zvandiri.portal.web.controller.data;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ForkJoinPool;
+
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -26,14 +29,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
 import zw.org.zvandiri.business.service.DistrictService;
 import zw.org.zvandiri.business.service.FacilityService;
 import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.service.ProvinceService;
+import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.PatientDuplicateDTO;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+import zw.org.zvandiri.portal.web.controller.report.parallel.GenericCountReportTask;
 
 /**
  *
@@ -68,7 +75,9 @@ public class DataCleaningController extends BaseController {
         }
         model.addAttribute("item", item.getInstance(item));
         if (post) {
-            duplicates = patientService.getAllPossibleDuplicates(detailedPatientReportService.get(item.getInstance(item)));
+        	ForkJoinPool pool = ForkJoinPool.commonPool();
+            List<Patient> patients = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(item)), detailedPatientReportService, item));
+            duplicates = patientService.getAllPossibleDuplicates(patients);
             model.addAttribute("patients", duplicates);
         }
         return "data-cleaning/index";

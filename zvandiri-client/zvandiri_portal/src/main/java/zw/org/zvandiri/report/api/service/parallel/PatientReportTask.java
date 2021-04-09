@@ -33,7 +33,10 @@ public class PatientReportTask extends RecursiveTask<List<Patient>> {
 
     @Override
     protected List compute() {
-        if (data.size() <= SEQUENTIAL_THRESHOLD) {
+        if (data == null || data.isEmpty()) {
+        	return new ArrayList<Patient>();
+        }
+    	if (data.size() <= SEQUENTIAL_THRESHOLD) {
             return process();
         } else {
             int mid = data.size() / 2;
