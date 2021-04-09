@@ -17,9 +17,10 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
  *
  * @author Judge Muzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Table(indexes = {
-		@Index(name = "district_province", columnList = "province")
+    @Index(name = "district_province", columnList = "province")
 })
 public class District extends BaseName {
 
@@ -39,7 +40,7 @@ public class District extends BaseName {
     public District(String id) {
         super(id);
     }
-    
+
     public Province getProvince() {
         return province;
     }
@@ -63,5 +64,5 @@ public class District extends BaseName {
     public void setSupportGroups(Set<SupportGroup> supportGroups) {
         this.supportGroups = supportGroups;
     }
-    
+
 }

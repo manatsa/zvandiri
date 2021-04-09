@@ -20,7 +20,7 @@ import org.hibernate.jpa.HibernatePersistenceProvider;
 //Spring 4 @Repeatable annotation workaround
 // http://www.javacodegeeks.com/2013/11/how-to-using-propertysource-annotation-in-spring-4-with-java-7.html
 
-@PropertySources(value = {@PropertySource("classpath:application.properties")})
+@PropertySource("classpath:application.properties")
 @ComponentScan(basePackages = {"zw.org.zvandiri.mobile.api.resource", "zw.org.zvandiri.business.service.impl"})
 @EnableJpaRepositories("zw.org.zvandiri.business.repo")
 @EnableTransactionManagement
