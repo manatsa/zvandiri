@@ -15,18 +15,12 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
@@ -44,9 +38,6 @@ public class Facility extends BaseName {
     private District district;
     @Transient
     private Province province;
-    @JsonIgnore
-    @OneToMany(mappedBy = "primaryClinic", cascade = CascadeType.REMOVE)
-    private List<Patient> patients = new ArrayList<>();
 
     public Facility() {
     }
@@ -69,20 +60,6 @@ public class Facility extends BaseName {
 
     public void setProvince(Province province) {
         this.province = province;
-    }
-
-    public List<Patient> getPatients() {
-        return patients;
-    }
-
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
-    }
-    
-    
-    public List<Patient> getCatPatients()
-    {
-        return patients;
     }
     
 }
