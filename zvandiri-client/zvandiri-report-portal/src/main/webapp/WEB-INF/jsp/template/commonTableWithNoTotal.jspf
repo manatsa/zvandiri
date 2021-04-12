@@ -1,0 +1,37 @@
+<div class="table-responsive">
+    <table class="table" width="100%" style="font-size: 0.89em;">
+        <c:set value="0" var="numCount"/>
+        <c:forEach var="top" items="${items}">
+            <c:choose>
+                <c:when test="${numCount == 0}">
+                    <thead>
+                        <tr>
+                    <c:forEach var="topRow" items="${top.row}">
+                        <th class="report-header">${topRow}</th> 
+                    </c:forEach>
+                    </tr>
+                    </thead>    
+                    <c:set var="numCount" value="${numCount+1}"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="innerCount" value="0"/>
+                    <tbody>
+                        <tr>
+                    <c:forEach var="r" items="${top.row}">
+                        <c:choose>
+                            <c:when test="${innerCount == 0}">
+                                <td class="left-col-report-header">${r}</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td>${r}</td>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:set var="innerCount" value="${innerCount+1}"/>
+                    </c:forEach>
+                    </tr>
+                    </tbody>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+    </table>
+</div>
