@@ -31,6 +31,12 @@
 			<artifactId>zvandiri-report-api</artifactId>
 			<version>1.0.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.3.6.Final</version>
+			<type>jar</type>
+		</dependency>
     </dependencies>   
     <build>
         <finalName>zvandiri-report</finalName>
