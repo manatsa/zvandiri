@@ -5,7 +5,6 @@
             ${pageTitle}
         </div>
         <div class="panel-body">
-            <a href="${page}/report/index.htm">&DoubleLeftArrow; Back To Reports DashBoard Home</a><br/>
             <hr/>
             <%@include file="../template/generalSearchFragment.jspf" %>
             <div class="row">

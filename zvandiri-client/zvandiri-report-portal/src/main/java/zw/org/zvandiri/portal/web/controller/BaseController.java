@@ -93,21 +93,14 @@ abstract public class BaseController implements IAppTitle {
     
     public SearchDTO getUserLevelObjectState(SearchDTO dto){
         User user = getUserName();
-        //System.err.println("+++++++++++++++++++++++++++++++++++++++++User++++++++++++++++++++++++++++++++++++++++++++++++\n"+user);
         if (user.getUserLevel() == null){
             return dto.getInstance(dto);
         }
         else if (user.getUserLevel().equals(UserLevel.PROVINCE)){
-            System.err.println("*********************** User Level: Province");
             dto.setProvince(user.getProvince());
         } else if (user.getUserLevel().equals(UserLevel.DISTRICT)){
-            //System.err.println("*********************** User Level: District, and is "+user.getDistrict());
             dto.setDistrict(user.getDistrict());
-        }else{
-            System.err.println("*********************** User Level: Other");
         }
-         
-       //System.err.println("*********************** dto : "+dto.toString());
         return dto;
     }
     

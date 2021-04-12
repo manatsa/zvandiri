@@ -3,8 +3,6 @@
 		<ul class="nav" id="side-menu">
 			<li><a href="${page}/index.html"><i
 					class="fa fa-dashboard fa-fw"></i> Home</a></li>
-			<li><a href="${page}/report/index.htm"><i
-					class="fa fa-bar-chart-o fa-fw"></i> Reports</a></li>
 			<sec:authorize
 				access="
                            hasRole('ROLE_ZI') or 

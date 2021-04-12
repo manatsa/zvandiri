@@ -5,32 +5,6 @@
 					class="fa fa-dashboard fa-fw"></i> Home</a></li>
 			<li><a href="${page}/report/index.htm"><i
 					class="fa fa-bar-chart-o fa-fw"></i> Reports</a></li>
-			<sec:authorize
-				access="
-                           hasRole('ROLE_ZI') or 
-                           hasRole('ROLE_ADMINISTRATOR') or 
-                           hasRole('ROLE_ZM') or 
-                           hasRole('ROLE_NURSE') or
-                           hasRole('ROLE_DATA_CLERK') or
-                           hasRole('ROLE_HOD_M_AND_E') or
-                           hasRole('ROLE_ADMINISTRATOR')
-
-                           ">
-				<li><a href="${page}/beneficiary"><i
-						class="fa fatable fafw"></i> New Client</a></li>
-			</sec:authorize>
-			<li><a href="${page}/patient/index.htm"><i
-					class="fa fatable fafw"></i> Manage Client</a></li>
-			<li><a href="${page}/data/item.form"><i
-					class="fa fagavel fafw"></i> Data Cleaning Tool</a></li>
-			<sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
-				<li><a href="${page}/admin/index.htm"><i
-						class="fa fatable fafw"></i> Administration</a></li>
-			</sec:authorize>
-			<li><a
-				href="${page}/admin/changepassword.htm?id=${currentuser.id}"><i
-					class="fa fatable fafw"></i>Change Password</a></li> 
-
 			<li><a href="${page}/logout.htm"><i class="fa fa-edit fa-fw"></i>${currentuser.firstName}
 					Log Out</a></li>
 		</ul>
