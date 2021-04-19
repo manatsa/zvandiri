@@ -46,113 +46,106 @@ import zw.org.zvandiri.business.util.dto.NameIdDTO;
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class CatDetailServiceImpl implements CatDetailService {
 
-    private static final Logger LOGGER = Logger.getLogger(CatDetailServiceImpl.class);
-    @Resource
-    private CatDetailRepo catDetailRepo;
-    @Resource
-    private UserService userService;
-    @Resource
-    private UserRoleService userRoleService;
+	private static final Logger LOGGER = Logger.getLogger(CatDetailServiceImpl.class);
+	@Resource
+	private CatDetailRepo catDetailRepo;
+	@Resource
+	private UserService userService;
+	@Resource
+	private UserRoleService userRoleService;
 
-    @Override
-    public List<CatDetail> getAll() {
-        return catDetailRepo.findByActive(Boolean.TRUE);
-    }
+	@Override
+	public List<CatDetail> getAll() {
+		return catDetailRepo.findByActive(Boolean.TRUE);
+	}
 
-    @Override
-    public CatDetail get(String id) {
-        if (id == null) {
-            throw new IllegalStateException("Item to be does not exist :" + id);
-        }
-        return catDetailRepo.findById(id);
-    }
+	@Override
+	public CatDetail get(String id) {
+		if (id == null) {
+			throw new IllegalStateException("Item to be does not exist :" + id);
+		}
+		return catDetailRepo.findById(id);
+	}
 
-    @Override
-    public void delete(CatDetail t) {
-        if (t.getId() == null) {
-            throw new IllegalStateException("Item to be deleted is in an inconsistent state");
-        }
-        t.setActive(Boolean.FALSE);
-        t.setDeleted(true);
-        catDetailRepo.save(t);
-    }
+	@Override
+	public void delete(CatDetail t) {
+		if (t.getId() == null) {
+			throw new IllegalStateException("Item to be deleted is in an inconsistent state");
+		}
+		t.setActive(Boolean.FALSE);
+		t.setDeleted(true);
+		catDetailRepo.save(t);
+	}
 
-    @Override
-    public List<CatDetail> getPageable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+	@Override
+	public List<CatDetail> getPageable() {
+		throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
+																		// Tools | Templates.
+	}
 
-    @Override
-    public CatDetail getByEmail(String email) {
-        return catDetailRepo.findByEmail(email);
-    }
+	@Override
+	public CatDetail getByEmail(String email) {
+		return catDetailRepo.findByEmail(email);
+	}
 
-    @Override
-    @Transactional
-    public CatDetail save(CatDetail t) {
-        if (t.getId() == null) {
-            t.setId(UUIDGen.generateUUID());
-            t.setCreatedBy(userService.getCurrentUser());
-            t.setDateCreated(new Date());
-            t.setEmail(t.getUserName());
-            userService.save(createUser(t));
-            return catDetailRepo.save(t);
-        }
-        t.setModifiedBy(userService.getCurrentUser());
-        t.setDateModified(new Date());
-        return catDetailRepo.save(t);
-    }
+	@Override
+	@Transactional
+	public CatDetail save(CatDetail t) {
+		if (t.getId() == null) {
+			t.setId(UUIDGen.generateUUID());
+			t.setCreatedBy(userService.getCurrentUser());
+			t.setDateCreated(new Date());
+			t.setEmail(t.getUserName());
+			userService.save(createUser(t));
+			return catDetailRepo.save(t);
+		}
+		t.setModifiedBy(userService.getCurrentUser());
+		t.setDateModified(new Date());
+		return catDetailRepo.save(t);
+	}
 
-    @Override
-    public Boolean checkDuplicate(CatDetail current, CatDetail old) {
-        if (current.getId() != null) {
-            if (!current.getUserName().equals(old.getUserName())) {
-                if (userService.findByUserName(current.getUserName()) != null) {
-                    return true;
-                }
-            }
-        } else if (current.getId() == null) {
-            if (userService.findByUserName(current.getUserName()) != null) {
-                return true;
-            }
-            if(getByPatient(current.getPatient()) != null) {
-                return true;
-            }
-        }
-        return false; 
-    }
+	@Override
+	public Boolean checkDuplicate(CatDetail current, CatDetail old) {
+		if (current.getId() != null) {
+			if (!current.getUserName().equals(old.getUserName())) {
+				if (userService.findByUserName(current.getUserName()) != null) {
+					return true;
+				}
+			}
+		} else if (current.getId() == null) {
+			if (userService.findByUserName(current.getUserName()) != null) {
+				return true;
+			}
+			if (getByPatient(current.getPatient()) != null) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    @Override
-    public CatDetail getByPatient(Patient patient) {
-        return catDetailRepo.findByPatient(patient);
-    }
+	@Override
+	public CatDetail getByPatient(Patient patient) {
+		return catDetailRepo.findByPatient(patient);
+	}
 
-    @Override
-    public List<NameIdDTO> getCatPatients(CatDetail catDetail) {
-        List<NameIdDTO> patients = new ArrayList<>();
-        List<Patient> ogPatients=catDetailRepo.getFacilityPatients(catDetail.getPrimaryClinic(),true,false);
-        
-        for(Patient patient : ogPatients ){
-            if(!patient.getDeleted() && patient.getActive()){
-                LOGGER.error("*************************************Patient : "+patient.getDeleted());
-                patients.add(new NameIdDTO(patient.getName(), patient.getId(), patient.getDateOfBirth(), patient.getGender(), patient.getStatus(), patient.getActive(), patient.getPrimaryClinic().getId()));
-            }
-        }
-        return patients;
-    }
+	@Override
+	public List<NameIdDTO> getCatPatients(CatDetail catDetail) {
 
-    private User createUser(CatDetail catDetail) {
-        User user = new User();
-        user.setPassword(catDetail.getPassword());
-        user.setUserName(catDetail.getUserName());
-        user.setUserType(UserType.CATS);
-        user.setFirstName(catDetail.getPatient().getFirstName());
-        user.setLastName(catDetail.getPatient().getLastName());
-        user.setGender(catDetail.getPatient().getGender());
-        Set<UserRole> userRoles = new HashSet<>();
-        userRoles.add(userRoleService.getByName("ROLE_MOBILE"));
-        user.setUserRoles(userRoles);
-        return user;
-    }
+		return catDetailRepo.getFacilityPatients(catDetail.getPrimaryClinic(), true, false);
+	}
+
+	private User createUser(CatDetail catDetail) {
+		User user = new User();
+		user.setPassword(catDetail.getPassword());
+		user.setUserName(catDetail.getUserName());
+		user.setUserType(UserType.CATS);
+		user.setFirstName(catDetail.getPatient().getFirstName());
+		user.setLastName(catDetail.getPatient().getLastName());
+		user.setGender(catDetail.getPatient().getGender());
+		Set<UserRole> userRoles = new HashSet<>();
+		userRoles.add(userRoleService.getByName("ROLE_MOBILE"));
+		user.setUserRoles(userRoles);
+		return user;
+	}
 
 }
