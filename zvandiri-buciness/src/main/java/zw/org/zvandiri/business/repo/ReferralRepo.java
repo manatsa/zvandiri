@@ -15,8 +15,12 @@
  */
 package zw.org.zvandiri.business.repo;
 
+import java.util.Date;
 import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.Referral;
 
@@ -27,4 +31,9 @@ import zw.org.zvandiri.business.domain.Referral;
 public interface ReferralRepo extends AbstractRepo<Referral, String> {
     
     public List<Referral> findByPatient(@Param("patient") Patient patient);
+    
+    @Query("Select Distinct(r) from Referral r left join fetch r.patient where r.patient=:patient and (r.referralDate) between :start and :end")
+    public List<Referral> findByPatientAndContactDate(
+            @Param("patient") Patient patient,
+            @Param("start") Date start, @Param("end") Date end);
 }

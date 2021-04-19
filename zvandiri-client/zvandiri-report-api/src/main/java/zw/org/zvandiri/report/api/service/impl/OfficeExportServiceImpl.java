@@ -52,6 +52,7 @@ import zw.org.zvandiri.business.domain.SocialHist;
 import zw.org.zvandiri.business.domain.SubstanceItem;
 import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.repo.ContactRepo;
+import zw.org.zvandiri.business.repo.ReferralRepo;
 import zw.org.zvandiri.business.service.ArvHistService;
 import zw.org.zvandiri.business.service.ChronicInfectionItemService;
 import zw.org.zvandiri.business.service.ContactReportService;
@@ -90,7 +91,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
     ContactReportService contactReportService;
 
     @Resource
-    private ContactRepo contactService;
+    private ContactRepo contactRepo;
     @Resource
     ReferralService referralService;
     @Resource
@@ -115,6 +116,8 @@ public class OfficeExportServiceImpl implements OfficeExportService {
     private TbIptService tbIptService;
     @Resource
     private MentalHealthScreeningService mentalHealthScreeningService;
+    @Resource 
+    private ReferralRepo referralRepo;
 
     @Override
     public XSSFWorkbook exportExcelFile(List<GenericReportModel> XSSFRows, String name) {
@@ -212,14 +215,13 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         Set<Mortality> mortalitys = new HashSet<>();
         Set<MentalHealthScreening> mentalHealthScreenings = new HashSet<>();
         int numPatient = 0;
-        patients = pool.invoke(new PatientReportTask(patients, dto, contactService));
+        patients = pool.invoke(new PatientReportTask(patients, dto, contactRepo, referralRepo));
         pool.shutdown();
         final long c_end = System.currentTimeMillis();
         final long c_final = c_end - end;
         System.err.println("C End::" + c_final);
         for (Patient patient : patients) {
             int count = 0;
-            //patient.getContacts().size();
             contacts.addAll(patient.getContacts());
             dependents.addAll(patient.getDependents());
             chronicInfectionItems.addAll(patient.getChronicInfectionItems());
