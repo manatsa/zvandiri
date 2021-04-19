@@ -1,13 +1,18 @@
 package zw.org.zvandiri.portal.config;
 
-import com.jolbox.bonecp.BoneCPDataSource;
 import java.util.List;
 import java.util.Properties;
+
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +29,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ServletWebArgumentR
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import com.jolbox.bonecp.BoneCPDataSource;
+
 /**
  * An application context Java configuration class. The usage of Java
  * configuration requires Spring Framework 3.0 or higher with following
@@ -37,7 +44,6 @@ import org.springframework.web.servlet.view.JstlView;
     "zw.org.zvandiri.report.api.service.impl"})
 @ImportResource(value = {"classpath:applicationContext.xml", "classpath:securityContext.xml"})
 @PropertySource("classpath:application.properties")
-@Import(PeriodConfig.class)
 @EnableScheduling
 @EnableJpaRepositories(basePackages = "zw.org.zvandiri.business.repo")
 public class ApplicationContext extends WebMvcConfigurerAdapter {

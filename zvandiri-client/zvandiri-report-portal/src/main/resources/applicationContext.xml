@@ -11,7 +11,6 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     
-    <import resource="zvandiri-webflow-config.xml" />
     <mvc:annotation-driven  conversion-service="conversionService"/>
     <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
         <property name="converters">

@@ -15,15 +15,14 @@
  */
 package zw.org.zvandiri.business.repo;
 
-import java.util.Date;
 import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
 import zw.org.zvandiri.business.domain.CatDetail;
 import zw.org.zvandiri.business.domain.Facility;
 import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.domain.util.Gender;
-import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.util.dto.NameIdDTO;
 
 /**
@@ -43,9 +42,4 @@ public interface CatDetailRepo extends AbstractRepo<CatDetail, String> {
 
     @Query("Select new zw.org.zvandiri.business.util.dto.NameIdDTO(CONCAT(p.lastName, p.firstName), p.id, p.dateOfBirth, p.gender, p.status, p.active, p.primaryClinic.id) from Patient p where p.primaryClinic=:facility and p.deleted=:deleted and p.active=:active")
     public List<NameIdDTO> getFacilityPatients(@Param("facility") Facility primaryClinic, @Param("active") boolean active, @Param("deleted") boolean deleted);
-   
-    
-    // String name, String id, Date dateOfBirth, Gender gender, PatientChangeEvent status, Boolean active, String facilityId
-    
-    // new NameIdDTO(patient.getName(), patient.getId(), patient.getDateOfBirth(), patient.getGender(), patient.getStatus(), patient.getActive(), patient.getPrimaryClinic().getId())
 }
