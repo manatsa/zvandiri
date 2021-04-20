@@ -71,11 +71,11 @@ public interface DatabaseHeader {
     };
 
     public final String [] UNCONTACTED_CLIENTS_HEADER = {
-             "Client Name","Date of Birth", "Age", "Gender","IsCATS", "Address","Secondary Address", "Mobile Number", "Second Mobile Number", "Region", "District","Primary Clinic"
+             "Client Name","Date of Birth", "Age", "Gender", "Address","Secondary Address", "Mobile Number", "Second Mobile Number", "Region", "District","Primary Clinic"
     };
 
     public final String [] UNIQUE_CONTACTED_CLIENTS_HEADER = {
-            "OI/ART Number","First Name","Last Name", "Age", "Gender","Mobile Number", "Second Mobile Number","Address","Secondary Address", "IsCATS",  "Region", "District","Primary Clinic"
+            "OI/ART Number","First Name","Last Name", "Age", "Gender","Mobile Number", "Second Mobile Number","Address","Secondary Address", "Region", "District","Primary Clinic"
     };
 
 
@@ -110,30 +110,30 @@ public interface DatabaseHeader {
     };
 
     public final String [] ARV_HISTORY_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender","IsCats","isYMM", "Region", "District","Primary Clinic", "ARV Medicine",
+            "UIC", "Client Name","Date of Birth", "Age", "Gender","Region", "District","Primary Clinic", "ARV Medicine",
             "Start Date", "End Date"
     };
 
     public final String [] MORTALITY_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender","IsCATS", "Region", "District","Primary Clinic", "Date Of Death",
+            "UIC", "Client Name","Date of Birth", "Age", "Gender","Region", "District","Primary Clinic", "Date Of Death",
             "Cause of Death", "Cause of Death Details", "Received Enhanced Care", "Date Put On Enhanced Care", "Case Background",
             "Care Provided", "Home", "Beneficiary", "Facility", "CATS", "ZMs", "Other", "Contact with ZMs", "Date of Contact with ZMs",
             "Description of Case", "Learning Points", "Action Plan"
     };
 
     public final String [] TB_IPT_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender","IsCATS", "Region", "District","Primary Clinic", "Screened for TB",
+            "UIC", "Client Name","Date of Birth", "Age", "Gender","Region", "District","Primary Clinic", "Screened for TB",
             "Date Screened", "Indentified with TB", "TB Identification Outcome", "Date Started Treatment",
             "Referral for Sputum", "TB Treatment Outcome", "Referred for IPT", "On IPT", "Date Started IPT"
     };
 
     public final String [] MENTAL_HEALTH_SCREENING_HEADER = {
-            "Client Name","Date of Birth", "Age", "Gender", "IsCATS", "Region", "District","Primary Clinic", "Screened For Mental Health", "Date Screened",
+            "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Screened For Mental Health", "Date Screened",
             "Mental health Screening Type", "Risk", "Identified Risks", "Received Support", "Support Received", "Referral",
             "Referrals Received", "Diagnosis", "Diagnosis Done", "Other Diagnosis", "Intervention", "Interventions", "Other Interventions"
     };
     String[] VLS_CLIENTS_HEADER = {
-            "Client Name","Date of Birth", "Age", "Gender","Test Result","Test Type","Suppression Status","Date Taken","IsCATS","IsYMM",
+            "Client Name","Date of Birth", "Age", "Gender","Test Result","Test Type","Suppression Status","Date Taken",
             "Address","Mobile Phone","Referrer","Region", "District","Primary Clinic"
     };
 }

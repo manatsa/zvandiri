@@ -45,6 +45,7 @@ public class DateUtil {
     public static final SimpleDateFormat restFmt = new SimpleDateFormat("dd/MM/yyyy");
     public static final SimpleDateFormat periodFriendly = new SimpleDateFormat("MMM yy");
     public static final SimpleDateFormat quarterFriendly = new SimpleDateFormat("MM/yy");
+    public static final SimpleDateFormat FULL_DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd:HH:mm:ss");
 
     private DateUtil() {
         throw new IllegalStateException("Class not intended to be instantiated");
@@ -192,7 +193,7 @@ public class DateUtil {
     }
 
     public static String getFriendlyFileName(String name) {
-        return name + "_" + getCurrentDate() + "-" + (getCurrentMonth() + 1) + "-" + getCurrentYear();
+        return name + "_" + FULL_DATE_TIME_FORMAT.format(new Date());
     }
 
     public static String getPrintName(String name) {

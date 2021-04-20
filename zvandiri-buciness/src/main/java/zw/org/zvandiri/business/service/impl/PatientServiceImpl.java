@@ -16,24 +16,25 @@
 package zw.org.zvandiri.business.service.impl;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import javax.annotation.Resource;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import zw.org.zvandiri.business.domain.ArvHist;
 import zw.org.zvandiri.business.domain.CatDetail;
 import zw.org.zvandiri.business.domain.ChronicInfectionItem;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Dependent;
 import zw.org.zvandiri.business.domain.EidTest;
-import zw.org.zvandiri.business.domain.Facility;
 import zw.org.zvandiri.business.domain.Family;
 import zw.org.zvandiri.business.domain.HivConInfectionItem;
 import zw.org.zvandiri.business.domain.InvestigationTest;
@@ -41,10 +42,12 @@ import zw.org.zvandiri.business.domain.MedicalHist;
 import zw.org.zvandiri.business.domain.MentalHealthItem;
 import zw.org.zvandiri.business.domain.ObstercHist;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.PatientDisability;
 import zw.org.zvandiri.business.domain.Referral;
 import zw.org.zvandiri.business.domain.SocialHist;
 import zw.org.zvandiri.business.domain.SrhHist;
 import zw.org.zvandiri.business.domain.SubstanceItem;
+import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.repo.PatientRepo;
 import zw.org.zvandiri.business.service.CatDetailService;
@@ -52,11 +55,9 @@ import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.UUIDGen;
+import zw.org.zvandiri.business.util.dto.NameIdDTO;
 import zw.org.zvandiri.business.util.dto.PatientDuplicateDTO;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
-import zw.org.zvandiri.business.domain.PatientDisability;
-import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
-import zw.org.zvandiri.business.util.dto.NameIdDTO;
 
 /**
  *
@@ -405,9 +406,8 @@ public class PatientServiceImpl implements PatientService {
   
     @Override
     public List<NameIdDTO> getCatPatients(CatDetail catDetail) {
-        List<NameIdDTO> patients= catDetailService.getCatPatients(catDetail);
-        System.err.println("First Patient : "+patients.get(0).getName());
-        return patients;
+        
+    	return catDetailService.getCatPatients(catDetail);
     }
    
     

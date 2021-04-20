@@ -80,8 +80,6 @@ public class ContactServiceImpl implements ContactService {
     @Transactional
     public Contact save(Contact t) {
         
-        System.out.println("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU" +t.getId());
-        
         if (t.getId() == null || StringUtils.isBlank(t.getId())) {
             try{
             t.setId(UUIDGen.generateUUID());
@@ -89,8 +87,6 @@ public class ContactServiceImpl implements ContactService {
             t.setDateCreated(new Date());
             return contactRepo.save(t);
             } catch (Exception e) {
-                System.out.println("JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
-                e.printStackTrace();
                 return null;
             }
         }
