@@ -11,14 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.Assessment;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.repo.ContactRepo;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.report.api.DatabaseHeader;
-import zw.org.zvandiri.report.api.service.DetailedReportService;
-import zw.org.zvandiri.report.api.service.OfficeExportService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;

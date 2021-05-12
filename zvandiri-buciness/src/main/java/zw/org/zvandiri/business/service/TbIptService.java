@@ -15,12 +15,15 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
  *
  * @author tasu
  */
-public interface TbIptService extends GenericPatientHistoryService<TbIpt> {
+public interface TbIptService extends GenericService<TbIpt> {
 
-    public boolean existsOnTbTreatment(Patient patient, TbIdentificationOutcome yesNo);
+    boolean existsOnTbTreatment(Patient patient, TbIdentificationOutcome yesNo);
 
-    public List<TbIpt> get(SearchDTO dto);
+    List<TbIpt> get(SearchDTO dto);
 
     Long count(SearchDTO dto);
+    List<TbIpt> getByPatient(Patient patient);
+    
+    TbIpt getLatest(Patient patient);
 
 }

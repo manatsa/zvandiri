@@ -139,8 +139,6 @@ public class MentalHealthScreeningReportController extends BaseController {
             age.setCellValue(mentalHealthScreening.getPatient().getAge());
             XSSFCell sex = mentalHealthScreeningRow.createCell(++count);
             sex.setCellValue(mentalHealthScreening.getPatient().getGender().getName());
-            XSSFCell cat = mentalHealthScreeningRow.createCell(++count);
-            cat.setCellValue(mentalHealthScreening.getPatient().getCat()!=null?mentalHealthScreening.getPatient().getCat().getName():"");
             XSSFCell province = mentalHealthScreeningRow.createCell(++count);
             province.setCellValue(mentalHealthScreening.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             XSSFCell district = mentalHealthScreeningRow.createCell(++count);

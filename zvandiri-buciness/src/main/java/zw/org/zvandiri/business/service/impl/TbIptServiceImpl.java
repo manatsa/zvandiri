@@ -5,7 +5,6 @@
  */
 package zw.org.zvandiri.business.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
@@ -15,7 +14,6 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import zw.org.zvandiri.business.domain.Mortality;
 import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.TbIdentificationOutcome;
@@ -103,14 +101,19 @@ public class TbIptServiceImpl implements TbIptService {
         }
         return false;
     }
+    
+    @Override
+    public List<TbIpt> getByPatient(Patient patient){
+        return repo.findByPatientOrderByDateCreatedDesc(patient);
+    }
 
     @Override
-    public TbIpt getByPatient(Patient patient) {
-    	List<TbIpt> items = repo.findTopByPatientOrderByDateStartedIptDesc(patient);
-    	if (items == null || items.isEmpty()) {
-    		return null;
-    	}
-        return items.get(0);
+    public TbIpt getLatest(Patient patient) {
+        
+        for (TbIpt tbScreening : getByPatient(patient)) {
+            return tbScreening;
+        }
+        return null;
     }
 
     @Override

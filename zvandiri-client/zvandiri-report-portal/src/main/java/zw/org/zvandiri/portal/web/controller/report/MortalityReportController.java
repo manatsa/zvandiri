@@ -136,8 +136,6 @@ public class MortalityReportController extends BaseController {
             age.setCellValue(mortality.getPatient().getAge());
             XSSFCell sex = mortalityRow.createCell(++count);
             sex.setCellValue(mortality.getPatient().getGender().getName());
-            Cell cat = mortalityRow.createCell(++count);
-            cat.setCellValue(mortality.getPatient().getCat() != null ? mortality.getPatient().getCat().getName() : "");
             XSSFCell province = mortalityRow.createCell(++count);
             province.setCellValue(mortality.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             XSSFCell district = mortalityRow.createCell(++count);

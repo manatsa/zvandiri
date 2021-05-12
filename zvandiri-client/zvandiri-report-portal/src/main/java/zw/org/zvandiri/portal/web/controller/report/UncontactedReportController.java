@@ -110,9 +110,6 @@ public class UncontactedReportController extends BaseController {
             Cell sex = uncontactedRow.createCell(count++);
             sex.setCellValue(patient.getGender().getName());
 
-            Cell cat = uncontactedRow.createCell(count++);
-            cat.setCellValue(patient.getCat() != null ? patient.getCat().getName() : "");
-
             Cell address = uncontactedRow.createCell(count++);
             address.setCellValue(patient.getAddress());
 

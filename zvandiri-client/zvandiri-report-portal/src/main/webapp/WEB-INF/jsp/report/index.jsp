@@ -31,14 +31,14 @@
                                     <a href="${page}/report/pivot/patient/patients-exiting-program.htm">Client Exiting Program Pivot Report</a>
                                 </td>
                                 <td>
-                                    <sec:authorize access="
+                                    <%--<sec:authorize access="
                                                    hasRole('ROLE_ADMINISTRATOR') or 
                                                    hasRole('ROLE_DATA_CLERK') or 
                                                    hasRole('ROLE_M_AND_E_OFFICER') or
                                                    hasRole('ROLE_HOD_M_AND_E')
                                                    ">
                                         <a href="${page}/report/export-database/index.htm">Export Database</a>
-                                    </sec:authorize>
+</sec:authorize>--%>
                                 </td>
                             </tr>
                             <tr>
