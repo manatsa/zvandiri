@@ -89,13 +89,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public void delete(Patient t) {
-        if (t.getId() == null) {
-            throw new IllegalStateException("Item to be deleted is in an inconsistent state");
-        }
-        t.setDeleted(Boolean.TRUE);
-        t.setStatus(PatientChangeEvent.OTHER);
-        t.setActive(Boolean.FALSE);
-        patientRepo.save(t);
+        patientRepo.delete(t);
     }
 
     @Override
@@ -223,7 +217,8 @@ public class PatientServiceImpl implements PatientService {
     @Override
     @Transactional
     public void mergePatients(String patientId, String patientToBeMergedId) {
-        Patient patient = patientRepo.getPatient(patientId);
+    	
+    	Patient patient = patientRepo.getPatient(patientId);
         Patient patientToBeMerged = patientRepo.getPatient(patientToBeMergedId);
         for (InvestigationTest item : patientToBeMerged.getInvestigationTests()) {
             patient.add(item, patient);
@@ -278,8 +273,10 @@ public class PatientServiceImpl implements PatientService {
         for (PatientDisability item : patientToBeMerged.getDisabilityCategorys()) {
             patient.add(item, patient);
         }
+        
         save(patient);
         delete(patientToBeMerged);
+        
     }
 
     @Override
