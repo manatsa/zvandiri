@@ -160,12 +160,6 @@ public class LaboratoryTestResultsController extends BaseController {
                 dateTaken.setCellValue("");
             }
 
-            Cell cat = resultsRow.createCell(count++);
-            cat.setCellValue(test.getPatient().getCat() != null ? test.getPatient().getCat().getName() : "");
-
-            Cell ymm = resultsRow.createCell(count++);
-            ymm.setCellValue(test.getPatient().getYoungMumGroup() != null ? test.getPatient().getYoungMumGroup().getName() : "");
-
             Cell address = resultsRow.createCell(count++);
             address.setCellValue(test.getPatient().getAddress());
 

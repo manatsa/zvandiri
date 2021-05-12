@@ -27,4 +27,5 @@ public interface TbIptRepo extends AbstractRepo<TbIpt, String> {
     
     @Query("from TbIpt s left join fetch s.patient left join fetch s.modifiedBy left join fetch s.createdBy where s.patient=:patient")
     public List<TbIpt> findTopByPatientOrderByDateStartedIptDesc(@Param("patient") Patient patient);
+    List<TbIpt> findByPatientOrderByDateCreatedDesc(Patient patient);
 }

@@ -143,8 +143,6 @@ public class TbScreeningReportController extends BaseController {
             age.setCellValue(tbIpt.getPatient().getAge());
             XSSFCell sex = tbIptRow.createCell(++count);
             sex.setCellValue(tbIpt.getPatient().getGender().getName());
-            Cell cat = tbIptRow.createCell(++count);
-            cat.setCellValue(tbIpt.getPatient().getCat() != null ? tbIpt.getPatient().getCat().getName() : "");
             XSSFCell province = tbIptRow.createCell(++count);
             province.setCellValue(tbIpt.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
             XSSFCell district = tbIptRow.createCell(++count);
@@ -181,8 +179,8 @@ public class TbScreeningReportController extends BaseController {
             XSSFCell onIpt = tbIptRow.createCell(++count);
             onIpt.setCellValue(tbIpt.getOnIpt() != null ? tbIpt.getOnIpt().getName() : "");
             XSSFCell dateStartedIpt = tbIptRow.createCell(++count);
-            if (tbIpt.getDateStartedTreatment() != null) {
-                dateStartedIpt.setCellValue(tbIpt.getDateStartedTreatment());
+            if (tbIpt.getDateStartedIpt()!= null) {
+                dateStartedIpt.setCellValue(tbIpt.getDateStartedIpt());
                 dateStartedIpt.setCellStyle(cellStyle);
             } else {
                 dateStartedIpt.setCellValue("");

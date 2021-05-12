@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.ArvHist;
-import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -17,9 +16,6 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.report.api.DatabaseHeader;
 
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -107,11 +103,6 @@ public class ArvHistoryController extends BaseController {
             age.setCellValue(arvHist.getPatient().getAge());
             XSSFCell sex = arvHistXSSFRow.createCell(++count);
             sex.setCellValue(arvHist.getPatient().getGender().getName());
-
-            XSSFCell cat = arvHistXSSFRow.createCell(++count);
-            cat.setCellValue(arvHist.getPatient().getCat() != null ? arvHist.getPatient().getCat().getName() : "");
-            XSSFCell ymm = arvHistXSSFRow.createCell(++count);
-            ymm.setCellValue((arvHist.getPatient().getYoungMumGroup() != null) ? arvHist.getPatient().getYoungMumGroup().getName() : "");
 
             XSSFCell province = arvHistXSSFRow.createCell(++count);
             province.setCellValue(arvHist.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());

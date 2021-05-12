@@ -171,7 +171,7 @@ public class CatDetailReportServiceImpl implements CatDetailReportService {
             if (srhHist != null) {
                 catDetail.setSexuallyActive(srhHist.getSexuallyActive());
             }
-            TbIpt tbIpt = tbIptService.getByPatient(catDetail.getPatient());
+            TbIpt tbIpt = tbIptService.getLatest(catDetail.getPatient());
             if (tbIpt != null) {
                 catDetail.setTbScreening(tbIpt.getScreenedForTb());
                 catDetail.setTbScreeningDate(tbIpt.getDateScreened());
