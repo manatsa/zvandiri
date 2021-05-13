@@ -19,7 +19,7 @@
                                             <form:options items="${provinces}" itemLabel="name" itemValue="id"/>
                                         </form:select>
                                         <p class="help-block">
-                                            <form:errors path="province"/>
+                                            <form:errors path="province" class="alert-danger"/>
                                         </p>
                                     </div> 
                                 </td>
@@ -33,7 +33,7 @@
                                             <form:options items="${districts}" itemLabel="name" itemValue="id"/>
                                         </form:select>
                                         <p class="help-block">
-                                            <form:errors path="district"/>
+                                            <form:errors path="district" class="alert-danger"/>
                                         </p>
                                     </div> 
                                 </td>
