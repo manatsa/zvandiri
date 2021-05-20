@@ -60,14 +60,14 @@ public interface PatientRepo extends AbstractRepo<Patient, String> {
     @Query("Select Distinct p from Patient p left join fetch p.education left join fetch p.educationLevel left join fetch p.referer left join fetch p.primaryClinic left join fetch p.supportGroup where p.firstName=:firstName and p.lastName=:lastName and p.dateOfBirth=:dateOfBirth and p.gender=:gender")
     public Patient findByFirstNameANdLastNameAndDateOfBirthAndGender(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("dateOfBirth") Date dateOfBirth, @Param("gender") Gender gender);
     
-    @Query("Select Distinct p from Patient p where (p.firstName like :firstName% and p.lastName like :lastName%) and (p.dateOfBirth between :start and :end) and p.primaryClinic=:primaryClinic and (p.firstName like %:firstNameLastPart and p.lastName like %:lastNameLastPart)")
+    @Query("Select Distinct p from Patient p where (p.firstName like :firstName% and p.lastName like :lastName%) and (p.dateOfBirth between :start and :end) and p.primaryClinic=:primaryClinic and (p.firstName like %:firstNameLastPart and p.lastName like %:lastNameLastPart) and p.active=:active")
     public List<Patient> checkPatientDuplicate(
             @Param("firstName") String firstName, 
             @Param("lastName") String lastName, 
             @Param("start") Date start, @Param("end") Date end, 
             @Param("primaryClinic") Facility primaryClinic,
             @Param("firstNameLastPart") String firstNameLastPart, 
-            @Param("lastNameLastPart") String lastNameLastPart);
+            @Param("lastNameLastPart") String lastNameLastPart, @Param("active") Boolean active);
     
     @Query("Select Distinct p from Patient p left join fetch p.education left join fetch p.educationLevel left join fetch p.referer left join fetch p.primaryClinic left join fetch p.supportGroup where (p.dateOfBirth between :start and :end) and p.primaryClinic.district=:district and p.gender=:gender and (p.firstName Like :name% or p.lastName Like :name%) order by p.lastName, p.firstName, p.middleName ASC")
     public List<Patient> findYoungMothersByName(

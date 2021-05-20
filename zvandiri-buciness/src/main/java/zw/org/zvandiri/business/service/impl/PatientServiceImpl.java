@@ -89,6 +89,13 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public void delete(Patient t) {
+    	if (t.getId() == null) {
+            throw new IllegalStateException("Item to be deleted is in an inconsistent state");
+        }
+        t.setDeleted(Boolean.TRUE);
+        t.setStatus(PatientChangeEvent.OTHER);
+        t.setActive(Boolean.FALSE);
+        patientRepo.save(t);
         patientRepo.delete(t);
     }
 
@@ -141,7 +148,7 @@ public class PatientServiceImpl implements PatientService {
 
         Date start = DateUtil.getDateDiffMonth(patient.getDateOfBirth(), -6);
         Date end = DateUtil.getDateDiffMonth(patient.getDateOfBirth(), 6);
-        return patientRepo.checkPatientDuplicate(firstName, lastName, start, end, patient.getPrimaryClinic(), firstNameLastPart, lastNameLastPart);
+        return patientRepo.checkPatientDuplicate(firstName, lastName, start, end, patient.getPrimaryClinic(), firstNameLastPart, lastNameLastPart, true);
     }
 
     private String getSubString(String name) {
@@ -200,7 +207,7 @@ public class PatientServiceImpl implements PatientService {
         Set<PatientDuplicateDTO> patientsWithPossibleDuplicates = new HashSet<>();
         for (Iterator<Patient> pi = patients.iterator(); pi.hasNext();) {
             Patient currentPatient = pi.next();
-            Set<Patient> estDuplicates = new HashSet(checkPatientDuplicate(currentPatient));
+            Set<Patient> estDuplicates = new HashSet<>(checkPatientDuplicate(currentPatient));
             estDuplicates.remove(currentPatient);
             if (!estDuplicates.isEmpty()) {
                 PatientDuplicateDTO patientWithDuplicates = PatientDuplicateDTO.getInstance(currentPatient);
