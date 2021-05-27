@@ -2057,9 +2057,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             } else {
                 dateScreened.setCellValue("");
             }
-            XSSFCell tbSymptoms = tbIptXSSFRow.createCell(++count);
-            tbSymptoms.setCellValue((tbIpt.getTbSymptoms() != null && tbIpt.getTbSymptoms().isEmpty())
-                    ? tbIpt.getTbSymptoms().toString() : "");
             XSSFCell identifiedWithTb = tbIptXSSFRow.createCell(++count);
             identifiedWithTb.setCellValue(tbIpt.getIdentifiedWithTb() != null ? tbIpt.getIdentifiedWithTb().getName() : "");
             XSSFCell tbIdentificationOutcome = tbIptXSSFRow.createCell(++count);
