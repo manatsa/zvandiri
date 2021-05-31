@@ -329,9 +329,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 dateStatusChanged.setCellValue("");
             }
             numPatient++;
-            if (numPatient >= 65535) {
-                break;
-            }
+            //if (numPatient >= 65535) {
+                //break;
+            //}
 
         }
         // add contacts
@@ -407,9 +407,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             XSSFCell visitOutcome = contactHeader.createCell(++count);
             visitOutcome.setCellValue(contact.getVisitOutcome() != null ? contact.getVisitOutcome().getName() : null);
 
-            if (contactXSSFRowNum >= 65535) {
+            /*if (contactXSSFRowNum >= 65535) {
                 break;
-            }
+            }*/
         }
 
         // add contact assessments
@@ -556,9 +556,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             XSSFCell legalRec = referralXSSFRow.createCell(++count);
             legalRec.setCellValue(!referral.getLegalAvailed().isEmpty()
                     ? referral.getLegalAvailed().toString() : null);
-            if (referralXSSFRowNum >= 65535) {
+            /*if (referralXSSFRowNum >= 65535) {
                 break;
-            }
+            }*/
         }
 
         // add hiv sti services referred
@@ -2057,9 +2057,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             } else {
                 dateScreened.setCellValue("");
             }
-            XSSFCell tbSymptoms = tbIptXSSFRow.createCell(++count);
-            tbSymptoms.setCellValue((tbIpt.getTbSymptoms() != null && tbIpt.getTbSymptoms().isEmpty())
-                    ? tbIpt.getTbSymptoms().toString() : "");
             XSSFCell identifiedWithTb = tbIptXSSFRow.createCell(++count);
             identifiedWithTb.setCellValue(tbIpt.getIdentifiedWithTb() != null ? tbIpt.getIdentifiedWithTb().getName() : "");
             XSSFCell tbIdentificationOutcome = tbIptXSSFRow.createCell(++count);

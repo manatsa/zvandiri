@@ -103,7 +103,7 @@ public class PatientDuplicateDTO implements Serializable {
     }
     
     public static Set<PatientDuplicateDTO> getRelatedPatients(Set<Patient> patients) {
-        Set<PatientDuplicateDTO> possibleDuplicates = new HashSet();
+        Set<PatientDuplicateDTO> possibleDuplicates = new HashSet<>();
         for (Patient p : patients) {
             possibleDuplicates.add(getInstance(p));
         }

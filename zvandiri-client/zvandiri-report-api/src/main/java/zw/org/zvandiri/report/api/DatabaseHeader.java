@@ -128,7 +128,7 @@ public interface DatabaseHeader {
     };
 
     public final String [] MENTAL_HEALTH_SCREENING_HEADER = {
-            "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Screened For Mental Health", "Date Screened",
+    		"UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic", "Screened For Mental Health", "Date Screened",
             "Mental health Screening Type", "Risk", "Identified Risks", "Received Support", "Support Received", "Referral",
             "Referrals Received", "Diagnosis", "Diagnosis Done", "Other Diagnosis", "Intervention", "Interventions", "Other Interventions"
     };
