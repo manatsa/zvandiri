@@ -14,9 +14,12 @@
                         <th>Date of Birth</th>
                         <th>Age</th>
                         <th>Gender</th>
+                        <th>Status</th>
                         <td>IsCATS</td>
                         <td>Address</td>
+                        <td>Address 2</td>
                         <td>Mobile Number</td>
+                        <td>Secondary Number</td>
                         <th>Region</th>
                         <th>District</th>
                         <th>Primary Clinic</th>
@@ -26,6 +29,7 @@
                         <th>Date of Birth</th>
                         <th>Age</th>
                         <th>Gender</th>
+                        <th>Status</th>
                         <td>IsCATS</td>
                         <td>Address</td>
                         <td>Address 2</td>
@@ -42,6 +46,7 @@
                                 <td><spring:eval expression="item.dateOfBirth" /></td>
                                 <td>${item.age}</td>
                                 <td>${item.gender.name}</td>
+                                <td>${item.status.name}</td>
                                 <td>${item.cat.name}</td>
                                 <td>${item.address}</td>
                                 <td>${item.address1}</td>

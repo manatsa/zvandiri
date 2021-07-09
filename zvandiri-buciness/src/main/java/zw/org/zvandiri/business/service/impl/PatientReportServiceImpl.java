@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.HIVStatus;
+import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.service.PatientReportService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.PatientInnerJoin;
@@ -1759,7 +1760,8 @@ public class PatientReportServiceImpl implements PatientReportService {
 
     @Override
     public List<Patient> getUncontactedClients(SearchDTO dto) {
-        dto.setStatus(null);
+        //dto.setStatus(null);
+        System.err.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>> "+dto.toString());
         StringBuilder builder = new StringBuilder("Select Distinct p from Patient p  ");
         int position = 0;
 
@@ -1806,6 +1808,15 @@ public class PatientReportServiceImpl implements PatientReportService {
                 }
             }
 
+            if (dto.getStatus() != null) {
+                if (position == 0) {
+                    builder.append(" p.status=:status");
+                    position++;
+                } else {
+                    builder.append(" and p.status=:status");
+                }
+            }
+
             if (position == 0) {
                 builder.append(" p.id not in (select c.patient from Contact c ");
                 position++;
@@ -1821,6 +1832,7 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
 
         builder.append(" order by p.lastName ASC");
+        System.err.println("********************************* Query : "+builder.toString());
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
@@ -1837,6 +1849,9 @@ public class PatientReportServiceImpl implements PatientReportService {
         if (dto.getGender() != null) {
             query.setParameter("gender", dto.getGender());
         }
+        if (dto.getStatus() != null) {
+            query.setParameter("status", dto.getStatus());
+        }
 
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
@@ -1849,7 +1864,7 @@ public class PatientReportServiceImpl implements PatientReportService {
     
     @Override
     public Long countUncontacted(SearchDTO dto) {
-        dto.setStatus(null);
+        //dto.setStatus(null);
         StringBuilder builder = new StringBuilder("Select count(Distinct p) from Patient p  ");
         int position = 0;
 
@@ -1894,6 +1909,13 @@ public class PatientReportServiceImpl implements PatientReportService {
                 } else {
                     builder.append(" and p.gender=:gender");
                 }
+            }
+
+            if (position == 0) {
+                builder.append("p.status="+ PatientChangeEvent.ACTIVE);
+                position++;
+            } else {
+                builder.append(" and p.primaryClinic.district.province=:province");
             }
 
             if (position == 0) {

@@ -799,4 +799,8 @@ public class SearchDTO implements Serializable {
                 dto.getHei(), dto.getResult(), dto.getTbTreatmentStatus(), dto.getTbTreatmentOutcome(),
                 dto.getUserLevel(), dto.getUserRoles(), dto.getFirstResult(), dto.getPageSize());
     }
+
+    public String toString(){
+        return "Province: "+this.province+", District: "+this.district+", Facility: "+this.primaryClinic+", start date: "+this.startDate+", end date: "+this.endDate+", status: "+this.status;
+    }
 }

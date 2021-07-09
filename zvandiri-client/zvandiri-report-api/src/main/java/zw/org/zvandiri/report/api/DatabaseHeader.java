@@ -71,7 +71,7 @@ public interface DatabaseHeader {
     };
 
     public final String [] UNCONTACTED_CLIENTS_HEADER = {
-             "Client Name","Date of Birth", "Age", "Gender", "Address","Secondary Address", "Mobile Number", "Second Mobile Number", "Region", "District","Primary Clinic"
+             "Client Name","Date of Birth", "Age", "Gender","Status", "Address","Secondary Address", "Mobile Number", "Second Mobile Number", "Region", "District","Primary Clinic"
     };
 
     public final String [] UNIQUE_CONTACTED_CLIENTS_HEADER = {
