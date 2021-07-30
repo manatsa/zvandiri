@@ -23,12 +23,13 @@ $('#userList').dataTable({"aaSorting": [],
 $('.itemList').dataTable({"aaSorting": []});
 $("#province").change(function () {
     $this = $(this);
-    if ($this.val() === "")
-        return;
-    $("#supportGroup").html("--Select Item--");
-    $("#primaryClinic").html("--Select Item--");
-    $("#district").html("<option value=''>......... loading districts </option>");
-    $("#supportGroupDistrict").html("<option value=''>......... loading districts </option>");
+    if ($this.val() === "") {
+		$("#district").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
+		$("#primaryClinic").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
+		return;
+	}
+    $("#primaryClinic").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
+    $("#district").find('option').remove().end().append('<option value="">.......... loading districts</option>').val('');
     $.get(path + "/global/getprovincedistricts", {"province": $this.val()}, function (data) {
         $("#district").html(processDropDown(data));
         $("#supportGroupDistrict").html(processDropDown(data));
@@ -69,20 +70,13 @@ $(".otherdate").datepicker({
 });
 $("#district").change(function () {
     $this = $(this);
-    if ($this.val() === "")
+    if ($this.val() === "") {
+		$("#primaryClinic").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
         return;
-    $("#primaryClinic").html("--Select Item--");
+	}
+    $("#primaryClinic").find('option').remove().end().append('<option value="">......... loading clinics</option>').val('');
     $.get(path + "/global/getdistrictstations", {"district": $this.val()}, function (data) {
         $("#primaryClinic").html(processDropDown(data));
-    });
-});
-$("#supportGroupDistrict").change(function () {
-    $this = $(this);
-    if ($this.val() === "")
-        return;
-    $("#supportGroup").html("<option value=''>......... loading support groups </option>");
-    $.get(path + "/global/getdistrictsupportgroups", {"district": $this.val()}, function (data) {
-        $("#supportGroup").html(processDropDown(data));
     });
 });
 $("#periodType").change(function () {
