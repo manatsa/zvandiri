@@ -79,4 +79,5 @@ public class ExportDataBaseController extends BaseController {
 		String name = DateUtil.getFriendlyFileName("Zvandiri_Database");
 		forceDownLoadXLSX(officeExportService.exportDatabase(name, dto), name, response);
 	}
+	
 }
