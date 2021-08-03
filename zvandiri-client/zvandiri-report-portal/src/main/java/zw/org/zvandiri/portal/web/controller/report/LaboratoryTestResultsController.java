@@ -152,6 +152,14 @@ public class LaboratoryTestResultsController extends BaseController {
             Cell suppression = resultsRow.createCell(count++);
             suppression.setCellValue(test.getViralLoadSuppressionStatus());
 
+            Cell entryDate = resultsRow.createCell(count++);
+            if (test.getDateCreated() != null) {
+                entryDate.setCellValue(test.getDateCreated());
+                entryDate.setCellStyle(cellStyle);
+            } else {
+                entryDate.setCellValue("");
+            }
+
             Cell dateTaken = resultsRow.createCell(count++);
             if (test.getDateTaken() != null) {
                 dateTaken.setCellValue(test.getDateTaken());

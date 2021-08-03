@@ -77,10 +77,10 @@ public class ContactReportServiceImpl implements ContactReportService {
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
 
                 if (position == 0) {
-                    builder.append(" (c.contactDate between :startDate and :endDate)");
+                    builder.append(" (c.dateCreated between :startDate and :endDate)");
                     position++;
                 } else {
-                    builder.append(" and (c.contactDate between :startDate and :endDate)");
+                    builder.append(" and (c.dateCreated between :startDate and :endDate)");
                 }
 
             }
@@ -241,10 +241,10 @@ public class ContactReportServiceImpl implements ContactReportService {
             }
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append("c.contactDate between :startDate and :endDate");
+                    builder.append("c.dateCreated between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and (c.contactDate between :startDate and :endDate)");
+                    builder.append(" and (c.dateCreated between :startDate and :endDate)");
                 }
             }
             if (dto.getCareLevel() != null) {
@@ -493,10 +493,10 @@ public class ContactReportServiceImpl implements ContactReportService {
             }
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append("c.contactDate between :startDate and :endDate");
+                    builder.append("c.dateCreated between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and (c.contactDate between :startDate and :endDate)");
+                    builder.append(" and (c.dateCreated between :startDate and :endDate)");
                 }
             }
             if (dto.getCareLevel() != null) {

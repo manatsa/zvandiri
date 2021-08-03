@@ -106,7 +106,7 @@ public class DashboardController extends BaseController {
             barGraph = aggregateVisualReportService.getDefaultTrend(new ChartModelItem("", "", "Quarters", maxItems, true), contactLevelOfCareReportService.getTrendReport(dto.getInstance(dto)), "Stable");
             ChartUtilities.writeChartAsPNG(response.getOutputStream(), barGraph, 540, 320);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
         }
     }
     

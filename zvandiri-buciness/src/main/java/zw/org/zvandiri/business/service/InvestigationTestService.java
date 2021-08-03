@@ -28,9 +28,13 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
  */
 public interface InvestigationTestService extends GenericService<InvestigationTest> {
     
-	public List<InvestigationTest> getByPatientAndTestType(Patient patient, TestType testType);
+	    public List<InvestigationTest> getByPatientAndTestType(Patient patient, TestType testType);
         
         public List<InvestigationTest> get(SearchDTO dto);
         
         public InvestigationTest getLatestTestByTestType(Patient patient, TestType testType);
+
+        public List<InvestigationTest> getInvalidViralLoad(SearchDTO dto);
+
+    Long getInvalidViralLoadCount(SearchDTO dto);
 }

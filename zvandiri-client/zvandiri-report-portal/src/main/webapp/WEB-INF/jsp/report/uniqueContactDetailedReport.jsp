@@ -71,7 +71,6 @@
 				</div>
 			</div>
 
-		</div>
 		<div class="panel-footer" style="text-align: right">
 			Export/ View As <a href="${page}${excelExport}"> <img
 				src="<c:url value="/resources/images/excel.jpeg"/>" />

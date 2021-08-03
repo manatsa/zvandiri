@@ -36,6 +36,9 @@ public class UncontactedReportController extends BaseController {
     @Resource
     PatientReportService patientReportService;
 
+    @Resource
+    LastContactedService lastContactedService;
+
     List<Patient> patients = new ArrayList<>();
 
     public String setUpModel(ModelMap model, SearchDTO item, boolean post) {
@@ -60,12 +63,12 @@ public class UncontactedReportController extends BaseController {
     @RequestMapping(value = "/range", method = RequestMethod.GET)
     public String getUncontactedSetup(ModelMap model) {
         return setUpModel(model, new SearchDTO(), false);
+
     }
 
     @RequestMapping(value = "/range", method = RequestMethod.POST)
     public String getUncontactedClients(HttpServletResponse response, ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
         item = getUserLevelObjectState(item);
-        //System.err.println("#####################################  "+item);
         ForkJoinPool pool = ForkJoinPool.commonPool();
         patients = pool.invoke(new UnContactedClientTask(DateUtil.generateArray(patientReportService.countUncontacted(item)), patientReportService, item));
         return setUpModel(model, item, true);

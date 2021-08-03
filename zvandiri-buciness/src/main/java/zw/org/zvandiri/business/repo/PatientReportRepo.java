@@ -32,4 +32,7 @@ public interface PatientReportRepo extends CrudRepository<Patient, String> {
     
     @Query("select count(p) from Patient p where p.primaryClinic=:primaryClinic and p.hivStatus=:hivStatus")
     public Integer findCountByClinicAndHivStatus(@Param("primaryClinic")  Facility primaryClinic,@Param("hivStatus") HIVStatus hivStatus);*/
+
+
+
 }

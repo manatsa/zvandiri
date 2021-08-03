@@ -63,9 +63,11 @@ public class DateUtil {
         try {
             return fmt.parse(date);
         } catch (ParseException ex) {
-            System.out.println("Error occurred");
+            System.err.println(" -------------- -------------Faulty Date is : "+date);
+            ex.printStackTrace();
         }
-        throw new IllegalArgumentException("Un expected parameter provided :" + date);
+        return null;
+        //throw new IllegalArgumentException("Un expected parameter provided :" + date);
     }
     
     public static Date getDateFromStringRest(String date) {

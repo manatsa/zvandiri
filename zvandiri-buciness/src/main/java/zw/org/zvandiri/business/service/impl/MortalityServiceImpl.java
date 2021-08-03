@@ -190,11 +190,11 @@ public class MortalityServiceImpl implements MortalityService{
             }
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append(" m.dateOfDeath ");
+                    builder.append(" m.dateCreated ");
                     builder.append(" between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and m.dateOfDeath");
+                    builder.append(" and m.dateCreated");
                     builder.append(" between :startDate and :endDate)");
                 }
             }
@@ -322,11 +322,11 @@ public class MortalityServiceImpl implements MortalityService{
             }
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append(" m.dateOfDeath ");
+                    builder.append(" m.dateCreated ");
                     builder.append(" between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and m.dateOfDeath");
+                    builder.append(" and m.dateCreated");
                     builder.append(" between :startDate and :endDate)");
                 }
             }
