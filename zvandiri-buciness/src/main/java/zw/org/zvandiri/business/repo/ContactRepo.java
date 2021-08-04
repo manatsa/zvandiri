@@ -58,4 +58,5 @@ public interface ContactRepo extends AbstractRepo<Contact, String> {
             "where a.name='Unwell' " +
             "and c.contact_date between :startDate and :endDate", nativeQuery = true)
     List<Contact> findUnwellClients(@Param("startDate") Date startDate, @Param("endDate") Date endDate );
+
 }

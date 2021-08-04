@@ -4,8 +4,14 @@
         <div class="panel-heading">${pageTitle}</div>
         <div class="panel-body">
             <a href="${page}/report/index.htm">&DoubleLeftArrow; Back To
-                Reports DashBoard Home</a><br /> <span class="text-error right" style="text-align: right;">Invisible columns will be visible in exported data!</span>
+                Reports DashBoard Home</a><br />
             <%@include file="../template/searchClientFragment.jspf"%>
+            <div class="row">
+                <div class="panel-footer" style="text-align: right">
+                    Export/ View As <a href="${page}${excelExport}"> <img
+                        src="<c:url value="/resources/images/excel.jpeg"/>" /></a>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12">
                     <table id="tableList" class="display" cellspacing="0">
@@ -17,9 +23,7 @@
                         <th>Status</th>
                         <td>IsCATS</td>
                         <td>Address</td>
-                        <td>Address 2</td>
                         <td>Mobile Number</td>
-                        <td>Secondary Number</td>
                         <th>Region</th>
                         <th>District</th>
                         <th>Primary Clinic</th>
@@ -32,9 +36,7 @@
                         <th>Status</th>
                         <td>IsCATS</td>
                         <td>Address</td>
-                        <td>Address 2</td>
                         <td>Mobile Number</td>
-                        <td>Secondary Number</td>
                         <th>Region</th>
                         <th>District</th>
                         <th>Primary Clinic</th>
@@ -49,9 +51,7 @@
                                 <td>${item.status.name}</td>
                                 <td>${item.cat.name}</td>
                                 <td>${item.address}</td>
-                                <td>${item.address1}</td>
                                 <td>${item.mobileNumber}</td>
-                                <td>${item.secondaryMobileNumber}</td>
                                 <td>${item.primaryClinic.district.province.name}</td>
                                 <td>${item.primaryClinic.district.name}</td>
                                 <td>${item.primaryClinic.name}</td>

@@ -9,6 +9,13 @@
 				Reports DashBoard Home</a><br />
 			<%@include file="../template/contactSearchFragment.jspf"%>
 			<div class="row">
+				<div class="panel-footer" style="text-align: right">
+					Export/ View As <a href="${page}${excelExport}"> <img
+						src="<c:url value="/resources/images/excel.jpeg"/>" />
+				</a>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-lg-12">
 					<table id="tableList" class="display" cellspacing="0">
 						<thead>
@@ -51,9 +58,9 @@
 									<td>${item.currentCareLevel.name}</td>
 									<td><spring:eval expression="item.contactDate" /></td>
 									<td>${item.followUp.name}</td>
-									<td>${item.location}</td>
+									<td>${item.location.name}</td>
 									<td>${item.careLevel.name}</td>
-									<td>${item.position}</td>
+									<td>${item.position.name}</td>
 								</tr>
 							</c:forEach>
 						</tbody>

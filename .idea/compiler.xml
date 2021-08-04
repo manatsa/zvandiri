@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="zvandiri-portal" />
+        <module name="zvandiri-report-api" />
+        <module name="zvandiri-report-portal" />
+        <module name="zvandiri-mobile-api" />
+        <module name="zvandiri-business" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="8">
+      <module name="zvandiri" target="8" />
+      <module name="zvandiri-business" target="8" />
+      <module name="zvandiri-client" target="8" />
+      <module name="zvandiri-mobile-api" target="8" />
+      <module name="zvandiri-portal" target="8" />
+      <module name="zvandiri-report-api" target="8" />
+      <module name="zvandiri-report-portal" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

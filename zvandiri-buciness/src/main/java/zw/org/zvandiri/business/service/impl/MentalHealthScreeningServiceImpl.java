@@ -155,11 +155,11 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
 
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append(" m.dateScreened ");
+                    builder.append(" m.dateCreated ");
                     builder.append(" between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and m.dateScreened");
+                    builder.append(" and m.dateCreated");
                     builder.append(" between :startDate and :endDate)");
                 }
             }
@@ -233,11 +233,11 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
 
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append(" m.dateScreened ");
+                    builder.append(" m.dateCreated ");
                     builder.append(" between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and m.dateScreened");
+                    builder.append(" and m.dateCreated");
                     builder.append(" between :startDate and :endDate)");
                 }
             }

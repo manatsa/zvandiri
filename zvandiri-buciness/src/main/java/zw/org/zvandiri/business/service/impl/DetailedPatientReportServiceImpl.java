@@ -15,7 +15,11 @@
  */
 package zw.org.zvandiri.business.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityGraph;
@@ -28,6 +32,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import zw.org.zvandiri.business.domain.District;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
 import zw.org.zvandiri.business.service.PatientService;
@@ -70,6 +75,16 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" and p.primaryClinic.district=:district");
                 }
             }
+
+            if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district in :districts");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district in :districts");
+                }
+            }
+
             if (dto.getPrimaryClinic() != null) {
                 if (position == 0) {
                     builder.append("p.primaryClinic=:primaryClinic");
@@ -142,6 +157,9 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         }
         if (dto.getDistrict() != null) {
             query.setParameter("district", dto.getDistrict());
+        }
+        if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+            query.setParameter("districts", dto.getDistricts());
         }
         if (dto.getPrimaryClinic() != null) {
             query.setParameter("primaryClinic", dto.getPrimaryClinic());
@@ -483,6 +501,14 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" and p.primaryClinic.district=:district");
                 }
             }
+            if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district in :districts");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district in :districts");
+                }
+            }
             if (dto.getPrimaryClinic() != null) {
                 if (position == 0) {
                     builder.append("p.primaryClinic=:primaryClinic");
@@ -570,6 +596,9 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         if (dto.getDistrict() != null) {
             query.setParameter("district", dto.getDistrict());
         }
+        if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+            query.setParameter("districts", dto.getDistricts());
+        }
         if (dto.getPrimaryClinic() != null) {
             query.setParameter("primaryClinic", dto.getPrimaryClinic());
         }
@@ -629,6 +658,15 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     position++;
                 } else {
                     builder.append(" and p.primaryClinic.district=:district");
+                }
+            }
+
+            if (dto.getDistricts()!=null && !dto.getDistricts().isEmpty()) {
+                if (position == 0) {
+                    builder.append("  p.primaryClinic.district in :districts");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district in :districts ");
                 }
             }
             if (dto.getPrimaryClinic() != null) {
@@ -711,12 +749,18 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
             }
         }
         builder.append(" order by p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
+
+
+
         TypedQuery<String> query = entityManager.createQuery(builder.toString(), String.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
         }
         if (dto.getDistrict() != null) {
             query.setParameter("district", dto.getDistrict());
+        }
+        if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+            query.setParameter("districts", dto.getDistricts());
         }
         if (dto.getPrimaryClinic() != null) {
             query.setParameter("primaryClinic", dto.getPrimaryClinic());
@@ -755,7 +799,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
     @Override
     public List<Patient> get(List<String> ids) {
         final long start = System.currentTimeMillis();
-        System.err.println("Size::" + ids.size());
+        System.err.println("IDs Size::" + ids.size());
         if (ids == null || ids.isEmpty()) {
         	return null;
         }
@@ -766,7 +810,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         List<Patient> list = query.getResultList();
         final long end = System.currentTimeMillis();
         final long time = end -start;
-        System.err.println("Taken::" + time);
+        //System.err.println("Taken::" + time);
         System.err.println("Records::" + list.size());
         return list;
     }
@@ -775,6 +819,13 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         EntityGraph<Patient> entityGraph = entityManager.createEntityGraph(Patient.class);
         entityGraph.addAttributeNodes("disabilityCategorys");
         return entityGraph;
+    }
+
+    private String printDistricts(List<District> districts){
+        return  districts.stream()
+                .map(District::getName)
+                .collect(Collectors
+                        .joining(","));
     }
     
 

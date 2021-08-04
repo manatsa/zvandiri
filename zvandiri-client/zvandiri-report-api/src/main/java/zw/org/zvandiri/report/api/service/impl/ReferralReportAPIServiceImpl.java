@@ -220,7 +220,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
 
     @Override
     public List<GenericReportModel> getDefaultReport(SearchDTO dto) {
-        String[] headers = {"Name", "Age", "Gender", "Phone No.", "District", "Clinic",
+        String[] headers = {"Name", "Age", "Gender", "Phone No.", "District", "Clinic","Date Of Entry",
             "Referral Date", "Organisation", "Services Requested", "Services Received"};
         List<GenericReportModel> items = new ArrayList<>();
         items.add(new GenericReportModel(Arrays.asList(headers)));
@@ -234,6 +234,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                 item.getPatient().getMobileNumber(),
                 item.getPatient().getPrimaryClinic().getDistrict().getName(),
                 item.getPatient().getPrimaryClinic().getName(),
+                item.getDateCreated()!=null ? item.getDateCreated().toString(): "",
                 DateUtil.getStringFromDate(item.getReferralDate()),
                 item.getOrganisation(),
                 item.getServicesRequested() != null && !item.getServicesRequested().isEmpty() ? item.getServicesRequested().toString() : null,

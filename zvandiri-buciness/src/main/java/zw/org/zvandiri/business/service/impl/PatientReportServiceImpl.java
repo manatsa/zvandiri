@@ -1323,10 +1323,10 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             if (position == 0) {
-                builder.append("v.dateTaken between :startDate and :endDate");
+                builder.append("v.dateCreated between :startDate and :endDate");
                 position++;
             } else {
-                builder.append(" and (v.dateTaken between :startDate and :endDate)");
+                builder.append(" and (v.dateCreated between :startDate and :endDate)");
             }
         }
         if (dto.getTestType() != null) {
@@ -1761,7 +1761,7 @@ public class PatientReportServiceImpl implements PatientReportService {
     @Override
     public List<Patient> getUncontactedClients(SearchDTO dto) {
         //dto.setStatus(null);
-        System.err.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>> "+dto.toString());
+        //System.err.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>> "+dto.toString());
         StringBuilder builder = new StringBuilder("Select Distinct p from Patient p  ");
         int position = 0;
 
@@ -1818,7 +1818,7 @@ public class PatientReportServiceImpl implements PatientReportService {
             }
 
             if (position == 0) {
-                builder.append(" p.id not in (select c.patient from Contact c ");
+                builder.append(" c.patient not in (select Distinct c.patient from Contact c ");
                 position++;
             } else {
                 builder.append(" and p.id not in (select c.patient from Contact c ");
@@ -1832,7 +1832,7 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
 
         builder.append(" order by p.lastName ASC");
-        System.err.println("********************************* Query : "+builder.toString());
+        //System.err.println("********************************* Query : "+builder.toString());
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
@@ -1861,7 +1861,112 @@ public class PatientReportServiceImpl implements PatientReportService {
         query.setMaxResults(dto.getPageSize());
         return query.getResultList();
     }
-    
+
+
+    //    @Override
+//    public List<Patient> getUncontactedClients(SearchDTO dto) {
+//        //dto.setStatus(null);
+//        //System.err.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>> "+dto.toString());
+//        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p  ");
+//        int position = 0;
+//
+//        if (dto.getSearch(dto)) {
+//            builder.append(" where ");
+//            if (dto.getProvince() != null) {
+//                if (position == 0) {
+//                    builder.append("p.primaryClinic.district.province=:province");
+//                    position++;
+//                } else {
+//                    builder.append(" and p.primaryClinic.district.province=:province");
+//                }
+//            }
+//            if (dto.getDistrict() != null) {
+//                if (position == 0) {
+//                    builder.append(" p.primaryClinic.district=:district");
+//                    position++;
+//                } else {
+//                    builder.append(" and p.primaryClinic.district=:district");
+//                }
+//            }
+//            if (dto.getPrimaryClinic() != null) {
+//                if (position == 0) {
+//                    builder.append("p.primaryClinic=:primaryClinic");
+//                    position++;
+//                } else {
+//                    builder.append(" and p.primaryClinic=:primaryClinic");
+//                }
+//            }
+//            if (dto.getSupportGroup() != null) {
+//                if (position == 0) {
+//                    builder.append("p.supportGroup=:supportGroup");
+//                    position++;
+//                } else {
+//                    builder.append(" and p.supportGroup=:supportGroup");
+//                }
+//            }
+//            if (dto.getGender() != null) {
+//                if (position == 0) {
+//                    builder.append("p.gender=:gender");
+//                    position++;
+//                } else {
+//                    builder.append(" and p.gender=:gender");
+//                }
+//            }
+//
+//            if (dto.getStatus() != null) {
+//                if (position == 0) {
+//                    builder.append(" p.status=:status");
+//                    position++;
+//                } else {
+//                    builder.append(" and p.status=:status");
+//                }
+//            }
+//
+//            if (position == 0) {
+//                builder.append(" p.id not in (select c.patient from Contact c ");
+//                position++;
+//            } else {
+//                builder.append(" and p.id not in (select c.patient from Contact c ");
+//            }
+//
+//            if (dto.getStartDate() != null && dto.getEndDate() != null) {
+//                builder.append(" where c.contactDate between :startDate and :endDate");
+//
+//            }
+//            builder.append(" )");
+//        }
+//
+//        builder.append(" order by p.lastName ASC");
+//        //System.err.println("********************************* Query : "+builder.toString());
+//        TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
+//        if (dto.getProvince() != null) {
+//            query.setParameter("province", dto.getProvince());
+//        }
+//        if (dto.getDistrict() != null) {
+//            query.setParameter("district", dto.getDistrict());
+//        }
+//        if (dto.getPrimaryClinic() != null) {
+//            query.setParameter("primaryClinic", dto.getPrimaryClinic());
+//        }
+//        if (dto.getSupportGroup() != null) {
+//            query.setParameter("supportGroup", dto.getSupportGroup());
+//        }
+//        if (dto.getGender() != null) {
+//            query.setParameter("gender", dto.getGender());
+//        }
+//        if (dto.getStatus() != null) {
+//            query.setParameter("status", dto.getStatus());
+//        }
+//
+//        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+//            query.setParameter("startDate", dto.getStartDate());
+//            query.setParameter("endDate", dto.getEndDate());
+//        }
+//        query.setFirstResult(dto.getFirstResult());
+//        query.setMaxResults(dto.getPageSize());
+//        return query.getResultList();
+//    }
+//
     @Override
     public Long countUncontacted(SearchDTO dto) {
         //dto.setStatus(null);
@@ -1926,7 +2031,7 @@ public class PatientReportServiceImpl implements PatientReportService {
             }
 
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
-                builder.append(" where c.contactDate between :startDate and :endDate");
+                builder.append(" where c.dateCreated between :startDate and :endDate");
 
             }
             builder.append(" )");

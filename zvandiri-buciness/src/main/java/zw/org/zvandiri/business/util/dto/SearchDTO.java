@@ -18,7 +18,10 @@ package zw.org.zvandiri.business.util.dto;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.District;
@@ -100,6 +103,7 @@ public class SearchDTO implements Serializable {
     private Set<UserRole> userRoles = new HashSet<>();
     private Integer firstResult;
     private Integer pageSize;
+    private List<District> districts;
 
     public SearchDTO() {
     }
@@ -154,6 +158,14 @@ public class SearchDTO implements Serializable {
         this.userRoles = userRoles;
         this.firstResult = firstResult;
         this.pageSize = pageSize;
+    }
+
+    public List<District> getDistricts() {
+        return districts;
+    }
+
+    public void setDistricts(List<District> districts) {
+        this.districts = districts;
     }
 
     public Period getPeriod() {
@@ -493,7 +505,7 @@ public class SearchDTO implements Serializable {
                 || dto.getFollowUp() != null || dto.getCreatedBy() != null || dto.getStart() != null
                 || dto.getMax() != null || dto.getReason() != null || dto.getResult() != null
                 || dto.getTbTreatmentStatus() != null || dto.getTbTreatmentOutcome() != null
-                || dto.getUserLevel() != null) {
+                || dto.getUserLevel() != null || (dto.getDistricts()!=null && !dto.getDistricts().isEmpty())){
             return Boolean.TRUE;
         }
         return Boolean.FALSE;
@@ -801,6 +813,7 @@ public class SearchDTO implements Serializable {
     }
 
     public String toString(){
-        return "Province: "+this.province+", District: "+this.district+", Facility: "+this.primaryClinic+", start date: "+this.startDate+", end date: "+this.endDate+", status: "+this.status;
+        return "Province: "+this.province+", District: "+this.district+", Facility: "+this.primaryClinic+", start date: "+this.startDate+", end date: "+this.endDate+", status: "+this.status+
+                ", Districts size : "+districts.size()+"Districts :"+districts.stream().map(District::getName).collect(Collectors.joining(","));
     }
 }

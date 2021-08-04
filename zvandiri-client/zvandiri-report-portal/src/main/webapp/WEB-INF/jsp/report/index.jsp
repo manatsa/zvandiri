@@ -39,6 +39,21 @@
 									</sec:authorize></td>
 							</tr>
 							<tr>
+								<td><a
+										href="${page}/report/pivot/patient/patients-exiting-program.htm">Client
+									Exiting Program Pivot Report</a></td>
+								<td><sec:authorize
+										access="
+                                                   hasRole('ROLE_ADMINISTRATOR') or
+                                                   hasRole('ROLE_DATA_CLERK') or
+                                                   hasRole('ROLE_M_AND_E_OFFICER') or
+                                                   hasRole('ROLE_HOD_M_AND_E')
+                                                   ">
+									<a href="${page}/report/export-districts-databases/index.htm">Export
+										Database By Districts</a>
+								</sec:authorize></td>
+							</tr>
+							<tr>
 								<td><sec:authorize
 										access="
                                                    hasRole('ROLE_ADMINISTRATOR') or 
@@ -113,6 +128,10 @@
 										Contacted Clients Report</a></td>
 								<td><a href="${page}/report/arvhist/range.htm">ARV_History
 										Report</a></td>
+							</tr>
+							<tr>
+								<td><a href="${page}/report/last-contacted/range.htm">Last Client Contact Report</a></td>
+								<td><a href="${page}/report/invalidvl/range.htm?type=viral-load">Invalid VL Report</a></td>
 							</tr>
 
 

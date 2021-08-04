@@ -33,6 +33,7 @@ import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.DetailedReportService;
+import zw.org.zvandiri.report.api.service.parallel.ContactReportTask;
 import zw.org.zvandiri.report.api.service.parallel.GenericCountReportTask;
 
 /**
@@ -130,30 +131,34 @@ public class DetailedReportServiceImpl implements DetailedReportService {
 
     @Override
     public List<GenericReportModel> getDefaultReportB(SearchDTO dto) {
-        String[] headers = {"Name", "Age", "Gender", "Phone No.",
-            "District", "Clinic", "Current Care Level", "Contact Date", "Follow Up", "Place of Contact", "New Level of Care", "Contacted By"};
+        String[] headers = {"Name", "Age", "Gender", "Phone No.", "District", "Clinic", "Date Of Entry",
+            "Current Care Level", "Contact Date", "Follow Up", "Place of Contact", "New Level of Care", "Contacted By"};
 
         List<GenericReportModel> items = new ArrayList<>();
         items.add(new GenericReportModel(Arrays.asList(headers)));
         ForkJoinPool pool = ForkJoinPool.commonPool();
         List<Contact> result = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(contactReportService.getCount(dto)), contactReportService, dto));
-        for (Contact item : result) {
-            String[] inner = {
-                item.getPatient().getName(),
-                item.getPatient().getAge() + "",
-                item.getPatient().getGender().getName(),
-                item.getPatient().getMobileNumber(),
-                item.getPatient().getPrimaryClinic().getDistrict().getName(),
-                item.getPatient().getPrimaryClinic().getName(),
-                item.getCareLevel().getName(),
-                DateUtil.getStringFromDate(item.getContactDate()),
-                item.getFollowUp().getName(),
-                item.getLocation().getName(),
-                item.getCareLevel().getName(),
-                item.getPosition().getName()
-            };
-            items.add(new GenericReportModel(Arrays.asList(inner)));
-        }
+        List<GenericReportModel> contactItems=pool.invoke(new ContactReportTask(result));
+
+        //System.err.println("+++++++++++++++++++++++++ Contacts Items :"+ contactItems.size());
+//                for (Contact item : result) {
+//            String[] inner = {
+//                item.getPatient().getName(),
+//                item.getPatient().getAge() + "",
+//                item.getPatient().getGender().getName(),
+//                item.getPatient().getMobileNumber(),
+//                item.getPatient().getPrimaryClinic().getDistrict().getName(),
+//                item.getPatient().getPrimaryClinic().getName(),
+//                item.getCareLevel().getName(),
+//                DateUtil.getStringFromDate(item.getContactDate()),
+//                item.getFollowUp().getName(),
+//                item.getLocation().getName(),
+//                item.getCareLevel().getName(),
+//                item.getPosition().getName()
+//            };
+//            items.add(new GenericReportModel(Arrays.asList(inner)));
+//        }
+        items.addAll(contactItems);
         return items;
     }
 

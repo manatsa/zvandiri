@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="zvandiri-report-portal:war">
+    <output-path>$PROJECT_DIR$/zvandiri-client/zvandiri-report-portal/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>zvandiri-report-portal</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="zvandiri-report.war">
+      <element id="artifact" artifact-name="zvandiri-report-portal:war exploded" />
+    </root>
+  </artifact>
+</component>

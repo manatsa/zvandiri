@@ -4,8 +4,14 @@
         <div class="panel-heading">${pageTitle}</div>
         <div class="panel-body">
             <a href="${page}/report/index.htm">&DoubleLeftArrow; Back To
-                Reports DashBoard Home</a><br /> <span class="text-error right" style="text-align: right;">Invisible columns will be visible in exported data!</span>
+                Reports DashBoard Home</a><br />
             <%@include file="../template/searchClientFragment.jspf"%>
+            <div class="row">
+                <div class="panel-footer" style="text-align: right">
+                    Export/ View As <a href="${page}${excelExport}"> <img
+                        src="<c:url value="/resources/images/excel.jpeg"/>" /></a>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12">
                     <table id="tableList" class="display" cellspacing="0">
