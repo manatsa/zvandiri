@@ -53,9 +53,6 @@
        rules: {
            name: {
                required: true
-           },
-           referalType: {
-               required: true
            }
        } 
     });
