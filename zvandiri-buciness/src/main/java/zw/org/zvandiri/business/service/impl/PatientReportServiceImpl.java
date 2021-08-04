@@ -142,7 +142,7 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append(" and (p.dateJoined between :startDate and :endDate)");
             }
         }
-        TypedQuery query = entityManager.createQuery(builder.toString(), Long.class);
+        TypedQuery<Long> query = entityManager.createQuery(builder.toString(), Long.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
         }
@@ -1955,5 +1955,17 @@ public class PatientReportServiceImpl implements PatientReportService {
 
         return query.getSingleResult();
     }
+
+	@Override
+	public Long getCountDueForViralLoad(SearchDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Patient> getDueForViralLoadList(SearchDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

@@ -406,6 +406,14 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" and (p.dateJoined between :startDate and :endDate)");
                 }
             }
+            if (dto.getIsDueForVL() != null) {
+                if (position == 0) {
+                    builder.append("p.id not in (Select distinct i.patient.id From InvestigationTest i where i.patient.id is not null)");
+                    position++;
+                } else {
+                    builder.append(" and p.id not in (Select distinct i.patient.id From InvestigationTest i where i.patient.id is not null)");
+                }
+            }
         }
         TypedQuery<Long> query = entityManager.createQuery(builder.toString(), Long.class);
         if (dto.getProvince() != null) {
