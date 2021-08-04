@@ -27,3 +27,5 @@ nb-configuration.xml
 zvandiri-buciness/src/main/resources/zw/org/zvandiri/business/resources/application.properties
 /zvandiri-client/zvandiri_mobile/target/
 /zvandiri-client/zvandiri_portal/target/
+.idea/
+.idea*
