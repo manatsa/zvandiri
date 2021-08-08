@@ -814,6 +814,6 @@ public class SearchDTO implements Serializable {
 
     public String toString(){
         return "Province: "+this.province+", District: "+this.district+", Facility: "+this.primaryClinic+", start date: "+this.startDate+", end date: "+this.endDate+", status: "+this.status+
-                ", Districts size : "+districts.size()+"Districts :"+districts.stream().map(District::getName).collect(Collectors.joining(","));
+                ", Districts size : "+districts.size()+"Districts :"+districts.toString();
     }
 }

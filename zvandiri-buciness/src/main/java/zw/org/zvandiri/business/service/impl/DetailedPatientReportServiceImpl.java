@@ -15,11 +15,7 @@
  */
 package zw.org.zvandiri.business.service.impl;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityGraph;
@@ -32,7 +28,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import zw.org.zvandiri.business.domain.District;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
 import zw.org.zvandiri.business.service.PatientService;
@@ -810,7 +805,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         List<Patient> list = query.getResultList();
         final long end = System.currentTimeMillis();
         final long time = end -start;
-        //System.err.println("Taken::" + time);
+        System.err.println("Taken::" + time);
         System.err.println("Records::" + list.size());
         return list;
     }
@@ -821,12 +816,12 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         return entityGraph;
     }
 
-    private String printDistricts(List<District> districts){
+    /*private String printDistricts(List<District> districts){
         return  districts.stream()
                 .map(District::getName)
                 .collect(Collectors
                         .joining(","));
-    }
+    }*/
     
 
 }

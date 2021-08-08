@@ -130,12 +130,12 @@ public class ContactServiceImpl implements ContactService {
     public void saveContactDTO(Contact contact) {
         
         save(contact);
-        if (contact.getViralLoad() != null) {
+        if (contact.getViralLoad() != null && (contact.getViralLoad().getPatient() != null && StringUtils.isNotBlank(contact.getViralLoad().getPatient().getId()))) {
             InvestigationTest viralLoad = contact.getViralLoad();
             viralLoad.setTestType(TestType.VIRAL_LOAD);
             investigationTestService.save(viralLoad);            
         }
-        if (contact.getCd4Count()!= null) {
+        if (contact.getCd4Count()!= null && (contact.getCd4Count().getPatient() != null && StringUtils.isNotBlank(contact.getCd4Count().getPatient().getId()))) {
             InvestigationTest cd4Count = contact.getCd4Count();
             cd4Count.setTestType(TestType.CD4_COUNT);
             investigationTestService.save(cd4Count);            

@@ -19,6 +19,7 @@
                     <div class="col-lg-10">
                         <form:form commandName="item" action="${formAction}">
                             <%@include file="../template/formState.jspf" %>
+                            <form:hidden path="currentElement"/>
                             <form:hidden path="patient" value="${item.patient.id}"/>    
                             <div class="form-group">
                                 <label>Screened For Mental Health</label>
@@ -183,21 +184,28 @@
 <%@include file="../template/footer.jspf" %>
 <script type="text/javascript">
     $("#screenedForMentalHealth").change(function () {
+    	$("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
     });
     $("#risk").change(function () {
+    	$("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
     });
     $("#support").change(function () {
+    	$("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
     });
     $("#referral").change(function () {
+    	$("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
     });
     $("#diagnosis").change(function () {
+    	$("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
     });
     $("#intervention").change(function () {
+    	$("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
     });
+    $(window).scrollTop("<c:out value="${item.currentElement}"/>");
 </script>

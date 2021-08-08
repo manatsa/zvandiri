@@ -96,6 +96,8 @@ public class MentalHealthScreening extends BaseEntity {
     private Date dateScreened;
     @Enumerated
     private YesNo referralComplete;
+    @Transient
+    private String currentElement;
 
     public MentalHealthScreening(Patient patient) {
         this.patient = patient;
@@ -246,6 +248,14 @@ public class MentalHealthScreening extends BaseEntity {
 
     public void setReferralComplete(YesNo referralComplete) {
         this.referralComplete = referralComplete;
+    }
+    
+    public String getCurrentElement() {
+        return currentElement;
+    }
+
+    public void setCurrentElement(String currentElement) {
+        this.currentElement = currentElement;
     }
     
 }
