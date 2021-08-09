@@ -121,17 +121,6 @@ public class DetailedReportController extends BaseController {
         setUpModel(model, dto, post, Boolean.FALSE);
         return "report/patientDateRangeReport";
     }
-    
-    /*@RequestMapping(value = "/due-for-vl", method = RequestMethod.GET)
-    public String getDueForVlForm(ModelMap model, SearchDTO dto) {
-        model.addAttribute("pageTitle", APP_PREFIX + "Client Due For Viral Load Detailed Report");
-        Boolean post = Boolean.TRUE;
-        if (dto.getStatus() != null && dto.getStatus().equals(PatientChangeEvent.ACTIVE) && (dto.getMaxViralLoad() == null && dto.getMinCd4Count() == null && dto.getMinViralLoad() == null)) {
-            post = Boolean.FALSE;
-        }
-        setUpModel(model, dto, post, Boolean.FALSE);
-        return "report/patientDateRangeReport";
-    }*/
 
     @RequestMapping(value = "/range", method = RequestMethod.POST)
     public String getRangeIndexPost(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item) {
