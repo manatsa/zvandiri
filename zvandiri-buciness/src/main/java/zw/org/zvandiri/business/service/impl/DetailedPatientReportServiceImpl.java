@@ -421,10 +421,10 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
             }
             if (dto.getIsDueForVL() != null) {
                 if (position == 0) {
-                    builder.append("p.id not in (Select distinct i.patient.id From InvestigationTest i where i.patient.id is not null)");
+                    builder.append("p.id not in (Select distinct i.patient.id From InvestigationTest i)");
                     position++;
                 } else {
-                    builder.append(" and p.id not in (Select distinct i.patient.id From InvestigationTest i where i.patient.id is not null)");
+                    builder.append(" and p.id not in (Select distinct i.patient.id From InvestigationTest i)");
                 }
             }
         }
@@ -580,6 +580,14 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     position++;
                 } else {
                     builder.append(" and p.status in (:statuses)");
+                }
+            }
+            if (dto.getIsDueForVL() != null) {
+                if (position == 0) {
+                    builder.append("p.id not in (Select distinct i.patient.id From InvestigationTest i)");
+                    position++;
+                } else {
+                    builder.append(" and p.id not in (Select distinct i.patient.id From InvestigationTest i)");
                 }
             }
         }

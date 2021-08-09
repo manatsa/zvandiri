@@ -38,15 +38,18 @@ public interface DatabaseHeader {
     };
 
     public final String [] DEPENDANT_HEADER = {
-            "UIC", "Client Name","Clinet Date of Birth", "Client Age", "Client Gender", "Name", "Region", "District","Primary Clinic", "Gender", "Date Of Birth", "HIV Status"
+            "UIC", "Client Name","Clinet Date of Birth", "Client Age", "Client Gender", "Name", "Region", "District","Primary Clinic", "Gender", 
+            "Date Of Birth", "HIV Status"
     };
 
     public final String [] OPPORTUNISTIC_INFECTION_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic","Date Of Entry","Infection", "Date Diagnosed", "Medication", "Current Status"
+            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic","Date Of Entry","Infection", "Date Diagnosed", 
+            "Medication", "Current Status"
     };
 
     public final String [] HIV_CO_INFECTION_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic","Date Of Entry", "Infection", "Date Diagnosed", "Medication", "Resolution"
+            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic","Date Of Entry", "Infection", "Date Diagnosed", 
+            "Medication", "Resolution"
     };
 
     public final String [] MENTAL_HIST_HEADER = {
@@ -56,8 +59,8 @@ public interface DatabaseHeader {
     };
 
     public final String [] OBSTERIC_HIST_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic","Date Of Entry", "Is Pregnant", "Currently Breast Feeding",
-            "Currently Pregnant", "Number of ANC Visits", "Gestational Age of First Pregnancy", "Art Started", "Number of Children"
+            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic","Date Of Entry", "Is Pregnant", 
+            "Currently Breast Feeding",            "Currently Pregnant", "Number of ANC Visits", "Gestational Age of First Pregnancy", "Art Started", "Number of Children"
     };
 
     public final String [] CONTACT_HEADER = {
