@@ -1,28 +1,39 @@
 package zw.org.zvandiri.portal.web.controller.report;
 
 
-import org.apache.poi.xssf.usermodel.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ForkJoinPool;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import zw.org.zvandiri.business.domain.MentalHealthScreening;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
-import zw.org.zvandiri.business.service.*;
+import zw.org.zvandiri.business.service.DistrictService;
+import zw.org.zvandiri.business.service.FacilityService;
+import zw.org.zvandiri.business.service.MentalHealthScreeningService;
+import zw.org.zvandiri.business.service.PeriodService;
+import zw.org.zvandiri.business.service.ProvinceService;
+import zw.org.zvandiri.business.service.SupportGroupService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
-import zw.org.zvandiri.report.api.DatabaseHeader;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ForkJoinPool;
-import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
 import zw.org.zvandiri.portal.web.controller.report.parallel.MentalHealthTask;
+import zw.org.zvandiri.report.api.DatabaseHeader;
 
 /**
  *
@@ -191,6 +202,15 @@ public class MentalHealthScreeningReportController extends BaseController {
                     ? mentalHealthScreening.getInterventions().toString() : "");
             XSSFCell otherIntervention = mentalHealthScreeningRow.createCell(++count);
             otherIntervention.setCellValue(mentalHealthScreening.getOtherIntervention());
+            
+            XSSFCell isCats = mentalHealthScreeningRow.createCell(++count);
+            isCats.setCellValue(
+            		mentalHealthScreening.getPatient().getCat() != null ? mentalHealthScreening.getPatient().getCat().getName() : null
+            );
+            XSSFCell youngMumGroup = mentalHealthScreeningRow.createCell(++count);
+            youngMumGroup.setCellValue(
+            		mentalHealthScreening.getPatient().getYoungMumGroup() != null ? mentalHealthScreening.getPatient().getYoungMumGroup().getName() : null
+            );
         }
         return workbook;
     }

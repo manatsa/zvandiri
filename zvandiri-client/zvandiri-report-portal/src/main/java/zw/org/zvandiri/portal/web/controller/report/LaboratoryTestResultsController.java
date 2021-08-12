@@ -184,6 +184,15 @@ public class LaboratoryTestResultsController extends BaseController {
             Cell primaryClinic = resultsRow.createCell(count++);
             primaryClinic.setCellValue(test.getPatient().getPrimaryClinic().getName() == null ? "" : test.getPatient().getPrimaryClinic().getName());
 
+            Cell isCats = resultsRow.createCell(++count);
+            isCats.setCellValue(
+            		test.getPatient().getCat() != null ? test.getPatient().getCat().getName() : null
+            );
+            Cell youngMumGroup = resultsRow.createCell(++count);
+            youngMumGroup.setCellValue(
+            		test.getPatient().getYoungMumGroup() != null ? test.getPatient().getYoungMumGroup().getName() : null
+            );
+            
         }
 
         return workbook;

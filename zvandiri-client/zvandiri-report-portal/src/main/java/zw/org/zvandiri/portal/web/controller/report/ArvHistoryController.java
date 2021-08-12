@@ -127,6 +127,15 @@ public class ArvHistoryController extends BaseController {
             } else {
                 endDate.setCellValue("");
             }
+            
+            XSSFCell isCats = arvHistXSSFRow.createCell(++count);
+            isCats.setCellValue(
+            		arvHist.getPatient().getCat() != null ? arvHist.getPatient().getCat().getName() : null
+            );
+            XSSFCell youngMumGroup = arvHistXSSFRow.createCell(++count);
+            youngMumGroup.setCellValue(
+            		arvHist.getPatient().getYoungMumGroup() != null ? arvHist.getPatient().getYoungMumGroup().getName() : null
+            );
         }
 
         return workbook;

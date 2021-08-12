@@ -138,6 +138,14 @@ public class MorbidityReportController extends BaseController {
                     assessmentType.setCellValue(item.getContactAssessment().getName());
                     XSSFCell assessment = assessmentHeader.createCell(++count);
                     assessment.setCellValue(item.toString());
+                    XSSFCell isCats = assessmentHeader.createCell(++count);
+                    isCats.setCellValue(
+                    		contact.getPatient().getCat() != null ? contact.getPatient().getCat().getName() : null
+                    );
+                    XSSFCell youngMumGroup = assessmentHeader.createCell(++count);
+                    youngMumGroup.setCellValue(
+                    		contact.getPatient().getYoungMumGroup() != null ? contact.getPatient().getYoungMumGroup().getName() : null
+                    );
                 }
 
             }

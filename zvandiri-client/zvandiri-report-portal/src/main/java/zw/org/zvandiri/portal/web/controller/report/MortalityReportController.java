@@ -195,6 +195,15 @@ public class MortalityReportController extends BaseController {
             learningPoints.setCellValue(mortality.getLearningPoints());
             XSSFCell actionPlan = mortalityRow.createCell(++count);
             actionPlan.setCellValue(mortality.getActionPlan());
+            
+            XSSFCell isCats = mortalityRow.createCell(++count);
+            isCats.setCellValue(
+            		mortality.getPatient().getCat() != null ? mortality.getPatient().getCat().getName() : null
+            );
+            XSSFCell youngMumGroup = mortalityRow.createCell(++count);
+            youngMumGroup.setCellValue(
+            		mortality.getPatient().getYoungMumGroup() != null ? mortality.getPatient().getYoungMumGroup().getName() : null
+            );
 
         }
 
