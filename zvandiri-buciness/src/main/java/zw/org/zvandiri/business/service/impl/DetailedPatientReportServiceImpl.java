@@ -421,10 +421,10 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
             }
             if (dto.getIsDueForVL() != null) {
                 if (position == 0) {
-                    builder.append("p.id not in (Select distinct i.patient.id From InvestigationTest i)");
+                    builder.append("p.id not in (Select distinct i.patient.id From InvestigationTest i where i.result is not null or i.result >= 1)");
                     position++;
                 } else {
-                    builder.append(" and p.id not in (Select distinct i.patient.id From InvestigationTest i)");
+                    builder.append(" and p.id not in (Select distinct i.patient.id From InvestigationTest i where i.result is not null or i.result >= 1)");
                 }
             }
         }
