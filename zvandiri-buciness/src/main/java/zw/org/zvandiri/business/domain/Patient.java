@@ -123,7 +123,7 @@ public class Patient extends GenericPatient {
     }
 
     public String getName() {
-        return getFirstName() + (getMiddleName() != null && !getMiddleName().equals("") ? " " + getMiddleName() : "") + " " + getLastName();
+        return getoINumber();
     }
 
     public Set<PatientDisability> getDisabilityCategorys() {
