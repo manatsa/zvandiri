@@ -18,14 +18,9 @@ package zw.org.zvandiri.business.domain;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Index;
+import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 import org.hibernate.annotations.Formula;
 import zw.org.zvandiri.business.domain.util.DisabilitySeverity;
 import zw.org.zvandiri.business.domain.util.Gender;
@@ -51,6 +46,9 @@ public class Patient extends GenericPatient {
     private Set<PatientDisability> disabilityCategorys = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private Set<PatientHistory> patientHistories = new HashSet<>();
+    @Transient
+    @OneToOne(mappedBy = "patient", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
+    private MobilePhone mobilePhone;
     @Transient
     private District district;
     @Transient
@@ -214,6 +212,14 @@ public class Patient extends GenericPatient {
 
     public Integer getCd4Count() {
         return cd4Count != null ? cd4Count : 0;
+    }
+
+    public MobilePhone getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(MobilePhone mobilePhone) {
+        this.mobilePhone = mobilePhone;
     }
 
     public void add(PatientDisability item, Patient patient) {

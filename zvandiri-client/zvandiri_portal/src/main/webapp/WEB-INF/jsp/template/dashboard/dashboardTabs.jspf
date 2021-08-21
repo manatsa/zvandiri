@@ -4,7 +4,11 @@
     <li class=""><a href="#treatment-detail" data-toggle="tab">Contact</a></li>
     <li class=""><a href="#labs" data-toggle="tab">Lab Results</a></li>
     <li class=""><a href="#primary-care-giver" data-toggle="tab">Primary CareGiver</a></li>
-    <li class=""><a href="#dependants" data-toggle="tab">Dependants</a></li>    
+    <li class=""><a href="#dependants" data-toggle="tab">Dependants</a></li>
+    <c:if test="${patient.cat.name=='Yes'}">
+        <li class=""><a href="#phone-detail" data-toggle="tab">Phone Info</a></li>
+        <li class=""><a href="#bike-detail" data-toggle="tab">Bicycle Info</a></li>
+    </c:if>
     <li class=""><a href="#operations" data-toggle="tab">Operations</a></li>
     <!--<li class=""><a href="#referrals" data-toggle="tab">Referrals</a></li>
     <li class=""><a href="#operations" data-toggle="tab">Files</a></li>-->
@@ -36,6 +40,18 @@
     <div class="tab-pane fade" id="dependants">
         <br/>
         <%@include file="dependantList.jspf" %>
+    </div>
+    <div class="tab-pane fade" id="phone-detail">
+        <br/>
+        <b class="titleHeader">Mobile Phone Detail</b>
+        <hr/>
+        <%@include file="phoneDetail.jspf" %>
+    </div>
+    <div class="tab-pane fade" id="bike-detail">
+        <br/>
+        <b class="titleHeader">Bicycle Detail</b>
+        <hr/>
+        <%@include file="bicycleDetails.jspf" %>
     </div>
     <div class="tab-pane fade" id="operations">
         <br/>
