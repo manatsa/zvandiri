@@ -63,13 +63,13 @@ public class ExportDatabaseByDistrictsController extends BaseController {
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_DATA_CLERK') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
     public void getExcelExport(ModelMap model,HttpServletResponse response, @ModelAttribute("item") SearchDTO dto) {
 
-        System.err.println(">>>>>>>>>>>>>>>>>>>>>> Districts Selected >>>>>>>>>>>>>"+printDistricts(dto.getDistricts()));
+        //System.err.println(">>>>>>>>>>>>>>>>>>>>>> Districts Selected >>>>>>>>>>>>>"+printDistricts(dto.getDistricts()));
         dto = getUserLevelObjectState(dto);
         String name = DateUtil.getFriendlyFileName("Zvandiri_Database_By_Districts");
         forceDownLoadXLSX(officeExportService.exportDatabase(name, dto), name, response);
     }
 
-    private String printDistricts(List<District> districts){
+    /*private String printDistricts(List<District> districts){
         return  districts.stream().map(District::getName).collect(Collectors.joining(","));
-    }
+    }*/
 }

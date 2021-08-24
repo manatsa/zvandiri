@@ -15,12 +15,10 @@
  */
 package zw.org.zvandiri.report.api.service.impl;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
@@ -36,7 +34,23 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import zw.org.zvandiri.business.domain.*;
+import zw.org.zvandiri.business.domain.ArvHist;
+import zw.org.zvandiri.business.domain.Assessment;
+import zw.org.zvandiri.business.domain.ChronicInfectionItem;
+import zw.org.zvandiri.business.domain.Contact;
+import zw.org.zvandiri.business.domain.Dependent;
+import zw.org.zvandiri.business.domain.HivConInfectionItem;
+import zw.org.zvandiri.business.domain.InvestigationTest;
+import zw.org.zvandiri.business.domain.MentalHealthItem;
+import zw.org.zvandiri.business.domain.MentalHealthScreening;
+import zw.org.zvandiri.business.domain.Mortality;
+import zw.org.zvandiri.business.domain.ObstercHist;
+import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.Referral;
+import zw.org.zvandiri.business.domain.ServicesReferred;
+import zw.org.zvandiri.business.domain.SocialHist;
+import zw.org.zvandiri.business.domain.SubstanceItem;
+import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.repo.ContactRepo;
 import zw.org.zvandiri.business.repo.ReferralRepo;
 import zw.org.zvandiri.business.service.ArvHistService;
@@ -58,7 +72,6 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.DatabaseHeader;
 import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
-import zw.org.zvandiri.report.api.service.parallel.OfficeExportTask;
 import zw.org.zvandiri.report.api.service.parallel.PatientDatabaseExportTask;
 import zw.org.zvandiri.report.api.service.parallel.PatientReportTask;
 
@@ -165,9 +178,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         return document;
     }
 
-    private String printDistricts(List<District> districts){
+    /*private String printDistricts(List<District> districts){
         return  districts.stream().map(District::getName).collect(Collectors.joining(","));
-    }
+    }*/
 
     @Override
     public XSSFWorkbook exportDatabase(String name, SearchDTO dto) {
