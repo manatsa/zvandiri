@@ -41,13 +41,13 @@
 
             </div>
             <div class="col-lg-4">
-                <!-- <img src="<c:url value="/resources/images/aids-logo.png" />"  />  -->
+                <img src="<c:url value="/resources/images/aids-logo.png" />"  />
             </div>
             <div class="col-lg-2">
 
             </div>
             <div class="col-lg-4">
-                <!-- <img src="<c:url value="/resources/images/applogo.png" />"  />  -->
+                <img src="<c:url value="/resources/images/applogo.png" />"  />
             </div>
         </div>
     </div>

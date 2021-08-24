@@ -21,6 +21,6 @@ package zw.org.zvandiri.portal.web.controller;
  */
 public interface IAppTitle {
     
-    public String APP_PREFIX = "Demo Appliation::";
+    public String APP_PREFIX = "Zvandiri Database::";
     public final String INACTIVE_MESSAGE = "Error this patient is currently inactive therefore the record cannot be edited";
 }
