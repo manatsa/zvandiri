@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.business.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -420,11 +421,12 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                 }
             }
             if (dto.getIsDueForVL() != null) {
+            	// record should be t most 12 months old
                 if (position == 0) {
-                    builder.append("p.id not in (Select distinct i.patient.id From InvestigationTest i where i.testType=:testType and (i.result is not null or i.result >= 1))");
+                    builder.append("p.id not in (Select distinct i.patient.id From InvestigationTest i where i.testType=:testType and (i.result is not null or i.result >= 1) and (i.dateTaken between :start and :end))");
                     position++;
                 } else {
-                    builder.append(" and p.id not in (Select distinct i.patient.id From InvestigationTest i where i.testType=:testType and (i.result is not null or i.result >= 1))");
+                    builder.append(" and p.id not in (Select distinct i.patient.id From InvestigationTest i where i.testType=:testType and (i.result is not null or i.result >= 1) and (i.dateTaken between :start and :end))");
                 }
             }
         }
@@ -463,6 +465,10 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         }
         if (dto.getTestType() != null) {
             query.setParameter("testType", dto.getTestType());
+        }
+        if (dto.getIsDueForVL() != null) {
+        	query.setParameter("start", DateUtil.getDateDiffMonth(new Date(), -12));
+        	query.setParameter("end", new Date());
         }
         return query.getSingleResult();
     }

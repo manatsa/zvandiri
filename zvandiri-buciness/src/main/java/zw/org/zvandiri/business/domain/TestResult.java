@@ -22,6 +22,8 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.util.Cd4CountResultSource;
 import zw.org.zvandiri.business.domain.util.YesNo;
@@ -34,6 +36,7 @@ import zw.org.zvandiri.business.domain.util.YesNo;
 public class TestResult extends BaseEntity {
     
     @ManyToOne
+    @NotNull
     private Patient patient;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")

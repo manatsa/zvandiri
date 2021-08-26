@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -45,8 +46,9 @@ import zw.org.zvandiri.business.domain.util.YesNo;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MentalHealthScreening extends BaseEntity {
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JsonIgnore
+    @NotNull
     private Patient patient;
     @Enumerated
     private YesNo screenedForMentalHealth;

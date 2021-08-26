@@ -67,7 +67,7 @@ public class BasicNameNumberReportServiceImpl implements BasicNameNumberReportSe
         dto.setMinViralLoad(settings.getViralLoadMaxCount());
         dto.setTestType(TestType.VIRAL_LOAD);
         map.put("VIRAL_LOAD_BELOW_MINIMUM", patientReportService.getPatientLabResults(dto));
-        dto.setMaxViralLoad(0);
+        dto.setMaxViralLoad(null);
         dto.setMinCd4Count(null);
         dto.setMinViralLoad(null);
         dto.setIsDueForVL(Boolean.TRUE);

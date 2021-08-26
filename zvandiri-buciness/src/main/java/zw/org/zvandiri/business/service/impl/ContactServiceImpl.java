@@ -42,105 +42,116 @@ import zw.org.zvandiri.business.util.UUIDGen;
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class ContactServiceImpl implements ContactService {
 
-    @Resource
-    private ContactRepo contactRepo;
-    @Resource
-    private UserService userService;
-    @Resource
-    private InvestigationTestService investigationTestService;
-    private final Logger LOG = Logger.getLogger(ContactServiceImpl.class);
-    
-    @Override
-    public List<Contact> getAll() {
-        return contactRepo.findByAllContacts();
-    }
+	@Resource
+	private ContactRepo contactRepo;
+	@Resource
+	private UserService userService;
+	@Resource
+	private InvestigationTestService investigationTestService;
+	private final Logger LOG = Logger.getLogger(ContactServiceImpl.class);
 
-    @Override
-    public Contact get(String id) {
-        if (id == null) {
-            throw new IllegalStateException("Item to be does not exist :" + id);
-        }
-        return contactRepo.findById(id);
-    }
+	@Override
+	public List<Contact> getAll() {
+		return contactRepo.findByAllContacts();
+	}
 
-    @Override
-    public void delete(Contact t) {
-        if (t.getId() == null) {
-            throw new IllegalStateException("Item to be deleted is in an inconsistent state");
-        }
-        contactRepo.delete(t);
-    }
+	@Override
+	public Contact get(String id) {
+		if (id == null) {
+			throw new IllegalStateException("Item to be does not exist :" + id);
+		}
+		return contactRepo.findById(id);
+	}
 
-    @Override
-    public List<Contact> getPageable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+	@Override
+	public void delete(Contact t) {
+		if (t.getId() == null) {
+			throw new IllegalStateException("Item to be deleted is in an inconsistent state");
+		}
+		contactRepo.delete(t);
+	}
 
-    @Override
-    @Transactional
-    public Contact save(Contact t) {
-        
-        if (t.getId() == null || StringUtils.isBlank(t.getId())) {
-            try{
-            t.setId(UUIDGen.generateUUID());
-            t.setCreatedBy(userService.getCurrentUser());
-            t.setDateCreated(new Date());
-            return contactRepo.save(t);
-            } catch (Exception e) {
-                return null;
-            }
-        }
-        t.setModifiedBy(userService.getCurrentUser());
-        t.setDateModified(new Date());
-        return contactRepo.save(t);
-    }
+	@Override
+	public List<Contact> getPageable() {
+		throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
+																		// Tools | Templates.
+	}
 
-    @Override
-    public Boolean checkDuplicate(Contact current, Contact old) {
-        throw new UnsupportedOperationException("No relevant");
-    }
+	@Override
+	@Transactional
+	public Contact save(Contact t) {
 
-    @Override
-    public List<Contact> getByPatient(Patient patient) {
-        //patient.getContacts();
-        return contactRepo.findByPatient(patient);
-    }
+		if (t.getId() == null || StringUtils.isBlank(t.getId())) {
+			try {
+				t.setId(UUIDGen.generateUUID());
+				t.setCreatedBy(userService.getCurrentUser());
+				t.setDateCreated(new Date());
+				return contactRepo.save(t);
+			} catch (Exception e) {
+				return null;
+			}
+		}
+		t.setModifiedBy(userService.getCurrentUser());
+		t.setDateModified(new Date());
+		return contactRepo.save(t);
+	}
 
-    @Override
-    public List<Contact> findByPatientAndContactDate(Patient patient, Date start, Date end) {
-        return contactRepo.findByPatientAndContactDate(patient,start,end);
-    }
+	@Override
+	public Boolean checkDuplicate(Contact current, Contact old) {
+		throw new UnsupportedOperationException("No relevant");
+	}
 
-    @Override
-    public List<Contact> findByReferredPersonAndOpen(User referredPerson) {
-        //return contactRepo.findByReferredPersonAndOpenOrderByContactDateDesc(referredPerson, Boolean.FALSE);
-        return null;
-    }
+	@Override
+	public List<Contact> getByPatient(Patient patient) {
+		// patient.getContacts();
+		return contactRepo.findByPatient(patient);
+	}
 
-    @Override
-    public Contact findLatestContact(Patient patient) {
-        for(Contact contact : contactRepo.findTop1ByPatientOrderByContactDateDesc(patient)) {
-            return contact;
-        }
-        return null;
-    }
+	@Override
+	public List<Contact> findByPatientAndContactDate(Patient patient, Date start, Date end) {
+		return contactRepo.findByPatientAndContactDate(patient, start, end);
+	}
 
-    @Override
-    @Transactional
-    public void saveContactDTO(Contact contact) {
-        
-        save(contact);
-        if (contact.getViralLoad() != null && (contact.getViralLoad().getPatient() != null && StringUtils.isNotBlank(contact.getViralLoad().getPatient().getId()))) {
-            InvestigationTest viralLoad = contact.getViralLoad();
-            viralLoad.setTestType(TestType.VIRAL_LOAD);
-            investigationTestService.save(viralLoad);            
-        }
-        if (contact.getCd4Count()!= null && (contact.getCd4Count().getPatient() != null && StringUtils.isNotBlank(contact.getCd4Count().getPatient().getId()))) {
-            InvestigationTest cd4Count = contact.getCd4Count();
-            cd4Count.setTestType(TestType.CD4_COUNT);
-            investigationTestService.save(cd4Count);            
-        }
-        
-    }
-    
+	@Override
+	public List<Contact> findByReferredPersonAndOpen(User referredPerson) {
+		// return
+		// contactRepo.findByReferredPersonAndOpenOrderByContactDateDesc(referredPerson,
+		// Boolean.FALSE);
+		return null;
+	}
+
+	@Override
+	public Contact findLatestContact(Patient patient) {
+		for (Contact contact : contactRepo.findTop1ByPatientOrderByContactDateDesc(patient)) {
+			return contact;
+		}
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public void saveContactDTO(Contact contact) {
+
+		save(contact);
+		if (contact.getViralLoad() != null && (contact.getViralLoad().getPatient() != null
+				&& StringUtils.isNotBlank(contact.getViralLoad().getPatient().getId()))) {
+			InvestigationTest viralLoad = contact.getViralLoad();
+
+			if (viralLoad.getResult() == null) {
+				viralLoad.setTestType(TestType.VIRAL_LOAD);
+				investigationTestService.save(viralLoad);
+			}
+		}
+		if (contact.getCd4Count() != null && (contact.getCd4Count().getPatient() != null
+				&& StringUtils.isNotBlank(contact.getCd4Count().getPatient().getId()))) {
+			InvestigationTest cd4Count = contact.getCd4Count();
+
+			if (cd4Count.getResult() == null) {
+				cd4Count.setTestType(TestType.CD4_COUNT);
+				investigationTestService.save(cd4Count);
+			}
+		}
+
+	}
+
 }

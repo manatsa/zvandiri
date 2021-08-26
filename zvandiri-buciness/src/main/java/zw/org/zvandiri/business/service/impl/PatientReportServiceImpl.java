@@ -863,10 +863,10 @@ public class PatientReportServiceImpl implements PatientReportService {
         builder.append(" where ");
         if (dto.getMaxViralLoad() != null) {
             if (position == 0) {
-                builder.append("v.result >:result");
+                builder.append("v.result >:result and (v.dateTaken between :start and :end)");
                 position++;
             } else {
-                builder.append(" and v.result >:result");
+                builder.append(" and v.result >:result and (v.dateTaken between :start and :end)");
             }
         }
         if (dto.getMinCd4Count() != null) {
@@ -879,10 +879,10 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getMinViralLoad()!= null) {
             if (position == 0) {
-                builder.append("v.result <:result");
+                builder.append("v.result <:result and (v.dateTaken between :start and :end)");
                 position++;
             } else {
-                builder.append(" and v.result <:result");
+                builder.append(" and v.result <:result and (v.dateTaken between :start and :end)");
             }
         }
         if (dto.getProvince() != null) {
@@ -1033,12 +1033,16 @@ public class PatientReportServiceImpl implements PatientReportService {
         }
         if (dto.getMaxViralLoad() != null) {
             query.setParameter("result", dto.getMaxViralLoad());
+            query.setParameter("start", DateUtil.getDateDiffMonth(new Date(), -12));
+        	query.setParameter("end", new Date());
         }
         if (dto.getMinCd4Count() != null) {
             query.setParameter("result", dto.getMinCd4Count());
         }
         if (dto.getMinViralLoad()!= null) {
             query.setParameter("result", dto.getMinViralLoad());
+            query.setParameter("start", DateUtil.getDateDiffMonth(new Date(), -12));
+        	query.setParameter("end", new Date());
         }
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
