@@ -421,10 +421,10 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
             }
             if (dto.getIsDueForVL() != null) {
                 if (position == 0) {
-                    builder.append("p.id not in (Select distinct i.patient.id From InvestigationTest i where i.result is not null or i.result >= 1)");
+                    builder.append("p.id not in (Select distinct i.patient.id From InvestigationTest i where i.testType=:testType and (i.result is not null or i.result >= 1))");
                     position++;
                 } else {
-                    builder.append(" and p.id not in (Select distinct i.patient.id From InvestigationTest i where i.result is not null or i.result >= 1)");
+                    builder.append(" and p.id not in (Select distinct i.patient.id From InvestigationTest i where i.testType=:testType and (i.result is not null or i.result >= 1))");
                 }
             }
         }
@@ -460,6 +460,9 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
             query.setParameter("endDate", dto.getEndDate());
+        }
+        if (dto.getTestType() != null) {
+            query.setParameter("testType", dto.getTestType());
         }
         return query.getSingleResult();
     }
