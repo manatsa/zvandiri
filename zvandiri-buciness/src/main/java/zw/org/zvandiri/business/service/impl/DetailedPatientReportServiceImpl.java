@@ -592,11 +592,12 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                 }
             }
             if (dto.getIsDueForVL() != null) {
+            	// record should be t most 12 months old
                 if (position == 0) {
-                    builder.append("p.id not in (Select distinct i.patient.id From InvestigationTest i)");
+                    builder.append("p.id not in (Select distinct i.patient.id From InvestigationTest i where i.testType=:testType and (i.result is not null or i.result >= 1) and (i.dateTaken between :start and :end))");
                     position++;
                 } else {
-                    builder.append(" and p.id not in (Select distinct i.patient.id From InvestigationTest i)");
+                    builder.append(" and p.id not in (Select distinct i.patient.id From InvestigationTest i where i.testType=:testType and (i.result is not null or i.result >= 1) and (i.dateTaken between :start and :end))");
                 }
             }
         }
@@ -639,6 +640,13 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         }
         if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
             query.setParameter("statuses", dto.getStatuses());
+        }
+        if (dto.getTestType() != null) {
+            query.setParameter("testType", dto.getTestType());
+        }
+        if (dto.getIsDueForVL() != null) {
+        	query.setParameter("start", DateUtil.getDateDiffMonth(new Date(), -12));
+        	query.setParameter("end", new Date());
         }
         query.setFirstResult(dto.getFirstResult());
         query.setMaxResults(dto.getPageSize());
