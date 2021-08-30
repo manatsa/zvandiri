@@ -535,8 +535,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             district.setCellValue(referral.getPatient().getPrimaryClinic().getDistrict().getName());
             XSSFCell primaryClinic = referralXSSFRow.createCell(++count);
             primaryClinic.setCellValue(referral.getPatient().getPrimaryClinic().getName());
-            XSSFCell entryDate = referralXSSFRow.createCell(++count);
-            XSSFCell entry = contactHeader.createCell(++count);
+            //"Date Of Entry", "Referral Date", "Expected Visit Date", "Organisation",
+            
+            XSSFCell entry = referralXSSFRow.createCell(++count);
             if (referral.getDateCreated() != null) {
                 entry.setCellValue(referral.getDateCreated());
                 entry.setCellStyle(XSSFCellStyle);
