@@ -63,13 +63,13 @@ public class  PatientDashboardController extends BaseController {
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String getProfile(@RequestParam String id, @RequestParam(required = false) Integer type, ModelMap model) {
         Patient item = patientService.get(id);
-        MobilePhone phone=mobilePhoneService.getByPatient(item);
-        Bicycle bike=bicycleService.getByPatient(item);
+//        MobilePhone phone=mobilePhoneService.getByCadre(item);
+//        Bicycle bike=bicycleService.getByCadre(item);
 
         model.addAttribute("pageTitle", APP_PREFIX + " " + item.getName() + "'s Dashboard");
         model.addAttribute("patient", item);
-        model.addAttribute("phone", phone);
-        model.addAttribute("bike", bike);
+        /*model.addAttribute("phone", phone);
+        model.addAttribute("bike", bike);*/
         model.addAttribute("caregiver", Boolean.FALSE);
         model.addAttribute("cat", Boolean.FALSE);
         model.addAttribute("female", Boolean.FALSE);
@@ -112,12 +112,12 @@ public class  PatientDashboardController extends BaseController {
             model.addAttribute("heu", Boolean.TRUE);
         }
 
-        if(phone!=null){
+        /*if(phone!=null){
                 model.addAttribute("hasPhone", true);
         }
         if(bike!=null){
             model.addAttribute("hasBike", true);
-        }
+        }*/
         model.addAttribute("dependants", dependentService.getByPatient(item));
         model.addAttribute("contacts", contactService.getByPatient(item));
         model.addAttribute("cd4counts", investigationTestService.getByPatientAndTestType(item, TestType.CD4_COUNT));

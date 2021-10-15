@@ -12,9 +12,9 @@ import java.util.Date;
 @ToString
 @Entity
 @Table(indexes = {
-        @Index(name = "cat_patient_phone", columnList = "patient"),
-        @Index(name = "cat_phone_imei1", columnList = "imei1"),
-        @Index(name = "cat_phone_msisdn1", columnList = "msisdn1")
+        @Index(name = "cadre_phone", columnList = "cadre"),
+        @Index(name = "cadre_imei1", columnList = "imei1"),
+        @Index(name = "cadre_msisdn1", columnList = "msisdn1")
 })
 public class MobilePhone extends BaseEntity{
     private String msisdn1;
@@ -32,10 +32,10 @@ public class MobilePhone extends BaseEntity{
     private Date dateIssued;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateRecovered;
-    @OneToOne
-    private Patient patient;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Cadre cadre;
 
-    public MobilePhone( String misdn1, String misdn2, String imei1, String imei2, String make, String model, Condition condition, PhoneStatus phoneStatus, Date dateIssued, Date dateRecovered, Patient cat) {
+    public MobilePhone( String misdn1, String misdn2, String imei1, String imei2, String make, String model, Condition condition, PhoneStatus phoneStatus, Date dateIssued, Date dateRecovered, Cadre cadre) {
         super();
         this.msisdn1 = misdn1;
         this.msisdn2 = misdn2;
@@ -47,7 +47,7 @@ public class MobilePhone extends BaseEntity{
         this.phoneStatus = phoneStatus;
         this.dateIssued = dateIssued;
         this.dateRecovered = dateRecovered;
-        this.patient=cat;
+        this.cadre=cadre;
     }
 
     public MobilePhone() {
@@ -143,11 +143,11 @@ public class MobilePhone extends BaseEntity{
         this.dateRecovered = dateRecovered;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public Cadre getCadre() {
+        return cadre;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setCadre(Cadre cadre) {
+        this.cadre = cadre;
     }
 }

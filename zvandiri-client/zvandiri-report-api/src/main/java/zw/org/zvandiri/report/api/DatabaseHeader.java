@@ -67,7 +67,7 @@ public interface DatabaseHeader {
     public final String [] CONTACT_HEADER = {
             "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic","Date Of Entry","Contact Date", "Care Level", 
             "Location", "Position","Reason", "Followup", "Subjective", "Objective", "Plan", "Action Taken",
-            "Last Clinic Appointmet Date", "Attended Clinic Appointment", "Next Clinic Appointment", "Visit Outcome", "IS CATS", "Is In Young Mum Group",
+            "Last Clinic Appointment Date", "Attended Clinic Appointment", "Next Clinic Appointment", "Visit Outcome", "IS CATS", "Is In Young Mum Group",
     };
 
     public final String [] ASSESSMENT_HEADER = {
@@ -138,8 +138,8 @@ public interface DatabaseHeader {
     };
 
     public final String [] LAST_CONTACT_HEADER = {
-            "OINumber", "Client Name", "Gender","Date Of Birth","Date Joined","Address","Mobile Number",
-            "Primary Clinic", "District","Region", "Last Contact Date","Last Care Level"
+            "OINumber", "First Name", "Last Name", "Gender","Date Of Birth","Date Joined","Address","Mobile Number","Status","IsCats", "isYMM",
+            "Primary Clinic", "District","Region", "Last Contact Date","Last Care Level","CD4 Count","VL Result","Plan"
     };
 
     public final String [] MENTAL_HEALTH_SCREENING_HEADER = {
@@ -150,5 +150,17 @@ public interface DatabaseHeader {
     String[] VLS_CLIENTS_HEADER = {
             "Client Name","Date of Birth", "Age", "Gender","Test Result","Test Type","Suppression Status","Entry Date","Date Taken",
             "Address","Mobile Phone","Referrer","Region", "District","Primary Clinic", "IS CATS", "Is In Young Mum Group"
+    };
+
+    public final String [] CADRE_PHONES_HEADER = {
+             "First Name", "Last Name", "Age", "Date of Birth", "Gender",
+            "Primary Clinic", "District", "Region","Phone Make", "Phone Model","Date Issued","Date Recovered","Date Of Entry",
+            "Phone Condition","Phone Status","IMEI Number 1","IMEI Number 2","Phone Number 1","Phone Number 2","Phone Issues"
+    };
+
+    public final String [] CADRE_BIKES_HEADER = {
+             "First Name", "Last Name", "Age", "Date of Birth", "Gender",
+            "Primary Clinic", "District", "Region","Bicycle Type", "Date Issued","Date Recovered","Date Of Entry",
+            "Bicycle Condition","Bicycle Status","Bicycle Issues"
     };
 }

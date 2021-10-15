@@ -139,27 +139,44 @@ public class MentalHealthScreeningReportController extends BaseController {
         for (MentalHealthScreening mentalHealthScreening : mentalHealthScreenings) {
             int count = 0;
             mentalHealthScreeningRow = mentalHealthScreeningDetails.createRow(mentalHealthScreeningRowNum++);
+
             XSSFCell id = mentalHealthScreeningRow.createCell(count);
             id.setCellValue(mentalHealthScreening.getPatient().getPatientNumber());
+
             XSSFCell patientName = mentalHealthScreeningRow.createCell(++count);
             patientName.setCellValue(mentalHealthScreening.getPatient().getName());
+
             XSSFCell dateOfBirth = mentalHealthScreeningRow.createCell(++count);
             dateOfBirth.setCellValue(mentalHealthScreening.getPatient().getDateOfBirth());
             dateOfBirth.setCellStyle(XSSFCellStyle);
+
             XSSFCell age = mentalHealthScreeningRow.createCell(++count);
             age.setCellValue(mentalHealthScreening.getPatient().getAge());
+
             XSSFCell sex = mentalHealthScreeningRow.createCell(++count);
             sex.setCellValue(mentalHealthScreening.getPatient().getGender().getName());
+
             XSSFCell province = mentalHealthScreeningRow.createCell(++count);
             province.setCellValue(mentalHealthScreening.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+
             XSSFCell district = mentalHealthScreeningRow.createCell(++count);
             district.setCellValue(mentalHealthScreening.getPatient().getPrimaryClinic().getDistrict().getName());
+
             XSSFCell primaryClinic = mentalHealthScreeningRow.createCell(++count);
             primaryClinic.setCellValue(mentalHealthScreening.getPatient().getPrimaryClinic().getName());
+
+            XSSFCell entry = mentalHealthScreeningRow.createCell(++count);
+            if (mentalHealthScreening.getDateCreated() != null) {
+                entry.setCellValue(mentalHealthScreening.getDateCreated());
+                entry.setCellStyle(XSSFCellStyle);
+            } else {
+                entry.setCellValue("");
+            }
 
             XSSFCell screenedForMentalHealth = mentalHealthScreeningRow.createCell(++count);
             screenedForMentalHealth.setCellValue(mentalHealthScreening.getScreenedForMentalHealth() != null
                     ? mentalHealthScreening.getScreenedForMentalHealth().getName() : "");
+
             XSSFCell dateScreened = mentalHealthScreeningRow.createCell(++count);
             if (mentalHealthScreening.getDateScreened() != null) {
                 dateScreened.setCellValue(mentalHealthScreening.getDateScreened());
@@ -167,46 +184,57 @@ public class MentalHealthScreeningReportController extends BaseController {
             } else {
                 dateScreened.setCellValue("");
             }
+
             XSSFCell screening = mentalHealthScreeningRow.createCell(++count);
             screening.setCellValue(mentalHealthScreening.getScreening() != null ? mentalHealthScreening.getScreening().getName() : "");
+
             XSSFCell risk = mentalHealthScreeningRow.createCell(++count);
             risk.setCellValue(mentalHealthScreening.getRisk() != null ? mentalHealthScreening.getRisk().getName() : "");
-//            XSSFCell identifiedRisks = mentalHealthScreeningRow.createCell(++count);
-//            identifiedRisks.setCellValue((mentalHealthScreening.getIdentifiedRisks() != null && !mentalHealthScreening.getIdentifiedRisks().isEmpty())
-//                    ? mentalHealthScreening.getIdentifiedRisks().toString() : "");
+
+            XSSFCell identifiedRisks = mentalHealthScreeningRow.createCell(++count);
+            identifiedRisks.setCellValue((mentalHealthScreening.getIdentifiedRisks() != null && !mentalHealthScreening.getIdentifiedRisks().isEmpty())
+                    ? mentalHealthScreening.getIdentifiedRisks().stream().map(r->r.getName()).reduce("",(first, second)-> first+","+second) : "");
+
             XSSFCell support = mentalHealthScreeningRow.createCell(++count);
             support.setCellValue(mentalHealthScreening.getSupport() != null
                     ? mentalHealthScreening.getSupport().getName() : "");
+
             XSSFCell supports = mentalHealthScreeningRow.createCell(++count);
             supports.setCellValue((mentalHealthScreening.getSupports() != null && !mentalHealthScreening.getSupports().isEmpty())
-                    ? mentalHealthScreening.getSupports().toString() : "");
+                    ? mentalHealthScreening.getSupports().stream().map(s->s.getName()).reduce("", (a,b)->a+","+b) : "");
+
             XSSFCell referral = mentalHealthScreeningRow.createCell(++count);
             referral.setCellValue(mentalHealthScreening.getReferral() != null
                     ? mentalHealthScreening.getReferral().getName() : "");
+
             XSSFCell referrals1 = mentalHealthScreeningRow.createCell(++count);
             referrals1.setCellValue((mentalHealthScreening.getReferrals() != null && !mentalHealthScreening.getReferrals().isEmpty())
-                    ? mentalHealthScreening.getReferrals().toString() : "");
+                    ? mentalHealthScreening.getReferrals().stream().map(r->r.getName()).reduce("",(a,b)->a+","+b) : "");
+
             XSSFCell diagnosis = mentalHealthScreeningRow.createCell(++count);
             diagnosis.setCellValue(mentalHealthScreening.getDiagnosis() != null
                     ? mentalHealthScreening.getDiagnosis().getName() : "");
+
             XSSFCell diagnoses = mentalHealthScreeningRow.createCell(++count);
             diagnoses.setCellValue((mentalHealthScreening.getDiagnoses() != null && !mentalHealthScreening.getDiagnoses().isEmpty())
-                    ? mentalHealthScreening.getDiagnoses().toString() : "");
+                    ? mentalHealthScreening.getDiagnoses().stream().map(d -> d.getName()).reduce("",(a,b)->a+","+b) : "");
+
             XSSFCell otherDiagnosis = mentalHealthScreeningRow.createCell(++count);
             otherDiagnosis.setCellValue(mentalHealthScreening.getOtherDiagnosis());
+
             XSSFCell intervention = mentalHealthScreeningRow.createCell(++count);
-            intervention.setCellValue(mentalHealthScreening.getIntervention() != null
-                    ? mentalHealthScreening.getIntervention().getName() : "");
+            intervention.setCellValue(mentalHealthScreening.getIntervention() != null? mentalHealthScreening.getIntervention().getName() : "");
+
             XSSFCell interventions = mentalHealthScreeningRow.createCell(++count);
             interventions.setCellValue((mentalHealthScreening.getInterventions() != null && !mentalHealthScreening.getInterventions().isEmpty())
-                    ? mentalHealthScreening.getInterventions().toString() : "");
+                    ? mentalHealthScreening.getInterventions().stream().map(i->i.getName()).reduce("", (x,y)->x+","+y) : "");
+
             XSSFCell otherIntervention = mentalHealthScreeningRow.createCell(++count);
             otherIntervention.setCellValue(mentalHealthScreening.getOtherIntervention());
             
             XSSFCell isCats = mentalHealthScreeningRow.createCell(++count);
-            isCats.setCellValue(
-            		mentalHealthScreening.getPatient().getCat() != null ? mentalHealthScreening.getPatient().getCat().getName() : null
-            );
+            isCats.setCellValue(mentalHealthScreening.getPatient().getCat() != null ? mentalHealthScreening.getPatient().getCat().getName() : null);
+
             XSSFCell youngMumGroup = mentalHealthScreeningRow.createCell(++count);
             youngMumGroup.setCellValue(
             		mentalHealthScreening.getPatient().getYoungMumGroup() != null ? mentalHealthScreening.getPatient().getYoungMumGroup().getName() : null

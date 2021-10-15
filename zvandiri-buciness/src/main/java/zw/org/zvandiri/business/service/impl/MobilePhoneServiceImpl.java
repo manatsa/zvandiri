@@ -3,6 +3,7 @@ package zw.org.zvandiri.business.service.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import zw.org.zvandiri.business.domain.Cadre;
 import zw.org.zvandiri.business.domain.MobilePhone;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.repo.MobilePhoneRepository;
@@ -38,9 +39,17 @@ public class MobilePhoneServiceImpl implements MobilePhoneService {
     }
 
     @Override
-    public MobilePhone getByPatient(Patient patient) {
-        if(patient!=null)
-            return phoneRepository.getByPatient(patient);
+    public MobilePhone getByCadre(Cadre cadre) {
+        if(cadre!=null)
+            return phoneRepository.getByCadre(cadre);
         throw new IllegalArgumentException("The value of Patient is not allowed to be null!");
+    }
+
+    @Override
+    public MobilePhone get(String id) {
+        if(id==null)
+            throw new IllegalArgumentException("Mobile Phone ID cannot be null");
+
+        return phoneRepository.findOne(id);
     }
 }

@@ -2024,7 +2024,7 @@ public class PatientReportServiceImpl implements PatientReportService {
                 builder.append("p.status="+ PatientChangeEvent.ACTIVE);
                 position++;
             } else {
-                builder.append(" and p.primaryClinic.district.province=:province");
+                builder.append(" and p.status="+ PatientChangeEvent.ACTIVE);
             }
 
             if (position == 0) {

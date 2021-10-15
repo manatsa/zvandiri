@@ -47,18 +47,18 @@
                         <tbody>
                         <c:forEach var="item" items="${items}">
                             <tr>
-                                <td>${item.oiNumber}</td>
-                                <td>${item.fullName}</td>
-                                <td>${item.gender}</td>
-                                <td><spring:eval expression="item.dob" /></td>
-                                <td><spring:eval expression="item.dateJoined" /></td>
-                                <td>${item.address}</td>
-                                <td>${item.mobileNumber}</td>
-                                <td>${item.facility}</td>
-                                <td>${item.district}</td>
-                                <td>${item.province}</td>
+                                <td>${item.patient.oINumber}</td>
+                                <td>${item.patient.name}</td>
+                                <td>${item.patient.gender}</td>
+                                <td><spring:eval expression="item.patient.dateOfBirth" /></td>
+                                <td><spring:eval expression="item.patient.dateJoined" /></td>
+                                <td>${item.patient.address}</td>
+                                <td>${item.patient.mobileNumber}</td>
+                                <td>${item.patient.primaryClinic.name}</td>
+                                <td>${item.patient.primaryClinic.district.name}</td>
+                                <td>${item.patient.primaryClinic.district.province.name}</td>
                                 <td><spring:eval expression="item.contactDate" /></td>
-                                <td>${item.followup}</td>
+                                <td>${item.followUp.name}</td>
                             </tr>
                         </c:forEach>
                         </tbody>
