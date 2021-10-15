@@ -73,9 +73,9 @@ public class CadreController extends BaseController implements IAppTitle {
     public String setUpModel(ModelMap map, Cadre item, int type) {
         map.addAttribute("pageTitle", APP_PREFIX + " " + "Cadre Management");
         map.addAttribute("provinces", provinceService.getAll());
-        map.addAttribute("districts", districtService.getAll());
-        map.addAttribute("facilities", facilityService.getAll());
-        map.addAttribute("supportGroups", supportGroupService.getAll());
+        map.addAttribute("districts", item.getProvince()!=null?districtService.getDistrictByProvince(item.getProvince()):districtService.getAll());
+        map.addAttribute("facilities", item.getDistrict()!=null?facilityService.getOptByDistrict(item.getDistrict()):facilityService.getAll());
+        map.addAttribute("supportGroups", item.getDistrict()!=null?supportGroupService.getByDistrict(item.getDistrict()):supportGroupService.getAll());
         map.addAttribute("item", item);
         map.addAttribute("formAction", "item.form");
         map.addAttribute("cadres",cadreService.getAll());

@@ -44,8 +44,8 @@ public class CadreOperationsController implements IAppTitle {
         model.addAttribute("pageTitle", APP_PREFIX + " " + "Cadre Operations");
         model.addAttribute("cadre", cadre);
         model.addAttribute("item", cadre);
-        model.addAttribute("facilities", facilityService.getAll());
-        model.addAttribute("districts", districtService.getAll());
+        model.addAttribute("facilities", facilityService.getOptByDistrict(cadre.getDistrict()));
+        model.addAttribute("districts", districtService.getDistrictByProvince(cadre.getProvince()));
         model.addAttribute("provinces", provinceService.getAll());
         return "cadre/transfer";
 
