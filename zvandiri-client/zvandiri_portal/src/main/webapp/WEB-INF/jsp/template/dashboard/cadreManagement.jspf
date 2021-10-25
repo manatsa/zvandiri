@@ -1,0 +1,6 @@
+<b class="titleHeader">Operations</b><hr/>
+<div style="position: relative; padding-left: 20px; font-size: 14px; font-weight: bold;">
+        <a href="${page}/cadre/operations/transfer?id=${cadre.id}"> Transfer cadre</a><br/><br/>
+        <%--<a href="${page}/cadre/operations/change-status/id=${cadre.id}">Change Cadre Status</a><br/><br/>--%>
+        <%--<a href="${page}/cadre/link-patient?id=${cadre.id}">View Patient Details</a><br/><br/>--%>
+</div>

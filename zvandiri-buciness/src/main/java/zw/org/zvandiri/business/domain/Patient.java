@@ -88,6 +88,8 @@ public class Patient extends GenericPatient {
     @Transient
     private DisabilitySeverity disabilityStatus;
 
+
+
     public District getDistrict() {
         return district;
     }

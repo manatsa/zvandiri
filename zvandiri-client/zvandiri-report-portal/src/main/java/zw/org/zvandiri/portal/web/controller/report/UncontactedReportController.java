@@ -80,7 +80,7 @@ public class UncontactedReportController extends BaseController {
     public String getUncontactedClients(HttpServletResponse response, ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
         item = getUserLevelObjectState(item);
         ForkJoinPool pool = ForkJoinPool.commonPool();
-        patients = pool.invoke(new UnContactedClientTask(DateUtil.generateArray(patientReportService.countUncontacted(item)), patientReportService, item));
+        patients = pool.invoke(new UnContactedClientTask(DateUtil.generateArray(patientReportService.getCount(item)), patientReportService, item));
         return setUpModel(model, item, true);
     }
 

@@ -40,8 +40,7 @@
 							</tr>
 							<tr>
 								<td><a
-										href="${page}/report/pivot/patient/patients-exiting-program.htm">Client
-									Exiting Program Pivot Report</a></td>
+										href="${page}/report/new/contact/detailed.htm">New Contact Detailed Report</a></td>
 								<td><sec:authorize
 										access="
                                                    hasRole('ROLE_ADMINISTRATOR') or
@@ -132,6 +131,11 @@
 							<tr>
 								<td><a href="${page}/report/last-contacted/range.htm">Last Client Contact Report</a></td>
 								<td><a href="${page}/report/invalidvl/range.htm?type=viral-load">Invalid VL Report</a></td>
+							</tr>
+
+							<tr>
+								<td><a href="${page}/report/mobile/phone/range.htm">Cadres Mobile Phones Report</a></td>
+								<td><a href="${page}/report/bicycle/range.htm">Cadres Bicycles Report</a></td>
 							</tr>
 
 

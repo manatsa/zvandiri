@@ -13,8 +13,9 @@ import zw.org.zvandiri.business.util.StringUtils;
  */
 public enum IdentifiedRisk {
     
-    DEPRESSION(1), ANXIETY(2), POST_TRAUMATIC_STRESS(3), SUBSTANCE_ABUSE(4), SUICIDE(5), PSYCHOSIS(6);
-    
+    //DEPRESSION(1), ANXIETY(2), POST_TRAUMATIC_STRESS(3), SUBSTANCE_ABUSE(4), SUICIDE(5), PSYCHOSIS(6);
+    COMMON_MENTAL_HEALTH_PROBLEMS(1), SUBSTANCE_ABUSE(2), SUICIDAL_IDEATION(3), PSYCHOSIS(4);
+
     private final Integer code;
 
     private IdentifiedRisk(Integer code) {
@@ -36,5 +37,9 @@ public enum IdentifiedRisk {
     
     public String getName(){
         return StringUtils.toCamelCase3(super.name());
+    }
+
+    public String concatenate(IdentifiedRisk risk){
+        return this.getName()+","+risk.getName();
     }
 }
