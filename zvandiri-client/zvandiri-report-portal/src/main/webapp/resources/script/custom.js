@@ -26,6 +26,8 @@ $("#province").change(function () {
     if ($this.val() === "") {
 		$("#district").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
 		$("#primaryClinic").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
+		$("#supportGroupDistrict").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
+		$("#supportGroup").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
 		return;
 	}
     $("#primaryClinic").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
@@ -79,6 +81,21 @@ $("#district").change(function () {
         $("#primaryClinic").html(processDropDown(data));
     });
 });
+
+$("#supportGroupDistrict").change(function () {
+    $this = $(this);
+    if ($this.val() === "") {
+		$("#supportGroup").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
+        return;
+	}
+    $("#supportGroup").find('option').remove().end().append('<option value="">......... loading support groups</option>').val('');
+    $.get(path + "/global/getdistrictsupportgroups", {"district": $this.val()}, function (data) {
+        $("#supportGroup").html(processDropDown(data));
+    });
+});
+
+// $("#supportGroupDistrict").html(processDropDown(data));
+
 $("#periodType").change(function () {
     $this = $(this);
     if ($this.val() === "")
