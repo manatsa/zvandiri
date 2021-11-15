@@ -60,6 +60,7 @@ public class ContactServiceImpl implements ContactService {
 		if (id == null) {
 			throw new IllegalStateException("Item to be does not exist :" + id);
 		}
+
 		return contactRepo.findById(id);
 	}
 

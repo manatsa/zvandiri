@@ -121,7 +121,15 @@ public interface PatientRepo extends AbstractRepo<Patient, String> {
 
     
 
-//    @Query(" select p from Patient p inner join Facility f where f.name=:facility")
-//    public List<Patient> getPatients(@Param ("facility")Facility facility);
+
+    @Query("select p from Patient p where " +
+            "p.id not in (select c.patient from Contact c  where c.dateCreated between :start and :end)")
+    public List<Patient> getUncontactedNational(@Param("start") Date start, @Param("end") Date date);
+
+
+    @Query("select p from Patient p where " +
+            "p.id not in (select c.patient from Contact c  where (c.dateCreated between :start and :end)  and p.primaryClinic.district=:district )")
+    public List<Patient> getUncontactedDistrict(@Param("start") Date start, @Param("end") Date date, @Param("district") District district);
+
     
 }

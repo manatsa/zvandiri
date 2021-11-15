@@ -18,13 +18,18 @@ package zw.org.zvandiri.business.domain;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
+import javax.annotation.Resource;
 import javax.persistence.*;
 
+import lombok.ToString;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.Formula;
+import org.springframework.beans.factory.annotation.Configurable;
 import zw.org.zvandiri.business.domain.util.DisabilitySeverity;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
+import zw.org.zvandiri.business.service.ContactService;
+import zw.org.zvandiri.business.service.impl.ContactServiceImpl;
 import zw.org.zvandiri.business.util.DateUtil;
 
 /**
@@ -32,6 +37,8 @@ import zw.org.zvandiri.business.util.DateUtil;
  * @author Judge Muzinda
  */
 @Entity
+@ToString
+@Configurable(preConstruction = true)
 @Table(indexes = {
 		@Index(name = "patient_first_name_last_name", columnList = "firstName, lastName"),
 		@Index(name = "patient_status", columnList = "status"),
@@ -85,10 +92,32 @@ public class Patient extends GenericPatient {
     private String currentArvRegimen;
     @Formula("(Select p.severity From patient_disability p where p.patient = id order by p.date_screened desc limit 0,1)")
     private Integer disabilitySeverity;
+    /*@Formula("select c.id from contact c " +
+            "inner join (select m.id,m.patient, max(m.date_created) as MaxDate " +
+            "from contact m group by m.patient,m.id) as co " +
+            "on c.id = co.id and c.date_created = co.MaxDate and co.patient=id")*/
+    @Formula("(Select c.id From contact c where c.patient = id order by c.date_created desc limit 0,1)")
+    private String lastContact;
     @Transient
     private DisabilitySeverity disabilityStatus;
 
+    public Contact getLastPatientContact(ContactService contactService) {
 
+        if(lastContact!=null) {
+            if (contactService == null) {
+                System.err.println("Contact service is null");
+            } else {
+                return contactService.get(lastContact);
+            }
+        }
+
+            return null;
+
+    }
+
+    public String getLastContact() {
+        return lastContact;
+    }
 
     public District getDistrict() {
         return district;
@@ -244,8 +273,6 @@ public class Patient extends GenericPatient {
         return null;
     }
 
-    public String toString() {
-        return "ID :" + getId() + "\nFirstname : " + getFirstName() + "\nLastname : " + getLastName() + "\nFacility : " + getPrimaryClinic() + "\nDistrict : " + getPrimaryClinic().getDistrict().getName() + "\nProvince : " + getPrimaryClinic().getDistrict().getProvince().getName();
-    }
+
 
 }

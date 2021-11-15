@@ -22,10 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.*;
-import zw.org.zvandiri.business.domain.util.Condition;
-import zw.org.zvandiri.business.domain.util.Gender;
-import zw.org.zvandiri.business.domain.util.PhoneStatus;
-import zw.org.zvandiri.business.domain.util.YesNo;
+import zw.org.zvandiri.business.domain.util.*;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -147,18 +144,20 @@ public class BicycleController extends BaseController {
             Optional<Gender> sexOptional=Optional.ofNullable(bicycle.getCadre().getGender());
             sex.setCellValue(sexOptional.isPresent()? sexOptional.get().getName(): null);
 
-
+            XSSFCell cadreStatus = bicycleRow.createCell(count++);
+            Optional<PatientChangeEvent> cadreStatusOptional=Optional.ofNullable(bicycle.getCadre().getStatus());
+            cadreStatus.setCellValue(cadreStatusOptional.isPresent()? cadreStatusOptional.get().getName(): null);
 
             XSSFCell primaryClinic = bicycleRow.createCell(count++);
             Optional<Facility> facilityOptional=Optional.ofNullable(bicycle.getCadre().getPrimaryClinic());
             primaryClinic.setCellValue(facilityOptional.isPresent()? facilityOptional.get().getName(): null);
 
             XSSFCell district = bicycleRow.createCell(count++);
-            Optional<District> districtOptional=Optional.ofNullable(bicycle.getCadre().getPrimaryClinic().getDistrict());
+            Optional<District> districtOptional=Optional.ofNullable(bicycle.getCadre().getDistrict());
             district.setCellValue(districtOptional.isPresent()? districtOptional.get().getName(): null);
 
             XSSFCell province = bicycleRow.createCell(count++);
-            Optional<Province> provinceOptional=Optional.ofNullable(bicycle.getCadre().getPrimaryClinic().getDistrict().getProvince());
+            Optional<Province> provinceOptional=Optional.ofNullable(bicycle.getCadre().getProvince());
             province.setCellValue(provinceOptional.isPresent()? provinceOptional.get().getName(): null);
 
             XSSFCell make = bicycleRow.createCell(count++);
@@ -186,7 +185,6 @@ public class BicycleController extends BaseController {
 
             XSSFCell issues = bicycleRow.createCell(count++);
             Optional.ofNullable(bicycle.getBikeIssues()).ifPresent(issues::setCellValue);
-
 
         }
 

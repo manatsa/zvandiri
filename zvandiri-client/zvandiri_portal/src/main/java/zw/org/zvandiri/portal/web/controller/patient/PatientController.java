@@ -26,19 +26,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import zw.org.zvandiri.business.domain.Cadre;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.util.CaderType;
+import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.domain.util.YesNo;
-import zw.org.zvandiri.business.service.DisabilityCategoryService;
-import zw.org.zvandiri.business.service.DistrictService;
-import zw.org.zvandiri.business.service.EducationLevelService;
-import zw.org.zvandiri.business.service.EducationService;
-import zw.org.zvandiri.business.service.FacilityService;
-import zw.org.zvandiri.business.service.PatientService;
-import zw.org.zvandiri.business.service.ProvinceService;
-import zw.org.zvandiri.business.service.ReasonForNotReachingOLevelService;
-import zw.org.zvandiri.business.service.RefererService;
-import zw.org.zvandiri.business.service.RelationshipService;
-import zw.org.zvandiri.business.service.SupportGroupService;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.dto.ItemDeleteDTO;
 import zw.org.zvandiri.business.util.dto.PatientSearchDTO;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -79,6 +72,8 @@ public class PatientController extends BaseController {
     private RelationshipService relationshipService;
     @Resource
     private ReasonForNotReachingOLevelService reasonForNotReachingOLevelService;
+    @Resource
+    CadreService cadreService;
 
     public String setUpModel(ModelMap model, Patient item) {
         model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit Client");
@@ -117,6 +112,7 @@ public class PatientController extends BaseController {
                 model.addAttribute("facilities", facilityService.getOptByDistrict(item.getDistrict()));
             }
             if (item.getSupportGroupDistrict() != null) {
+                supportGroupService.getByDistrict(item.getSupportGroupDistrict()).stream().map(supportGroup -> supportGroup.getName() ).forEach(System.err::println);
                 model.addAttribute("supportGroups", supportGroupService.getByDistrict(item.getSupportGroupDistrict()));
             }
         }
@@ -194,5 +190,28 @@ public class PatientController extends BaseController {
         Patient item = patientService.get(dto.getId());
         patientService.delete(item);
         return "redirect:index.htm?type=2";
+    }
+
+    @RequestMapping(value = "create-cadre-from-patient", method = RequestMethod.GET)
+    public String createcadreFromPatient(@RequestParam("id") String id, ModelMap model, @ModelAttribute("page") String page){
+        Patient item = patientService.get(id);
+        Cadre cadre = new Cadre();
+        cadre.setStatus(PatientChangeEvent.ACTIVE);
+        cadre.setPrimaryClinic(item.getPrimaryClinic());
+        cadre.setDistrict(item.getPrimaryClinic().getDistrict());
+        cadre.setProvince(item.getPrimaryClinic().getDistrict().getProvince());
+        cadre.setActive(Boolean.TRUE);
+        cadre.setAddress(item.getAddress());
+        cadre.setCaderType((item.getCat()!=null && item.getCat().equals(YesNo.YES))? CaderType.CATS:(item.getYoungMumGroup()!=null && item.getYoungMumGroup().equals(YesNo.YES)?CaderType.YMM:CaderType.OTHER));
+        cadre.setDateOfBirth(item.getDateOfBirth());
+        cadre.setFirstName(item.getFirstName());
+        cadre.setLastName(item.getLastName());
+        cadre.setDeleted(Boolean.FALSE);
+        cadre.setHasPatient(YesNo.YES);
+        cadre.setGender(item.getGender());
+        cadre.setPatientId(item.getId());
+        cadre.setSupportGroup(item.getSupportGroup());
+        cadre=cadreService.save(cadre);
+        return "redirect:"+page+"/cadre/view?type=1&id="+cadre.getId();
     }
 }

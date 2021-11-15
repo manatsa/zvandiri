@@ -13,6 +13,7 @@ import zw.org.zvandiri.business.util.UUIDGen;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class MobilePhoneServiceImpl implements MobilePhoneService {
@@ -47,9 +48,19 @@ public class MobilePhoneServiceImpl implements MobilePhoneService {
 
     @Override
     public MobilePhone get(String id) {
-        if(id==null)
+        if(id==null || id.trim().isEmpty())
             throw new IllegalArgumentException("Mobile Phone ID cannot be null");
 
         return phoneRepository.findOne(id);
+    }
+
+    @Override
+    public Optional<MobilePhone> getIfNotNull(String id) {
+        System.err.println("MOBILE ID: "+id);
+        if(id==null || id.trim().isEmpty())
+            return Optional.ofNullable(new MobilePhone());
+MobilePhone phone=phoneRepository.findOne(id);
+        System.err.println("Retrieved:"+phone);
+        return Optional.of(phone);
     }
 }

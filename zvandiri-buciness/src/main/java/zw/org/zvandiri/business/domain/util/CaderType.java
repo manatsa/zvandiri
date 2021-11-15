@@ -8,7 +8,7 @@ import zw.org.zvandiri.business.util.StringUtils;
 
 
 public enum CaderType {
-    CATS(1), YMM(2), FCI(3);
+    CATS(1), YMM(2), YMD(3), FCI(4), OTHER(5),;
 
     private final Integer code;
 

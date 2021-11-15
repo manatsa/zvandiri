@@ -53,21 +53,7 @@ import zw.org.zvandiri.business.domain.SubstanceItem;
 import zw.org.zvandiri.business.domain.TbIpt;
 import zw.org.zvandiri.business.repo.ContactRepo;
 import zw.org.zvandiri.business.repo.ReferralRepo;
-import zw.org.zvandiri.business.service.ArvHistService;
-import zw.org.zvandiri.business.service.ChronicInfectionItemService;
-import zw.org.zvandiri.business.service.ContactReportService;
-import zw.org.zvandiri.business.service.DependentService;
-import zw.org.zvandiri.business.service.DetailedPatientReportService;
-import zw.org.zvandiri.business.service.HivConInfectionItemService;
-import zw.org.zvandiri.business.service.InvestigationTestService;
-import zw.org.zvandiri.business.service.MentalHealthItemService;
-import zw.org.zvandiri.business.service.MentalHealthScreeningService;
-import zw.org.zvandiri.business.service.MortalityService;
-import zw.org.zvandiri.business.service.ObstercHistService;
-import zw.org.zvandiri.business.service.ReferralService;
-import zw.org.zvandiri.business.service.SocialHistService;
-import zw.org.zvandiri.business.service.SubstanceItemService;
-import zw.org.zvandiri.business.service.TbIptService;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.DatabaseHeader;
 import zw.org.zvandiri.report.api.GenericReportModel;
@@ -90,6 +76,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
     @Autowired
     ContactReportService contactReportService;
 
+
+    @Resource
+    ContactService contactService;
     @Resource
     private ContactRepo contactRepo;
     @Resource
@@ -203,7 +192,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         dto2.setProvince(dto.getProvince());
         dto2.setDistrict(dto.getDistrict());
         dto2.setPrimaryClinic(dto.getPrimaryClinic());
+        dto2.setProvinces(dto.getProvinces());
         dto2.setDistricts(dto.getDistricts());
+        dto2.setFacilities(dto.getFacilities());
 
         dto2.setFirstResult(0);
         dto2.setPageSize(detailedPatientReportService.getCount(dto2).intValue());
@@ -235,6 +226,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         System.err.println("C End::" + c_final);
         for (Patient patient : patients) {
             int count = 0;
+            Contact lastContact=patient.getLastPatientContact(contactService);
             contacts.addAll(patient.getContacts());
             dependents.addAll(patient.getDependents());
             chronicInfectionItems.addAll(patient.getChronicInfectionItems());
@@ -329,6 +321,12 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             youngMumGroup.setCellValue(
                     patient.getYoungMumGroup() != null ? patient.getYoungMumGroup().getName() : null
             );
+
+            XSSFCell ymd = header.createCell(++count);
+            ymd.setCellValue(
+                    patient.getYoungDadGroup() != null ? patient.getYoungDadGroup().getName() : null
+            );
+
             XSSFCell transMode = header.createCell(++count);
             transMode.setCellValue(
                     patient.getTransmissionMode() != null
@@ -348,6 +346,18 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             } else {
                 dateStatusChanged.setCellValue("");
             }
+
+            XSSFCell contactDate = header.createCell(++count);
+            if (lastContact != null) {
+                contactDate.setCellValue(lastContact.getContactDate());
+                contactDate.setCellStyle(XSSFCellStyle);
+            } else {
+                contactDate.setCellValue("");
+            }
+
+            XSSFCell careLevel = header.createCell(++count);
+            careLevel.setCellValue(lastContact!=null?lastContact.getFollowUp().getName():"");
+
             numPatient++;
 
         }
@@ -440,6 +450,10 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             youngMumGroup.setCellValue(
             		contact.getPatient().getYoungMumGroup() != null ? contact.getPatient().getYoungMumGroup().getName() : null
             );
+            XSSFCell ymd = contactHeader.createCell(++count);
+            ymd.setCellValue(
+                    contact.getPatient().getYoungDadGroup() != null ? contact.getPatient().getYoungDadGroup().getName() : null
+            );
         }
 
         // add contact assessments
@@ -501,6 +515,10 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 XSSFCell youngMumGroup = assessmentHeader.createCell(++count);
                 youngMumGroup.setCellValue(
                 		contact.getPatient().getYoungMumGroup() != null ? contact.getPatient().getYoungMumGroup().getName() : null
+                );
+                XSSFCell ymd = assessmentHeader.createCell(++count);
+                ymd.setCellValue(
+                        contact.getPatient().getYoungDadGroup() != null ? contact.getPatient().getYoungDadGroup().getName() : null
                 );
             }
 
@@ -620,6 +638,10 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             youngMumGroup.setCellValue(
             		referral.getPatient().getYoungMumGroup() != null ? referral.getPatient().getYoungMumGroup().getName() : null
             );
+            XSSFCell ymd = referralXSSFRow.createCell(++count);
+            ymd.setCellValue(
+                    referral.getPatient().getYoungDadGroup() != null ? referral.getPatient().getYoungDadGroup().getName() : null
+            );
         }
 
         // add hiv sti services referred
@@ -696,6 +718,10 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     youngMumGroup.setCellValue(
                     		referral.getPatient().getYoungMumGroup() != null ? referral.getPatient().getYoungMumGroup().getName() : null
                     );
+                    XSSFCell ymd = hivStiReferredXSSFRow.createCell(++count);
+                    ymd.setCellValue(
+                            referral.getPatient().getYoungDadGroup() != null ? referral.getPatient().getYoungDadGroup().getName() : null
+                    );
                 }
             }
 
@@ -767,6 +793,18 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
                     XSSFCell hivReq = hivStiProvidedXSSFRow.createCell(++count);
                     hivReq.setCellValue(referred.toString());
+                    XSSFCell isCats = hivStiProvidedXSSFRow.createCell(++count);
+                    isCats.setCellValue(
+                            referral.getPatient().getCat() != null ? referral.getPatient().getCat().getName() : null
+                    );
+                    XSSFCell youngMumGroup = hivStiProvidedXSSFRow.createCell(++count);
+                    youngMumGroup.setCellValue(
+                            referral.getPatient().getYoungMumGroup() != null ? referral.getPatient().getYoungMumGroup().getName() : null
+                    );
+                    XSSFCell ymd = hivStiProvidedXSSFRow.createCell(++count);
+                    ymd.setCellValue(
+                            referral.getPatient().getYoungDadGroup() != null ? referral.getPatient().getYoungDadGroup().getName() : null
+                    );
                 }
             }
 
@@ -837,6 +875,19 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
                     XSSFCell hivReq = oiArtReferredXSSFRow.createCell(++count);
                     hivReq.setCellValue(referred.toString());
+
+                    XSSFCell isCats = oiArtReferredXSSFRow.createCell(++count);
+                    isCats.setCellValue(
+                            referral.getPatient().getCat() != null ? referral.getPatient().getCat().getName() : null
+                    );
+                    XSSFCell youngMumGroup = oiArtReferredXSSFRow.createCell(++count);
+                    youngMumGroup.setCellValue(
+                            referral.getPatient().getYoungMumGroup() != null ? referral.getPatient().getYoungMumGroup().getName() : null
+                    );
+                    XSSFCell ymd = oiArtReferredXSSFRow.createCell(++count);
+                    ymd.setCellValue(
+                            referral.getPatient().getYoungDadGroup() != null ? referral.getPatient().getYoungDadGroup().getName() : null
+                    );
                 }
             }
 
@@ -907,6 +958,19 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
                     XSSFCell hivReq = oiArtProvidedXSSFRow.createCell(++count);
                     hivReq.setCellValue(referred.toString());
+
+                    XSSFCell isCats = oiArtProvidedXSSFRow.createCell(++count);
+                    isCats.setCellValue(
+                            referral.getPatient().getCat() != null ? referral.getPatient().getCat().getName() : null
+                    );
+                    XSSFCell youngMumGroup = oiArtProvidedXSSFRow.createCell(++count);
+                    youngMumGroup.setCellValue(
+                            referral.getPatient().getYoungMumGroup() != null ? referral.getPatient().getYoungMumGroup().getName() : null
+                    );
+                    XSSFCell ymd = oiArtProvidedXSSFRow.createCell(++count);
+                    ymd.setCellValue(
+                            referral.getPatient().getYoungDadGroup() != null ? referral.getPatient().getYoungDadGroup().getName() : null
+                    );
                 }
             }
 
@@ -977,6 +1041,19 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
                     XSSFCell hivReq = srhReferredXSSFRow.createCell(++count);
                     hivReq.setCellValue(referred.toString());
+
+                    XSSFCell isCats = srhReferredXSSFRow.createCell(++count);
+                    isCats.setCellValue(
+                            referral.getPatient().getCat() != null ? referral.getPatient().getCat().getName() : null
+                    );
+                    XSSFCell youngMumGroup = srhReferredXSSFRow.createCell(++count);
+                    youngMumGroup.setCellValue(
+                            referral.getPatient().getYoungMumGroup() != null ? referral.getPatient().getYoungMumGroup().getName() : null
+                    );
+                    XSSFCell ymd = srhReferredXSSFRow.createCell(++count);
+                    ymd.setCellValue(
+                            referral.getPatient().getYoungDadGroup() != null ? referral.getPatient().getYoungDadGroup().getName() : null
+                    );
                 }
             }
 
@@ -1047,6 +1124,19 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
                     XSSFCell hivReq = srhProvidedXSSFRow.createCell(++count);
                     hivReq.setCellValue(referred.toString());
+
+                    XSSFCell isCats = srhProvidedXSSFRow.createCell(++count);
+                    isCats.setCellValue(
+                            referral.getPatient().getCat() != null ? referral.getPatient().getCat().getName() : null
+                    );
+                    XSSFCell youngMumGroup = srhProvidedXSSFRow.createCell(++count);
+                    youngMumGroup.setCellValue(
+                            referral.getPatient().getYoungMumGroup() != null ? referral.getPatient().getYoungMumGroup().getName() : null
+                    );
+                    XSSFCell ymd = srhProvidedXSSFRow.createCell(++count);
+                    ymd.setCellValue(
+                            referral.getPatient().getYoungDadGroup() != null ? referral.getPatient().getYoungDadGroup().getName() : null
+                    );
                 }
             }
 
@@ -1117,6 +1207,19 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
                     XSSFCell hivReq = laboratoryReferredXSSFRow.createCell(++count);
                     hivReq.setCellValue(referred.toString());
+
+                    XSSFCell isCats = laboratoryReferredXSSFRow.createCell(++count);
+                    isCats.setCellValue(
+                            referral.getPatient().getCat() != null ? referral.getPatient().getCat().getName() : null
+                    );
+                    XSSFCell youngMumGroup = laboratoryReferredXSSFRow.createCell(++count);
+                    youngMumGroup.setCellValue(
+                            referral.getPatient().getYoungMumGroup() != null ? referral.getPatient().getYoungMumGroup().getName() : null
+                    );
+                    XSSFCell ymd = laboratoryReferredXSSFRow.createCell(++count);
+                    ymd.setCellValue(
+                            referral.getPatient().getYoungDadGroup() != null ? referral.getPatient().getYoungDadGroup().getName() : null
+                    );
                 }
             }
 
@@ -1187,6 +1290,19 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
                     XSSFCell hivReq = laboratoryProvidedXSSFRow.createCell(++count);
                     hivReq.setCellValue(referred.toString());
+
+                    XSSFCell isCats = laboratoryProvidedXSSFRow.createCell(++count);
+                    isCats.setCellValue(
+                            referral.getPatient().getCat() != null ? referral.getPatient().getCat().getName() : null
+                    );
+                    XSSFCell youngMumGroup = laboratoryProvidedXSSFRow.createCell(++count);
+                    youngMumGroup.setCellValue(
+                            referral.getPatient().getYoungMumGroup() != null ? referral.getPatient().getYoungMumGroup().getName() : null
+                    );
+                    XSSFCell ymd = laboratoryProvidedXSSFRow.createCell(++count);
+                    ymd.setCellValue(
+                            referral.getPatient().getYoungDadGroup() != null ? referral.getPatient().getYoungDadGroup().getName() : null
+                    );
                 }
             }
 
@@ -1257,6 +1373,19 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
                     XSSFCell hivReq = tbReferredXSSFRow.createCell(++count);
                     hivReq.setCellValue(referred.toString());
+
+                    XSSFCell isCats = tbReferredXSSFRow.createCell(++count);
+                    isCats.setCellValue(
+                            referral.getPatient().getCat() != null ? referral.getPatient().getCat().getName() : null
+                    );
+                    XSSFCell youngMumGroup = tbReferredXSSFRow.createCell(++count);
+                    youngMumGroup.setCellValue(
+                            referral.getPatient().getYoungMumGroup() != null ? referral.getPatient().getYoungMumGroup().getName() : null
+                    );
+                    XSSFCell ymd = tbReferredXSSFRow.createCell(++count);
+                    ymd.setCellValue(
+                            referral.getPatient().getYoungDadGroup() != null ? referral.getPatient().getYoungDadGroup().getName() : null
+                    );
                 }
             }
 
@@ -1327,6 +1456,19 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
                     XSSFCell hivReq = tbProvidedXSSFRow.createCell(++count);
                     hivReq.setCellValue(referred.toString());
+
+                    XSSFCell isCats = tbProvidedXSSFRow.createCell(++count);
+                    isCats.setCellValue(
+                            referral.getPatient().getCat() != null ? referral.getPatient().getCat().getName() : null
+                    );
+                    XSSFCell youngMumGroup = tbProvidedXSSFRow.createCell(++count);
+                    youngMumGroup.setCellValue(
+                            referral.getPatient().getYoungMumGroup() != null ? referral.getPatient().getYoungMumGroup().getName() : null
+                    );
+                    XSSFCell ymd = tbProvidedXSSFRow.createCell(++count);
+                    ymd.setCellValue(
+                            referral.getPatient().getYoungDadGroup() != null ? referral.getPatient().getYoungDadGroup().getName() : null
+                    );
                 }
             }
 
@@ -1397,6 +1539,19 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
                     XSSFCell hivReq = psychReferredXSSFRow.createCell(++count);
                     hivReq.setCellValue(referred.toString());
+
+                    XSSFCell isCats = psychReferredXSSFRow.createCell(++count);
+                    isCats.setCellValue(
+                            referral.getPatient().getCat() != null ? referral.getPatient().getCat().getName() : null
+                    );
+                    XSSFCell youngMumGroup = psychReferredXSSFRow.createCell(++count);
+                    youngMumGroup.setCellValue(
+                            referral.getPatient().getYoungMumGroup() != null ? referral.getPatient().getYoungMumGroup().getName() : null
+                    );
+                    XSSFCell ymd = psychReferredXSSFRow.createCell(++count);
+                    ymd.setCellValue(
+                            referral.getPatient().getYoungDadGroup() != null ? referral.getPatient().getYoungDadGroup().getName() : null
+                    );
                 }
             }
 
@@ -1467,6 +1622,19 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
                     XSSFCell hivReq = psychProvidedXSSFRow.createCell(++count);
                     hivReq.setCellValue(referred.toString());
+
+                    XSSFCell isCats = psychProvidedXSSFRow.createCell(++count);
+                    isCats.setCellValue(
+                            referral.getPatient().getCat() != null ? referral.getPatient().getCat().getName() : null
+                    );
+                    XSSFCell youngMumGroup = psychProvidedXSSFRow.createCell(++count);
+                    youngMumGroup.setCellValue(
+                            referral.getPatient().getYoungMumGroup() != null ? referral.getPatient().getYoungMumGroup().getName() : null
+                    );
+                    XSSFCell ymd = psychProvidedXSSFRow.createCell(++count);
+                    ymd.setCellValue(
+                            referral.getPatient().getYoungDadGroup() != null ? referral.getPatient().getYoungDadGroup().getName() : null
+                    );
                 }
             }
 
@@ -1537,6 +1705,19 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
                     XSSFCell hivReq = legalReferredXSSFRow.createCell(++count);
                     hivReq.setCellValue(referred.toString());
+
+                    XSSFCell isCats = legalReferredXSSFRow.createCell(++count);
+                    isCats.setCellValue(
+                            referral.getPatient().getCat() != null ? referral.getPatient().getCat().getName() : null
+                    );
+                    XSSFCell youngMumGroup = legalReferredXSSFRow.createCell(++count);
+                    youngMumGroup.setCellValue(
+                            referral.getPatient().getYoungMumGroup() != null ? referral.getPatient().getYoungMumGroup().getName() : null
+                    );
+                    XSSFCell ymd = legalReferredXSSFRow.createCell(++count);
+                    ymd.setCellValue(
+                            referral.getPatient().getYoungDadGroup() != null ? referral.getPatient().getYoungDadGroup().getName() : null
+                    );
                 }
             }
 
@@ -1607,6 +1788,19 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     actionTaken.setCellValue(referral.getActionTaken() != null ? referral.getActionTaken().getName() : "");
                     XSSFCell hivReq = legalProvidedXSSFRow.createCell(++count);
                     hivReq.setCellValue(referred.toString());
+
+                    XSSFCell isCats = legalProvidedXSSFRow.createCell(++count);
+                    isCats.setCellValue(
+                            referral.getPatient().getCat() != null ? referral.getPatient().getCat().getName() : null
+                    );
+                    XSSFCell youngMumGroup = legalProvidedXSSFRow.createCell(++count);
+                    youngMumGroup.setCellValue(
+                            referral.getPatient().getYoungMumGroup() != null ? referral.getPatient().getYoungMumGroup().getName() : null
+                    );
+                    XSSFCell ymd = legalProvidedXSSFRow.createCell(++count);
+                    ymd.setCellValue(
+                            referral.getPatient().getYoungDadGroup() != null ? referral.getPatient().getYoungDadGroup().getName() : null
+                    );
                 }
             }
 
@@ -1658,6 +1852,12 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             youngMumGroup.setCellValue(
             		dependent.getPatient().getYoungMumGroup() != null ? dependent.getPatient().getYoungMumGroup().getName() : null
             );
+
+            XSSFCell ymd = dependantXSSFRow.createCell(++count);
+            ymd.setCellValue(
+                    dependent.getPatient().getYoungDadGroup() != null ? dependent.getPatient().getYoungDadGroup().getName() : null
+            );
+
         }
         // add patient opportunistic infections
         XSSFSheet opportunisticInfectionDetails = workbook.createSheet("Patient_Opportunistic_Infections");
@@ -1716,6 +1916,11 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             youngMumGroup.setCellValue(
             		chronicInfectionItem.getPatient().getYoungMumGroup() != null ? chronicInfectionItem.getPatient().getYoungMumGroup().getName() : null
             );
+
+            XSSFCell ymd = opportunisticInfectionXSSFRow.createCell(++count);
+            ymd.setCellValue(
+                    chronicInfectionItem.getPatient().getYoungDadGroup() != null ? chronicInfectionItem.getPatient().getYoungDadGroup().getName() : null
+            );
         }
         // add patient hiv-coinfections
         XSSFSheet hivCoInfectionDetails = workbook.createSheet("Patient_HIV_CO_Infections");
@@ -1773,6 +1978,10 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             XSSFCell youngMumGroup = hivCoInfectionXSSFRow.createCell(++count);
             youngMumGroup.setCellValue(
             		hivConInfectionItem.getPatient().getYoungMumGroup() != null ? hivConInfectionItem.getPatient().getYoungMumGroup().getName() : null
+            );
+            XSSFCell ymd = hivCoInfectionXSSFRow.createCell(++count);
+            ymd.setCellValue(
+                    hivConInfectionItem.getPatient().getYoungDadGroup() != null ? hivConInfectionItem.getPatient().getYoungDadGroup().getName() : null
             );
         }
         // add patient mental health
@@ -1854,6 +2063,10 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             youngMumGroup.setCellValue(
             		mentalHealthItem.getPatient().getYoungMumGroup() != null ? mentalHealthItem.getPatient().getYoungMumGroup().getName() : null
             );
+            XSSFCell ymd = mentalHealthXSSFRow.createCell(++count);
+            ymd.setCellValue(
+                    mentalHealthItem.getPatient().getYoungDadGroup() != null ? mentalHealthItem.getPatient().getYoungDadGroup().getName() : null
+            );
         }
         // add patient obstetrics
         XSSFSheet obsDetails = workbook.createSheet("Patient_Obstetric_Hist");
@@ -1925,6 +2138,10 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             youngMumGroup.setCellValue(
             		obstercHist.getPatient().getYoungMumGroup() != null ? obstercHist.getPatient().getYoungMumGroup().getName() : null
             );
+            XSSFCell ymd = obsXSSFRow.createCell(++count);
+            ymd.setCellValue(
+                    obstercHist.getPatient().getYoungDadGroup() != null ? obstercHist.getPatient().getYoungDadGroup().getName() : null
+            );
         }
         // add patient social history
         XSSFSheet socialHistDetails = workbook.createSheet("Patient_Social_Hist");
@@ -1993,6 +2210,10 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             XSSFCell youngMumGroup = socialHistXSSFRow.createCell(++count);
             youngMumGroup.setCellValue(
             		socialHist.getPatient().getYoungMumGroup() != null ? socialHist.getPatient().getYoungMumGroup().getName() : null
+            );
+            XSSFCell ymd = socialHistXSSFRow.createCell(++count);
+            ymd.setCellValue(
+                    socialHist.getPatient().getYoungDadGroup() != null ? socialHist.getPatient().getYoungDadGroup().getName() : null
             );
 
         }
@@ -2065,6 +2286,10 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             XSSFCell youngMumGroup = substanceUseXSSFRow.createCell(++count);
             youngMumGroup.setCellValue(
             		substanceItem.getPatient().getYoungMumGroup() != null ? substanceItem.getPatient().getYoungMumGroup().getName() : null
+            );
+            XSSFCell ymd = substanceUseXSSFRow.createCell(++count);
+            ymd.setCellValue(
+                    substanceItem.getPatient().getYoungDadGroup() != null ? substanceItem.getPatient().getYoungDadGroup().getName() : null
             );
         }
 
@@ -2165,6 +2390,10 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             youngMumGroup.setCellValue(
             		cd4Count.getPatient().getYoungMumGroup() != null ? cd4Count.getPatient().getYoungMumGroup().getName() : null
             );
+            XSSFCell ymd = cd4XSSFRow.createCell(++count);
+            ymd.setCellValue(
+                    cd4Count.getPatient().getYoungDadGroup() != null ? cd4Count.getPatient().getYoungDadGroup().getName() : null
+            );
 
         }
 
@@ -2228,6 +2457,10 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             XSSFCell youngMumGroup = arvHistXSSFRow.createCell(++count);
             youngMumGroup.setCellValue(
             		arvHist.getPatient().getYoungMumGroup() != null ? arvHist.getPatient().getYoungMumGroup().getName() : null
+            );
+            XSSFCell ymd = arvHistXSSFRow.createCell(++count);
+            ymd.setCellValue(
+                    arvHist.getPatient().getYoungDadGroup() != null ? arvHist.getPatient().getYoungDadGroup().getName() : null
             );
         }
         // add mortality here
@@ -2328,6 +2561,10 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             youngMumGroup.setCellValue(
             		mortality.getPatient().getYoungMumGroup() != null ? mortality.getPatient().getYoungMumGroup().getName() : null
             );
+            XSSFCell ymd = mortalityXSSFRow.createCell(++count);
+            ymd.setCellValue(
+                    mortality.getPatient().getYoungDadGroup() != null ? mortality.getPatient().getYoungDadGroup().getName() : null
+            );
 
         }
 
@@ -2412,6 +2649,11 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             XSSFCell youngMumGroup = tbIptXSSFRow.createCell(++count);
             youngMumGroup.setCellValue(
             		tbIpt.getPatient().getYoungMumGroup() != null ? tbIpt.getPatient().getYoungMumGroup().getName() : null
+            );
+
+            XSSFCell ymd = tbIptXSSFRow.createCell(++count);
+            ymd.setCellValue(
+                    tbIpt.getPatient().getYoungDadGroup() != null ? tbIpt.getPatient().getYoungDadGroup().getName() : null
             );
         }
 
@@ -2506,6 +2748,10 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             XSSFCell youngMumGroup = mentalHealthScreeningXSSFRow.createCell(++count);
             youngMumGroup.setCellValue(
             		mentalHealthScreening.getPatient().getYoungMumGroup() != null ? mentalHealthScreening.getPatient().getYoungMumGroup().getName() : null
+            );
+            XSSFCell ymd = mentalHealthScreeningXSSFRow.createCell(++count);
+            ymd.setCellValue(
+                    mentalHealthScreening.getPatient().getYoungDadGroup() != null ? mentalHealthScreening.getPatient().getYoungDadGroup().getName() : null
             );
         }
         /* end here    */

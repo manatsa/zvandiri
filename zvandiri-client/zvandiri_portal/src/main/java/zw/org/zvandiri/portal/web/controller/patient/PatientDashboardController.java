@@ -54,26 +54,21 @@ public class  PatientDashboardController extends BaseController {
     private InvestigationTestService investigationTestService;
     @Resource
     private EidTestService eidTestService;
-    @Resource
-    MobilePhoneService mobilePhoneService;
-    @Resource
-    BicycleService bicycleService;
+
 
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String getProfile(@RequestParam String id, @RequestParam(required = false) Integer type, ModelMap model) {
         Patient item = patientService.get(id);
-//        MobilePhone phone=mobilePhoneService.getByCadre(item);
-//        Bicycle bike=bicycleService.getByCadre(item);
 
         model.addAttribute("pageTitle", APP_PREFIX + " " + item.getName() + "'s Dashboard");
         model.addAttribute("patient", item);
-        /*model.addAttribute("phone", phone);
-        model.addAttribute("bike", bike);*/
         model.addAttribute("caregiver", Boolean.FALSE);
-        model.addAttribute("cat", Boolean.FALSE);
+        model.addAttribute("cat", item.getCat()!=null && item.getCat().equals(YesNo.YES));
+        model.addAttribute("ymm", item.getYoungMumGroup()!=null && item.getYoungMumGroup().equals(YesNo.YES));
         model.addAttribute("female", Boolean.FALSE);
         model.addAttribute("canEdit", Boolean.TRUE);
+        model.addAttribute("hasPatient", Boolean.TRUE);
         model.addAttribute("canReInstate", Boolean.FALSE);
         model.addAttribute("heu", Boolean.FALSE);
         if(item.getGender() != null && item.getGender().equals(Gender.FEMALE)){
@@ -89,10 +84,16 @@ public class  PatientDashboardController extends BaseController {
             if (!patientService.hasCatDetailRecord(item)) {
                 model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(getPatient(item)).messageType(MessageType.WARNING).build());
             }else{
+                System.err.println("********************* is CATS *********************");
                 model.addAttribute("cat", Boolean.TRUE);
                 model.addAttribute("catDetail", catDetailService.getByPatient(item));
             }
         }
+        if (item.getYoungMumGroup() != null && item.getYoungMumGroup().equals(YesNo.YES)) {
+            System.err.println("********************* is in YMM *********************");
+                model.addAttribute("ymm", Boolean.TRUE);
+        }
+
         if(item.getHeuReg()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(getHeu(item)).messageType(MessageType.WARNING).build());
         }

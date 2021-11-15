@@ -13,6 +13,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,6 +33,11 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.controller.report.parallel.UnContactedClientTask;
 import zw.org.zvandiri.report.api.DatabaseHeader;
+
+/**
+ *
+ * @author manatsachinyeruse@gmail.com
+ */
 
 @Controller
 @RequestMapping("/report/uncontacted")
@@ -135,22 +141,30 @@ public class UncontactedReportController extends BaseController {
 
             Cell phone = uncontactedRow.createCell(count++);
             phone.setCellValue(patient.getMobileNumber() == null ? "" : patient.getMobileNumber());
+
             Cell phone1 = uncontactedRow.createCell(count++);
             phone1.setCellValue(patient.getSecondaryMobileNumber() == null ? "" : patient.getSecondaryMobileNumber());
+
             Cell province = uncontactedRow.createCell(count++);
             province.setCellValue(patient.getPrimaryClinic().getDistrict().getProvince().getName());
+
             Cell district = uncontactedRow.createCell(count++);
             district.setCellValue(patient.getPrimaryClinic().getDistrict().getName() == null ? "" : patient.getPrimaryClinic().getDistrict().getName());
+
             Cell primaryClinic = uncontactedRow.createCell(count++);
             primaryClinic.setCellValue(patient.getPrimaryClinic().getName() == null ? "" : patient.getPrimaryClinic().getName());
-            
-            Cell isCats = uncontactedRow.createCell(++count);
+
+            Cell isCats = uncontactedRow.createCell(count++);
             isCats.setCellValue(
-            		patient.getCat() != null ? patient.getCat().getName() : null
+                    patient.getCat() != null ? patient.getCat().getName() : null
             );
-            Cell youngMumGroup = uncontactedRow.createCell(++count);
+            Cell youngMumGroup = uncontactedRow.createCell(count++);
             youngMumGroup.setCellValue(
-            		patient.getYoungMumGroup() != null ? patient.getYoungMumGroup().getName() : null
+                    patient.getYoungMumGroup() != null ? patient.getYoungMumGroup().getName() : null
+            );
+            Cell ymd = uncontactedRow.createCell(count++);
+            ymd.setCellValue(
+                    patient.getYoungDadGroup() != null ? patient.getYoungDadGroup().getName() : null
             );
 
         }

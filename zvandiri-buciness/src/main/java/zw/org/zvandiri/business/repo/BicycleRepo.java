@@ -5,7 +5,7 @@ import zw.org.zvandiri.business.domain.Bicycle;
 import zw.org.zvandiri.business.domain.Cadre;
 import zw.org.zvandiri.business.domain.Patient;
 
-public interface BicycleRepo extends JpaRepository<Bicycle, String> {
+public interface BicycleRepo extends AbstractRepo<Bicycle, String> {
 
     Bicycle getByCadre(Cadre cadre);
 }

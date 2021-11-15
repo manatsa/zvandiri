@@ -319,8 +319,18 @@
                                 </p>
                             </div>
                             <div class="form-group">
-                                <label>Is In Young Mum's Group</label>
+                                <label>Is In YMM Programme</label>
                                 <form:select path="youngMumGroup" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options  itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="youngMumGroup" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>Is In YMD Programme</label>
+                                <form:select path="youngDadGroup" class="form-control">
                                     <form:option value="" label="--Select Item"/>
                                     <form:options itemValue="code" itemLabel="name"/>
                                 </form:select>

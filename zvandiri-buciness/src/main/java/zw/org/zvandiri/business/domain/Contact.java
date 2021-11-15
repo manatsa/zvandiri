@@ -32,6 +32,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import lombok.ToString;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.Formula;
@@ -49,6 +51,7 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  *
  * @author Judge Muzinda
  */
+@ToString
 @Entity @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(indexes = {
 		@Index(name = "contact_patient", columnList = "patient"),

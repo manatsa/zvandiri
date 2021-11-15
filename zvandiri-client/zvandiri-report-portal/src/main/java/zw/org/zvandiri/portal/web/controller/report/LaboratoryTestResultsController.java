@@ -184,13 +184,17 @@ public class LaboratoryTestResultsController extends BaseController {
             Cell primaryClinic = resultsRow.createCell(count++);
             primaryClinic.setCellValue(test.getPatient().getPrimaryClinic().getName() == null ? "" : test.getPatient().getPrimaryClinic().getName());
 
-            Cell isCats = resultsRow.createCell(++count);
+            Cell isCats = resultsRow.createCell(count++);
             isCats.setCellValue(
             		test.getPatient().getCat() != null ? test.getPatient().getCat().getName() : null
             );
-            Cell youngMumGroup = resultsRow.createCell(++count);
+            Cell youngMumGroup = resultsRow.createCell(count++);
             youngMumGroup.setCellValue(
             		test.getPatient().getYoungMumGroup() != null ? test.getPatient().getYoungMumGroup().getName() : null
+            );
+            Cell ymd = resultsRow.createCell(count++);
+            ymd.setCellValue(
+                    test.getPatient().getYoungDadGroup()!= null ? test.getPatient().getYoungDadGroup().getName() : null
             );
             
         }

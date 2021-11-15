@@ -72,6 +72,11 @@ public class DistrictServiceImpl implements DistrictService {
     }
 
     @Override
+    public List<District> getDistrictsByProvinces(List<Province> provinces) {
+        return districtRepo.getDistrictsInProvinces(provinces);
+    }
+
+    @Override
     public Boolean checkDuplicate(District current, District old) {
         if(current.getId() != null){
             /**

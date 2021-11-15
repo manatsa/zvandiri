@@ -239,6 +239,12 @@ public class MentalHealthScreeningReportController extends BaseController {
             youngMumGroup.setCellValue(
             		mentalHealthScreening.getPatient().getYoungMumGroup() != null ? mentalHealthScreening.getPatient().getYoungMumGroup().getName() : null
             );
+
+            XSSFCell ymd = mentalHealthScreeningRow.createCell(++count);
+            ymd.setCellValue(
+                    mentalHealthScreening.getPatient().getYoungDadGroup()!= null ? mentalHealthScreening.getPatient().getYoungDadGroup().getName() : null
+            );
+
         }
         return workbook;
     }

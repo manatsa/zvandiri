@@ -2,6 +2,7 @@ package zw.org.zvandiri.portal.web.controller.cadre;
 
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -10,11 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import zw.org.zvandiri.business.domain.Cadre;
+import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
-import zw.org.zvandiri.business.service.CadreService;
-import zw.org.zvandiri.business.service.DistrictService;
-import zw.org.zvandiri.business.service.FacilityService;
-import zw.org.zvandiri.business.service.ProvinceService;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.IAppTitle;
@@ -34,6 +33,8 @@ public class CadreOperationsController implements IAppTitle {
     DistrictService districtService;
     @Resource
     ProvinceService provinceService;
+    @Resource
+    PatientService patientService;
 
 
     @RequestMapping(value = "transfer", method = RequestMethod.GET)
@@ -52,6 +53,7 @@ public class CadreOperationsController implements IAppTitle {
     }
 
     @RequestMapping(value = "transfer", method = RequestMethod.POST)
+    @Transactional
     public String transferCadrePost(ModelMap map, @ModelAttribute("item") Cadre item, BindingResult result, @ModelAttribute("page") String page){
         map.addAttribute("message", new AppMessage.MessageBuilder().build());
         if (result.hasErrors()) {
@@ -63,6 +65,14 @@ public class CadreOperationsController implements IAppTitle {
         cadre.setProvince(item.getProvince());
         cadre.setDistrict(item.getDistrict());
         cadre.setPrimaryClinic(item.getPrimaryClinic());
+        if(cadre.getPatientId()!=null && !cadre.getPatientId().isEmpty()){
+            Patient patient=patientService.get(cadre.getPatientId());
+            patient.setProvince(cadre.getProvince());
+            patient.setDistrict(cadre.getDistrict());
+            patient.setPrimaryClinic(cadre.getPrimaryClinic());
+            patientService.save(patient);
+        }
+
         cadreService.save(cadre);
         return "redirect:"+page+"/cadre/view?type=1&id="+item.getId();
 
@@ -73,7 +83,7 @@ public class CadreOperationsController implements IAppTitle {
         if(id==null || id.isEmpty())
             throw new IllegalArgumentException("Cadre ID Cannot be null");
         Cadre cadre=cadreService.get(id);
-        System.err.println(cadre);
+        //System.err.println(cadre);
         model.addAttribute("cadre", cadre);
         model.addAttribute("pageTitle", APP_PREFIX + " " + "Cadre Operations");
         model.addAttribute("item", cadre);

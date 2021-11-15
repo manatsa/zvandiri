@@ -184,16 +184,18 @@ public class InvalidVLController extends BaseController {
 
             Cell province = resultsRow.createCell(count++);
             province.setCellValue(test.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+
             Cell district = resultsRow.createCell(count++);
             district.setCellValue(test.getPatient().getPrimaryClinic().getDistrict().getName() == null ? "" : test.getPatient().getPrimaryClinic().getDistrict().getName());
+
             Cell primaryClinic = resultsRow.createCell(count++);
             primaryClinic.setCellValue(test.getPatient().getPrimaryClinic().getName() == null ? "" : test.getPatient().getPrimaryClinic().getName());
 
-            Cell isCats = resultsRow.createCell(++count);
+            Cell isCats = resultsRow.createCell(count++);
             isCats.setCellValue(
             		test.getPatient().getCat() != null ? test.getPatient().getCat().getName() : null
             );
-            Cell youngMumGroup = resultsRow.createCell(++count);
+            Cell youngMumGroup = resultsRow.createCell(count++);
             youngMumGroup.setCellValue(
             		test.getPatient().getYoungMumGroup() != null ? test.getPatient().getYoungMumGroup().getName() : null
             );

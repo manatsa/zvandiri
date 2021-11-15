@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 
-public interface CadreRepo extends JpaRepository<Cadre, String> {
+public interface CadreRepo extends AbstractRepo<Cadre, String> {
 
     @Query("Select Distinct p from Cadre p left join fetch p.createdBy left join fetch p.modifiedBy left join fetch p.primaryClinic left join fetch p.supportGroup where p.active=:active and (p.firstName Like %:name% or p.lastName Like %:name% ) order by p.lastName, p.firstName ASC")
     public List<Cadre> findByFirstNameOrLastName(@Param("name") String name, @Param("active") Boolean active);

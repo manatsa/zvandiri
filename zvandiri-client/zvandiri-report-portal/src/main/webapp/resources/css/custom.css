@@ -1,0 +1,18 @@
+option  {
+    padding-bottom: 10px;
+    margin: 5px;
+}
+
+option:checked  {
+    background-color: darkolivegreen;
+    color: white;
+}
+
+option:hover {
+    background-color: lightgreen;
+    color: white;
+}
+
+
+
+

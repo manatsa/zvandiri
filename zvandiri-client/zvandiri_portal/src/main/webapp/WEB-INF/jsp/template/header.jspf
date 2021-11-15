@@ -19,6 +19,7 @@
         <link href="<c:url value="/resources/datatables/bootstrap/3/dataTables.bootstrap.css" /> " rel="stylesheet">
         <link href="<c:url value="/resources/jquery-ui-1.11.4/jquery-ui.min.css" /> " rel="stylesheet">
         <link href="<c:url value="/resources/css/jquery-validate/jquery-validate.css" /> " rel="stylesheet">
+        <link href="<c:url value="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-multiselect-widget/1.6/jquery.multiselect.css" /> " rel="stylesheet">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -38,6 +39,10 @@
             .custom-drop li a{
                 color: #000 !important;
             }
+
+
+
+
         </style>
     </head>
     <body>

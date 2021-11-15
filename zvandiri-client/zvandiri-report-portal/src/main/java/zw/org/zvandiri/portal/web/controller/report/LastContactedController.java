@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.*;
+import zw.org.zvandiri.business.domain.util.CareLevel;
 import zw.org.zvandiri.business.domain.util.FollowUp;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.YesNo;
@@ -178,6 +179,11 @@ public class LastContactedController extends BaseController {
             Optional<YesNo> isYMMOptional=Optional.ofNullable(contact.getPatient().getYoungMumGroup());
             isYMM.setCellValue(isYMMOptional.isPresent()? isYMMOptional.get().getName(): null);
 
+            XSSFCell ymd = contactRow.createCell(++count);
+            ymd.setCellValue(
+                    contact.getPatient().getYoungDadGroup()!= null ? contact.getPatient().getYoungDadGroup().getName() : null
+            );
+
             XSSFCell primaryClinic = contactRow.createCell(++count);
             Optional<Facility> facilityOptional=Optional.ofNullable(contact.getPatient().getPrimaryClinic());
             primaryClinic.setCellValue(facilityOptional.isPresent()? facilityOptional.get().getName(): null);
@@ -194,15 +200,12 @@ public class LastContactedController extends BaseController {
             Optional.ofNullable(contact.getContactDate()).ifPresent(contactDate::setCellValue);
             contactDate.setCellStyle(cellStyle);
 
-            XSSFCell followup = contactRow.createCell(++count);
-            //followup.setCellValue(contact.getFollowUp().getName());
-            Optional<FollowUp> followupOptional=Optional.ofNullable(contact.getFollowUp());
-            followup.setCellValue(followupOptional.isPresent()? followupOptional.get().getName(): null);
+            XSSFCell careLevel = contactRow.createCell(++count);
+            Optional<CareLevel> careLevelOptional=Optional.ofNullable(contact.getCareLevel());
+            careLevel.setCellValue(careLevelOptional.isPresent()? careLevelOptional.get().getName(): null);
 
             XSSFCell cd4Count = contactRow.createCell(++count);
-            //followup.setCellValue(contact.getFollowUp().getName());
             Optional<InvestigationTest> cd4Optional=Optional.ofNullable(contact.getCd4Count());
-
             if (cd4Optional.isPresent()) {
                 Optional.ofNullable(cd4Optional.get().getResult()).ifPresent(cd4Count::setCellValue);
             } else {
@@ -210,7 +213,6 @@ public class LastContactedController extends BaseController {
             }
 
             XSSFCell vl = contactRow.createCell(++count);
-            //followup.setCellValue(contact.getFollowUp().getName());
             Optional<InvestigationTest> vlOptional=Optional.ofNullable(contact.getViralLoad());
             if (vlOptional.isPresent()) {
                 Optional.ofNullable(vlOptional.get().getResult()).ifPresent(vl::setCellValue);

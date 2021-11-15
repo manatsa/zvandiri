@@ -89,6 +89,7 @@ $("#supportGroupDistrict").change(function() {$this = $(this);
 			});
 		});
 
+
 $("#district").change(function() {$this = $(this);
 			if ($this.val() === "") {
 				$("#primaryClinic").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
@@ -100,6 +101,25 @@ $("#district").change(function() {$this = $(this);
 		});		
 		
 		
+
+$("#supportGroupDistrict").change(
+		function() {
+			$this = $(this);
+			if ($this.val() === "") {
+				$("#supportGroup").find('option').remove().end().append(
+						'<option value="">--Select Item--</option>').val('');
+				return;
+			}
+			$("#supportGroup").find('option').remove().end().append(
+					'<option value="">......... loading clinics</option>').val(
+					'');
+			$.get(path + "/global/getdistrictsupportgroups", {
+				"district" : $this.val()
+			}, function(data) {
+				$("#supportGroup").html(processDropDown(data));
+			});
+		});
+
 $("#periodType").change(
 		function() {
 			$this = $(this);
@@ -193,3 +213,5 @@ function gup(name, search_url) {
 	else
 		return results[1];
 }
+
+

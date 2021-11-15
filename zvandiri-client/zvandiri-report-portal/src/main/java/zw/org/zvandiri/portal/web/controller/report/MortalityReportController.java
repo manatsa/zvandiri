@@ -40,7 +40,7 @@ import zw.org.zvandiri.portal.web.controller.report.parallel.MortalityTask;
 
 /**
  *
- * @author Judge Muzinda
+ * @author manatsachinyeruse@gmail.com
  */
 @Controller
 @RequestMapping("/report/mortality")
@@ -125,23 +125,39 @@ public class MortalityReportController extends BaseController {
         for (Mortality mortality : mortalitys) {
             int count = 0;
             mortalityRow = mortalityDetails.createRow(mortalityRowNum++);
+
             XSSFCell id = mortalityRow.createCell(count);
             id.setCellValue(mortality.getPatient().getPatientNumber());
+
             XSSFCell patientName = mortalityRow.createCell(++count);
             patientName.setCellValue(mortality.getPatient().getName());
+
             XSSFCell dateOfBirth = mortalityRow.createCell(++count);
             dateOfBirth.setCellValue(mortality.getPatient().getDateOfBirth());
             dateOfBirth.setCellStyle(XSSFCellStyle);
+
             XSSFCell age = mortalityRow.createCell(++count);
             age.setCellValue(mortality.getPatient().getAge());
+
             XSSFCell sex = mortalityRow.createCell(++count);
             sex.setCellValue(mortality.getPatient().getGender().getName());
+
             XSSFCell province = mortalityRow.createCell(++count);
             province.setCellValue(mortality.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+
             XSSFCell district = mortalityRow.createCell(++count);
             district.setCellValue(mortality.getPatient().getPrimaryClinic().getDistrict().getName());
+
             XSSFCell primaryClinic = mortalityRow.createCell(++count);
             primaryClinic.setCellValue(mortality.getPatient().getPrimaryClinic().getName());
+
+            XSSFCell dateOfEntry = mortalityRow.createCell(++count);
+            if (mortality.getDateCreated() != null && !mortality.getDateCreated().toString().isEmpty()) {
+                dateOfEntry.setCellValue(mortality.getDateCreated());
+                dateOfEntry.setCellStyle(XSSFCellStyle);
+            } else {
+                dateOfEntry.setCellValue("");
+            }
 
             XSSFCell dateOfDeath = mortalityRow.createCell(++count);
             if (mortality.getDateOfDeath() != null) {
@@ -152,10 +168,13 @@ public class MortalityReportController extends BaseController {
             }
             XSSFCell causeOfDeath = mortalityRow.createCell(++count);
             causeOfDeath.setCellValue(mortality.getCauseOfDeath() != null ? mortality.getCauseOfDeath().getName() : "");
+
             XSSFCell causeOfDeathDetails = mortalityRow.createCell(++count);
             causeOfDeathDetails.setCellValue(mortality.getCauseOfDeathDetails());
+
             XSSFCell receivingEnhancedCare = mortalityRow.createCell(++count);
             receivingEnhancedCare.setCellValue(mortality.getReceivingEnhancedCare() != null ? mortality.getReceivingEnhancedCare().getName() : "");
+
             XSSFCell datePutOnEnhancedCare = mortalityRow.createCell(++count);
             if (mortality.getDatePutOnEnhancedCare() != null) {
                 datePutOnEnhancedCare.setCellValue(mortality.getDatePutOnEnhancedCare());
@@ -165,23 +184,31 @@ public class MortalityReportController extends BaseController {
             }
             XSSFCell caseBackground = mortalityRow.createCell(++count);
             caseBackground.setCellValue(mortality.getCaseBackground());
+
             XSSFCell careProvided = mortalityRow.createCell(++count);
             careProvided.setCellValue(mortality.getCareProvided());
+
             XSSFCell home = mortalityRow.createCell(++count);
             home.setCellValue(mortality.getHome());
 
             XSSFCell beneficiary = mortalityRow.createCell(++count);
             beneficiary.setCellValue(mortality.getBeneficiary());
+
             XSSFCell facility = mortalityRow.createCell(++count);
             facility.setCellValue(mortality.getFacility());
+
             XSSFCell cats = mortalityRow.createCell(++count);
             cats.setCellValue(mortality.getCats());
+
             XSSFCell zm = mortalityRow.createCell(++count);
             zm.setCellValue(mortality.getZm());
+
             XSSFCell other = mortalityRow.createCell(++count);
             other.setCellValue(mortality.getOther());
+
             XSSFCell contactWithZM = mortalityRow.createCell(++count);
             contactWithZM.setCellValue(mortality.getContactWithZM() != null ? mortality.getContactWithZM().getName() : "");
+
             XSSFCell dateOfContactWithZim = mortalityRow.createCell(++count);
             if (mortality.getDateOfContactWithZim() != null) {
                 dateOfContactWithZim.setCellValue(mortality.getDateOfContactWithZim());
@@ -191,8 +218,10 @@ public class MortalityReportController extends BaseController {
             }
             XSSFCell descriptionOfCase = mortalityRow.createCell(++count);
             descriptionOfCase.setCellValue(mortality.getDescriptionOfCase());
+
             XSSFCell learningPoints = mortalityRow.createCell(++count);
             learningPoints.setCellValue(mortality.getLearningPoints());
+
             XSSFCell actionPlan = mortalityRow.createCell(++count);
             actionPlan.setCellValue(mortality.getActionPlan());
             
@@ -204,6 +233,11 @@ public class MortalityReportController extends BaseController {
             youngMumGroup.setCellValue(
             		mortality.getPatient().getYoungMumGroup() != null ? mortality.getPatient().getYoungMumGroup().getName() : null
             );
+            XSSFCell ymd = mortalityRow.createCell(++count);
+            ymd.setCellValue(
+                    mortality.getPatient().getYoungDadGroup() != null ? mortality.getPatient().getYoungDadGroup().getName() : null
+            );
+
 
         }
 

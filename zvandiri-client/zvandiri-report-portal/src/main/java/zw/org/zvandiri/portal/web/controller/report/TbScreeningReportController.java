@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.TbIpt;
-import zw.org.zvandiri.business.service.ProvinceService;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
@@ -39,16 +39,13 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
-import zw.org.zvandiri.business.service.DistrictService;
-import zw.org.zvandiri.business.service.FacilityService;
-import zw.org.zvandiri.business.service.SupportGroupService;
-import zw.org.zvandiri.business.service.TbIptService;
 import zw.org.zvandiri.portal.web.controller.report.parallel.TbIptTask;
 
 /**
  *
- * @author tasu
+ * @author manatsachinyeruse@gmail.com
  */
+
 @Controller
 @RequestMapping("/report/tb-screening")
 public class TbScreeningReportController extends BaseController {
@@ -67,6 +64,9 @@ public class TbScreeningReportController extends BaseController {
 
     @Resource
     TbIptService tbIptService;
+
+    @Resource
+    ContactService contactService;
 
     List<TbIpt> tbIpts = new ArrayList<>();
 
@@ -131,25 +131,41 @@ public class TbScreeningReportController extends BaseController {
 
         for (TbIpt tbIpt : tbIpts) {
             int count = 0;
+//            System.err.println("Patient ID:"+tbIpt.getPatient().getId()+",\tLastContact :"+tbIpt.getPatient().getLastPatientContact(contactService));
             tbIptRow = tbIptDetails.createRow(tbIptRowNum++);
+
             XSSFCell id = tbIptRow.createCell(count);
             id.setCellValue(tbIpt.getPatient().getPatientNumber());
+
             XSSFCell patientName = tbIptRow.createCell(++count);
             patientName.setCellValue(tbIpt.getPatient().getName());
+
             XSSFCell dateOfBirth = tbIptRow.createCell(++count);
             dateOfBirth.setCellValue(tbIpt.getPatient().getDateOfBirth());
             dateOfBirth.setCellStyle(cellStyle);
+
             XSSFCell age = tbIptRow.createCell(++count);
             age.setCellValue(tbIpt.getPatient().getAge());
+
             XSSFCell sex = tbIptRow.createCell(++count);
             sex.setCellValue(tbIpt.getPatient().getGender().getName());
+
             XSSFCell province = tbIptRow.createCell(++count);
             province.setCellValue(tbIpt.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+
             XSSFCell district = tbIptRow.createCell(++count);
             district.setCellValue(tbIpt.getPatient().getPrimaryClinic().getDistrict().getName());
+
             XSSFCell primaryClinic = tbIptRow.createCell(++count);
             primaryClinic.setCellValue(tbIpt.getPatient().getPrimaryClinic().getName());
 
+            XSSFCell entry = tbIptRow.createCell(++count);
+            if (tbIpt.getDateScreened() != null) {
+                entry.setCellValue(tbIpt.getDateCreated());
+                entry.setCellStyle(cellStyle);
+            } else {
+                entry.setCellValue("");
+            }
             XSSFCell screenedForTb = tbIptRow.createCell(++count);
             screenedForTb.setCellValue(tbIpt.getScreenedForTb() != null ? tbIpt.getScreenedForTb().getName() : "");
             XSSFCell dateScreened = tbIptRow.createCell(++count);
@@ -161,8 +177,10 @@ public class TbScreeningReportController extends BaseController {
             }
             XSSFCell identifiedWithTb = tbIptRow.createCell(++count);
             identifiedWithTb.setCellValue(tbIpt.getIdentifiedWithTb() != null ? tbIpt.getIdentifiedWithTb().getName() : "");
+
             XSSFCell tbIdentificationOutcome = tbIptRow.createCell(++count);
             tbIdentificationOutcome.setCellValue(tbIpt.getTbIdentificationOutcome() != null ? tbIpt.getTbIdentificationOutcome().getName() : "");
+
             XSSFCell dateStartedTreatment = tbIptRow.createCell(++count);
             if (tbIpt.getDateStartedTreatment() != null) {
                 dateStartedTreatment.setCellValue(tbIpt.getDateStartedTreatment());
@@ -172,12 +190,16 @@ public class TbScreeningReportController extends BaseController {
             }
             XSSFCell referralForSputum = tbIptRow.createCell(++count);
             referralForSputum.setCellValue(tbIpt.getReferralForSputum());
+
             XSSFCell tbTreatmentOutcome = tbIptRow.createCell(++count);
             tbTreatmentOutcome.setCellValue(tbIpt.getTbTreatmentOutcome() != null ? tbIpt.getTbTreatmentOutcome().getName() : "");
+
             XSSFCell referredForIpt = tbIptRow.createCell(++count);
             referredForIpt.setCellValue(tbIpt.getReferredForIpt() != null ? tbIpt.getReferredForIpt().getName() : "");
+
             XSSFCell onIpt = tbIptRow.createCell(++count);
             onIpt.setCellValue(tbIpt.getOnIpt() != null ? tbIpt.getOnIpt().getName() : "");
+
             XSSFCell dateStartedIpt = tbIptRow.createCell(++count);
             if (tbIpt.getDateStartedIpt()!= null) {
                 dateStartedIpt.setCellValue(tbIpt.getDateStartedIpt());
@@ -185,6 +207,18 @@ public class TbScreeningReportController extends BaseController {
             } else {
                 dateStartedIpt.setCellValue("");
             }
+            XSSFCell isCats = tbIptRow.createCell(++count);
+            isCats.setCellValue(
+                    tbIpt.getPatient().getCat() != null ? tbIpt.getPatient().getCat().getName() : null
+            );
+            XSSFCell youngMumGroup = tbIptRow.createCell(++count);
+            youngMumGroup.setCellValue(
+                    tbIpt.getPatient().getYoungMumGroup() != null ? tbIpt.getPatient().getYoungMumGroup().getName() : null
+            );
+            XSSFCell ymd = tbIptRow.createCell(++count);
+            ymd.setCellValue(
+                    tbIpt.getPatient().getYoungDadGroup() != null ? tbIpt.getPatient().getYoungDadGroup().getName() : null
+            );
         }
 
         return workbook;

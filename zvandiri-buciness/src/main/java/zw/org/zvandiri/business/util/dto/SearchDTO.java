@@ -104,6 +104,8 @@ public class SearchDTO implements Serializable {
     private Integer firstResult;
     private Integer pageSize;
     private List<District> districts;
+    private List<Province> provinces;
+    private List<Facility> facilities;
 
     public SearchDTO() {
     }
@@ -166,6 +168,22 @@ public class SearchDTO implements Serializable {
 
     public void setDistricts(List<District> districts) {
         this.districts = districts;
+    }
+
+    public List<Province> getProvinces() {
+        return provinces;
+    }
+
+    public void setProvinces(List<Province> provinces) {
+        this.provinces = provinces;
+    }
+
+    public List<Facility> getFacilities() {
+        return facilities;
+    }
+
+    public void setFacilities(List<Facility> facilities) {
+        this.facilities = facilities;
     }
 
     public Period getPeriod() {
@@ -814,6 +832,6 @@ public class SearchDTO implements Serializable {
 
     public String toString(){
         return "Province: "+this.province+", District: "+this.district+", Facility: "+this.primaryClinic+", start date: "+this.startDate+", end date: "+this.endDate+", status: "+this.status+
-                ", Districts size : "+districts.size()+"Districts :"+districts.toString();
+                ", Districts :"+districts.toString()+" ,Provinces:"+provinces.toString()+" ,Facilities:"+facilities.toString();
     }
 }

@@ -88,6 +88,8 @@ public class GenericPatient extends BaseEntity {
     @Enumerated
     private YesNo youngMumGroup;
     @Enumerated
+    private YesNo youngDadGroup;
+    @Enumerated
     private YesNo selfPrimaryCareGiver;
     private String pfirstName;
     private String plastName;
@@ -337,6 +339,14 @@ public class GenericPatient extends BaseEntity {
 
     public void setYoungMumGroup(YesNo youngMumGroup) {
         this.youngMumGroup = youngMumGroup;
+    }
+
+    public YesNo getYoungDadGroup() {
+        return youngDadGroup;
+    }
+
+    public void setYoungDadGroup(YesNo youngDadGroup) {
+        this.youngDadGroup = youngDadGroup;
     }
 
     public String getPfirstName() {

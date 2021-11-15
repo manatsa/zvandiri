@@ -137,6 +137,18 @@
 								<td><a href="${page}/report/mobile/phone/range.htm">Cadres Mobile Phones Report</a></td>
 								<td><a href="${page}/report/bicycle/range.htm">Cadres Bicycles Report</a></td>
 							</tr>
+							<tr>
+								<td><a href="${page}/report/cadre/range.htm">Cadres Tools Report</a></td>
+								<td><sec:authorize
+										access="
+                                                   hasRole('ROLE_ADMINISTRATOR') or
+                                                   hasRole('ROLE_DATA_CLERK') or
+                                                   hasRole('ROLE_M_AND_E_OFFICER') or
+                                                   hasRole('ROLE_HOD_M_AND_E')
+                                                   ">
+									<a href="${page}/report/hierarchical-database-export/index.htm">Hierarchical Database Export</a>
+								</sec:authorize></td>
+							</tr>
 
 
 							<tr>

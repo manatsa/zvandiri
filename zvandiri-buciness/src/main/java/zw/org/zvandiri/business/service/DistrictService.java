@@ -28,6 +28,8 @@ import zw.org.zvandiri.business.domain.Province;
 public interface DistrictService extends GenericService<District> {
     
     public List<District> getDistrictByProvince(Province province);
+
+    public List<District> getDistrictsByProvinces(List<Province> provinces);
     
     public District getByNameAndProvince(String name, Province province);
 }

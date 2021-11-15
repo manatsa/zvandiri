@@ -142,16 +142,20 @@ public class MobilePhoneController extends BaseController {
             Optional<Gender> sexOptional=Optional.ofNullable(phone.getCadre().getGender());
             sex.setCellValue(sexOptional.isPresent()? sexOptional.get().getName(): null);
 
+            XSSFCell cadreStatus = phoneRow.createCell(count++);
+            Optional<PatientChangeEvent> cadreStatusOptional=Optional.ofNullable(phone.getCadre().getStatus());
+            cadreStatus.setCellValue(cadreStatusOptional.isPresent()? cadreStatusOptional.get().getName(): null);
+
             XSSFCell primaryClinic = phoneRow.createCell(count++);
             Optional<Facility> facilityOptional=Optional.ofNullable(phone.getCadre().getPrimaryClinic());
             primaryClinic.setCellValue(facilityOptional.isPresent()? facilityOptional.get().getName(): null);
 
             XSSFCell district = phoneRow.createCell(count++);
-            Optional<District> districtOptional=Optional.ofNullable(phone.getCadre().getPrimaryClinic().getDistrict());
+            Optional<District> districtOptional=Optional.ofNullable(phone.getCadre().getDistrict());
             district.setCellValue(districtOptional.isPresent()? districtOptional.get().getName(): null);
 
             XSSFCell province = phoneRow.createCell(count++);
-            Optional<Province> provinceOptional=Optional.ofNullable(phone.getCadre().getPrimaryClinic().getDistrict().getProvince());
+            Optional<Province> provinceOptional=Optional.ofNullable(phone.getCadre().getProvince());
             province.setCellValue(provinceOptional.isPresent()? provinceOptional.get().getName(): null);
 
             XSSFCell make = phoneRow.createCell(count++);
@@ -159,6 +163,9 @@ public class MobilePhoneController extends BaseController {
 
             XSSFCell model = phoneRow.createCell(count++);
             Optional.ofNullable(phone.getPhoneModel()).ifPresent(model::setCellValue);
+
+            XSSFCell serial = phoneRow.createCell(count++);
+            Optional.ofNullable(phone.getSerialNumber()).ifPresent(serial::setCellValue);
 
             XSSFCell phoneDateIssued = phoneRow.createCell(count++);
             Optional.ofNullable(phone.getDateIssued()).ifPresent(phoneDateIssued::setCellValue);

@@ -56,7 +56,7 @@ public class CadreBikeController extends BaseController {
     Cadre cadre=new Cadre();
 
 
-    public String setUpModel(ModelMap model, Bicycle item) {
+    public String setUpModel(ModelMap model, Bicycle item, Integer type) {
         model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit Cadre");
         model.addAttribute("provinces", provinceService.getAll());
         model.addAttribute("formAction", "item.form");
@@ -64,6 +64,9 @@ public class CadreBikeController extends BaseController {
         model.addAttribute("bikeStatus", PhoneStatus.values());
         model.addAttribute("cadre", this.cadre);
         model.addAttribute("item", item);
+        if(type!=null && type>0) {
+            model.addAttribute("message", AppMessage.getMessage(type));
+        }
 
             if(cadre!=null){
                 if (cadre.getPrimaryClinic().getProvince() != null) {
@@ -83,7 +86,7 @@ public class CadreBikeController extends BaseController {
         this.cadre=cadre;
         Bicycle item=new Bicycle();
         item.setCadre(cadre);
-        return setUpModel(model, item );
+        return setUpModel(model, item, null );
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.GET)
@@ -96,17 +99,17 @@ public class CadreBikeController extends BaseController {
         if(item==null){
             throw new IllegalStateException("Bicycle to be edited cannot be null");
         }
-        return setUpModel(model, item );
+        return setUpModel(model, item ,null);
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.POST)
     public String saveItem(@ModelAttribute("item") @Valid Bicycle item, @ModelAttribute("cadre") @Valid Cadre cadre, @ModelAttribute("page") String page, ModelMap model,  BindingResult result) {
         if (result.hasErrors()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
-            return setUpModel(model, item);
+            return setUpModel(model, item, Integer.valueOf(1));
         }
         item.setCadre(this.cadre);
         bicycleService.save(item);
-        return "redirect:"+page+"/cadre/view?id="+this.cadre.getId();
+        return "redirect:"+page+"/cadre/view?type=1&id="+this.cadre.getId();
     }
 }

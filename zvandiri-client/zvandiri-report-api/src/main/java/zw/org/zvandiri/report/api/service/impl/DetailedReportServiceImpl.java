@@ -28,6 +28,7 @@ import zw.org.zvandiri.business.domain.CatDetail;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.service.ContactReportService;
+import zw.org.zvandiri.business.service.ContactService;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -47,28 +48,33 @@ public class DetailedReportServiceImpl implements DetailedReportService {
     private DetailedPatientReportService detailedPatientReportService;
     @Resource
     private ContactReportService contactReportService;
+    @Resource
+    ContactService contactService;
 
     @Override
     public List<GenericReportModel> getDefaultReport(SearchDTO dto) {
         String[] headers = {"Name", "Age", "Date of Birth", "Gender", "Date Joined", "Viral Load", "CD4 Count",
-            "Province", "District", "Primary Clinic", "Support Group", "Mobile Number", "Referer"};
+            "Province", "District", "Primary Clinic", "Support Group", "Mobile Number", "Referer",  "IS CATS", "In YMM Programme","In YMD Programme"};
         List<GenericReportModel> items = new ArrayList<>();
         items.add(new GenericReportModel(Arrays.asList(headers)));
         for (Patient item : detailedPatientReportService.get(dto.getInstance(dto))) {
             String[] inner = {
-                item.getName(),
-                item.getAge() + "",
-                DateUtil.getStringFromDate(item.getDateOfBirth()),
-                item.getGender().getName(),
-                item.getDateJoin(),
-                item.getViralLoad() != null ? item.getViralLoad() + "" : "",
-                item.getCd4Count() != null ? item.getCd4Count() + "" : "",
-                item.getPrimaryClinic().getDistrict().getProvince().getName(),
-                item.getPrimaryClinic().getDistrict().getName(),
-                item.getPrimaryClinic().getName(),
-                item.getSupportGroup() != null ? item.getSupportGroup().getName() : "",
-                item.getMobileNumber(),
-                item.getReferer() != null ? item.getReferer().getName() : ""
+                    item.getName(),
+                    item.getAge() + "",
+                    DateUtil.getStringFromDate(item.getDateOfBirth()),
+                    item.getGender().getName(),
+                    item.getDateJoin(),
+                    item.getViralLoad() != null ? item.getViralLoad() + "" : "",
+                    item.getCd4Count() != null ? item.getCd4Count() + "" : "",
+                    item.getPrimaryClinic().getDistrict().getProvince().getName(),
+                    item.getPrimaryClinic().getDistrict().getName(),
+                    item.getPrimaryClinic().getName(),
+                    item.getSupportGroup() != null ? item.getSupportGroup().getName() : "",
+                    item.getMobileNumber(),
+                    item.getReferer() != null ? item.getReferer().getName() : "",
+                    item.getCat()!=null?item.getCat().getName():"",
+                    item.getYoungMumGroup()!=null?item.getYoungMumGroup().getName():"",
+                    item.getYoungDadGroup()!=null?item.getYoungDadGroup().getName():"",
             };
             items.add(new GenericReportModel(Arrays.asList(inner)));
         }
@@ -78,25 +84,32 @@ public class DetailedReportServiceImpl implements DetailedReportService {
     @Override
     public List<GenericReportModel> get(List<Patient> patients) {
         String[] headers = {"Name", "OI/ ART Number", "Age", "Date of Birth", "Gender", "Mode of Transimission", "Disability Status",
-            "Current Drug Regimen", "Region", "District", "Primary Clinic", "Support Group", "Referer"};
+            "Current Drug Regimen", "Region", "District", "Primary Clinic", "Support Group", "Referer","Last Contact Date","Current Care Level","Last Contacted By","IS CATS", "In YMM Programme", "In YMD Programme"};
 
         List<GenericReportModel> items = new ArrayList<>();
         items.add(new GenericReportModel(Arrays.asList(headers)));
         for (Patient item : patients) {
+            Contact lastContact=item.getLastPatientContact(contactService);
             String[] inner = {
-                item.getName(),
-                item.getoINumber(),
-                item.getAge() + "",
-                DateUtil.getStringFromDate(item.getDateOfBirth()),
-                item.getGender().getName(),
-                item.getTransmissionMode() != null ? item.getTransmissionMode().getName() : "",
-                item.getDisabilityStatus() != null ? item.getDisabilityStatus().getName() : "",
-                item.getCurrentArvRegimen(),
-                item.getPrimaryClinic().getDistrict().getProvince().getName(),
-                item.getPrimaryClinic().getDistrict().getName(),
-                item.getPrimaryClinic().getName(),
-                item.getSupportGroup() != null ? item.getSupportGroup().getName() : "",
-                item.getReferer() != null ? item.getReferer().getName() : ""
+                    item.getName(),
+                    item.getoINumber(),
+                    item.getAge() + "",
+                    DateUtil.getStringFromDate(item.getDateOfBirth()),
+                    item.getGender().getName(),
+                    item.getTransmissionMode() != null ? item.getTransmissionMode().getName() : "",
+                    item.getDisabilityStatus() != null ? item.getDisabilityStatus().getName() : "",
+                    item.getCurrentArvRegimen(),
+                    item.getPrimaryClinic().getDistrict().getProvince().getName(),
+                    item.getPrimaryClinic().getDistrict().getName(),
+                    item.getPrimaryClinic().getName(),
+                    item.getSupportGroup() != null ? item.getSupportGroup().getName() : "",
+                    item.getReferer() != null ? item.getReferer().getName() : "",
+                    lastContact!=null?lastContact.getContactDate().toString():"",
+                    lastContact!=null?lastContact.getCareLevel().getName():"",
+                    lastContact!=null?lastContact.getCreatedBy().getDisplayName():"",
+                    item.getCat() != null ? item.getCat().getName() : "",
+                    item.getYoungMumGroup() != null ? item.getYoungMumGroup().getName() : "",
+                    item.getYoungDadGroup() != null ? item.getYoungDadGroup().getName() : ""
             };
             items.add(new GenericReportModel(Arrays.asList(inner)));
         }
@@ -131,7 +144,7 @@ public class DetailedReportServiceImpl implements DetailedReportService {
 
     @Override
     public List<GenericReportModel> getDefaultReportB(SearchDTO dto) {
-        String[] headers = {"Name", "Age", "Gender", "Phone No.", "District", "Clinic", "Date Of Entry",
+        String[] headers = {"Name", "Age", "Gender", "Phone No.","Is CATS","In YMM Programme","In YMD Programme", "District", "Clinic", "Date Of Entry",
             "Current Care Level", "Contact Date", "Follow Up", "Place of Contact", "New Level of Care", "Contacted By"};
 
         List<GenericReportModel> items = new ArrayList<>();

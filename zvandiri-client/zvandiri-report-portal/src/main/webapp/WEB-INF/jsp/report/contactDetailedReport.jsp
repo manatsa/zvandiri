@@ -23,6 +23,9 @@
 							<th>Age</th>
 							<th>Gender</th>
 							<th>Phone No.</th>
+							<th>Is CATS</th>
+							<th>In YMM</th>
+							<th>In YMD</th>
 							<th>District</th>
 							<th>Clinic</th>
 							<th>Current Level Of Care</th>
@@ -37,6 +40,9 @@
 							<th>Age</th>
 							<th>Gender</th>
 							<th>Phone No.</th>
+							<th>Is CATS</th>
+							<th>In YMM</th>
+							<th>In YMD</th>
 							<th>District</th>
 							<th>Clinic</th>
 							<th>Current Level Of Care</th>
@@ -53,6 +59,9 @@
 									<td>${item.patient.age}</td>
 									<td>${item.patient.gender.name}</td>
 									<td>${item.patient.mobileNumber}</td>
+									<td>${item.patient.cat.name}</td>
+									<td>${item.patient.youngMumGroup.name}</td>
+									<td>${item.patient.youngDadGroup.name}</td>
 									<td>${item.patient.primaryClinic.district.name}</td>
 									<td>${item.patient.primaryClinic.name}</td>
 									<td>${item.currentCareLevel.name}</td>

@@ -27,6 +27,8 @@ import zw.org.zvandiri.business.util.dto.SearchNationalDTO;
 public interface FacilityService extends GenericService<Facility> {
     
     public List<Facility> getOptByDistrict(District district);
+
+    public List<Facility> getFacilitiesInDistricts(List<District> districts);
     
     public Facility getByNameAndDistrict(String name, District district);
     

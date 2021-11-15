@@ -105,6 +105,6 @@ public class CadrePhoneController extends BaseController {
         }
         item.setCadre(this.cadre);
         mobilePhoneService.save(item);
-        return "redirect:"+page+"/cadre/view?id="+this.cadre.getId();
+        return "redirect:"+page+"/cadre/view?type=1&id="+this.cadre.getId();
     }
 }

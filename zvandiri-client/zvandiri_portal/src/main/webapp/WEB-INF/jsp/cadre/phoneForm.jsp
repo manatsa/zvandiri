@@ -36,6 +36,13 @@
                                 </p>
                             </div>
                             <div class="form-group">
+                                <label>Phone Serial Number</label>
+                                <form:input path="serialNumber" class="form-control word-case"/>
+                                <p class="help-block">
+                                    <form:errors path="serialNumber" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
                                 <label>Phone Number 1</label>
                                 <form:input path="msisdn1" class="form-control word-case"/>
                                 <p class="help-block">

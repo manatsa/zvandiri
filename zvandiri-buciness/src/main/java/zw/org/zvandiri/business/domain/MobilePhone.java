@@ -24,6 +24,7 @@ public class MobilePhone extends BaseEntity{
     private String phoneMake;
     private String phoneModel;
     private String phoneIssues;
+    private String serialNumber;
     @Enumerated
     private Condition phoneCondition=Condition.NEW_ONE;
     @Enumerated
@@ -35,8 +36,9 @@ public class MobilePhone extends BaseEntity{
     @OneToOne(cascade = CascadeType.ALL)
     private Cadre cadre;
 
-    public MobilePhone( String misdn1, String misdn2, String imei1, String imei2, String make, String model, Condition condition, PhoneStatus phoneStatus, Date dateIssued, Date dateRecovered, Cadre cadre) {
+    public MobilePhone( String serialNumber, String misdn1, String misdn2, String imei1, String imei2, String make, String model, Condition condition, PhoneStatus phoneStatus, Date dateIssued, Date dateRecovered, Cadre cadre) {
         super();
+        this.serialNumber=serialNumber;
         this.msisdn1 = misdn1;
         this.msisdn2 = misdn2;
         this.imei1 = imei1;
@@ -54,6 +56,14 @@ public class MobilePhone extends BaseEntity{
        super();
     }
 
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
 
     public String getMsisdn1() {
         return msisdn1;

@@ -154,23 +154,26 @@ public class UniqueContactReportController extends BaseController {
             Cell address1=uncontactedRow.createCell(count++);
             address1.setCellValue(patient.getAddress1());
 
-            Cell cat = uncontactedRow.createCell(count++);
-            cat.setCellValue(patient.getCat()!=null?patient.getCat().getName():"");
-
             Cell province = uncontactedRow.createCell(count++);
             province.setCellValue(patient.getPrimaryClinic().getDistrict().getProvince().getName());
+
             Cell district = uncontactedRow.createCell(count++);
             district.setCellValue(patient.getPrimaryClinic().getDistrict().getName()==null?"":patient.getPrimaryClinic().getDistrict().getName());
+
             Cell primaryClinic = uncontactedRow.createCell(count++);
             primaryClinic.setCellValue(patient.getPrimaryClinic().getName()==null?"":patient.getPrimaryClinic().getName());
 
-            Cell isCats = uncontactedRow.createCell(++count);
+            Cell isCats = uncontactedRow.createCell(count++);
             isCats.setCellValue(
-            		patient.getCat() != null ? patient.getCat().getName() : null
+                    patient.getCat() != null ? patient.getCat().getName() : null
             );
-            Cell youngMumGroup = uncontactedRow.createCell(++count);
+            Cell youngMumGroup = uncontactedRow.createCell(count++);
             youngMumGroup.setCellValue(
-            		patient.getYoungMumGroup() != null ? patient.getYoungMumGroup().getName() : null
+                    patient.getYoungMumGroup() != null ? patient.getYoungMumGroup().getName() : null
+            );
+            Cell ymd = uncontactedRow.createCell(count++);
+            ymd.setCellValue(
+                    patient.getYoungDadGroup() != null ? patient.getYoungDadGroup().getName() : null
             );
         }
 

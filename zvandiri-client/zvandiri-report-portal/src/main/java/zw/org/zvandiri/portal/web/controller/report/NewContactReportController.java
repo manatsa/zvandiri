@@ -50,7 +50,7 @@ import java.util.concurrent.ForkJoinPool;
 
 /**
  *
- * @author jackie muzinda
+ * @author manatsachinyeruse@gmail.com
  */
 @Controller
 @RequestMapping("/report/new/contact")
@@ -227,6 +227,10 @@ public class NewContactReportController extends BaseController {
             Cell youngMumGroup = uncontactedRow.createCell(count++);
             Optional<YesNo> ymmOptional=Optional.ofNullable(contact.getPatient().getYoungMumGroup());
             youngMumGroup.setCellValue(ymmOptional.isPresent()? ymmOptional.get().getName(): null);
+
+            Cell ymd = uncontactedRow.createCell(count++);
+            Optional<YesNo> ymdOptional=Optional.ofNullable(contact.getPatient().getYoungDadGroup());
+            ymd.setCellValue(ymdOptional.isPresent()? ymdOptional.get().getName(): null);
 
         }
 

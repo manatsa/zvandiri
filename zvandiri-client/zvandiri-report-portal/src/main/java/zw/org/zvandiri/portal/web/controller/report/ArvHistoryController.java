@@ -92,27 +92,43 @@ public class ArvHistoryController extends BaseController {
         for (ArvHist arvHist : arvHists) {
             int count = 0;
             arvHistXSSFRow = arvHistDetails.createRow(arvHistXSSFRowNum++);
+
             XSSFCell id = arvHistXSSFRow.createCell(count);
             id.setCellValue(arvHist.getPatient().getPatientNumber());
+
             XSSFCell patientName = arvHistXSSFRow.createCell(++count);
             patientName.setCellValue(arvHist.getPatient().getName());
+
             XSSFCell dateOfBirth = arvHistXSSFRow.createCell(++count);
             dateOfBirth.setCellValue(arvHist.getPatient().getDateOfBirth());
             dateOfBirth.setCellStyle(XSSFCellStyle);
+
             XSSFCell age = arvHistXSSFRow.createCell(++count);
             age.setCellValue(arvHist.getPatient().getAge());
+
             XSSFCell sex = arvHistXSSFRow.createCell(++count);
             sex.setCellValue(arvHist.getPatient().getGender().getName());
 
             XSSFCell province = arvHistXSSFRow.createCell(++count);
             province.setCellValue(arvHist.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+
             XSSFCell district = arvHistXSSFRow.createCell(++count);
             district.setCellValue(arvHist.getPatient().getPrimaryClinic().getDistrict().getName());
+
             XSSFCell primaryClinic = arvHistXSSFRow.createCell(++count);
             primaryClinic.setCellValue(arvHist.getPatient().getPrimaryClinic().getName());
 
+            XSSFCell entry = arvHistXSSFRow.createCell(++count);
+            if (arvHist.getStartDate() != null) {
+                entry.setCellValue(arvHist.getDateCreated());
+                entry.setCellStyle(XSSFCellStyle);
+            } else {
+                entry.setCellValue("");
+            }
+
             XSSFCell arvHistMedicine = arvHistXSSFRow.createCell(++count);
             arvHistMedicine.setCellValue(arvHist.getMedicines());
+
             XSSFCell startDate = arvHistXSSFRow.createCell(++count);
             if (arvHist.getStartDate() != null) {
                 startDate.setCellValue(arvHist.getStartDate());
@@ -120,6 +136,7 @@ public class ArvHistoryController extends BaseController {
             } else {
                 startDate.setCellValue("");
             }
+
             XSSFCell endDate = arvHistXSSFRow.createCell(++count);
             if (arvHist.getEndDate() != null) {
                 endDate.setCellValue(arvHist.getEndDate());
@@ -135,6 +152,11 @@ public class ArvHistoryController extends BaseController {
             XSSFCell youngMumGroup = arvHistXSSFRow.createCell(++count);
             youngMumGroup.setCellValue(
             		arvHist.getPatient().getYoungMumGroup() != null ? arvHist.getPatient().getYoungMumGroup().getName() : null
+            );
+
+            XSSFCell ymd = arvHistXSSFRow.createCell(++count);
+            ymd.setCellValue(
+                    arvHist.getPatient().getYoungDadGroup()!= null ? arvHist.getPatient().getYoungDadGroup().getName() : null
             );
         }
 

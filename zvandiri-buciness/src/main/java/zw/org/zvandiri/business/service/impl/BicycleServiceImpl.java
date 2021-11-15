@@ -11,6 +11,7 @@ import zw.org.zvandiri.business.util.UUIDGen;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class BicycleServiceImpl implements BicycleService {
@@ -48,5 +49,13 @@ public class BicycleServiceImpl implements BicycleService {
             throw new IllegalArgumentException("ID cannot be null");
 
         return bicycleRepo.findOne(id);
+    }
+
+    @Override
+    public Optional<Bicycle> getIfNotNull(String id) {
+        if(id==null || id.trim().isEmpty())
+            return Optional.ofNullable(new Bicycle());
+
+        return Optional.ofNullable(bicycleRepo.findOne(id));
     }
 }

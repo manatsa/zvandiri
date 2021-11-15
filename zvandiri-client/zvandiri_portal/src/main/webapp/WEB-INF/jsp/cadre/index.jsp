@@ -9,7 +9,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row" style="margin-right: 10px;">
-                ${pageTitle} <div class="pull-right"> <a href="${page}/cadre/item.form" >Add New Cadre</a></div>
+                ${pageTitle} <div class="pull-right"> <a href="${page}/cadre/cadre-type" >Add New Cadre</a></div>
             </div>
         </div>
         <div class="panel-body">

@@ -18,10 +18,16 @@ package zw.org.zvandiri.business.domain;
 import lombok.ToString;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.hibernate.annotations.Formula;
 import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.util.*;
+import zw.org.zvandiri.business.service.BicycleService;
+import zw.org.zvandiri.business.service.MobilePhoneService;
+import zw.org.zvandiri.business.service.impl.BicycleServiceImpl;
+import zw.org.zvandiri.business.service.impl.MobilePhoneServiceImpl;
 import zw.org.zvandiri.business.util.StringUtils;
 
+import javax.annotation.Resource;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
@@ -41,11 +47,10 @@ import java.util.Set;
 @ToString
 public class Cadre {
 
-
     @Id
     private String id;
     private String uuid;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     private User createdBy;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -91,12 +96,14 @@ public class Cadre {
     private YesNo hasPatient;
     private String patientId;
     private int age;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "cadre")
     @Transient
+    //@Formula("(Select m.id From mobile_phone m where m.cadre = id )")
     private MobilePhone mobilePhone;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "cadre")
     @Transient
-    private Bicycle bicycle;
+    //@Formula("(Select b.id From bicycle b where b.cadre = id )")
+    private MobilePhone bicycle;
 
     public Cadre() {
     }
@@ -246,6 +253,23 @@ public class Cadre {
         this.patientId = patientId;
     }
 
+    /*public MobilePhone getMobilePhone() {
+        return (this.mobilePhone!=null)? new MobilePhoneServiceImpl().getIfNotNull(this.mobilePhone).get(): new MobilePhone();
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
+
+    public Bicycle getBicycle() {
+
+        return (this.bicycle!=null)? new BicycleServiceImpl().getIfNotNull(this.bicycle).get():new Bicycle();//bicycle;
+    }
+
+    public void setBicycle(String bicycle) {
+        this.bicycle = bicycle;
+    }*/
+
     public MobilePhone getMobilePhone() {
         return mobilePhone;
     }
@@ -254,11 +278,11 @@ public class Cadre {
         this.mobilePhone = mobilePhone;
     }
 
-    public Bicycle getBicycle() {
+    public MobilePhone getBicycle() {
         return bicycle;
     }
 
-    public void setBicycle(Bicycle bicycle) {
+    public void setBicycle(MobilePhone bicycle) {
         this.bicycle = bicycle;
     }
 
