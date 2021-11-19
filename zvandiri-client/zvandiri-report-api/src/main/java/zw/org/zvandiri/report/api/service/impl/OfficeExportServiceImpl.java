@@ -19,9 +19,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
@@ -227,6 +229,8 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         for (Patient patient : patients) {
             int count = 0;
             Contact lastContact=patient.getLastPatientContact(contactService);
+            InvestigationTest vlTest=patient.getLastPatientVL(investigationTestService);
+            MentalHealthScreening mentalHealthScreening=patient.getLastPatientMentalHealthScreening(mentalHealthScreeningService);
             contacts.addAll(patient.getContacts());
             dependents.addAll(patient.getDependents());
             chronicInfectionItems.addAll(patient.getChronicInfectionItems());
@@ -357,6 +361,32 @@ public class OfficeExportServiceImpl implements OfficeExportService {
 
             XSSFCell careLevel = header.createCell(++count);
             careLevel.setCellValue(lastContact!=null?lastContact.getFollowUp().getName():"");
+
+            XSSFCell vlresult = header.createCell(++count);
+            vlresult.setCellValue(vlTest!=null? vlTest.getResult()+"":"");
+            vlresult.setCellType(Cell.CELL_TYPE_NUMERIC);
+
+            XSSFCell vlDateTaken = header.createCell(++count);
+            if (vlTest != null) {
+                vlDateTaken.setCellValue(vlTest.getDateTaken());
+                vlDateTaken.setCellStyle(XSSFCellStyle);
+            } else {
+                vlDateTaken.setCellValue("");
+            }
+
+            XSSFCell isMHRisk = header.createCell(++count);
+            isMHRisk.setCellValue(mentalHealthScreening!=null && mentalHealthScreening.getRisk()!=null?mentalHealthScreening.getRisk().getName():"");
+
+            XSSFCell MHRisks = header.createCell(++count);
+            MHRisks.setCellValue(mentalHealthScreening!=null && mentalHealthScreening.getIdentifiedRisks()!=null?mentalHealthScreening.getIdentifiedRisks().stream().map(r->r.getName()).collect(Collectors.joining(",")):"");
+
+            XSSFCell MHDateScreened = header.createCell(++count);
+            if (mentalHealthScreening != null) {
+                MHDateScreened.setCellValue(mentalHealthScreening!=null? mentalHealthScreening.getDateScreened()!=null?mentalHealthScreening.getDateScreened().toString():"":"");
+                MHDateScreened.setCellStyle(XSSFCellStyle);
+            } else {
+                MHDateScreened.setCellValue("");
+            }
 
             numPatient++;
 
@@ -2341,6 +2371,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             }
             XSSFCell cd4Load = cd4XSSFRow.createCell(++count);
             cd4Load.setCellValue(cd4Count.getResult() != null ? cd4Count.getResult() : 0);
+            cd4Load.setCellType(Cell.CELL_TYPE_NUMERIC);
             XSSFCell source = cd4XSSFRow.createCell(++count);
             source.setCellValue(cd4Count.getSource() != null ? cd4Count.getSource().getName() : "");
             XSSFCell nextLabDate = cd4XSSFRow.createCell(++count);

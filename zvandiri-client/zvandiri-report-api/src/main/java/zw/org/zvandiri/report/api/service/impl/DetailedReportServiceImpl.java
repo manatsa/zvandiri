@@ -19,17 +19,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
 
-import zw.org.zvandiri.business.domain.CatDetail;
-import zw.org.zvandiri.business.domain.Contact;
-import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.service.ContactReportService;
-import zw.org.zvandiri.business.service.ContactService;
-import zw.org.zvandiri.business.service.DetailedPatientReportService;
+import zw.org.zvandiri.business.domain.*;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.GenericReportModel;
@@ -50,6 +47,10 @@ public class DetailedReportServiceImpl implements DetailedReportService {
     private ContactReportService contactReportService;
     @Resource
     ContactService contactService;
+    @Resource
+    InvestigationTestService testService;
+    @Resource
+    MentalHealthScreeningService mentalHealthScreeningService;
 
     @Override
     public List<GenericReportModel> getDefaultReport(SearchDTO dto) {
@@ -84,12 +85,15 @@ public class DetailedReportServiceImpl implements DetailedReportService {
     @Override
     public List<GenericReportModel> get(List<Patient> patients) {
         String[] headers = {"Name", "OI/ ART Number", "Age", "Date of Birth", "Gender", "Mode of Transimission", "Disability Status",
-            "Current Drug Regimen", "Region", "District", "Primary Clinic", "Support Group", "Referer","Last Contact Date","Current Care Level","Last Contacted By","IS CATS", "In YMM Programme", "In YMD Programme"};
+            "Current Drug Regimen", "Region", "District", "Primary Clinic", "Support Group", "Referer","Last Contact Date",
+            "Current Care Level","Last Contacted By","Viral Load","Date Taken","Mental Health Risk","Mental Health Identified Risks","Date Screened","IS CATS", "In YMM Programme", "In YMD Programme"};
 
         List<GenericReportModel> items = new ArrayList<>();
         items.add(new GenericReportModel(Arrays.asList(headers)));
         for (Patient item : patients) {
             Contact lastContact=item.getLastPatientContact(contactService);
+            InvestigationTest vlTest=item.getLastPatientVL(testService);
+            MentalHealthScreening mentalHealthScreening=item.getLastPatientMentalHealthScreening(mentalHealthScreeningService);
             String[] inner = {
                     item.getName(),
                     item.getoINumber(),
@@ -107,6 +111,11 @@ public class DetailedReportServiceImpl implements DetailedReportService {
                     lastContact!=null?lastContact.getContactDate().toString():"",
                     lastContact!=null?lastContact.getCareLevel().getName():"",
                     lastContact!=null?lastContact.getCreatedBy().getDisplayName():"",
+                    vlTest!=null? vlTest.getResult()+"":"",
+                    vlTest!=null? vlTest.getDateTaken().toString():"",
+                    mentalHealthScreening!=null?mentalHealthScreening.getRisk().getName():"",
+                    mentalHealthScreening!=null?mentalHealthScreening.getIdentifiedRisks().stream().map(r->r.getName()).collect(Collectors.joining(",")):"",
+                    mentalHealthScreening!=null? mentalHealthScreening.getDateScreened()!=null?mentalHealthScreening.getDateScreened().toString():"":"",
                     item.getCat() != null ? item.getCat().getName() : "",
                     item.getYoungMumGroup() != null ? item.getYoungMumGroup().getName() : "",
                     item.getYoungDadGroup() != null ? item.getYoungDadGroup().getName() : ""

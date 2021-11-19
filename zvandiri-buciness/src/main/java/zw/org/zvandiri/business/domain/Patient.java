@@ -29,6 +29,8 @@ import zw.org.zvandiri.business.domain.util.DisabilitySeverity;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.service.ContactService;
+import zw.org.zvandiri.business.service.InvestigationTestService;
+import zw.org.zvandiri.business.service.MentalHealthScreeningService;
 import zw.org.zvandiri.business.service.impl.ContactServiceImpl;
 import zw.org.zvandiri.business.util.DateUtil;
 
@@ -86,16 +88,16 @@ public class Patient extends GenericPatient {
     private String mother;
     @Formula("(Select i.result From investigation_test i where i.patient = id and i.test_type = 0 order by i.date_created desc limit 0,1)")
     private Integer viralLoad;
+    @Formula("(Select i.id From investigation_test i where i.patient = id and i.test_type = 0 order by i.date_created desc limit 0,1)")
+    private String lastViralLoad;
+    @Formula("(Select i.id From mental_health_screening i where i.patient = id order by i.date_created desc limit 0,1)")
+    private String lastMentalHealthScreening;
     @Formula("(Select i.result From investigation_test i where i.patient = id and i.test_type = 1 order by i.date_created desc limit 0,1)")
     private Integer cd4Count;
     @Formula("(Select concat(a1.name, ', ', a2.name, ', ', a3.name) From arv_hist a inner join arv_medicine a1 on a1.id=a.arv_medicine inner join arv_medicine a2 on a2.id=a.arv_medicine2 inner join arv_medicine a3 on a3.id=a.arv_medicine3 where a.patient = id order by a.start_date desc limit 0,1)")
     private String currentArvRegimen;
     @Formula("(Select p.severity From patient_disability p where p.patient = id order by p.date_screened desc limit 0,1)")
     private Integer disabilitySeverity;
-    /*@Formula("select c.id from contact c " +
-            "inner join (select m.id,m.patient, max(m.date_created) as MaxDate " +
-            "from contact m group by m.patient,m.id) as co " +
-            "on c.id = co.id and c.date_created = co.MaxDate and co.patient=id")*/
     @Formula("(Select c.id From contact c where c.patient = id order by c.date_created desc limit 0,1)")
     private String lastContact;
     @Transient
@@ -112,6 +114,34 @@ public class Patient extends GenericPatient {
         }
 
             return null;
+
+    }
+
+    public InvestigationTest getLastPatientVL(InvestigationTestService investigationTestService) {
+
+        if(lastViralLoad!=null) {
+            if (investigationTestService == null) {
+                System.err.println("last viral load service is null");
+            } else {
+                return investigationTestService.get(lastViralLoad);
+            }
+        }
+
+        return null;
+
+    }
+
+    public MentalHealthScreening getLastPatientMentalHealthScreening(MentalHealthScreeningService mentalHealthScreeningService) {
+
+        if(lastMentalHealthScreening!=null) {
+            if (mentalHealthScreeningService == null) {
+                System.err.println("last mental health screening service is null");
+            } else {
+                return mentalHealthScreeningService.get(lastMentalHealthScreening);
+            }
+        }
+
+        return null;
 
     }
 
@@ -149,6 +179,22 @@ public class Patient extends GenericPatient {
 
     public void setSupportGroupDistrict(District supportGroupDistrict) {
         this.supportGroupDistrict = supportGroupDistrict;
+    }
+
+    public String getLastViralLoad() {
+        return lastViralLoad;
+    }
+
+    public void setLastViralLoad(String lastViralLoad) {
+        this.lastViralLoad = lastViralLoad;
+    }
+
+    public String getLastMentalHealthScreening() {
+        return lastMentalHealthScreening;
+    }
+
+    public void setLastMentalHealthScreening(String lastMentalHealthScreening) {
+        this.lastMentalHealthScreening = lastMentalHealthScreening;
     }
 
     public String getName() {
