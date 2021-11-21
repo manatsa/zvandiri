@@ -112,7 +112,7 @@ public class PatientController extends BaseController {
                 model.addAttribute("facilities", facilityService.getOptByDistrict(item.getDistrict()));
             }
             if (item.getSupportGroupDistrict() != null) {
-                supportGroupService.getByDistrict(item.getSupportGroupDistrict()).stream().map(supportGroup -> supportGroup.getName() ).forEach(System.err::println);
+                //supportGroupService.getByDistrict(item.getSupportGroupDistrict()).stream().map(supportGroup -> supportGroup.getName() ).forEach(System.err::println);
                 model.addAttribute("supportGroups", supportGroupService.getByDistrict(item.getSupportGroupDistrict()));
             }
         }

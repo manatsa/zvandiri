@@ -47,7 +47,7 @@ public enum YesNo {
     }
     
     public String getName(){
-        return StringUtils.toCamelCase3(super.name());
+        return super.name();
     }
 
     @Override

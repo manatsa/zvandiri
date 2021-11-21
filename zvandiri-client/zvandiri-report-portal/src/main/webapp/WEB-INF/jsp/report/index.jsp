@@ -48,8 +48,7 @@
                                                    hasRole('ROLE_M_AND_E_OFFICER') or
                                                    hasRole('ROLE_HOD_M_AND_E')
                                                    ">
-									<a href="${page}/report/export-districts-databases/index.htm">Export
-										Database By Districts</a>
+									<a href="${page}/report/case-load-management/index.htm">Caseload Management Plan</a>
 								</sec:authorize></td>
 							</tr>
 							<tr>

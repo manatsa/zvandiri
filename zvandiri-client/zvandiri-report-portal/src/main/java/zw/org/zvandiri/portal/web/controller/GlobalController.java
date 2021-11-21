@@ -121,7 +121,6 @@ public class GlobalController {
     private List<NameIdDTO> formatDistricts(List<District> districts) {
         List<NameIdDTO> items = new ArrayList<>();
         for (District district : districts) {
-            System.err.println("District :"+district.getName());
             items.add(new NameIdDTO(district.getName(), district.getId()));
         }
         return items;

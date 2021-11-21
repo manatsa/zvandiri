@@ -58,6 +58,14 @@ public interface PatientReportService {
     public List<Patient> getPatientDeceased(SearchDTO dto);
 
     public List<Patient> getUncontactedClients(SearchDTO dto);
+
+    public List<Patient> getEnhancedClients(SearchDTO dto);
+
+    public List<Patient> getMHScreeningCandidates(SearchDTO dto);
+
+    public List<Patient> getTBScreeningCandidates(SearchDTO dto);
+
+    public List<Patient> getPatientsWithInvalidVL(SearchDTO dto);
     
     Long countUncontacted(SearchDTO dto);
     

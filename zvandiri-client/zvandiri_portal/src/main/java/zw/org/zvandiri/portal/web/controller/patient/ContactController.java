@@ -150,7 +150,7 @@ public class ContactController extends BaseController {
             }
         }
         if (item.getCareLevel() != null) {
-            if (item.getCareLevel().equals(CareLevel.STABLE)) {
+            if (item.getCareLevel().equals(CareLevel.STANDARD)) {
                 model.addAttribute("stable", Boolean.TRUE);
                 model.addAttribute("stables", stableService.getAll());
             } else if (item.getCareLevel().equals(CareLevel.ENHANCED)) {

@@ -78,7 +78,11 @@ public interface DatabaseHeader {
     public final String [] UNCONTACTED_CLIENTS_HEADER = {
              "Client Name","Date of Birth", "Age", "Gender","Status", "Address","Secondary Address", "Mobile Number", "Second Mobile Number", "Region", 
              "District","Primary Clinic", "IS CATS", "In YMM Programme","In YMD Programme"
+//            "Current Care Level","Last Contact Date","LastVL Result",
+//            "Last VL Date Taken","Mental Health Risk","Mental Health Risks", "Date Screened"
     };
+
+
 
     public final String [] UNIQUE_CONTACTED_CLIENTS_HEADER = {
             "OI/ART Number","First Name","Last Name", "Age", "Gender","Mobile Number", "Second Mobile Number","Address","Secondary Address", "Region", 

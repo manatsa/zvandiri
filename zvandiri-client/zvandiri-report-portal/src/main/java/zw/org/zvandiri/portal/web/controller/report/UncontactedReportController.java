@@ -167,6 +167,8 @@ public class UncontactedReportController extends BaseController {
                     patient.getYoungDadGroup() != null ? patient.getYoungDadGroup().getName() : null
             );
 
+
+
         }
 
         return workbook;

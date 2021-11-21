@@ -5,22 +5,23 @@
  */
 package zw.org.zvandiri.report.api.service.parallel;
 
-import java.util.List;
-import java.util.concurrent.RecursiveTask;
 import zw.org.zvandiri.business.service.PatientReportService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
+import java.util.List;
+import java.util.concurrent.RecursiveTask;
+
 /**
  *
- * @author tasu
+ * @author manatsachinyeruse@gmail.com
  */
-public class UnContactedClientTask extends RecursiveTask<List>{
-    
+public class MHScreeningCandidatesTask extends RecursiveTask<List>{
+
     private final PatientReportService reportService;
     private final SearchDTO searchData;
     private final List<Integer> arrCount;
 
-    public UnContactedClientTask(List<Integer> arrCount, PatientReportService reportService, SearchDTO searchData) {
+    public MHScreeningCandidatesTask(List<Integer> arrCount, PatientReportService reportService, SearchDTO searchData) {
         this.reportService = reportService;
         this.searchData = searchData;
         this.arrCount = arrCount;
@@ -33,8 +34,8 @@ public class UnContactedClientTask extends RecursiveTask<List>{
             return process();
         } else {
             int mid = arrCount.size() / 2;
-            UnContactedClientTask task = new UnContactedClientTask(arrCount.subList(0, mid), reportService, searchData);
-            UnContactedClientTask last = new UnContactedClientTask(arrCount.subList(mid, arrCount.size()), reportService, searchData);
+            MHScreeningCandidatesTask task = new MHScreeningCandidatesTask(arrCount.subList(0, mid), reportService, searchData);
+            MHScreeningCandidatesTask last = new MHScreeningCandidatesTask(arrCount.subList(mid, arrCount.size()), reportService, searchData);
             task.fork();
             List list = last.compute();
             list.addAll(task.join());
@@ -48,6 +49,6 @@ public class UnContactedClientTask extends RecursiveTask<List>{
         searchData.setFirstResult(first);
         Integer pageSize = arrCount.get(arrCount.size() - 1) - searchData.getFirstResult();
         searchData.setPageSize(pageSize);
-        return reportService.getUncontactedClients(searchData);
+        return reportService.getMHScreeningCandidates(searchData);
     }
 }

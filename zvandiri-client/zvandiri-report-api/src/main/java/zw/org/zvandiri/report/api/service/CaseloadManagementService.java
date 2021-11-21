@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Judge Muzinda.
+ * Copyright 2015 Judge Muzinda.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,25 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package zw.org.zvandiri.business.service;
+package zw.org.zvandiri.report.api.service;
+
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import zw.org.zvandiri.business.util.dto.SearchDTO;
+import zw.org.zvandiri.report.api.GenericReportModel;
 
 import java.util.List;
 
-import zw.org.zvandiri.business.domain.Contact;
-import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.util.DateUtil;
-import zw.org.zvandiri.business.util.dto.SearchDTO;
-
-import javax.persistence.Query;
-
 /**
  *
- * @author Judge Muzinda
+ * @author manatsachinyeruse@gmail.com
  */
-public interface ContactReportService extends GenericReportService<Contact, SearchDTO> {
-
-    List<Patient> getUnique(SearchDTO dto);
-    Long countUnique(SearchDTO dto);
-
-    public  List<Contact> getContactListByPatient(Patient patient, SearchDTO dto);
+public interface CaseloadManagementService {
+    
+    public XSSFWorkbook exportCaseload(String name, SearchDTO dto);
 }

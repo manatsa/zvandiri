@@ -93,8 +93,10 @@ abstract public class BaseController implements IAppTitle {
         } else if (user.getUserLevel().equals(UserLevel.DISTRICT)){
             dto.setDistrict(user.getDistrict());
         }
+       // System.err.println(dto.toString());
         return dto;
     }
+
     
     public void getPatientStatus(Patient patient, ModelMap model) {
         StringBuilder warning = new StringBuilder();

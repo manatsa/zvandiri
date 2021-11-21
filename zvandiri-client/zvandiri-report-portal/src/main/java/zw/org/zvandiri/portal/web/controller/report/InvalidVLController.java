@@ -29,11 +29,9 @@ import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
-import zw.org.zvandiri.business.util.dto.LastContactedDTO;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
-import zw.org.zvandiri.portal.web.controller.report.parallel.InvalidVLTask;
-import zw.org.zvandiri.portal.web.controller.report.parallel.LabTestTask;
+import zw.org.zvandiri.report.api.service.parallel.InvalidVLTask;
 import zw.org.zvandiri.report.api.DatabaseHeader;
 
 import javax.annotation.Resource;

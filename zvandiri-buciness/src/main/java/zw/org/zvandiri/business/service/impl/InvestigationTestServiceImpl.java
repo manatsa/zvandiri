@@ -119,7 +119,6 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
 
         LocalDate now = LocalDate.now();
         LocalDate then=now.minusMonths(12);
-        //SimpleDateFormat formats=new SimpleDateFormat("dd-MM-yyyy");
 
         StringBuilder builder = new StringBuilder("Select Distinct i from InvestigationTest i left join fetch i.patient p  ");
         int position = 0;
@@ -128,12 +127,40 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
             builder.append(" where ");
             if (dto.getProvince() != null) {
                 if (position == 0) {
-                    builder.append("p.primaryClinic.district.province=:province");
+                    builder.append(" p.primaryClinic.district.province=:province");
                     position++;
                 } else {
                     builder.append(" and p.primaryClinic.district.province=:province");
                 }
             }
+
+
+            if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+                //System.err.println("################# DTO facilities is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic in :facilities");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic in :facilities");
+                }
+            }else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+                //System.err.println("$$$$$$$$$$$$$$$$$$$$$$$ DTO districts is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district in :districts");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district in :districts");
+                }
+            }else  if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+                //System.err.println("^^^^^^^^^^^^^^^^^^^^^^^ DTO provinces is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district.province in :provinces");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district.province in :provinces");
+                }
+            }
+
             if (dto.getDistrict() != null) {
                 if (position == 0) {
                     builder.append(" p.primaryClinic.district=:district");
@@ -186,15 +213,24 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
             }
 
 
-            //builder.append(" )");
         }
 
         builder.append(" order by p.lastName ASC");
 
         TypedQuery<InvestigationTest> query = entityManager.createQuery(builder.toString(), InvestigationTest.class);
+        //System.err.println(">>>>>>>>>>>>>>>> QUERY: "+builder.toString());
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
         }
+
+        if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+            query.setParameter("facilities", dto.getFacilities());
+        } else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+            query.setParameter("districts", dto.getDistricts());
+        }else if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+            query.setParameter("provinces", dto.getProvinces());
+        }
+
         if (dto.getDistrict() != null) {
             query.setParameter("district", dto.getDistrict());
         }
@@ -214,7 +250,7 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
         query.setParameter("fromWhen", then.toDate());
 
         query.setFirstResult(dto.getFirstResult());
-        query.setMaxResults(dto.getPageSize());
+        //query.setMaxResults(dto.getPageSize());
         return query.getResultList();
     }
 
@@ -223,7 +259,6 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
 
         LocalDate now = LocalDate.now();
         LocalDate then=now.minusMonths(12);
-        //SimpleDateFormat formats=new SimpleDateFormat("dd-MM-yyyy");
 
         StringBuilder builder = new StringBuilder("Select count(Distinct i) from InvestigationTest i left join  i.patient p  ");
         int position = 0;
@@ -238,6 +273,34 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
                     builder.append(" and p.primaryClinic.district.province=:province");
                 }
             }
+
+            if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+                //System.err.println("################# DTO facilities is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic in :facilities");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic in :facilities");
+                }
+            }else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+                //System.err.println("$$$$$$$$$$$$$$$$$$$$$$$ DTO districts is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district in :districts");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district in :districts");
+                }
+            }else  if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+                //System.err.println("^^^^^^^^^^^^^^^^^^^^^^^ DTO provinces is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district.province in :provinces");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district.province in :provinces");
+                }
+            }
+
+
             if (dto.getDistrict() != null) {
                 if (position == 0) {
                     builder.append(" p.primaryClinic.district=:district");
@@ -299,6 +362,15 @@ public class InvestigationTestServiceImpl implements InvestigationTestService {
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
         }
+
+        if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+            query.setParameter("facilities", dto.getFacilities());
+        } else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+            query.setParameter("districts", dto.getDistricts());
+        }else if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+            query.setParameter("provinces", dto.getProvinces());
+        }
+
         if (dto.getDistrict() != null) {
             query.setParameter("district", dto.getDistrict());
         }

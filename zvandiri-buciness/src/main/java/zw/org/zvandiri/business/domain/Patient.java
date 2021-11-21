@@ -16,6 +16,7 @@
 package zw.org.zvandiri.business.domain;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.Resource;
@@ -100,6 +101,15 @@ public class Patient extends GenericPatient {
     private Integer disabilitySeverity;
     @Formula("(Select c.id From contact c where c.patient = id order by c.date_created desc limit 0,1)")
     private String lastContact;
+    @Formula("(Select i.date_taken From investigation_test i where i.patient = id and i.test_type = 0 order by i.date_created desc limit 0,1)")
+    private Date lastViralLoadDateTaken;
+    @Formula("(Select c.follow_up From contact c where c.patient = id order by c.date_created desc limit 0,1)")
+    private Integer enhancedStatus;
+    @Formula("(Select i.date_screened From mental_health_screening i where i.patient = id order by i.date_created desc limit 0,1)")
+    private Date latestMentalHealthScreeningDate;
+    @Formula("(Select i.date_screened From tb_ipt i where i.patient = id order by i.date_created desc limit 0,1)")
+    private Date latestTBScreeningDate;
+
     @Transient
     private DisabilitySeverity disabilityStatus;
 
@@ -143,6 +153,38 @@ public class Patient extends GenericPatient {
 
         return null;
 
+    }
+
+    public Date getLastViralLoadDateTaken() {
+        return lastViralLoadDateTaken;
+    }
+
+    public void setLastViralLoadDateTaken(Date lastViralLoadDateTaken) {
+        this.lastViralLoadDateTaken = lastViralLoadDateTaken;
+    }
+
+    public Date getLatestTBScreeningDate() {
+        return latestTBScreeningDate;
+    }
+
+    public void setLatestTBScreeningDate(Date latestTBScreeningDate) {
+        this.latestTBScreeningDate = latestTBScreeningDate;
+    }
+
+    public Date getLatestMentalHealthScreeningDate() {
+        return latestMentalHealthScreeningDate;
+    }
+
+    public void setLatestMentalHealthScreeningDate(Date latestMentalHealthScreeningDate) {
+        this.latestMentalHealthScreeningDate = latestMentalHealthScreeningDate;
+    }
+
+    public Integer getEnhancedStatus() {
+        return enhancedStatus;
+    }
+
+    public void setEnhancedStatus(Integer enhancedStatus) {
+        this.enhancedStatus = enhancedStatus;
     }
 
     public String getLastContact() {

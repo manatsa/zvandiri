@@ -30,7 +30,7 @@ public final class StringUtils {
     }
     
     public static String toCamelCase3(String c) {
-        if (org.apache.commons.lang3.StringUtils.isEmpty(c)) {
+        if (c==null || org.apache.commons.lang3.StringUtils.isEmpty(c)) {
             return c;
         }
 
