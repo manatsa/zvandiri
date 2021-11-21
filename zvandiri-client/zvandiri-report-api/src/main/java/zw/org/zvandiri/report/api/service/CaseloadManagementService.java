@@ -15,8 +15,10 @@
  */
 package zw.org.zvandiri.report.api.service;
 
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.GenericReportModel;
 
@@ -29,4 +31,6 @@ import java.util.List;
 public interface CaseloadManagementService {
     
     public XSSFWorkbook exportCaseload(String name, SearchDTO dto);
+
+    public XSSFWorkbook  addSheet(XSSFWorkbook workbook, String sheetName, List<Patient> patients, XSSFCellStyle xssfCellStyle);
 }

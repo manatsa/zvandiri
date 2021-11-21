@@ -108,7 +108,7 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
 
 
 
-    private XSSFWorkbook  addSheet(XSSFWorkbook workbook, String sheetName, List<Patient> patients, XSSFCellStyle xssfCellStyle){
+    public XSSFWorkbook  addSheet(XSSFWorkbook workbook, String sheetName, List<Patient> patients, XSSFCellStyle xssfCellStyle){
 
         XSSFSheet enhancedClientsDetails = workbook.createSheet(sheetName);
         int assessmentRowNum = 0;

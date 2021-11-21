@@ -24,8 +24,6 @@
                         <th>Age</th>
                         <th>Gender</th>
                         <th>Test Result</th>
-                        <th>Test Type</th>
-                        <th>Suppression Status</th>
                         <th>Date Taken</th>
                         <th>Date Joined</th>
                         <th>Region</th>
@@ -40,8 +38,6 @@
                         <th>Age</th>
                         <th>Gender</th>
                         <th>Test Result</th>
-                        <th>Test Type</th>
-                        <th>Suppression Status</th>
                         <th>Date Taken</th>
                         <th>Date Joined</th>
                         <th>Region</th>
@@ -53,20 +49,18 @@
                         <tbody>
                             <c:forEach var="item" items="${items}" >
                                 <tr>
-                                    <td>${item.patient.name}</td>
-                                    <td>${item.patient.patientNumber}</td>
-                                    <td>${item.patient.age}</td>
-                                    <td>${item.patient.gender.name}</td>
-                                    <td>${item.result}</td>
-                                    <td>${item.testType.name}</td>
-                                    <td>${item.viralLoadSuppressionStatus}</td>
-                                    <td><spring:eval expression="item.dateTaken"/></td>
-                                    <td><spring:eval expression="item.patient.dateJoin"/></td>
-                                    <td>${item.patient.primaryClinic.district.province.name}</td>
-                                    <td>${item.patient.primaryClinic.district.name}</td>
-                                    <td>${item.patient.primaryClinic.name}</td>
-                                    <td>${item.patient.mobileNumber}</td>
-                                    <td>${item.patient.referer.name}</td>
+                                    <td>${item.name}</td>
+                                    <td>${item.patientNumber}</td>
+                                    <td>${item.age}</td>
+                                    <td>${item.gender.name}</td>
+                                    <td>${item.viralLoad}</td>
+                                    <td><spring:eval expression="item.lastViralLoadDateTaken"/></td>
+                                    <td><spring:eval expression="item.dateJoin"/></td>
+                                    <td>${item.primaryClinic.district.province.name}</td>
+                                    <td>${item.primaryClinic.district.name}</td>
+                                    <td>${item.primaryClinic.name}</td>
+                                    <td>${item.mobileNumber}</td>
+                                    <td>${item.referer.name}</td>
                                 </tr>
                             </c:forEach>
                         </tbody>
