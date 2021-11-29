@@ -87,7 +87,7 @@ public class BeneficiaryContactValidator implements Validator {
             }
         }
         if (item.getFollowUp() != null) {
-            if (item.getFollowUp().equals(FollowUp.STANDARD) && item.getStables() == null) {
+            if (item.getFollowUp().equals(FollowUp.STABLE) && item.getStables() == null) {
                 errors.rejectValue("stables", "item.select.one");
             }
             if (item.getFollowUp().equals(FollowUp.ENHANCED) && item.getEnhanceds() == null) {

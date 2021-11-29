@@ -116,9 +116,9 @@ public class PatientValidator implements Validator {
             if (item.getMobileNumber() != null && item.getMobileOwner() == null) {
                 errors.rejectValue("mobileOwner", "field.empty");
             }
-            if (item.getMobileOwner() != null && item.getMobileOwner().equals(YesNo.NO) && item.getOwnerName() == null) {
+            /*if (item.getMobileOwner() != null && item.getMobileOwner().equals(YesNo.NO) && item.getOwnerName() == null) {
                 errors.rejectValue("ownerName", "field.empty");
-            }
+            }*/
             if (item.getMobileOwner() != null && item.getMobileOwner().equals(YesNo.NO) && item.getMobileOwnerRelation() == null) {
                 errors.rejectValue("mobileOwnerRelation", "field.empty");
             }
@@ -177,14 +177,14 @@ public class PatientValidator implements Validator {
             if (item.getEducationLevel() == null) {
                 errors.rejectValue("educationLevel", "field.empty");
             }
-            if (item.getEducation() != null && item.getEducation().getName().equalsIgnoreCase("Out of School")) {
+           /* if (item.getEducation() != null && item.getEducation().getName().equalsIgnoreCase("Out of School")) {
                 if ((item.getEducationLevel() != null
                         && (item.getEducationLevel().getName().equalsIgnoreCase("N/A")
                         || item.getEducationLevel().getName().equalsIgnoreCase("Primary School")))
                         && item.getReasonForNotReachingOLevel() == null) {
                     errors.rejectValue("reasonForNotReachingOLevel", "field.empty");
                 }
-            }
+            }*/
             if (item.getReferer() == null) {
                 errors.rejectValue("referer", "field.empty");
             }
@@ -254,11 +254,12 @@ public class PatientValidator implements Validator {
         }
     }
 
-    public void validateAll(Object o, Errors errors) {
+    public Errors validateAll(Object o, Errors errors) {
         validatePatientHivAndHealth(o, errors);
         validatePatientEducationAndZvandiriDetails(o, errors);
         validatePatientAddress(o, errors);
         validatePatientContactDetails(o, errors);
         validatePatientDemographic(o, errors);
+        return errors;
     }
 }

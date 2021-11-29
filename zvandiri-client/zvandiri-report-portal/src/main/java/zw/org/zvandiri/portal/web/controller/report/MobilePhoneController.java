@@ -21,8 +21,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import zw.org.zvandiri.business.domain.*;
-import zw.org.zvandiri.business.domain.util.*;
+import zw.org.zvandiri.business.domain.MobilePhone;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -33,7 +32,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.ForkJoinPool;
 
 /**
@@ -126,81 +124,116 @@ public class MobilePhoneController extends BaseController {
             phoneRow = cadrePhoneRow.createRow(phoneRowNum++);
 
             XSSFCell patientName = phoneRow.createCell(count++);
-            Optional.ofNullable(phone.getCadre().getFirstName()).ifPresent(patientName::setCellValue);
+            //Optional.ofNullable(phone.getCadre().getFirstName()).ifPresent(patientName::setCellValue);
+            patientName.setCellValue(phone.getCadre().getFirstName());
 
             XSSFCell lastName = phoneRow.createCell(count++);
-            Optional.ofNullable(phone.getCadre().getLastName()).ifPresent(lastName::setCellValue);
+            //Optional.ofNullable(phone.getCadre().getLastName()).ifPresent(lastName::setCellValue);
+            lastName.setCellValue(phone.getCadre().getLastName());
 
             XSSFCell age = phoneRow.createCell(count++);
-            Optional.ofNullable(phone.getCadre().getAge()).ifPresent(age::setCellValue);
+            //Optional.ofNullable(phone.getCadre().getAge()).ifPresent(age::setCellValue);
+            age.setCellValue(phone.getCadre().getAge());
 
             XSSFCell dateOfBirth = phoneRow.createCell(count++);
-            Optional.ofNullable(phone.getCadre().getDateOfBirth()).ifPresent(dateOfBirth::setCellValue);
-            dateOfBirth.setCellStyle(cellStyle);
+            if(phone.getCadre().getDateOfBirth()!=null){
+                dateOfBirth.setCellValue(phone.getCadre().getDateOfBirth());
+                dateOfBirth.setCellStyle(cellStyle);
+            }else{
+                dateOfBirth.setCellType(XSSFCell.CELL_TYPE_BLANK);
+            }
+            //Optional.ofNullable(phone.getCadre().getDateOfBirth()).ifPresent(dateOfBirth::setCellValue);
+
 
             XSSFCell sex = phoneRow.createCell(count++);
-            Optional<Gender> sexOptional=Optional.ofNullable(phone.getCadre().getGender());
-            sex.setCellValue(sexOptional.isPresent()? sexOptional.get().getName(): null);
+            //Optional<Gender> sexOptional=Optional.ofNullable(phone.getCadre().getGender());
+            sex.setCellValue(phone.getCadre().getGender().getName());
 
             XSSFCell cadreStatus = phoneRow.createCell(count++);
-            Optional<PatientChangeEvent> cadreStatusOptional=Optional.ofNullable(phone.getCadre().getStatus());
-            cadreStatus.setCellValue(cadreStatusOptional.isPresent()? cadreStatusOptional.get().getName(): null);
+            //Optional<PatientChangeEvent> cadreStatusOptional=Optional.ofNullable(phone.getCadre().getStatus());
+            cadreStatus.setCellValue(phone.getCadre().getStatus()!=null?phone.getCadre().getStatus().getName():"");
 
             XSSFCell primaryClinic = phoneRow.createCell(count++);
-            Optional<Facility> facilityOptional=Optional.ofNullable(phone.getCadre().getPrimaryClinic());
-            primaryClinic.setCellValue(facilityOptional.isPresent()? facilityOptional.get().getName(): null);
+            //Optional<Facility> facilityOptional=Optional.ofNullable(phone.getCadre().getPrimaryClinic());
+            primaryClinic.setCellValue(phone.getCadre().getPrimaryClinic().getName());
 
             XSSFCell district = phoneRow.createCell(count++);
-            Optional<District> districtOptional=Optional.ofNullable(phone.getCadre().getDistrict());
-            district.setCellValue(districtOptional.isPresent()? districtOptional.get().getName(): null);
+            //Optional<District> districtOptional=Optional.ofNullable(phone.getCadre().getDistrict());
+            district.setCellValue(phone.getCadre().getDistrict().getName());
 
             XSSFCell province = phoneRow.createCell(count++);
-            Optional<Province> provinceOptional=Optional.ofNullable(phone.getCadre().getProvince());
-            province.setCellValue(provinceOptional.isPresent()? provinceOptional.get().getName(): null);
+            //Optional<Province> provinceOptional=Optional.ofNullable(phone.getCadre().getProvince());
+            province.setCellValue(phone.getCadre().getProvince().getName());
 
             XSSFCell make = phoneRow.createCell(count++);
-            Optional.ofNullable(phone.getPhoneMake()).ifPresent(make::setCellValue);
+            //Optional.ofNullable(phone.getPhoneMake()).ifPresent(make::setCellValue);
+            make.setCellValue(phone.getPhoneMake());
 
             XSSFCell model = phoneRow.createCell(count++);
-            Optional.ofNullable(phone.getPhoneModel()).ifPresent(model::setCellValue);
+            //Optional.ofNullable(phone.getPhoneModel()).ifPresent(model::setCellValue);
+            model.setCellValue(phone.getPhoneModel());
 
             XSSFCell serial = phoneRow.createCell(count++);
-            Optional.ofNullable(phone.getSerialNumber()).ifPresent(serial::setCellValue);
+            //Optional.ofNullable(phone.getSerialNumber()).ifPresent(serial::setCellValue);
+            serial.setCellValue(phone.getSerialNumber());
 
             XSSFCell phoneDateIssued = phoneRow.createCell(count++);
-            Optional.ofNullable(phone.getDateIssued()).ifPresent(phoneDateIssued::setCellValue);
-            phoneDateIssued.setCellStyle(cellStyle);
+            if(phone.getDateIssued()!=null){
+                phoneDateIssued.setCellValue(phone.getDateIssued());
+                phoneDateIssued.setCellStyle(cellStyle);
+            }else{
+                phoneDateIssued.setCellType(XSSFCell.CELL_TYPE_BLANK);
+            }
+            //Optional.ofNullable(phone.getDateIssued()).ifPresent(phoneDateIssued::setCellValue);
+
 
             XSSFCell phoneDateRecovered = phoneRow.createCell(count++);
-            Optional.ofNullable(phone.getDateRecovered()).ifPresent(phoneDateRecovered::setCellValue);
-            phoneDateRecovered.setCellStyle(cellStyle);
+            if(phone.getDateRecovered()!=null){
+                phoneDateRecovered.setCellValue(phone.getDateRecovered());
+                phoneDateRecovered.setCellStyle(cellStyle);
+            }else{
+                phoneDateRecovered.setCellType(XSSFCell.CELL_TYPE_BLANK);
+            }
+            //Optional.ofNullable(phone.getDateRecovered()).ifPresent(phoneDateRecovered::setCellValue);
+
 
             XSSFCell dateCreated = phoneRow.createCell(count++);
-            Optional.ofNullable(phone.getDateCreated()).ifPresent(dateCreated::setCellValue);
-            dateCreated.setCellStyle(cellStyle);
+            if(phone.getDateCreated()!=null){
+                dateCreated.setCellValue(phone.getDateCreated());
+                dateCreated.setCellStyle(cellStyle);
+            }else{
+                dateCreated.setCellType(XSSFCell.CELL_TYPE_BLANK);
+            }
+            //Optional.ofNullable(phone.getDateCreated()).ifPresent(dateCreated::setCellValue);
+
 
             XSSFCell condition = phoneRow.createCell(count++);
-            Optional<Condition> conditionOptional=Optional.ofNullable(phone.getPhoneCondition());
-            condition.setCellValue(conditionOptional.isPresent()? conditionOptional.get().getName(): null);
+            //Optional<Condition> conditionOptional=Optional.ofNullable(phone.getPhoneCondition());
+            condition.setCellValue(phone.getPhoneCondition()!=null?phone.getPhoneCondition().getName():"");
 
             XSSFCell phoneStatus = phoneRow.createCell(count++);
-            Optional<PhoneStatus> statusOptional=Optional.ofNullable(phone.getPhoneStatus());
-            phoneStatus.setCellValue(statusOptional.isPresent()? statusOptional.get().getName(): null);
+            //Optional<PhoneStatus> statusOptional=Optional.ofNullable(phone.getPhoneStatus());
+            phoneStatus.setCellValue(phone.getPhoneStatus()!=null?phone.getPhoneStatus().getName():"");
 
             XSSFCell imei1 = phoneRow.createCell(count++);
-            Optional.ofNullable(phone.getImei1()).ifPresent(imei1::setCellValue);
+            //Optional.ofNullable(phone.getImei1()).ifPresent(imei1::setCellValue);
+            imei1.setCellValue(phone.getImei1());
 
             XSSFCell imei2 = phoneRow.createCell(count++);
-            Optional.ofNullable(phone.getImei2()).ifPresent(imei2::setCellValue);
+            //Optional.ofNullable(phone.getImei2()).ifPresent(imei2::setCellValue);
+            imei2.setCellValue(phone.getImei2()!=null? phone.getImei2():"");
 
             XSSFCell msisdn1 = phoneRow.createCell(count++);
-            Optional.ofNullable(phone.getMsisdn1()).ifPresent(msisdn1::setCellValue);
+            //Optional.ofNullable(phone.getMsisdn1()).ifPresent(msisdn1::setCellValue);
+            msisdn1.setCellValue(phone.getMsisdn1());
 
             XSSFCell msisdn2 = phoneRow.createCell(count++);
-            Optional.ofNullable(phone.getMsisdn2()).ifPresent(msisdn2::setCellValue);
+            //Optional.ofNullable(phone.getMsisdn2()).ifPresent(msisdn2::setCellValue);
+            msisdn2.setCellValue(phone.getMsisdn2()!=null?phone.getMsisdn2():"");
 
             XSSFCell issues = phoneRow.createCell(count++);
-            Optional.ofNullable(phone.getPhoneIssues()).ifPresent(issues::setCellValue);
+            //Optional.ofNullable(phone.getPhoneIssues()).ifPresent(issues::setCellValue);
+            issues.setCellValue(phone.getPhoneIssues()!=null?phone.getPhoneIssues():"");
 
 
         }

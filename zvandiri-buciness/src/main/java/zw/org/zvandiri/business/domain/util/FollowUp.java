@@ -23,7 +23,7 @@ import zw.org.zvandiri.business.util.StringUtils;
  */
 public enum FollowUp {
  
-    STANDARD(1), ENHANCED(2), VST(4), YOUNG_MOTHERS_GROUP(5), YOUTH_GROUP(6);
+    STABLE(1), ENHANCED(2), VST(4), YOUNG_MOTHERS_GROUP(5), YOUTH_GROUP(6);
     
     private final Integer code;
     
@@ -38,7 +38,7 @@ public enum FollowUp {
     public static FollowUp get(Integer code){
         switch(code){
             case 1:
-                return STANDARD;
+                return STABLE;
             case 2:
                 return ENHANCED;
             case 4:

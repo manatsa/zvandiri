@@ -1846,27 +1846,30 @@ public class PatientReportServiceImpl implements PatientReportService {
     @Override
     public List<Patient> getTBScreeningCandidates(SearchDTO dto) {
 
-        LocalDate now = LocalDate.now();
-        LocalDate then=now.minusMonths(6);
-
         StringBuilder builder = new StringBuilder("Select Distinct p from Patient p  ");
         int position = 0;
         position=Reportutil.commonPatientQuery(builder, dto, position);
 
         if (position == 0) {
-            builder.append(" (p.latestTBScreeningDate is null or p.latestTBScreeningDate <= :when) ");
+            builder.append(" p not in (select distinct c.patient from TbIpt c ");
             position++;
         } else {
-            builder.append(" and (p.latestTBScreeningDate is null or p.latestTBScreeningDate <= :when)");
+            builder.append(" and p not in (select distinct c.patient from TbIpt c ");
         }
-
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            builder.append(" where c.dateCreated between :startDate and :endDate");
+        }
+        builder.append(" )");
         builder.append(" order by p.lastName ASC");
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
         Reportutil.commonQueryParams(query, dto);
-        query.setParameter("when", then.toDate());
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            query.setParameter("startDate", dto.getStartDate());
+            query.setParameter("endDate", dto.getEndDate());
+        }
         query.setFirstResult(dto.getFirstResult());
 
-        return  query.getResultList();
+        return query.getResultList();
     }
 
     @Override

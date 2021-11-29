@@ -21,6 +21,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -137,7 +138,8 @@ public class PatientController extends BaseController {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(INACTIVE_MESSAGE).messageType(MessageType.ERROR).build());
             return setUpModel(model, item);
         }
-        patientValidator.validateAll(item, result);
+        Errors erros=patientValidator.validateAll(item, result);
+        //erros.getAllErrors().stream().map(e ->e.toString()).forEach(System.err::println);
         if (result.hasErrors()) {
             setUpModel(model, item);
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());

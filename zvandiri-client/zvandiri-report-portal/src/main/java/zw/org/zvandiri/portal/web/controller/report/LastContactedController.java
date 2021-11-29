@@ -21,31 +21,22 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import zw.org.zvandiri.business.domain.*;
-import zw.org.zvandiri.business.domain.util.CareLevel;
-import zw.org.zvandiri.business.domain.util.FollowUp;
-import zw.org.zvandiri.business.domain.util.Gender;
-import zw.org.zvandiri.business.domain.util.YesNo;
+import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
-import zw.org.zvandiri.business.util.dto.LastContactedDTO;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
-import zw.org.zvandiri.portal.web.controller.report.parallel.LastContactedClientTask;
-import zw.org.zvandiri.portal.web.controller.report.parallel.TbIptTask;
-import zw.org.zvandiri.portal.web.controller.report.parallel.UnContactedClientTask;
 import zw.org.zvandiri.report.api.DatabaseHeader;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.ForkJoinPool;
 
 /**
  *
- * @author Mana
+ * @author manatsachinyeruse@gmail.com
  */
 @Controller
 @RequestMapping("/report/last-contacted")
@@ -134,94 +125,114 @@ public class LastContactedController extends BaseController {
             contactRow = lastContactSheet.createRow(contactRowNum++);
 
             XSSFCell id = contactRow.createCell(count);
-            //id.setCellValue(contact.getPatient().getoINumber());
-            Optional.ofNullable(contact.getPatient().getoINumber()).ifPresent(id::setCellValue);
+            id.setCellValue(contact.getPatient().getoINumber());
+            //Optional.ofNullable(contact.getPatient().getoINumber()).ifPresent(id::setCellValue);
 
             XSSFCell patientName = contactRow.createCell(++count);
-            //patientName.setCellValue(contact.getPatient().getName());
-            Optional.ofNullable(contact.getPatient().getFirstName()).ifPresent(patientName::setCellValue);
+            patientName.setCellValue(contact.getPatient().getName());
+            //Optional.ofNullable(contact.getPatient().getFirstName()).ifPresent(patientName::setCellValue);
 
             XSSFCell lastName = contactRow.createCell(++count);
-            //patientName.setCellValue(contact.getPatient().getName());
-            Optional.ofNullable(contact.getPatient().getLastName()).ifPresent(lastName::setCellValue);
+            patientName.setCellValue(contact.getPatient().getName());
+            //Optional.ofNullable(contact.getPatient().getLastName()).ifPresent(lastName::setCellValue);
 
             XSSFCell sex = contactRow.createCell(++count);
-            //sex.setCellValue(contact.getPatient().getGender().getName());
-            Optional<Gender> sexOptional=Optional.ofNullable(contact.getPatient().getGender());
-            sex.setCellValue(sexOptional.isPresent()? sexOptional.get().getName(): null);
+            sex.setCellValue(contact.getPatient().getGender().getName());
+            //Optional<Gender> sexOptional=Optional.ofNullable(contact.getPatient().getGender());
+            //sex.setCellValue(sexOptional.isPresent()? sexOptional.get().getName(): null);
 
 
             XSSFCell dateOfBirth = contactRow.createCell(++count);
-            Optional.ofNullable(contact.getPatient().getDateOfBirth()).ifPresent(dateOfBirth::setCellValue);
-            dateOfBirth.setCellStyle(cellStyle);
+            if(contact.getPatient().getDateOfBirth()!=null){
+                dateOfBirth.setCellValue(contact.getPatient().getDateOfBirth());
+                dateOfBirth.setCellStyle(cellStyle);
+            }else{
+                dateOfBirth.setCellType(XSSFCell.CELL_TYPE_BLANK);
+            }
+            //Optional.ofNullable(contact.getPatient().getDateOfBirth()).ifPresent(dateOfBirth::setCellValue);
+
 
             XSSFCell dateJoined = contactRow.createCell(++count);
-            Optional.ofNullable(contact.getPatient().getDateJoined()).ifPresent(dateJoined::setCellValue);
-            dateJoined.setCellStyle(cellStyle);
+            if(contact.getPatient().getDateJoined()!=null){
+                dateJoined.setCellValue(contact.getPatient().getDateJoin());
+                dateJoined.setCellStyle(cellStyle);
+            }else{
+                dateJoined.setCellType(XSSFCell.CELL_TYPE_BLANK);
+            }
+            //Optional.ofNullable(contact.getPatient().getDateJoined()).ifPresent(dateJoined::setCellValue);
+
 
             XSSFCell address = contactRow.createCell(++count);
-            //address.setCellValue(contact.getPatient().getAddress());
-            Optional.ofNullable(contact.getPatient().getAddress()).ifPresent(address::setCellValue);
+            address.setCellValue(contact.getPatient().getAddress());
+            //Optional.ofNullable(contact.getPatient().getAddress()).ifPresent(address::setCellValue);
 
             XSSFCell phone = contactRow.createCell(++count);
-            Optional.ofNullable(contact.getPatient().getMobileNumber()).ifPresent(phone::setCellValue);
+            //Optional.ofNullable(contact.getPatient().getMobileNumber()).ifPresent(phone::setCellValue);
+            phone.setCellValue(contact.getPatient().getMobileNumber());
 
             XSSFCell status = contactRow.createCell(++count);
-            Optional.ofNullable(contact.getPatient().getStatus().getName()).ifPresent(status::setCellValue);
+            //Optional.ofNullable(contact.getPatient().getStatus().getName()).ifPresent(status::setCellValue);
+            status.setCellValue(contact.getPatient().getStatus().getName());
 
             XSSFCell isCat = contactRow.createCell(++count);
             //phone.setCellValue(contact.getPatient().getMobileNumber());
-            Optional<YesNo> isCatOptional=Optional.ofNullable(contact.getPatient().getCat());
-            isCat.setCellValue(isCatOptional.isPresent()? isCatOptional.get().getName(): null);
+            //Optional<YesNo> isCatOptional=Optional.ofNullable(contact.getPatient().getCat());
+            isCat.setCellValue(contact.getPatient().getCat()!=null?contact.getPatient().getCat().getName():"");
 
             XSSFCell isYMM = contactRow.createCell(++count);
-            //phone.setCellValue(contact.getPatient().getMobileNumber());
-            Optional<YesNo> isYMMOptional=Optional.ofNullable(contact.getPatient().getYoungMumGroup());
-            isYMM.setCellValue(isYMMOptional.isPresent()? isYMMOptional.get().getName(): null);
+            isYMM.setCellValue(contact.getPatient().getYoungMumGroup()!=null?contact.getPatient().getYoungMumGroup().getName():"");
+            //Optional<YesNo> isYMMOptional=Optional.ofNullable(contact.getPatient().getYoungMumGroup());
+            //isYMM.setCellValue(isYMMOptional.isPresent()? isYMMOptional.get().getName(): null);
 
             XSSFCell ymd = contactRow.createCell(++count);
             ymd.setCellValue(
-                    contact.getPatient().getYoungDadGroup()!= null ? contact.getPatient().getYoungDadGroup().getName() : null
+                    contact.getPatient().getYoungDadGroup()!= null ? contact.getPatient().getYoungDadGroup().getName() : ""
             );
 
             XSSFCell primaryClinic = contactRow.createCell(++count);
-            Optional<Facility> facilityOptional=Optional.ofNullable(contact.getPatient().getPrimaryClinic());
-            primaryClinic.setCellValue(facilityOptional.isPresent()? facilityOptional.get().getName(): null);
+            //Optional<Facility> facilityOptional=Optional.ofNullable(contact.getPatient().getPrimaryClinic());
+            primaryClinic.setCellValue(contact.getPatient().getPrimaryClinic().getName());
 
             XSSFCell district = contactRow.createCell(++count);
-            Optional<District> districtOptional=Optional.ofNullable(contact.getPatient().getPrimaryClinic().getDistrict());
-            district.setCellValue(districtOptional.isPresent()? districtOptional.get().getName(): null);
+            //Optional<District> districtOptional=Optional.ofNullable(contact.getPatient().getPrimaryClinic().getDistrict());
+            district.setCellValue(contact.getPatient().getPrimaryClinic().getDistrict().getName());
 
             XSSFCell province = contactRow.createCell(++count);
-            Optional<Province> provinceOptional=Optional.ofNullable(contact.getPatient().getPrimaryClinic().getDistrict().getProvince());
-            province.setCellValue(provinceOptional.isPresent()? provinceOptional.get().getName(): null);
+            //Optional<Province> provinceOptional=Optional.ofNullable(contact.getPatient().getPrimaryClinic().getDistrict().getProvince());
+            province.setCellValue(contact.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
 
             XSSFCell contactDate = contactRow.createCell(++count);
-            Optional.ofNullable(contact.getContactDate()).ifPresent(contactDate::setCellValue);
-            contactDate.setCellStyle(cellStyle);
+            if(contact.getContactDate()!=null){
+                contactDate.setCellValue(contact.getContactDate());
+                contactDate.setCellStyle(cellStyle);
+            }else{
+                contactDate.setCellType(XSSFCell.CELL_TYPE_BLANK);
+            }
+            //Optional.ofNullable(contact.getContactDate()).ifPresent(contactDate::setCellValue);
 
             XSSFCell careLevel = contactRow.createCell(++count);
-            Optional<CareLevel> careLevelOptional=Optional.ofNullable(contact.getCareLevel());
-            careLevel.setCellValue(careLevelOptional.isPresent()? careLevelOptional.get().getName(): null);
+            //Optional<CareLevel> careLevelOptional=Optional.ofNullable(contact.getCareLevel());
+            careLevel.setCellValue(contact.getCurrentCareLevel()!=null?contact.getCurrentCareLevel().getName():"");
 
             XSSFCell cd4Count = contactRow.createCell(++count);
-            Optional<InvestigationTest> cd4Optional=Optional.ofNullable(contact.getCd4Count());
-            if (cd4Optional.isPresent()) {
-                Optional.ofNullable(cd4Optional.get().getResult()).ifPresent(cd4Count::setCellValue);
+            //Optional<InvestigationTest> cd4Optional=Optional.ofNullable(contact.getCd4Count());
+            if (contact.getCd4Count()!=null) {
+                cd4Count.setCellValue(contact.getCd4Count().getResult());
             } else {
-                cd4Count.setCellValue("");
+                cd4Count.setCellType(XSSFCell.CELL_TYPE_BLANK);
             }
 
             XSSFCell vl = contactRow.createCell(++count);
-            Optional<InvestigationTest> vlOptional=Optional.ofNullable(contact.getViralLoad());
-            if (vlOptional.isPresent()) {
-                Optional.ofNullable(vlOptional.get().getResult()).ifPresent(vl::setCellValue);
+            //Optional<InvestigationTest> vlOptional=Optional.ofNullable(contact.getViralLoad());
+            if (contact.getViralLoad()!=null) {
+                vl.setCellValue(contact.getViralLoad().getResult());
             } else {
-                vl.setCellValue("");
+                vl.setCellType(XSSFCell.CELL_TYPE_BLANK);
             }
 
             XSSFCell plan = contactRow.createCell(++count);
-            Optional.ofNullable(contact.getPlan()).ifPresent(plan::setCellValue);
+            //Optional.ofNullable(contact.getPlan()).ifPresent(plan::setCellValue);
+            plan.setCellValue(contact.getPlan()!=null?contact.getPlan():"");
 
 
         }

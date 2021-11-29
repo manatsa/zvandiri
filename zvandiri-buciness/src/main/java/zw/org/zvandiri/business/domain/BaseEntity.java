@@ -159,9 +159,5 @@ abstract public class BaseEntity implements Serializable {
         return hash;
     }
 
-    @Override
-    public String toString() {
-        return "BaseEntity{" + "id=" + id  + '}';
-    }
     
 }

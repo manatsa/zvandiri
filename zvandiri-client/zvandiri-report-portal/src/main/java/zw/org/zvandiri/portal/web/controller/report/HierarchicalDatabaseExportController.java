@@ -65,7 +65,9 @@ public class HierarchicalDatabaseExportController extends BaseController {
     public void getExcelExport(ModelMap model,HttpServletResponse response, @ModelAttribute("item") SearchDTO dto) {
         dto = getUserLevelObjectState(dto);
         String name = DateUtil.getFriendlyFileName("Zvandiri_Hierarchical_Database_Export");
+        long startTime=System.currentTimeMillis();
         forceDownLoadXLSX(officeExportService.exportDatabase(name, dto), name, response);
+        System.err.println(" >>>>>> >>>>> Time to finish report : "+((System.currentTimeMillis()-startTime)/60000)+" minutes");
     }
 
 }

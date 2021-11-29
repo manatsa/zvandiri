@@ -15,24 +15,18 @@
  */
 package zw.org.zvandiri.portal.web.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import zw.org.zvandiri.business.domain.District;
-import zw.org.zvandiri.business.domain.Facility;
-import zw.org.zvandiri.business.domain.GenericPeriod;
-import zw.org.zvandiri.business.domain.Province;
-import zw.org.zvandiri.business.domain.SupportGroup;
+import zw.org.zvandiri.business.domain.*;
 import zw.org.zvandiri.business.domain.util.PeriodType;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.dto.NameIdDTO;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -71,7 +65,14 @@ public class GlobalController {
     @ResponseBody
     public List<NameIdDTO> getDistrictsInProvinces(String provinces) {
 
-        List<String> provinceList=Arrays.stream(provinces.split(",")).filter(item->!item.isEmpty()).collect(Collectors.toList());
+        List<String> provinceList=new ArrayList<>();
+        for(String pro: provinces.split(","))
+        {
+            if(pro.trim().length()>0){
+                provinceList.add(pro);
+            }
+        }
+        //List<String> provinceList=Arrays.stream(provinces.split(",")).filter(item->!item.isEmpty()).collect(Collectors.toList());
         return formatDistricts(districtService.getDistrictsByProvinces(stringToProvince(provinceList)));
     }
 
@@ -84,7 +85,15 @@ public class GlobalController {
     @RequestMapping(value = "/getfacilitiesindistricts", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public List<NameIdDTO> getFacilitiesInDistricts(String districts) {
-        List<String> districtList=Arrays.stream(districts.split(",")).filter(item->!item.isEmpty()).collect(Collectors.toList());
+
+        List<String> districtList=new ArrayList<>();
+        for(String d: districts.split(","))
+        {
+            if(d.trim().length()>0){
+                districtList.add(d);
+            }
+        }
+        //List<String> districtList=Arrays.stream(districts.split(",")).filter(item->!item.isEmpty()).collect(Collectors.toList());
         return formatStations(facilityService.getFacilitiesInDistricts(stringToDistrict(districtList)));
     }
 
@@ -151,10 +160,24 @@ public class GlobalController {
     }
 
     private List<Province> stringToProvince(List<String> pros){
-        return pros.stream().map(pro->provinceService.get(pro)).collect(Collectors.toList());
+        List<Province> provinces=new ArrayList<>();
+        for(String pro: pros){
+            Province province=provinceService.get(pro);
+            provinces.add(province);
+        }
+        //return pros.stream().map(pro->provinceService.get(pro)).collect(Collectors.toList());
+        return provinces;
     }
 
     private List<District> stringToDistrict(List<String> dists){
-        return dists.stream().map(d->districtService.get(d)).collect(Collectors.toList());
+        List<District> districts=new ArrayList<>();
+
+        for(String d: dists){
+            District district=districtService.get(d);
+            districts.add(district);
+        }
+        //return dists.stream().map(d->districtService.get(d)).collect(Collectors.toList());
+
+        return districts;
     }
 }

@@ -106,13 +106,17 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     @Transactional
-    public Patient save(Patient t) {
+    public Patient save(Patient t)  {
         if (t.getId() == null || StringUtils.isBlank(t.getId())) {
             t.setId(UUIDGen.generateUUID());
             t.setCreatedBy(userService.getCurrentUser());
             t.setDateCreated(new Date());
             t.setPatientNumber(getPatientUAC(t));
             return patientRepo.save(t);
+        }
+        if(t.getPrimaryClinic()==null){
+            System.err.println("\n\nFacility is null : BY:"+t.getCreatedBy().getFirstName()+" "+t.getCreatedBy().getLastName()+" District: "+t.getCreatedBy().getDistrict());
+            return null;
         }
         t.setModifiedBy(userService.getCurrentUser());
         t.setDateModified(new Date());

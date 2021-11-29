@@ -33,6 +33,7 @@ import zw.org.zvandiri.business.service.ContactService;
 import zw.org.zvandiri.business.service.InvestigationTestService;
 import zw.org.zvandiri.business.service.MentalHealthScreeningService;
 import zw.org.zvandiri.business.service.impl.ContactServiceImpl;
+import zw.org.zvandiri.business.service.impl.InvestigationTestServiceImpl;
 import zw.org.zvandiri.business.util.DateUtil;
 
 /**
@@ -109,6 +110,7 @@ public class Patient extends GenericPatient {
     private Date latestMentalHealthScreeningDate;
     @Formula("(Select i.date_screened From tb_ipt i where i.patient = id order by i.date_created desc limit 0,1)")
     private Date latestTBScreeningDate;
+    //InvestigationTest lastPatientVL;
 
     @Transient
     private DisabilitySeverity disabilityStatus;
@@ -133,7 +135,8 @@ public class Patient extends GenericPatient {
             if (investigationTestService == null) {
                 System.err.println("last viral load service is null");
             } else {
-                return investigationTestService.get(lastViralLoad);
+                InvestigationTest test=investigationTestService.get(lastViralLoad);
+                return test;
             }
         }
 

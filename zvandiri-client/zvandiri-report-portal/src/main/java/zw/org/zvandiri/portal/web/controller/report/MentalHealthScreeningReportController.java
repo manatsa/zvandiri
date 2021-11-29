@@ -30,6 +30,7 @@ import zw.org.zvandiri.business.service.PeriodService;
 import zw.org.zvandiri.business.service.ProvinceService;
 import zw.org.zvandiri.business.service.SupportGroupService;
 import zw.org.zvandiri.business.util.DateUtil;
+import zw.org.zvandiri.business.util.Reportutil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.controller.report.parallel.MentalHealthTask;
@@ -193,7 +194,7 @@ public class MentalHealthScreeningReportController extends BaseController {
 
             XSSFCell identifiedRisks = mentalHealthScreeningRow.createCell(++count);
             identifiedRisks.setCellValue((mentalHealthScreening.getIdentifiedRisks() != null && !mentalHealthScreening.getIdentifiedRisks().isEmpty())
-                    ? mentalHealthScreening.getIdentifiedRisks().stream().map(r->r.getName()).reduce("",(first, second)-> first+","+second) : "");
+                    ? Reportutil.StringsFromList(mentalHealthScreening.getIdentifiedRisks()) : "");
 
             XSSFCell support = mentalHealthScreeningRow.createCell(++count);
             support.setCellValue(mentalHealthScreening.getSupport() != null
@@ -201,7 +202,7 @@ public class MentalHealthScreeningReportController extends BaseController {
 
             XSSFCell supports = mentalHealthScreeningRow.createCell(++count);
             supports.setCellValue((mentalHealthScreening.getSupports() != null && !mentalHealthScreening.getSupports().isEmpty())
-                    ? mentalHealthScreening.getSupports().stream().map(s->s.getName()).reduce("", (a,b)->a+","+b) : "");
+                    ? Reportutil.SupportStringsFromList(mentalHealthScreening.getSupports()) : "");
 
             XSSFCell referral = mentalHealthScreeningRow.createCell(++count);
             referral.setCellValue(mentalHealthScreening.getReferral() != null
@@ -209,7 +210,7 @@ public class MentalHealthScreeningReportController extends BaseController {
 
             XSSFCell referrals1 = mentalHealthScreeningRow.createCell(++count);
             referrals1.setCellValue((mentalHealthScreening.getReferrals() != null && !mentalHealthScreening.getReferrals().isEmpty())
-                    ? mentalHealthScreening.getReferrals().stream().map(r->r.getName()).reduce("",(a,b)->a+","+b) : "");
+                    ? Reportutil.refferalStringsFromList(mentalHealthScreening.getReferrals()) : "");
 
             XSSFCell diagnosis = mentalHealthScreeningRow.createCell(++count);
             diagnosis.setCellValue(mentalHealthScreening.getDiagnosis() != null
@@ -217,7 +218,7 @@ public class MentalHealthScreeningReportController extends BaseController {
 
             XSSFCell diagnoses = mentalHealthScreeningRow.createCell(++count);
             diagnoses.setCellValue((mentalHealthScreening.getDiagnoses() != null && !mentalHealthScreening.getDiagnoses().isEmpty())
-                    ? mentalHealthScreening.getDiagnoses().stream().map(d -> d.getName()).reduce("",(a,b)->a+","+b) : "");
+                    ? Reportutil.diagnosisStringsFromList(mentalHealthScreening.getDiagnoses()): "");
 
             XSSFCell otherDiagnosis = mentalHealthScreeningRow.createCell(++count);
             otherDiagnosis.setCellValue(mentalHealthScreening.getOtherDiagnosis());
@@ -227,7 +228,7 @@ public class MentalHealthScreeningReportController extends BaseController {
 
             XSSFCell interventions = mentalHealthScreeningRow.createCell(++count);
             interventions.setCellValue((mentalHealthScreening.getInterventions() != null && !mentalHealthScreening.getInterventions().isEmpty())
-                    ? mentalHealthScreening.getInterventions().stream().map(i->i.getName()).reduce("", (x,y)->x+","+y) : "");
+                    ? Reportutil.interventionsStringsFromList(mentalHealthScreening.getInterventions()) : "");
 
             XSSFCell otherIntervention = mentalHealthScreeningRow.createCell(++count);
             otherIntervention.setCellValue(mentalHealthScreening.getOtherIntervention());

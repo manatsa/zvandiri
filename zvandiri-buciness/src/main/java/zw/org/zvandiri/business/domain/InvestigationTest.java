@@ -21,6 +21,7 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import lombok.ToString;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import zw.org.zvandiri.business.domain.util.TestType;
@@ -34,7 +35,7 @@ import zw.org.zvandiri.business.domain.util.TestType;
 		@Index(name = "investigation_test_patient", columnList = "patient"),
 		@Index(name = "investigation_test_dateTaken", columnList = "dateTaken"),
 })
-@JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class InvestigationTest extends TestResult {
 
     @Enumerated

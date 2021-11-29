@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
@@ -28,6 +27,7 @@ import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.*;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
+import zw.org.zvandiri.business.util.Reportutil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.DetailedReportService;
@@ -114,7 +114,7 @@ public class DetailedReportServiceImpl implements DetailedReportService {
                     vlTest!=null? vlTest.getResult()+"":"",
                     vlTest!=null? vlTest.getDateTaken().toString():"",
                     mentalHealthScreening!=null?mentalHealthScreening.getRisk().getName():"",
-                    mentalHealthScreening!=null?mentalHealthScreening.getIdentifiedRisks().stream().map(r->r.getName()).collect(Collectors.joining(",")):"",
+                    mentalHealthScreening!=null? Reportutil.StringsFromList(mentalHealthScreening.getIdentifiedRisks()):"",
                     mentalHealthScreening!=null? mentalHealthScreening.getDateScreened()!=null?mentalHealthScreening.getDateScreened().toString():"":"",
                     item.getCat() != null ? item.getCat().getName() : "",
                     item.getYoungMumGroup() != null ? item.getYoungMumGroup().getName() : "",

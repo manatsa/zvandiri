@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import lombok.ToString;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -43,7 +44,7 @@ import zw.org.zvandiri.business.domain.util.YesNo;
 @Table(indexes = {
 		@Index(name = "mental_health_screening_patient", columnList = "patient")
 })
-@JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class MentalHealthScreening extends BaseEntity {
 
     @ManyToOne(optional = false)

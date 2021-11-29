@@ -23,7 +23,7 @@ import zw.org.zvandiri.business.util.StringUtils;
  */
 public enum CareLevel {
     
-    STANDARD(1), ENHANCED(2);
+    STABLE(1), ENHANCED(2);
     
     private final Integer code;
     
@@ -38,7 +38,7 @@ public enum CareLevel {
     public static CareLevel get(Integer code){
         switch(code){
             case 1:
-                return STANDARD;
+                return STABLE;
             case 2:
                 return ENHANCED;
             default:

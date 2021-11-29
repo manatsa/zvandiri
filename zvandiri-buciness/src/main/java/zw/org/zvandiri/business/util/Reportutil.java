@@ -1,8 +1,12 @@
 package zw.org.zvandiri.business.util;
 
+import zw.org.zvandiri.business.domain.BaseEntity;
+import zw.org.zvandiri.business.domain.BaseName;
+import zw.org.zvandiri.business.domain.util.*;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 import javax.persistence.Query;
+import java.util.Set;
 
 public class Reportutil {
 
@@ -211,4 +215,58 @@ public class Reportutil {
 
         return query;
     }
+
+    public static String StringsFromList(Set<IdentifiedRisk> risks){
+        String result="";
+        IdentifiedRisk[] risks1=new IdentifiedRisk[risks.size()];
+        risks.toArray(risks1);
+        for (IdentifiedRisk risk: risks1) {
+            result+=risk.getName();
+        }
+        return result;
+    }
+
+    public static String SupportStringsFromList(Set<Support> risks){
+        String result="";
+        Support[] risks1=new Support[risks.size()];
+        risks.toArray(risks1);
+        for (Support risk: risks1) {
+            result+=risk.getName();
+        }
+        return result;
+    }
+
+
+    public static String refferalStringsFromList(Set<Referral> risks){
+        String result="";
+        Referral[] risks1=new Referral[risks.size()];
+        risks.toArray(risks1);
+        for (Referral risk: risks1) {
+            result+=risk.getName();
+        }
+        return result;
+    }
+
+    public static String diagnosisStringsFromList(Set<Diagnosis> risks){
+        String result="";
+        Diagnosis[] risks1=new Diagnosis[risks.size()];
+        risks.toArray(risks1);
+        for (Diagnosis risk: risks1) {
+            result+=risk.getName();
+        }
+        return result;
+    }
+
+    public static String interventionsStringsFromList(Set<Intervention> risks){
+        String result="";
+        Intervention[] risks1=new Intervention[risks.size()];
+        risks.toArray(risks1);
+        for (Intervention risk: risks1) {
+            result+=risk.getName();
+        }
+        return result;
+    }
+
+
+
 }

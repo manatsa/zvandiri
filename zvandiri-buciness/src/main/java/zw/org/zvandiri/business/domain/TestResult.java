@@ -24,6 +24,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.util.Cd4CountResultSource;
 import zw.org.zvandiri.business.domain.util.YesNo;
@@ -33,6 +34,7 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  * @author Judge Muzinda
  */
 @MappedSuperclass
+@ToString
 public class TestResult extends BaseEntity {
     
     @ManyToOne
@@ -114,9 +116,5 @@ public class TestResult extends BaseEntity {
         this.resultTaken = resultTaken;
     }
 
-    @Override
-    public String toString() {
-        return "TestResult{" + "patient=" + patient + ", dateTaken=" + dateTaken + ", nextTestDate=" + nextTestDate + ", result=" + result + ", tnd=" + tnd + ", source=" + source + ", resultTaken=" + resultTaken + '}';
-    }
-    
+
 }

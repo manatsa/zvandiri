@@ -28,6 +28,7 @@ import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.FollowUp;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
+import zw.org.zvandiri.business.util.Reportutil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.DatabaseHeader;
 import zw.org.zvandiri.report.api.service.CaseloadManagementService;
@@ -100,7 +101,7 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
         long finall=System.currentTimeMillis();
 
         long timeTaken=(finall-initially)/1000;
-        System.err.println("Time Taken :"+timeTaken);
+        System.err.println("Caseload Mgt Time Taken :"+timeTaken);
         return workbook;
 
     }
@@ -189,8 +190,12 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
             careLevel.setCellValue(lastContact!=null?lastContact.getFollowUp().getName():"");
 
             XSSFCell vlresult = enhancedRow.createCell(count++);
-            vlresult.setCellValue(vlTest!=null? vlTest.getResult()+"":"");
-            vlresult.setCellType(Cell.CELL_TYPE_NUMERIC);
+            if(vlTest!=null && vlTest.getResult()!=null)
+            {
+                vlresult.setCellValue(vlTest.getResult());
+            }else{
+                vlresult.setCellType(Cell.CELL_TYPE_BLANK);
+            }
 
             XSSFCell vlDateTaken = enhancedRow.createCell(count++);
             if (vlTest != null) {
@@ -204,7 +209,7 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
             isMHRisk.setCellValue(mentalHealthScreening!=null && mentalHealthScreening.getRisk()!=null?mentalHealthScreening.getRisk().getName():"");
 
             XSSFCell MHRisks = enhancedRow.createCell(count++);
-            MHRisks.setCellValue(mentalHealthScreening!=null && mentalHealthScreening.getIdentifiedRisks()!=null?mentalHealthScreening.getIdentifiedRisks().stream().map(r->r.getName()).collect(Collectors.joining(",")):"");
+            MHRisks.setCellValue(mentalHealthScreening!=null && mentalHealthScreening.getIdentifiedRisks()!=null? Reportutil.StringsFromList(mentalHealthScreening.getIdentifiedRisks()) :"");
 
             XSSFCell MHDateScreened = enhancedRow.createCell(count++);
             if (mentalHealthScreening != null) {
