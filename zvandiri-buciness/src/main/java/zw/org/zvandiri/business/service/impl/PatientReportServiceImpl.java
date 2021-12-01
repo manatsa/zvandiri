@@ -1822,23 +1822,26 @@ public class PatientReportServiceImpl implements PatientReportService {
     @Override
     public List<Patient> getMHScreeningCandidates(SearchDTO dto) {
 
-        LocalDate now = LocalDate.now();
-        LocalDate then=now.minusMonths(6);
-
         StringBuilder builder = new StringBuilder("Select Distinct p from Patient p  ");
         int position = 0;
         position=Reportutil.commonPatientQuery(builder, dto, position);
 
         if (position == 0) {
-            builder.append(" (p.latestMentalHealthScreeningDate is null or p.latestMentalHealthScreeningDate <= :when) ");
+            builder.append(" p.id not in ( select m.patient from MentalHealthScreening m ");
             position++;
         } else {
-            builder.append(" and (p.latestMentalHealthScreeningDate is null or p.latestMentalHealthScreeningDate <= :when) ");
+            builder.append(" and p.id not in ( select m.patient from MentalHealthScreening m ");
         }
-        builder.append(" order by p.lastName ASC");
+        if(dto.getStartDate()!=null & dto.getEndDate()!=null){
+            builder.append(" where m.dateScreened between :startDate and :endDate ");
+        }
+        builder.append(") order by p.lastName ASC");
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
         Reportutil.commonQueryParams(query, dto);
-        query.setParameter("when", then.toDate());
+        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+            query.setParameter("startDate", dto.getStartDate());
+            query.setParameter("endDate", dto.getEndDate());
+        }
         query.setFirstResult(dto.getFirstResult());
         return query.getResultList();
     }
@@ -1883,10 +1886,10 @@ public class PatientReportServiceImpl implements PatientReportService {
         position=Reportutil.commonPatientQuery(builder, dto, position);
 
         if (position == 0) {
-            builder.append(" (p.lastViralLoadDateTaken is null or p.lastViralLoadDateTaken <= :when) ");
+            builder.append(" p.id not in (select i.patient from InvestigationTest i where i.dateTaken > :when) ");
             position++;
         } else {
-            builder.append(" and (p.lastViralLoadDateTaken is null or p.lastViralLoadDateTaken <= :when) ");
+            builder.append(" and p.id not in (select i.patient from InvestigationTest i where i.dateTaken > :when) ");
         }
         builder.append(" order by p.lastName ASC");
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
@@ -1993,7 +1996,6 @@ public class PatientReportServiceImpl implements PatientReportService {
             }
             builder.append(" )");
         }
-        System.err.println("Count Uncontacted Query : "+builder.toString());
         TypedQuery<Long> query = entityManager.createQuery(builder.toString(), Long.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());

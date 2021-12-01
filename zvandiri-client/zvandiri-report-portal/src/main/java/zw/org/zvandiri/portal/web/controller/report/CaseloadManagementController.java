@@ -63,10 +63,12 @@ public class CaseloadManagementController extends BaseController {
     @RequestMapping(value = "/index", method = RequestMethod.POST)
     //@PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_DATA_CLERK') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
     public void getExcelExport(ModelMap model,HttpServletResponse response, @ModelAttribute("item") SearchDTO item) {
-        //System.err.println("ITEM:"+item);
+        long startTime=System.currentTimeMillis();
         item = getUserLevelObjectState(item);
         String name = DateUtil.getFriendlyFileName("Zvandiri_Caseload_Management_Plan");
         forceDownLoadXLSX(caseloadManagementService.exportCaseload(name, item), name, response);
+
+        System.err.println(" >>>> Caseload Mgt Time Taken :"+(System.currentTimeMillis()-startTime)/60000+" minutes.");
     }
 
 }

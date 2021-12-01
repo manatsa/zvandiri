@@ -182,9 +182,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         System.err.println("C End::" + c_final);
         for (Patient patient : patients) {
             int count = 0;
-            Contact lastContact = patient.getLastPatientContact(contactService);
             InvestigationTest vlTest = patient.getLastPatientVL(investigationTestService);
-            MentalHealthScreening mentalHealthScreening = patient.getLastPatientMentalHealthScreening(mentalHealthScreeningService);
             contacts.addAll(patient.getContacts());
             dependents.addAll(patient.getDependents());
             chronicInfectionItems.addAll(patient.getChronicInfectionItems());
@@ -301,17 +299,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 dateStatusChanged.setCellValue("");
             }
 
-            XSSFCell contactDate = header.createCell(++count);
-            if (lastContact != null) {
-                contactDate.setCellValue(lastContact.getContactDate());
-                contactDate.setCellStyle(XSSFCellStyle);
-            } else {
-                contactDate.setCellValue("");
-            }
-
-            XSSFCell careLevel = header.createCell(++count);
-            careLevel.setCellValue(lastContact != null ? lastContact.getFollowUp().getName() : "");
-
             XSSFCell vlresult = header.createCell(++count);
             if(vlTest!=null && vlTest.getResult()!=null)
             {
@@ -320,7 +307,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 vlresult.setCellType(Cell.CELL_TYPE_BLANK);
             }
 
-            //vlresult.setCellType(Cell.CELL_TYPE_NUMERIC);
+
 
             XSSFCell vlDateTaken = header.createCell(++count);
             if (vlTest != null) {
@@ -329,21 +316,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             } else {
                 vlDateTaken.setCellValue("");
             }
-
-            XSSFCell isMHRisk = header.createCell(++count);
-            isMHRisk.setCellValue(mentalHealthScreening!=null && mentalHealthScreening.getRisk()!=null?mentalHealthScreening.getRisk().getName():"");
-
-            XSSFCell MHRisks = header.createCell(++count);
-            MHRisks.setCellValue(mentalHealthScreening!=null && mentalHealthScreening.getIdentifiedRisks()!=null? Reportutil.StringsFromList(mentalHealthScreening.getIdentifiedRisks()) :"");
-
-            XSSFCell MHDateScreened = header.createCell(++count);
-            if (mentalHealthScreening != null) {
-                MHDateScreened.setCellValue(mentalHealthScreening!=null? mentalHealthScreening.getDateScreened()!=null?mentalHealthScreening.getDateScreened().toString():"":"");
-                MHDateScreened.setCellStyle(XSSFCellStyle);
-            } else {
-                MHDateScreened.setCellValue("");
-            }
-
+            
         }
         // add contacts
         XSSFSheet contactDetails = workbook.createSheet("Patient_Contacts");

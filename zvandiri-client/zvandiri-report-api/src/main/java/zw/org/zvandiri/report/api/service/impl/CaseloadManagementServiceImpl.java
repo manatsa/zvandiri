@@ -63,8 +63,7 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
     final static String [] CLIENTS_GENERAL_HEADER = {
             "Client Name","Date of Birth", "Age", "Gender","Status", "Address","Secondary Address", "Mobile Number", "Second Mobile Number", "Region",
             "District","Primary Clinic", "IS CATS", "In YMM Programme","In YMD Programme",
-            "Last Contact Date","Current Care Level","LastVL Result",
-            "Last VL Date Taken","Mental Health Risk","Mental Health Risks", "Date Screened"
+            "LastVL Result","Last VL Date Taken",
     };
 
 
@@ -97,11 +96,6 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
         addSheet(workbook, "MH Screening Candidates",mhPatients,XSSFCellStyle);
         addSheet(workbook, "TB Screening Candidates",tbPatients,XSSFCellStyle);
 
-
-        long finall=System.currentTimeMillis();
-
-        long timeTaken=(finall-initially)/1000;
-        System.err.println("Caseload Mgt Time Taken :"+timeTaken);
         return workbook;
 
     }
@@ -122,9 +116,9 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
         }
         for (Patient patient : patients) {
 
-            Contact lastContact=patient.getLastPatientContact(contactService);
+            //Contact lastContact=patient.getLastPatientContact(contactService);
             InvestigationTest vlTest=patient.getLastPatientVL(investigationTestService);
-            MentalHealthScreening mentalHealthScreening=patient.getLastPatientMentalHealthScreening(mentalHealthScreeningService);
+            //MentalHealthScreening mentalHealthScreening=patient.getLastPatientMentalHealthScreening(mentalHealthScreeningService);
             int count = 0;
 
             enhancedRow = enhancedClientsDetails.createRow(assessmentRowNum++);
@@ -178,16 +172,6 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
             ymd.setCellValue(
                     patient.getYoungDadGroup() != null ? patient.getYoungDadGroup().getName() : null
             );
-            XSSFCell contactDate = enhancedRow.createCell(count++);
-            if (lastContact != null) {
-                contactDate.setCellValue(lastContact.getContactDate());
-                contactDate.setCellStyle(xssfCellStyle);
-            } else {
-                contactDate.setCellValue("");
-            }
-
-            XSSFCell careLevel = enhancedRow.createCell(count++);
-            careLevel.setCellValue(lastContact!=null?lastContact.getFollowUp().getName():"");
 
             XSSFCell vlresult = enhancedRow.createCell(count++);
             if(vlTest!=null && vlTest.getResult()!=null)
@@ -205,19 +189,6 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
                 vlDateTaken.setCellValue("");
             }
 
-            XSSFCell isMHRisk = enhancedRow.createCell(count++);
-            isMHRisk.setCellValue(mentalHealthScreening!=null && mentalHealthScreening.getRisk()!=null?mentalHealthScreening.getRisk().getName():"");
-
-            XSSFCell MHRisks = enhancedRow.createCell(count++);
-            MHRisks.setCellValue(mentalHealthScreening!=null && mentalHealthScreening.getIdentifiedRisks()!=null? Reportutil.StringsFromList(mentalHealthScreening.getIdentifiedRisks()) :"");
-
-            XSSFCell MHDateScreened = enhancedRow.createCell(count++);
-            if (mentalHealthScreening != null) {
-                MHDateScreened.setCellValue(mentalHealthScreening!=null? mentalHealthScreening.getDateScreened()!=null?mentalHealthScreening.getDateScreened().toString():"":"");
-                MHDateScreened.setCellStyle(xssfCellStyle);
-            } else {
-                MHDateScreened.setCellValue("");
-            }
 
         }
         return workbook;

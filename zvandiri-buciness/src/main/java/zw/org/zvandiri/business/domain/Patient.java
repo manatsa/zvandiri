@@ -88,46 +88,27 @@ public class Patient extends GenericPatient {
     private String patientExist;
     @Transient
     private String mother;
+
     @Formula("(Select i.result From investigation_test i where i.patient = id and i.test_type = 0 order by i.date_created desc limit 0,1)")
     private Integer viralLoad;
+
     @Formula("(Select i.id From investigation_test i where i.patient = id and i.test_type = 0 order by i.date_created desc limit 0,1)")
     private String lastViralLoad;
-    @Formula("(Select i.id From mental_health_screening i where i.patient = id order by i.date_created desc limit 0,1)")
-    private String lastMentalHealthScreening;
+
     @Formula("(Select i.result From investigation_test i where i.patient = id and i.test_type = 1 order by i.date_created desc limit 0,1)")
     private Integer cd4Count;
+
     @Formula("(Select concat(a1.name, ', ', a2.name, ', ', a3.name) From arv_hist a inner join arv_medicine a1 on a1.id=a.arv_medicine inner join arv_medicine a2 on a2.id=a.arv_medicine2 inner join arv_medicine a3 on a3.id=a.arv_medicine3 where a.patient = id order by a.start_date desc limit 0,1)")
     private String currentArvRegimen;
+
     @Formula("(Select p.severity From patient_disability p where p.patient = id order by p.date_screened desc limit 0,1)")
     private Integer disabilitySeverity;
-    @Formula("(Select c.id From contact c where c.patient = id order by c.date_created desc limit 0,1)")
-    private String lastContact;
-    @Formula("(Select i.date_taken From investigation_test i where i.patient = id and i.test_type = 0 order by i.date_created desc limit 0,1)")
-    private Date lastViralLoadDateTaken;
+
     @Formula("(Select c.follow_up From contact c where c.patient = id order by c.date_created desc limit 0,1)")
     private Integer enhancedStatus;
-    @Formula("(Select i.date_screened From mental_health_screening i where i.patient = id order by i.date_created desc limit 0,1)")
-    private Date latestMentalHealthScreeningDate;
-    @Formula("(Select i.date_screened From tb_ipt i where i.patient = id order by i.date_created desc limit 0,1)")
-    private Date latestTBScreeningDate;
-    //InvestigationTest lastPatientVL;
 
     @Transient
     private DisabilitySeverity disabilityStatus;
-
-    public Contact getLastPatientContact(ContactService contactService) {
-
-        if(lastContact!=null) {
-            if (contactService == null) {
-                System.err.println("Contact service is null");
-            } else {
-                return contactService.get(lastContact);
-            }
-        }
-
-            return null;
-
-    }
 
     public InvestigationTest getLastPatientVL(InvestigationTestService investigationTestService) {
 
@@ -144,43 +125,6 @@ public class Patient extends GenericPatient {
 
     }
 
-    public MentalHealthScreening getLastPatientMentalHealthScreening(MentalHealthScreeningService mentalHealthScreeningService) {
-
-        if(lastMentalHealthScreening!=null) {
-            if (mentalHealthScreeningService == null) {
-                System.err.println("last mental health screening service is null");
-            } else {
-                return mentalHealthScreeningService.get(lastMentalHealthScreening);
-            }
-        }
-
-        return null;
-
-    }
-
-    public Date getLastViralLoadDateTaken() {
-        return lastViralLoadDateTaken;
-    }
-
-    public void setLastViralLoadDateTaken(Date lastViralLoadDateTaken) {
-        this.lastViralLoadDateTaken = lastViralLoadDateTaken;
-    }
-
-    public Date getLatestTBScreeningDate() {
-        return latestTBScreeningDate;
-    }
-
-    public void setLatestTBScreeningDate(Date latestTBScreeningDate) {
-        this.latestTBScreeningDate = latestTBScreeningDate;
-    }
-
-    public Date getLatestMentalHealthScreeningDate() {
-        return latestMentalHealthScreeningDate;
-    }
-
-    public void setLatestMentalHealthScreeningDate(Date latestMentalHealthScreeningDate) {
-        this.latestMentalHealthScreeningDate = latestMentalHealthScreeningDate;
-    }
 
     public Integer getEnhancedStatus() {
         return enhancedStatus;
@@ -188,10 +132,6 @@ public class Patient extends GenericPatient {
 
     public void setEnhancedStatus(Integer enhancedStatus) {
         this.enhancedStatus = enhancedStatus;
-    }
-
-    public String getLastContact() {
-        return lastContact;
     }
 
     public District getDistrict() {
@@ -232,14 +172,6 @@ public class Patient extends GenericPatient {
 
     public void setLastViralLoad(String lastViralLoad) {
         this.lastViralLoad = lastViralLoad;
-    }
-
-    public String getLastMentalHealthScreening() {
-        return lastMentalHealthScreening;
-    }
-
-    public void setLastMentalHealthScreening(String lastMentalHealthScreening) {
-        this.lastMentalHealthScreening = lastMentalHealthScreening;
     }
 
     public String getName() {

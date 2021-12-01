@@ -91,9 +91,9 @@ public class DetailedReportServiceImpl implements DetailedReportService {
         List<GenericReportModel> items = new ArrayList<>();
         items.add(new GenericReportModel(Arrays.asList(headers)));
         for (Patient item : patients) {
-            Contact lastContact=item.getLastPatientContact(contactService);
+            //Contact lastContact=item.getLastPatientContact(contactService);
             InvestigationTest vlTest=item.getLastPatientVL(testService);
-            MentalHealthScreening mentalHealthScreening=item.getLastPatientMentalHealthScreening(mentalHealthScreeningService);
+            //MentalHealthScreening mentalHealthScreening=item.getLastPatientMentalHealthScreening(mentalHealthScreeningService);
             String[] inner = {
                     item.getName(),
                     item.getoINumber(),
@@ -108,14 +108,14 @@ public class DetailedReportServiceImpl implements DetailedReportService {
                     item.getPrimaryClinic().getName(),
                     item.getSupportGroup() != null ? item.getSupportGroup().getName() : "",
                     item.getReferer() != null ? item.getReferer().getName() : "",
-                    lastContact!=null?lastContact.getContactDate().toString():"",
+                    /*lastContact!=null?lastContact.getContactDate().toString():"",
                     lastContact!=null?lastContact.getCareLevel().getName():"",
-                    lastContact!=null?lastContact.getCreatedBy().getDisplayName():"",
+                    lastContact!=null?lastContact.getCreatedBy().getDisplayName():"",*/
                     vlTest!=null? vlTest.getResult()+"":"",
                     vlTest!=null? vlTest.getDateTaken().toString():"",
-                    mentalHealthScreening!=null?mentalHealthScreening.getRisk().getName():"",
+                    /*mentalHealthScreening!=null?mentalHealthScreening.getRisk().getName():"",
                     mentalHealthScreening!=null? Reportutil.StringsFromList(mentalHealthScreening.getIdentifiedRisks()):"",
-                    mentalHealthScreening!=null? mentalHealthScreening.getDateScreened()!=null?mentalHealthScreening.getDateScreened().toString():"":"",
+                    mentalHealthScreening!=null? mentalHealthScreening.getDateScreened()!=null?mentalHealthScreening.getDateScreened().toString():"":"",*/
                     item.getCat() != null ? item.getCat().getName() : "",
                     item.getYoungMumGroup() != null ? item.getYoungMumGroup().getName() : "",
                     item.getYoungDadGroup() != null ? item.getYoungDadGroup().getName() : ""

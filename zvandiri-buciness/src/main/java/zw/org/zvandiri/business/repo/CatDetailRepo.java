@@ -34,7 +34,7 @@ public interface CatDetailRepo extends AbstractRepo<CatDetail, String> {
     @Query("from CatDetail c left join fetch c.patient left join fetch c.primaryClinic where c.patient=:patient")
     public CatDetail findByPatient(@Param("patient") Patient patient);
    
-    @Query("from CatDetail c left join fetch c.patient left join fetch c.primaryClinic left join fetch c.createdBy left join c.modifiedBy where c.patient.deleted=false and c.email=:email")
+    @Query("from CatDetail c left join fetch c.patient left join fetch c.primaryClinic left join fetch c.createdBy left join c.modifiedBy where c.patient.deleted=false and c.patient.active=true and c.email=:email")
     public CatDetail findByEmail(@Param("email") String email);
     
     @Query("from CatDetail c left join fetch c.patient left join fetch c.primaryClinic where c.id=:id")
