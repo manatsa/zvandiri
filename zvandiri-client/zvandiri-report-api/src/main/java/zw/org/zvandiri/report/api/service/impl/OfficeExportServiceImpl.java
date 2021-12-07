@@ -183,6 +183,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         for (Patient patient : patients) {
             int count = 0;
             InvestigationTest vlTest = patient.getLastPatientVL(investigationTestService);
+            Contact contact=contactService.findLatestContact(patient);
             contacts.addAll(patient.getContacts());
             dependents.addAll(patient.getDependents());
             chronicInfectionItems.addAll(patient.getChronicInfectionItems());
@@ -298,6 +299,17 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             } else {
                 dateStatusChanged.setCellValue("");
             }
+
+            XSSFCell contactDate = header.createCell(++count);
+            if (contact!=null && contact.getContactDate() != null) {
+                contactDate.setCellValue(contact.getContactDate());
+                contactDate.setCellStyle(XSSFCellStyle);
+            } else {
+                contactDate.setCellType(XSSFCell.CELL_TYPE_BLANK);
+            }
+
+            XSSFCell careLevel = header.createCell(++count);
+            careLevel.setCellValue(contact!=null && contact.getFollowUp()!=null?contact.getFollowUp().getName():"");
 
             XSSFCell vlresult = header.createCell(++count);
             if(vlTest!=null && vlTest.getResult()!=null)

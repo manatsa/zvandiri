@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--suppress WebflowSetupInspection -->
 <flow xmlns="http://www.springframework.org/schema/webflow"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow.xsd">
@@ -56,7 +57,7 @@
     <view-state id="patientHivAndHealth" model="patient">        
         <on-render>
             <evaluate expression="sysPropService.processTitle('Create Patient Add HIV and Health Details Step 5 of 7')" result="viewScope.pageTitle"/>
-            <evaluate expression="disabilityCategoryService.getAll()" result="viewScope.disabilityCategories"/>
+            <!--<evaluate expression="disabilityCategoryService.getAll()" result="viewScope.disabilityCategories"/>-->
         </on-render>
         <transition on="next" to="patientZvandiriDetails"/>
         <transition on="back" to="patientEducationAndZvandiriDetails" bind="false" />
