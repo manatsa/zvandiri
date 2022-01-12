@@ -19,7 +19,7 @@
 
                     <div class="col-lg-10">
                         <form:form commandName="item" id="catPhoneForm" action="${formAction}">
-                            <form:hidden path="cadre" value="${cadre}"/>
+                            <form:hidden path="cadre" value="${phone.cadre}"/>
                             <%@include file="../template/formState.jspf" %>
                             <div class="form-group">
                                 <label>Mobile Phone Make</label>
@@ -33,13 +33,6 @@
                                 <form:input path="phoneModel" class="form-control word-case"/>
                                 <p class="help-block">
                                     <form:errors path="phoneModel" class="alert-danger"/>
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <label>Phone Serial Number</label>
-                                <form:input path="serialNumber" class="form-control word-case"/>
-                                <p class="help-block">
-                                    <form:errors path="serialNumber" class="alert-danger"/>
                                 </p>
                             </div>
                             <div class="form-group">

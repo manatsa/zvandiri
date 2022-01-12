@@ -31,16 +31,20 @@ $("#province").change(
 		function() {
 			$this = $(this);
 			if ($this.val() === "") {
-				$("#district").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
-				$("#primaryClinic").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
-				$("#supportGroupDistrict").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
-				$("#supportGroup").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
+				$("#district").find('option').remove().end().append(
+						'<option value="">--Select Item--</option>').val('');
+				$("#primaryClinic").find('option').remove().end().append(
+						'<option value="">--Select Item--</option>').val('');
 				return;
 			}
-			$("#primaryClinic").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
-			$("#district").find('option').remove().end().append('<option value="">.......... loading districts</option>').val('');
-			$("#supportGroupDistrict").find('option').remove().end().append('<option value="">.......... loading districts</option>').val('');
-			$.get(path + "/global/getprovincedistricts", {"province" : $this.val()}, function(data) {
+			$("#primaryClinic").find('option').remove().end().append(
+					'<option value="">--Select Item--</option>').val('');
+			$("#district").find('option').remove().end().append(
+					'<option value="">.......... loading districts</option>')
+					.val('');
+			$.get(path + "/global/getprovincedistricts", {
+				"province" : $this.val()
+			}, function(data) {
 				$("#district").html(processDropDown(data));
 				$("#supportGroupDistrict").html(processDropDown(data));
 			});
@@ -78,47 +82,42 @@ $(".otherdate").datepicker({
 	changeMonth : true,
 	dateFormat : "dd/mm/yy"
 });
-// getdistrictsupportgroups
-$("#supportGroupDistrict").change(function() {$this = $(this);
-			if ($this.val() === "") {
-				$("#supportGroup").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
-				return;
-			}
-			$.get(path + "/global/getdistrictsupportgroups", {"district" : $this.val()}, function(data) {
-				$("#supportGroup").html(processDropDown(data));
-			});
-		});
-
-
-$("#district").change(function() {$this = $(this);
-			if ($this.val() === "") {
-				$("#primaryClinic").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
-				return;
-			}
-			$.get(path + "/global/getdistrictstations", {"district" : $this.val()}, function(data) {
-				$("#primaryClinic").html(processDropDown(data));
-			});
-		});		
-		
-		
-
-$("#supportGroupDistrict").change(
+$("#district").change(
 		function() {
 			$this = $(this);
 			if ($this.val() === "") {
-				$("#supportGroup").find('option').remove().end().append(
+				$("#primaryClinic").find('option').remove().end().append(
 						'<option value="">--Select Item--</option>').val('');
 				return;
 			}
-			$("#supportGroup").find('option').remove().end().append(
+			$("#primaryClinic").find('option').remove().end().append(
 					'<option value="">......... loading clinics</option>').val(
 					'');
-			$.get(path + "/global/getdistrictsupportgroups", {
+			$.get(path + "/global/getdistrictstations", {
 				"district" : $this.val()
 			}, function(data) {
-				$("#supportGroup").html(processDropDown(data));
+				$("#primaryClinic").html(processDropDown(data));
 			});
 		});
+
+$("#supportGroupDistrict").change(
+    function() {
+        $this = $(this);
+        if ($this.val() === "") {
+            $("#supportGroup").find('option').remove().end().append(
+                '<option value="">--Select Item--</option>').val('');
+            return;
+        }
+        $("#supportGroup").find('option').remove().end().append(
+            '<option value="">......... loading clinics</option>').val(
+            '');
+        $.get(path + "/global/getdistrictsupportgroups", {
+            "district" : $this.val()
+        }, function(data) {
+            $("#supportGroup").html(processDropDown(data));
+        });
+    });
+
 
 $("#periodType").change(
 		function() {
@@ -213,5 +212,3 @@ function gup(name, search_url) {
 	else
 		return results[1];
 }
-
-

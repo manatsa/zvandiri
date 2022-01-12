@@ -22,10 +22,13 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.Formula;
 import org.springframework.beans.factory.annotation.Configurable;
+import zw.org.zvandiri.business.domain.util.CareLevel;
 import zw.org.zvandiri.business.domain.util.DisabilitySeverity;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
@@ -41,7 +44,6 @@ import zw.org.zvandiri.business.util.DateUtil;
  * @author Judge Muzinda
  */
 @Entity
-@ToString
 @Configurable(preConstruction = true)
 @Table(indexes = {
 		@Index(name = "patient_first_name_last_name", columnList = "firstName, lastName"),
@@ -53,30 +55,27 @@ import zw.org.zvandiri.business.util.DateUtil;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Patient extends GenericPatient {
 
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
-    private Set<PatientDisability> disabilityCategorys = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private Set<PatientHistory> patientHistories = new HashSet<>();
-    @Transient
-    @OneToOne(mappedBy = "patient", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
-    private MobilePhone mobilePhone;
     @Transient
     private District district;
     @Transient
     private Province province;
     @Transient
+    @JsonIgnore
+    @JsonProperty(value = "disabilities")
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
+    private Set<PatientDisability> disabilityCategorys = new HashSet<>();
+    @JsonIgnore
+    @JsonProperty(value = "patient_histories")
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<PatientHistory> patientHistories = new HashSet<>();
+    @Transient
+    @JsonIgnore
+    @OneToOne(mappedBy = "patient", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
+    private MobilePhone mobilePhone;
     private District supportGroupDistrict;
     @Transient
-    //@Formula("(select (TIMESTAMPDIFF(YEAR,date_of_birth,CURDATE())) as age from patient p where p.id = ? )")
     private int age = 0;
 
-//    @Formula("(select (TIMESTAMPDIFF(YEAR,date_of_birth,CURDATE())) as age from patient p where p.id = id)")
-//    private int currentAge = 0;
-    @Transient
-    private String name;
-    @Formula("(Select c.id From cat_detail c where c.patient = id)")
-    private String catId;
-    @Transient
     private String pic;
     @Transient
     private String dateJoin;
@@ -89,6 +88,13 @@ public class Patient extends GenericPatient {
     @Transient
     private String mother;
 
+    //    @Formula("(select (TIMESTAMPDIFF(YEAR,date_of_birth,CURDATE())) as age from patient p where p.id = id)")
+//    private int currentAge = 0;
+    @Transient
+    private String name;
+    @Formula("(Select c.id From cat_detail c where c.patient = id)")
+    private String catId;
+    @Transient
     @Formula("(Select i.result From investigation_test i where i.patient = id and i.test_type = 0 order by i.date_created desc limit 0,1)")
     private Integer viralLoad;
 
@@ -125,6 +131,11 @@ public class Patient extends GenericPatient {
 
     }
 
+    public CareLevel getCurrentCareLevelObject(){
+        if(this.enhancedStatus==null)
+            return CareLevel.ENHANCED;
+        return CareLevel.get(this.enhancedStatus+1);
+    }
 
     public Integer getEnhancedStatus() {
         return enhancedStatus;
@@ -297,5 +308,9 @@ public class Patient extends GenericPatient {
     }
 
 
+    @Override
+    public String toString(){
+        return "Patient:"+this.getId();
+    }
 
 }

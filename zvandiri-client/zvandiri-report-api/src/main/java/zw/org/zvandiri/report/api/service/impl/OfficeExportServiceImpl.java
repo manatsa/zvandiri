@@ -309,7 +309,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             }
 
             XSSFCell careLevel = header.createCell(++count);
-            careLevel.setCellValue(contact!=null && contact.getFollowUp()!=null?contact.getFollowUp().getName():"");
+            careLevel.setCellValue(contact!=null && contact.getCareLevelAfterAssessment()!=null?contact.getCareLevelAfterAssessment().getName():"");
 
             XSSFCell vlresult = header.createCell(++count);
             if(vlTest!=null && vlTest.getResult()!=null)
@@ -378,17 +378,17 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             position.setCellValue(
                     contact.getPosition() != null ? contact.getPosition().getName() : null);
             XSSFCell reason = contactHeader.createCell(++count);
-            reason.setCellValue(contact.getReason() != null ? contact.getReason().getName() : null);
+            //reason.setCellValue(contact.getReason() != null ? contact.getReason().getName() : null);
             XSSFCell followUp = contactHeader.createCell(++count);
-            followUp.setCellValue(contact.getFollowUp() != null ? contact.getFollowUp().getName() : null);
+            followUp.setCellValue(contact.getCareLevelAfterAssessment() != null ? contact.getCareLevelAfterAssessment().getName() : null);
             XSSFCell subjective = contactHeader.createCell(++count);
-            subjective.setCellValue(contact.getSubjective());
+            //subjective.setCellValue(contact.getSubjective());
             XSSFCell objective = contactHeader.createCell(++count);
-            objective.setCellValue(contact.getObjective());
+            //objective.setCellValue(contact.getObjective());
             XSSFCell plan = contactHeader.createCell(++count);
-            plan.setCellValue(contact.getPlan());
+            //plan.setCellValue(contact.getPlan());
             XSSFCell actionTaken = contactHeader.createCell(++count);
-            actionTaken.setCellValue(contact.getActionTaken() != null ? contact.getActionTaken().getName() : null);
+            //actionTaken.setCellValue(contact.getActionTaken() != null ? contact.getActionTaken().getName() : null);
             XSSFCell lastClinicAppointmentDate = contactHeader.createCell(++count);
             if (contact.getLastClinicAppointmentDate() != null) {
                 lastClinicAppointmentDate.setCellValue(contact.getLastClinicAppointmentDate());
@@ -409,7 +409,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             }
 
             XSSFCell visitOutcome = contactHeader.createCell(++count);
-            visitOutcome.setCellValue(contact.getVisitOutcome() != null ? contact.getVisitOutcome().getName() : null);
+            //visitOutcome.setCellValue(contact.getVisitOutcome() != null ? contact.getVisitOutcome().getName() : null);
             
             XSSFCell isCats = contactHeader.createCell(++count);
             isCats.setCellValue(
@@ -2597,9 +2597,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 dateStartedTreatment.setCellValue("");
             }
             XSSFCell referralForSputum = tbIptXSSFRow.createCell(++count);
-            referralForSputum.setCellValue(tbIpt.getReferralForSputum());
+            //referralForSputum.setCellValue(tbIpt.getReferralForSputum());
             XSSFCell tbTreatmentOutcome = tbIptXSSFRow.createCell(++count);
-            tbTreatmentOutcome.setCellValue(tbIpt.getTbTreatmentOutcome() != null ? tbIpt.getTbTreatmentOutcome().getName() : "");
+            //tbTreatmentOutcome.setCellValue(tbIpt.getTbTreatmentOutcome() != null ? tbIpt.getTbTreatmentOutcome().getName() : "");
             XSSFCell referredForIpt = tbIptXSSFRow.createCell(++count);
             referredForIpt.setCellValue(tbIpt.getReferredForIpt() != null ? tbIpt.getReferredForIpt().getName() : "");
             XSSFCell onIpt = tbIptXSSFRow.createCell(++count);
@@ -2726,8 +2726,10 @@ public class OfficeExportServiceImpl implements OfficeExportService {
         }
         /* end here    */
         final long finish = System.currentTimeMillis();
-        final long taken = finish - start;
-        System.err.println("Final::" + taken);
+        final double taken = (double)((finish - start)/60000);
+        System.err.println("Provinces::"+dto.getProvinces()+"\nDistricts:: "+dto.getDistricts()+"\nFacilities:: "+dto.getFacilities()+"\n" +
+                "District::"+dto.getDistrict()+"\n"+"Province::"+dto.getProvince()+
+                "\nFinal Time Taken(mins)::" + taken);
         return workbook;
 
     }

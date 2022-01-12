@@ -92,7 +92,7 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
                         }
                     }
 
-                    System.err.println("RISKS BEFORE : "+ Reportutil.StringsFromList(newRisks));
+                    System.err.println("RISKS AFTER : "+ Reportutil.StringsFromList(newRisks));
                     t.setIdentifiedRisks(newRisks);
                     t.setDateCreated(new Date());
                 }

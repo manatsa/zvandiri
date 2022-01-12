@@ -20,7 +20,7 @@
                 <br/>
                 <div class="row">
                     <div class="col-lg-12">
-                        <b class="titleHeader">Mental Health Screening Detail</b>  <c:if test="${canEdit}">| <a href="${page}/beneficiary/mental-health-screening/item.form?patientId=${patient.id}">Add Mental Health Screening </a></c:if><br/><br/><br/>
+                        <b class="titleHeader">Mental Health Screening Detail</b>  <c:if test="${canEdit}">| <a href="${page}/contact?id==${patient.id}">Add Mental Health Screening </a></c:if><br/><br/><br/>
                         <div class="table-responsive">
                             <table class="itemList" class="display" cellspacing="0">
                                 <thead>
@@ -32,7 +32,7 @@
                                         <th>Referral</th>
                                         <td>Diagnosis</td>
                                         <td>Intervention</td>
-                                        <th>&nbsp;</th>
+                                        <%--<th>&nbsp;</th>--%>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,10 +45,10 @@
                                             <td>${mental.referral}</td>
                                             <td>${mental.diagnosis}</td>
                                             <td>${mental.intervention}</td>
-                                            <td>
+                                            <%--<td>
                                                 <a href="${page}/beneficiary/mental-health-screening/item.form?itemId=${mental.id}">Edit</a> |
-<%--                                                <c:if test="${canEdit}"><a href="${page}/beneficiary/mental-health-screening/item.delete?id=${mental.id}">Delete</a></c:if>--%>
-                                            </td>
+&lt;%&ndash;                                                <c:if test="${canEdit}"><a href="${page}/beneficiary/mental-health-screening/item.delete?id=${mental.id}">Delete</a></c:if>&ndash;%&gt;
+                                            </td>--%>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

@@ -19,9 +19,8 @@
 
                     <div class="col-lg-10">
                         <form:form commandName="item" id="catPhoneForm" action="${formAction}">
-                            <form:hidden path="cadre" value="${cadre}"/>
+                            <form:hidden path="cadre" value="${bike.cadre}"/>
                             <%@include file="../template/formState.jspf" %>
-
                             <div class="form-group">
                                 <label>Bicycle Type</label>
                                 <form:input path="bikeType" class="form-control word-case"/>

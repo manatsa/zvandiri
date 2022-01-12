@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import zw.org.zvandiri.business.domain.Bicycle;
 import zw.org.zvandiri.business.domain.Cadre;
 import zw.org.zvandiri.business.domain.MobilePhone;
 import zw.org.zvandiri.business.domain.util.Condition;
@@ -37,8 +36,10 @@ import javax.validation.Valid;
 
 /**
  *
- * @author mana
+ * @author manatsachinyeruse@gmail.com
  */
+
+
 @Controller
 @RequestMapping("/cadre/phone")
 public class CadrePhoneController extends BaseController {
@@ -54,57 +55,59 @@ public class CadrePhoneController extends BaseController {
     @Resource
     private ProvinceService provinceService;
 
-    Cadre cadre=new Cadre();
 
-
-    public String setUpModel(ModelMap model, MobilePhone item) {
-        model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit Cadre");
+    public String setUpModel(ModelMap model, MobilePhone item, Cadre cadre) {
+        model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit CADRE :" + cadre!=null?cadre.getName():"");
         model.addAttribute("provinces", provinceService.getAll());
         model.addAttribute("formAction", "item.form");
         model.addAttribute("phoneCondition", Condition.values());
         model.addAttribute("phoneStatus", PhoneStatus.values());
-        model.addAttribute("cadre", this.cadre);
-        model.addAttribute("item", item);
-
-        if(cadre!=null){
-            if (cadre.getPrimaryClinic().getProvince() != null) {
-                model.addAttribute("districts", districtService.getDistrictByProvince(cadre.getProvince()));
-                if (item.getCadre().getDistrict() != null) {
-                    model.addAttribute("facilities", facilityService.getOptByDistrict(cadre.getDistrict()));
+        if(item.getId()!=null){
+            if(cadre!=null){
+                if (cadre.getPrimaryClinic().getProvince() != null) {
+                    model.addAttribute("districts", districtService.getDistrictByProvince(item.getCadre().getProvince()));
+                    if (item.getCadre().getDistrict() != null) {
+                        model.addAttribute("facilities", facilityService.getOptByDistrict(item.getCadre().getDistrict()));
+                    }
                 }
             }
+
+            model.addAttribute("cadre", cadre);
+            model.addAttribute("item", item);
+
+        }else{
+            item=new MobilePhone();
+            item.setCadre(cadre);
+            model.addAttribute("item", item);
+            System.err.println("Mobile phone is new");
+
         }
+
         return "cadre/phoneForm";
     }
 
-
-    @RequestMapping(value = "/create.form", method = RequestMethod.GET)
-    public String getCreateForm(ModelMap model, @RequestParam(required = false) String id) {
-        Cadre cadre = cadreService.get(id);
-        this.cadre=cadre;
-        MobilePhone item=new MobilePhone();
-        item.setCadre(cadre);
-        return setUpModel(model, item );
-    }
-
     @RequestMapping(value = "/item.form", method = RequestMethod.GET)
-    public String getForm(ModelMap model, @RequestParam(required = false) String id, @RequestParam(required = false) String cadreId) {
-        cadre = cadreService.get(cadreId);
-        MobilePhone item = mobilePhoneService.get(id);
-        if(item==null){
-            throw new IllegalStateException("Mobile phone to be edited cannot be null");
+    public String getForm(ModelMap model, @RequestParam(required = false) String id, BindingResult result) {
+
+        Cadre cadre = cadreService.get(id);
+        MobilePhone phone=mobilePhoneService.getByCadre(cadre);
+
+        if (result.hasErrors()) {
+            model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
+            return setUpModel(model, phone, cadre);
         }
-        return setUpModel(model, item );
+
+        return setUpModel(model, phone, cadre);
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.POST)
-    public String saveItem(@ModelAttribute("item") @Valid MobilePhone item, @ModelAttribute("cadre") @Valid Cadre cadre, @ModelAttribute("page") String page, ModelMap model,  BindingResult result) {
+    public String saveItem(ModelMap model, @ModelAttribute("item") @Valid MobilePhone item, BindingResult result) {
         if (result.hasErrors()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
-            return setUpModel(model, item);
+            return setUpModel(model, item, item.getCadre());
         }
-        item.setCadre(this.cadre);
+
         mobilePhoneService.save(item);
-        return "redirect:"+page+"/cadre/view?type=1&id="+this.cadre.getId();
+        return "redirect:../../view?id=" + item.getCadre().getId() + "&type=1";
     }
 }

@@ -93,10 +93,8 @@ public class AppMessage {
                 return new AppMessage.MessageBuilder(Boolean.TRUE).message("Operation cancelled").messageType(MessageType.MESSAGE).build();
             case 4:
                 return new AppMessage.MessageBuilder(Boolean.TRUE).message("Password successfully changed").messageType(MessageType.MESSAGE).build();
-            case 5:
-                return new AppMessage.MessageBuilder(Boolean.TRUE).message("Error occurred").messageType(MessageType.ERROR).build();
-            case 6:
-                return new AppMessage.MessageBuilder(Boolean.TRUE).message("You can only create this cadre from an existing patient! ").messageType(MessageType.WARNING).build();
+                case 5:
+                return new AppMessage.MessageBuilder(Boolean.TRUE).message("Erro occurred").messageType(MessageType.ERROR).build();
             default:
                 throw new IllegalArgumentException("Parameter provided not recognised :"+type);
         }

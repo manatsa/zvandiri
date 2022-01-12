@@ -52,7 +52,7 @@ public class ContactReportTask extends RecursiveTask<List> {
                     item.getDateCreated()!=null ? item.getDateCreated().toString() : "",
                     item.getCareLevel().getName(),
                     DateUtil.getStringFromDate(item.getContactDate()),
-                    item.getFollowUp().getName(),
+                    item.getCareLevelAfterAssessment().getName(),
                     item.getLocation().getName(),
                     item.getCareLevel().getName(),
                     item.getPosition().getName()

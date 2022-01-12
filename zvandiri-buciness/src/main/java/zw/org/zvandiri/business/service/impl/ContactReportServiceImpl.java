@@ -516,14 +516,7 @@ public class ContactReportServiceImpl implements ContactReportService {
                     builder.append(" and c.patient.status=:status");
                 }
             }
-            if (dto.getReason() != null) {
-                if (position == 0) {
-                    builder.append("c.reason=:reason");
-                    position++;
-                } else {
-                    builder.append(" and c.reason=:reason");
-                }
-            }
+
             if (dto.getYesNo() != null) {
                 if (position == 0) {
                     builder.append("c.attendedClinicAppointment=:attendedClinicAppointment");
@@ -567,9 +560,6 @@ public class ContactReportServiceImpl implements ContactReportService {
         }
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
-        }
-        if (dto.getReason() != null) {
-            query.setParameter("reason", dto.getReason());
         }
         if (dto.getYesNo() != null) {
             query.setParameter("attendedClinicAppointment", dto.getYesNo());

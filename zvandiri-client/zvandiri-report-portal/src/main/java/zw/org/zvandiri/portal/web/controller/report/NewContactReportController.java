@@ -178,7 +178,7 @@ public class NewContactReportController extends BaseController {
 
             Cell care = uncontactedRow.createCell(count++);
             //Optional<CareLevel> careOptional=Optional.ofNullable(contact.getCareLevel());
-            care.setCellValue(contact.getCurrentCareLevel().getName());
+            care.setCellValue(contact.getCareLevelAfterAssessment().getName());
 
             Cell loc = uncontactedRow.createCell(count++);
             //Optional<Location> locOptional=Optional.ofNullable(contact.getLocation());
@@ -190,27 +190,27 @@ public class NewContactReportController extends BaseController {
 
             Cell reason = uncontactedRow.createCell(count++);
             //Optional<Reason> reasonOptional=Optional.ofNullable(contact.getReason());
-            reason.setCellValue(contact.getReason()!=null?contact.getReason().getName():"");
+            //reason.setCellValue(contact.getReason()!=null?contact.getReason().getName():"");
 
             Cell follow = uncontactedRow.createCell(count++);
             //Optional<FollowUp> followOptional=Optional.ofNullable(contact.getFollowUp());
-            follow.setCellValue(contact.getFollowUp().getName());
+            follow.setCellValue(contact.getCareLevelAfterAssessment().getName());
 
             Cell subjective = uncontactedRow.createCell(count++);
             //Optional.ofNullable(contact.getSubjective()).ifPresent(subjective::setCellValue);
-            subjective.setCellValue(contact.getSubjective()!=null?contact.getSubjective():"");
+            //subjective.setCellValue(contact.getSubjective()!=null?contact.getSubjective():"");
 
             Cell objective = uncontactedRow.createCell(count++);
             //Optional.ofNullable(contact.getObjective()).ifPresent(objective::setCellValue);
-            objective.setCellValue(contact.getObjective()!=null?contact.getObjective():"");
+            //objective.setCellValue(contact.getObjective()!=null?contact.getObjective():"");
 
             Cell plan = uncontactedRow.createCell(count++);
             //Optional.ofNullable(contact.getPlan()).ifPresent(plan::setCellValue);
-            plan.setCellValue(contact.getPlan()!=null?contact.getPlan():"");
+            //plan.setCellValue(contact.getPlan()!=null?contact.getPlan():"");
 
             Cell action = uncontactedRow.createCell(count++);
             //Optional<ActionTaken> actionOptional=Optional.ofNullable(contact.getActionTaken());
-            action.setCellValue(contact.getActionTaken()!=null?contact.getActionTaken().getName():"");
+            //action.setCellValue(contact.getActionTaken()!=null?contact.getActionTaken().getName():"");
 
             Cell last = uncontactedRow.createCell(count++);
             if(contact.getLastClinicAppointmentDate()!=null){
@@ -238,7 +238,7 @@ public class NewContactReportController extends BaseController {
 
             Cell outcome = uncontactedRow.createCell(count++);
             //Optional<VisitOutcome> outcomeOptional=Optional.ofNullable(contact.getVisitOutcome());
-            outcome.setCellValue(contact.getVisitOutcome()!=null?contact.getVisitOutcome().getName():"");
+            //outcome.setCellValue(contact.getVisitOutcome()!=null?contact.getVisitOutcome().getName():"");
 
             Cell isCats = uncontactedRow.createCell(count++);
             //Optional<YesNo> catOptional=Optional.ofNullable(contact.getPatient().getCat());

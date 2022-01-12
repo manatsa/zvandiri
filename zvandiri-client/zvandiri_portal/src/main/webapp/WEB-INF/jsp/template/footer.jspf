@@ -4,7 +4,6 @@
 <script src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" /> "></script>
 <script src="<c:url value="/resources/datatables/js/jquery.dataTables.min.js" /> "></script>
 <script src="<c:url value="/resources/jquery-ui-1.11.4/jquery-ui.min.js" /> "></script>
-<script type="text/javascript" src="<c:url value="/resources/script/plugins/multiselect/jquery.multiselect.js" /> "></script>
 <script src="<c:url value="/resources/datatables/bootstrap/3/dataTables.bootstrap.js" /> "></script>
 <script src="<c:url value="/resources/script/plugins/metisMenu/metisMenu.min.js" /> "></script>
 <script src="<c:url value="/resources/script/plugins/jquery-validate/jquery.validate.js" /> "></script>

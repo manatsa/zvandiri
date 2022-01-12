@@ -38,10 +38,7 @@ import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.PatientDisability;
 import zw.org.zvandiri.business.domain.Referral;
-import zw.org.zvandiri.business.domain.util.FollowUp;
-import zw.org.zvandiri.business.domain.util.Gender;
-import zw.org.zvandiri.business.domain.util.Reason;
-import zw.org.zvandiri.business.domain.util.YesNo;
+import zw.org.zvandiri.business.domain.util.*;
 import zw.org.zvandiri.business.repo.PatientRepo;
 import zw.org.zvandiri.business.service.CatDetailService;
 import zw.org.zvandiri.business.service.ContactService;
@@ -99,9 +96,9 @@ public class PatientProcessResource {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
         try {
-            if(contact.getReferredPersonId() != null) {
+            /*if(contact.getReferredPersonId() != null) {
                 contact.setReferredPerson(userService.get(contact.getReferredPersonId()));
-            }
+            }*/
             contactService.save(contact);
         } catch (Exception e) {
             response.put("message", "System error occurred saving contact");
@@ -388,28 +385,11 @@ public class PatientProcessResource {
         if (item.getPosition() == null) {
             response.put("position", "Field is required");
         }
-        if (item.getReason() == null) {
-            response.put("reason", "Field is required");
-        }
-        if (item.getFollowUp() == null) {
-            response.put("followUp", "Field is required");
-        }
-        if (item.getActionTaken() == null) {
-            response.put("actionTaken", "Field is required");
-        }
-        if (item.getReason() != null) {
-            if (item.getReason().equals(Reason.INTERNAL_REFERRAL) && item.getInternalReferral() == null) {
-                response.put("internalReferral", "Field is required");
-            }
-            if (item.getReason().equals(Reason.EXTERNAL_REFERRAL) && item.getExternalReferral() == null) {
-                response.put("externalReferral", "Field is required");
-            }
-        }
-        if (item.getFollowUp() != null) {
-            if (item.getFollowUp().equals(FollowUp.STABLE) && item.getStables() == null) {
+        if (item.getCareLevelAfterAssessment() != null) {
+            if (item.getCareLevelAfterAssessment().equals(CareLevel.STANDARD) && item.getStables() == null) {
                 response.put("stables", "Select at least one item in this list");
             }
-            if (item.getFollowUp().equals(FollowUp.ENHANCED) && item.getEnhanceds() == null) {
+            if (item.getCareLevelAfterAssessment().equals(CareLevel.ENHANCED) && item.getEnhanceds() == null) {
                 response.put("enhanceds", "Select at least one item in this list");
             }
         }

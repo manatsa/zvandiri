@@ -2,7 +2,6 @@
     <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
     <li class=""><a href="#phone-detail" data-toggle="tab">Phone Info</a></li>
     <li class=""><a href="#bike-detail" data-toggle="tab">Bicycle Info</a></li>
-    <li class=""><a href="#patient-detail" data-toggle="tab">Patient Details</a></li>
     <li class=""><a href="#operations" data-toggle="tab">Operations</a></li>
 
 </ul>
@@ -25,12 +24,6 @@
         <b class="titleHeader">Bicycle Detail</b>
         <hr/>
         <%@include file="bicycleDetails.jspf" %>
-    </div>
-    <div class="tab-pane fade" id="patient-detail">
-        <br/>
-        <b class="titleHeader">Patient Detail</b>
-        <hr/>
-        <%@include file="../../template/dashboard/patientOverview.jspf" %>
     </div>
     <div class="tab-pane fade" id="operations">
         <br/>

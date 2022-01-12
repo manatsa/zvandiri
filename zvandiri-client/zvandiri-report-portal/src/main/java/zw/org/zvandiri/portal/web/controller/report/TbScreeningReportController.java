@@ -189,10 +189,10 @@ public class TbScreeningReportController extends BaseController {
                 dateStartedTreatment.setCellValue("");
             }
             XSSFCell referralForSputum = tbIptRow.createCell(++count);
-            referralForSputum.setCellValue(tbIpt.getReferralForSputum());
+            //referralForSputum.setCellValue(tbIpt.getReferralForSputum());
 
             XSSFCell tbTreatmentOutcome = tbIptRow.createCell(++count);
-            tbTreatmentOutcome.setCellValue(tbIpt.getTbTreatmentOutcome() != null ? tbIpt.getTbTreatmentOutcome().getName() : "");
+            //tbTreatmentOutcome.setCellValue(tbIpt.getTbTreatmentOutcome() != null ? tbIpt.getTbTreatmentOutcome().getName() : "");
 
             XSSFCell referredForIpt = tbIptRow.createCell(++count);
             referredForIpt.setCellValue(tbIpt.getReferredForIpt() != null ? tbIpt.getReferredForIpt().getName() : "");

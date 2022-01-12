@@ -5,13 +5,13 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import javax.persistence.Entity; import org.codehaus.jackson.annotate.JsonIgnoreProperties;;
+import javax.persistence.Entity;
 
 /**
  *
  * @author jmuzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
 public class ServiceOffered  extends BaseName {   
 
     public ServiceOffered() {

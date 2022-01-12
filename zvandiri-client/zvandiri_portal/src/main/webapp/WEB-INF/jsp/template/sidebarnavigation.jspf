@@ -33,7 +33,7 @@
 
                            ">
 				<li><a href="${page}/cadre/index.htm"><i
-						class="fa fatable fafw"></i> Cadre Management</a></li>
+						class="fa fatable fafw"></i> Manage Cadre</a></li>
 			</sec:authorize>
 			<sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
 				<li><a href="${page}/admin/index.htm"><i

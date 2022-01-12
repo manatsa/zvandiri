@@ -36,14 +36,7 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td><br/>
-                        <c:if test="${!hasBike}">
-                            <a class="pull-right" style="margin-right: 20px;"
-                               href="${page}/cadre/bike/create.form?id=${cadre.id}"> Add Bicycle Details </a>
-                        </c:if>
-                        <c:if test="${hasBike}">
-                            <a class="pull-right" style="margin-right: 20px;"
-                               href="${page}/cadre/bike/item.form?id=${bike.id}&cadreId=${cadre.id}"> Edit Bicycle Details </a>
-                        </c:if>
+                        <a class="pull-right" style="margin-right: 20px;" href="${page}/cadre/bike/item.form?id=${cadre.id}"> Edit Bicycle Details </a>
 
                     </td>
                 </tr>

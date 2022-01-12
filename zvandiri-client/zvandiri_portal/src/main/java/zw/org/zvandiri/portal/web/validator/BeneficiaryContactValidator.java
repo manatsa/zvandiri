@@ -28,8 +28,6 @@ import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.TestResult;
 import zw.org.zvandiri.business.domain.util.ContactPhoneOption;
-import zw.org.zvandiri.business.domain.util.FollowUp;
-import zw.org.zvandiri.business.domain.util.Reason;
 import zw.org.zvandiri.business.service.ContactService;
 
 /**
@@ -53,9 +51,7 @@ public class BeneficiaryContactValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Contact item = (Contact) o;
         ValidationUtils.rejectIfEmpty(errors, "contactDate", "field.empty");
-        if (item.getVisitOutcome() == null) {
-            errors.rejectValue("visitOutcome", "field.empty");
-        }
+
 
         if (item.getCareLevel() == null) {
             errors.rejectValue("careLevel", "field.empty");
@@ -66,33 +62,8 @@ public class BeneficiaryContactValidator implements Validator {
         if (item.getPosition() == null) {
             errors.rejectValue("position", "field.empty");
         }
-        if (item.getReason() == null) {
-            errors.rejectValue("reason", "field.empty");
-        }
-        if (item.getReason() != null && item.getReason().equals(Reason.OTHER)) {
-            ValidationUtils.rejectIfEmpty(errors, "otherReason", "field.empty");
-        }
-        if (item.getFollowUp() == null) {
-            errors.rejectValue("followUp", "field.empty");
-        }
-        if (item.getActionTaken() == null) {
-            errors.rejectValue("actionTaken", "field.empty");
-        }
-        if (item.getReason() != null) {
-            if (item.getReason().equals(Reason.INTERNAL_REFERRAL) && item.getInternalReferral() == null) {
-                errors.rejectValue("internalReferral", "field.empty");
-            }
-            if (item.getReason().equals(Reason.EXTERNAL_REFERRAL) && item.getExternalReferral() == null) {
-                errors.rejectValue("externalReferral", "field.empty");
-            }
-        }
-        if (item.getFollowUp() != null) {
-            if (item.getFollowUp().equals(FollowUp.STABLE) && item.getStables() == null) {
-                errors.rejectValue("stables", "item.select.one");
-            }
-            if (item.getFollowUp().equals(FollowUp.ENHANCED) && item.getEnhanceds() == null) {
-                errors.rejectValue("enhanceds", "item.select.one");
-            }
+        if (item.getCareLevelAfterAssessment() == null) {
+            errors.rejectValue("careLevelAfterAssessment", "field.empty");
         }
         if (item.getContactDate() != null && item.getContactDate().after(new Date())) {
             errors.rejectValue("contactDate", "date.aftertoday");
@@ -108,10 +79,6 @@ public class BeneficiaryContactValidator implements Validator {
         }
         if (item.getLastClinicAppointmentDate() != null && item.getAttendedClinicAppointment() == null) {
             errors.rejectValue("attendedClinicAppointment", "field.empty");
-        }
-        if (item.getActionTaken() != null && item.getActionTaken().getName().equalsIgnoreCase("Internal Referral")
-                && item.getReferredPerson() == null) {
-            errors.rejectValue("referredPerson", "field.empty");
         }
         if (item.getLocation() != null) {
             if (item.getLocation().getName().equalsIgnoreCase("Phone")) {

@@ -33,8 +33,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.ToString;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.Formula;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -55,15 +55,13 @@ import zw.org.zvandiri.business.domain.util.YesNo;
 @Entity @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(indexes = {
 		@Index(name = "contact_patient", columnList = "patient"),
-		@Index(name = "contact_internal_referral", columnList = "internal_referral"),
-		@Index(name = "contact_external_referral", columnList = "external_referral"),
 		@Index(name = "contact_contact_date", columnList = "contactDate"),
 		@Index(name = "contact_location", columnList = "location"),
-		@Index(name = "contact_period", columnList = "period"),
 		@Index(name = "contact_position", columnList = "position")
 })
 public class Contact extends BaseEntity {
 
+    @JsonIgnore
     @ManyToOne
     private Patient patient;
     @Temporal(TemporalType.DATE)
@@ -74,6 +72,9 @@ public class Contact extends BaseEntity {
     private Date nextClinicAppointmentDate;
     @Enumerated
     private CareLevel careLevel;
+    @Enumerated
+    @Column(name = "follow_up")
+    private FollowUp careLevelAfterAssessment;
     @ManyToOne
     private Location location;
     @Enumerated
@@ -81,7 +82,7 @@ public class Contact extends BaseEntity {
     private Integer numberOfSms;
     @ManyToOne
     private Position position;
-    @Enumerated
+    /*@Enumerated
     private Reason reason;
     private String otherReason;
     @ManyToOne
@@ -98,58 +99,17 @@ public class Contact extends BaseEntity {
     private String objective;
     @Enumerated
     private DifferentiatedService differentiatedService;
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "contact_lab_service", joinColumns = {
-        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "lab_service_id", nullable = false)})
-    private Set<LabTask> labTasks = new HashSet<>();
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "contact_clinical_assessment", joinColumns = {
-        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "assessment_id", nullable = false)})
-    private Set<Assessment> clinicalAssessments = new HashSet<>();
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "contact_non_clinical_assessment", joinColumns = {
-        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "assessment_id", nullable = false)})
-    private Set<Assessment> nonClinicalAssessments = new HashSet<>();
+    @JsonIgnore
     @Column(columnDefinition = "text")
     private String plan;
     @ManyToOne
     private ActionTaken actionTaken;
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "contact_stable", joinColumns = {
-        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "stable_id", nullable = false)})
-    private Set<Stable> stables = new HashSet<>();
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "contact_enhanced", joinColumns = {
-        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "enhanced_id", nullable = false)})
-    private Set<Enhanced> enhanceds = new HashSet<>();
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "contact_service_offered", joinColumns = {
-        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "service_offered_id", nullable = false)})
-    private Set<ServiceOffered> serviceOffereds = new HashSet<>();
-    @ManyToOne
-    @JsonIgnore
-    private Contact parent;
-    @ManyToOne
-    @JsonIgnore
-    private User referredPerson;
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date lastClinicAppointmentDate;
-    private YesNo attendedClinicAppointment;
-    @Column(name = "`open`")
+    /*@Column(name = "`open`")
     private Boolean open = Boolean.FALSE;
     @Column(columnDefinition = "text")
     private String defaultMessage;
     @Transient
     private String currentElement;
-    @Transient
-    private UserLevel userLevel;
     @Transient
     private District district;
     @Transient
@@ -161,10 +121,65 @@ public class Contact extends BaseEntity {
     @Enumerated
     private VisitOutcome visitOutcome;
     private String referredPersonId;
+    /*@ManyToOne
+    @JsonIgnore
+    private Contact parent;
+    @ManyToOne
+    @JsonIgnore
+    private User referredPerson;*/
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "contact_lab_service", joinColumns = {
+        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "lab_service_id", nullable = false)})
+    private Set<LabTask> labTasks = new HashSet<>();
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "contact_clinical_assessment", joinColumns = {
+        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "assessment_id", nullable = false)})
+    private Set<Assessment> clinicalAssessments = new HashSet<>();
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "contact_non_clinical_assessment", joinColumns = {
+        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "assessment_id", nullable = false)})
+    private Set<Assessment> nonClinicalAssessments = new HashSet<>();
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "contact_stable", joinColumns = {
+        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "stable_id", nullable = false)})
+    private Set<Stable> stables = new HashSet<>();
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "contact_enhanced", joinColumns = {
+        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "enhanced_id", nullable = false)})
+    private Set<Enhanced> enhanceds = new HashSet<>();
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "contact_service_offered", joinColumns = {
+        @JoinColumn(name = "contact_id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "service_offered_id", nullable = false)})
+    private Set<ServiceOffered> serviceOffereds = new HashSet<>();
+
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date lastClinicAppointmentDate;
+    private YesNo attendedClinicAppointment;
     @Transient
     private InvestigationTest viralLoad;
     @Transient
     private InvestigationTest cd4Count;
+    @Transient
+    private UserLevel userLevel;
+    @Enumerated
+    private YesNo eac;
+    private Integer eac1;
+    private Integer eac2;
+    private Integer eac3;
+    private String contactMadeBy;
 
     public Contact(Patient patient) {
         this.patient = patient;
@@ -191,6 +206,14 @@ public class Contact extends BaseEntity {
 
     public CareLevel getCareLevel() {
         return careLevel;
+    }
+
+    public FollowUp getCareLevelAfterAssessment() {
+        return careLevelAfterAssessment;
+    }
+
+    public void setCareLevelAfterAssessment(FollowUp careLevelAfterAssessment) {
+        this.careLevelAfterAssessment = careLevelAfterAssessment;
     }
 
     public void setCareLevel(CareLevel careLevel) {
@@ -221,7 +244,7 @@ public class Contact extends BaseEntity {
         this.position = position;
     }
 
-    public Reason getReason() {
+   /* public Reason getReason() {
         return reason;
     }
 
@@ -267,7 +290,7 @@ public class Contact extends BaseEntity {
 
     public void setObjective(String objective) {
         this.objective = objective;
-    }
+    }*/
 
     public Set<Assessment> getClinicalAssessments() {
         return clinicalAssessments;
@@ -285,7 +308,7 @@ public class Contact extends BaseEntity {
         this.nonClinicalAssessments = nonClinicalAssessments;
     }
 
-    public String getPlan() {
+   /* public String getPlan() {
         return plan;
     }
 
@@ -299,7 +322,7 @@ public class Contact extends BaseEntity {
 
     public void setActionTaken(ActionTaken actionTaken) {
         this.actionTaken = actionTaken;
-    }
+    }*/
 
     public Set<Stable> getStables() {
         return stables;
@@ -317,38 +340,6 @@ public class Contact extends BaseEntity {
         this.enhanceds = enhanceds;
     }
 
-    public Contact getParent() {
-        return parent;
-    }
-
-    public void setParent(Contact parent) {
-        this.parent = parent;
-    }
-
-    public String getCurrentElement() {
-        return currentElement;
-    }
-
-    public void setCurrentElement(String currentElement) {
-        this.currentElement = currentElement;
-    }
-
-    public Period getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(Period period) {
-        this.period = period;
-    }
-
-    public User getReferredPerson() {
-        return referredPerson;
-    }
-
-    public void setReferredPerson(User referredPerson) {
-        this.referredPerson = referredPerson;
-    }
-
     public Date getLastClinicAppointmentDate() {
         return lastClinicAppointmentDate;
     }
@@ -363,25 +354,6 @@ public class Contact extends BaseEntity {
 
     public void setAttendedClinicAppointment(YesNo attendedClinicAppointment) {
         this.attendedClinicAppointment = attendedClinicAppointment;
-    }
-
-    public Boolean getOpen() {
-        if (open == null) {
-            return Boolean.TRUE;
-        }
-        return open;
-    }
-
-    public void setOpen(Boolean open) {
-        this.open = open;
-    }
-
-    public String getDefaultMessage() {
-        return defaultMessage;
-    }
-
-    public void setDefaultMessage(String defaultMessage) {
-        this.defaultMessage = defaultMessage;
     }
 
     public ContactPhoneOption getContactPhoneOption() {
@@ -416,6 +388,57 @@ public class Contact extends BaseEntity {
         this.userLevel = userLevel;
     }
 
+    /* public Contact getParent() {
+        return parent;
+    }
+
+    public void setParent(Contact parent) {
+        this.parent = parent;
+    }
+
+    public String getCurrentElement() {
+        return currentElement;
+    }
+
+    public void setCurrentElement(String currentElement) {
+        this.currentElement = currentElement;
+    }
+
+    public Period getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Period period) {
+        this.period = period;
+    }
+
+    public User getReferredPerson() {
+        return referredPerson;
+    }
+
+    public void setReferredPerson(User referredPerson) {
+        this.referredPerson = referredPerson;
+    }
+
+    public Boolean getOpen() {
+        if (open == null) {
+            return Boolean.TRUE;
+        }
+        return open;
+    }
+
+    public void setOpen(Boolean open) {
+        this.open = open;
+    }
+
+    public String getDefaultMessage() {
+        return defaultMessage;
+    }
+
+    public void setDefaultMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
+    }
+
     public District getDistrict() {
         return district;
     }
@@ -436,13 +459,6 @@ public class Contact extends BaseEntity {
         return previousCareLevel;
     }
 
-    public CareLevel getCurrentCareLevel() {
-        if (previousCareLevel != null) {
-            return CareLevel.get(previousCareLevel + 1);
-        }
-        return null;
-    }
-
     public String getReferredPersonId() {
         return referredPersonId;
     }
@@ -451,36 +467,11 @@ public class Contact extends BaseEntity {
         this.referredPersonId = referredPersonId;
     }
 
-    public InvestigationTest getViralLoad() {
-        return viralLoad;
-    }
-
-    public void setViralLoad(InvestigationTest viralLoad) {
-        this.viralLoad = viralLoad;
-    }
-
-    public InvestigationTest getCd4Count() {
-        return cd4Count;
-    }
-
-    public void setCd4Count(InvestigationTest cd4Count) {
-        this.cd4Count = cd4Count;
-    }
-
-    public VisitOutcome getVisitOutcome() {
-        return visitOutcome;
-    }
-
-    public void setVisitOutcome(VisitOutcome visitOutcome) {
-        this.visitOutcome = visitOutcome;
-    }
-
-    public Set<LabTask> getLabTasks() {
-        return labTasks;
-    }
-
-    public void setLabTasks(Set<LabTask> labTasks) {
-        this.labTasks = labTasks;
+    public CareLevel getCurrentCareLevel() {
+        if (careLevel != null) {
+            return CareLevel.get(careLevel + 1);
+        }
+        return null;
     }
 
     public DifferentiatedService getDifferentiatedService() {
@@ -498,10 +489,87 @@ public class Contact extends BaseEntity {
     public void setOtherReason(String otherReason) {
         this.otherReason = otherReason;
     }
+    public VisitOutcome getVisitOutcome() {
+        return visitOutcome;
+    }
+
+    public void setVisitOutcome(VisitOutcome visitOutcome) {
+        this.visitOutcome = visitOutcome;
+    }*/
+
+    public InvestigationTest getViralLoad() {
+        return viralLoad;
+    }
+
+    public void setViralLoad(InvestigationTest viralLoad) {
+        this.viralLoad = viralLoad;
+    }
+
+    public InvestigationTest getCd4Count() {
+        return cd4Count;
+    }
+
+    public void setCd4Count(InvestigationTest cd4Count) {
+        this.cd4Count = cd4Count;
+    }
+
+    public Set<LabTask> getLabTasks() {
+        return labTasks;
+    }
+
+    public void setLabTasks(Set<LabTask> labTasks) {
+        this.labTasks = labTasks;
+    }
+
+    public YesNo getEac() {
+        return eac;
+    }
+
+    public void setEac(YesNo eac) {
+        this.eac = eac;
+    }
+
+    public Integer getEac1() {
+        return eac1;
+    }
+
+    public void setEac1(Integer eac1) {
+        this.eac1 = eac1;
+    }
+
+    public Integer getEac2() {
+        return eac2;
+    }
+
+    public void setEac2(Integer eac2) {
+        this.eac2 = eac2;
+    }
+
+    public Integer getEac3() {
+        return eac3;
+    }
+
+    public void setEac3(Integer eac3) {
+        this.eac3 = eac3;
+    }
+
+    public String getContactMadeBy() {
+        return contactMadeBy;
+    }
+
+    public void setContactMadeBy(String contactMadeBy) {
+        this.contactMadeBy = contactMadeBy;
+    }
 
     @Override
     public String toString() {
-        return super.toString().concat("Contact{" + "patient=" + patient + ", contactDate=" + contactDate + ", nextClinicAppointmentDate=" + nextClinicAppointmentDate + ", careLevel=" + careLevel + ", location=" + location + ", contactPhoneOption=" + contactPhoneOption + ", numberOfSms=" + numberOfSms + ", position=" + position + ", reason=" + reason + ", otherReason=" + otherReason + ", period=" + period + ", internalReferral=" + internalReferral + ", externalReferral=" + externalReferral + ", followUp=" + followUp + ", subjective=" + subjective + ", objective=" + objective + ", differentiatedService=" + differentiatedService + ", labTasks=" + labTasks + ", clinicalAssessments=" + clinicalAssessments + ", nonClinicalAssessments=" + nonClinicalAssessments + ", plan=" + plan + ", actionTaken=" + actionTaken + ", stables=" + stables + ", enhanceds=" + enhanceds + ", serviceOffereds=" + serviceOffereds + ", parent=" + parent + ", referredPerson=" + referredPerson + ", lastClinicAppointmentDate=" + lastClinicAppointmentDate + ", attendedClinicAppointment=" + attendedClinicAppointment + ", open=" + open + ", defaultMessage=" + defaultMessage + ", currentElement=" + currentElement + ", userLevel=" + userLevel + ", district=" + district + ", province=" + province + ", previousCareLevel=" + previousCareLevel + ", currentCareLevel=" + currentCareLevel + ", visitOutcome=" + visitOutcome + ", referredPersonId=" + referredPersonId + ", viralLoad=" + viralLoad + ", cd4Count=" + cd4Count + '}');
+        return super.toString().concat("Contact{" + "patient=" + patient + ", contactDate=" + contactDate + ", nextClinicAppointmentDate=" +
+                nextClinicAppointmentDate + ", careLevel=" + careLevel + ", location=" + location + ", contactPhoneOption=" +
+                contactPhoneOption + ", numberOfSms=" + numberOfSms + ", position=" + position   +
+                ", clinicalAssessments=" + clinicalAssessments + ", nonClinicalAssessments=" + nonClinicalAssessments + ", serviceOffereds=" + serviceOffereds
+                + ", lastClinicAppointmentDate=" + lastClinicAppointmentDate + ", attendedClinicAppointment=" + attendedClinicAppointment +
+                ", careLevelAfterAssessment ="+careLevelAfterAssessment+", EAC="+eac+", eac1="+eac1+",eac2="+eac2+",eac3="+eac3+",contactMadeBy="+contactMadeBy+
+                '}');
     }
 
 }

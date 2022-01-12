@@ -50,14 +50,7 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td><br/>
-                        <c:if test="${!hasPhone}">
-                            <a class="pull-right" style="margin-right: 20px;"
-                               href="${page}/cadre/phone/create.form?id=${cadre.id}"> Add Phone Details </a>
-                        </c:if>
-                        <c:if test="${hasPhone}">
-                            <a class="pull-right" style="margin-right: 20px;"
-                               href="${page}/cadre/phone/item.form?id=${phone.id}&cadreId=${cadre.id}"> Edit Phone Details </a>
-                        </c:if>
+                        <a class="pull-right" style="margin-right: 20px;" href="${page}/cadre/phone/item.form?id=${cadre.id}"> Edit Phone Details </a>
                     </td>
                 </tr>
 

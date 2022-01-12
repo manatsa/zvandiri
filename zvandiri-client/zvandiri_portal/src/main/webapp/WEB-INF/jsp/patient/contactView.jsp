@@ -30,7 +30,7 @@
                             ${item.attendedClinicAppointment.name}
                         </div>
                         <div class="form-group">
-                            <label>Level of Care :</label>
+                            <label>Previous Care Level :</label>
                             ${item.careLevel.name}
                         </div>
                         <div class="form-group">
@@ -41,22 +41,6 @@
                             <label>Position :</label>
                             ${item.position.name}
                         </div>
-                        <div class="form-group">
-                            <label>Reason :</label>
-                            ${item.reason.name}
-                        </div>
-                        <c:if test="${external}">
-                            <div class="form-group">
-                                <label>External Referral :</label>
-                                ${item.externalReferral.name}
-                            </div>
-                        </c:if>
-                        <c:if test="${internal}">
-                            <div class="form-group">
-                                <label>Internal Referral :</label>
-                                ${item.internalReferral.name}
-                            </div>
-                        </c:if>                            
                         <c:if test="${stable}">
                             <div class="form-group">
                                 <label>Stable :</label><br/>
@@ -73,14 +57,7 @@
                                 </c:forEach>
                             </div>
                         </c:if>
-                        <div class="form-group">
-                            <label>Subjective :</label>
-                            ${item.subjective}
-                        </div> 
-                        <div class="form-group">
-                            <label>Objective :</label>
-                            ${item.objective}
-                        </div> 
+
                         <div class="form-group">
                             <label>Clinical Assessment :</label><br/>
                             <c:forEach items="${item.clinicalAssessments}" var="assessment">
@@ -93,18 +70,12 @@
                                 ${assessment.name} <br/>
                             </c:forEach>
                         </div>
+
                         <div class="form-group">
-                            <label>Plan :</label>
-                            ${item.plan}
+                            <label>Current Care Level :</label>
+                            ${item.careLevelAfterAssessment}
                         </div>
-                        <div class="form-group">
-                            <label>Follow Up :</label>
-                            ${item.followUp}
-                        </div>
-                        <div class="form-group">
-                            <label>Action Taken :</label><br/>
-                            ${item.actionTaken.name}
-                        </div>
+
                     </div>
                 </div>
             </div>

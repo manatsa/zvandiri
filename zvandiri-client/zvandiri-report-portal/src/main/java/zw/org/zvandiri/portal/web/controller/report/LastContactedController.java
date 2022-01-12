@@ -212,7 +212,7 @@ public class LastContactedController extends BaseController {
 
             XSSFCell careLevel = contactRow.createCell(++count);
             //Optional<CareLevel> careLevelOptional=Optional.ofNullable(contact.getCareLevel());
-            careLevel.setCellValue(contact.getCurrentCareLevel()!=null?contact.getCurrentCareLevel().getName():"");
+            careLevel.setCellValue(contact.getCareLevelAfterAssessment()!=null?contact.getCareLevelAfterAssessment().getName():"");
 
             XSSFCell cd4Count = contactRow.createCell(++count);
             //Optional<InvestigationTest> cd4Optional=Optional.ofNullable(contact.getCd4Count());
@@ -232,7 +232,7 @@ public class LastContactedController extends BaseController {
 
             XSSFCell plan = contactRow.createCell(++count);
             //Optional.ofNullable(contact.getPlan()).ifPresent(plan::setCellValue);
-            plan.setCellValue(contact.getPlan()!=null?contact.getPlan():"");
+            //plan.setCellValue(contact.getPlan()!=null?contact.getPlan():"");
 
 
         }

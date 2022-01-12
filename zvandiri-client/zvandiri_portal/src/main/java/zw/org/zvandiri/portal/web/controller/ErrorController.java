@@ -15,7 +15,6 @@
  */
 package zw.org.zvandiri.portal.web.controller;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -36,24 +35,23 @@ public class ErrorController extends BaseController{
         String errorMsg = "";
         String pageTitle = APP_PREFIX;
         int errorCode = getErrorCode(request);
-        Throwable throwable = (Throwable) request.getAttribute(RequestDispatcher.ERROR_EXCEPTION);
         final String referer = request.getHeader("referer");
         switch(errorCode){
             case 400:
                 pageTitle += "User input error";
-                errorMsg = "Application encountered an error due to user input:\n"+throwable.getMessage();
+                errorMsg = "Application encountered an error due to user input.";
                 break;
             case 401:
                 pageTitle += "Access denied";
-                errorMsg = "User is not authorised to access this resource please contact system administrator:\n"+throwable.getMessage();
+                errorMsg = "User is not authorised to access this resource please contact system administrator.";
                 break;
             case 404:
                 pageTitle += "Page/ Item not found or has expired";
-                errorMsg = "Page or item being searched not found or has expired:\n"+throwable.getMessage();
+                errorMsg = "Page or item being searched not found or has expired.";
                 break;
             case 500:
                 pageTitle += "Application/ System error";
-                errorMsg = "Application encountered an internal error processing this request:\n"+throwable.getMessage();
+                errorMsg = "Application encountered an internal error processing this request.";
                 break;
         }
         map.addAttribute("pageTitle", pageTitle);

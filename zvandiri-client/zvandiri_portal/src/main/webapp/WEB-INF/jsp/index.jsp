@@ -10,7 +10,7 @@
                 <%@include file="template/indexTopNotifications.jspf" %>
                 <div class="row">
                     <!--Start of top left panel -->
-                    <div class="col-lg-6">
+                    <%--<div class="col-lg-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 Distribution of Clients By Age Group
@@ -19,9 +19,9 @@
                                 <img class="img-responsive" src="${page}${patientAgeGroupDistribution}"/>
                             </div>                        
                         </div>
-                    </div>
+                    </div>--%>
                     <!--Start of top right panel -->
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 Notifications
@@ -55,7 +55,7 @@
                         </div>
                     </div><br/>
                     <!-- Start of  bottom left panel-->
-                    <div class="col-lg-6">
+                    <%--<div class="col-lg-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 Number of contacts past 6 months
@@ -64,18 +64,18 @@
                                 <img class="img-responsive" src="${page}${contactLevelOfCareDistribution}"/>
                             </div>                        
                         </div>
-                    </div>
+                    </div>--%>
                     <!--Start of bottom right panel -->
-                    <div class="col-lg-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Trends of Contacts by care level
-                            </div>
-                            <div class="panel-body">
-                                <img class="img-responsive" src="${page}${contactLevelTrend}"/>
-                            </div>                        
-                        </div>
-                    </div>                    
+                    <%--<div class="col-lg-6">--%>
+                        <%--<div class="panel panel-default">--%>
+                            <%--<div class="panel-heading">--%>
+                                <%--Trends of Contacts by care level--%>
+                            <%--</div>--%>
+                            <%--<div class="panel-body">--%>
+                                <%--<img class="img-responsive" src="${page}${contactLevelTrend}"/>--%>
+                            <%--</div>                        --%>
+                        <%--</div>--%>
+                    <%--</div>                    --%>
                 </div>
             </div>
         </div>

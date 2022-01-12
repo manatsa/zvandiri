@@ -31,4 +31,7 @@ public interface AssessmentRepo extends AbstractNameDescRepo<Assessment, String>
     public List<Assessment> getOptAll(@Param("active") Boolean active);
     
     public List<Assessment> findByContactAssessmentOrderByNameAsc(ContactAssessment contactAssessment);
+
+
+    public List<Assessment> findByContactAssessmentAndActiveOrderByNameAsc(ContactAssessment contactAssessment, Boolean active);
 }

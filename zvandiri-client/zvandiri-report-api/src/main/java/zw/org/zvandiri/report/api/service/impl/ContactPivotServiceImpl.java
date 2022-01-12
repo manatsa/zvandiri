@@ -60,7 +60,7 @@ public class ContactPivotServiceImpl implements ContactPivotService {
                 items.add(new ContactDistrictPivotDTO(
                         DateUtil.getYearMonthName(c.getContactDate()),
                         c.getCareLevel().getName(),
-                        c.getFollowUp().getName(),
+                        c.getCareLevelAfterAssessment().getName(),
                         AgeGroup.get(AgeGroup.getAgeRange(c.getPatient().getAge())).getAltName(),
                         c.getPatient().getGender().getName(),
                         c.getPatient().getPrimaryClinic().getName()
@@ -69,7 +69,7 @@ public class ContactPivotServiceImpl implements ContactPivotService {
                 items.add(new ContactProvincePivotDTO(
                         DateUtil.getYearMonthName(c.getContactDate()),
                         c.getCareLevel().getName(),
-                        c.getFollowUp().getName(),
+                        c.getCareLevelAfterAssessment().getName(),
                         AgeGroup.get(AgeGroup.getAgeRange(c.getPatient().getAge())).getAltName(),
                         c.getPatient().getGender().getName(),
                         c.getPatient().getPrimaryClinic().getDistrict().getName()));
@@ -77,7 +77,7 @@ public class ContactPivotServiceImpl implements ContactPivotService {
                 items.add(new ContactNationalPivotDTO(
                         DateUtil.getYearMonthName(c.getContactDate()),
                         c.getCareLevel().getName(),
-                        c.getFollowUp().getName(),
+                        c.getCareLevelAfterAssessment().getName(),
                         AgeGroup.get(AgeGroup.getAgeRange(c.getPatient().getAge())).getAltName(),
                         c.getPatient().getGender().getName(),
                         c.getPatient().getPrimaryClinic().getDistrict().getProvince().getName()));

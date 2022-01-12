@@ -24,9 +24,11 @@ import zw.org.zvandiri.business.domain.MentalHealthScreening;
 import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.MentalHealthScreeningService;
 
+import java.util.Date;
+
 /**
  *
- * @author tasu
+ * @author manatsachinyeruse@gmail.com
  */
 @Component
 public class MentalHealthScreeningValidator implements Validator{
@@ -43,42 +45,37 @@ public class MentalHealthScreeningValidator implements Validator{
     public void validate(Object o, Errors errors) {
         ValidationUtils.rejectIfEmpty(errors, "screenedForMentalHealth", "field.empty");
         MentalHealthScreening item = (MentalHealthScreening) o;
-        MentalHealthScreening old = null;
         if(item.getScreenedForMentalHealth() != null && item.getScreenedForMentalHealth().equals(YesNo.YES)) {
-            ValidationUtils.rejectIfEmpty(errors, "screening", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "risk", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "support", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors, "referral", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors, "diagnosis", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors, "intervention", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "dateScreened", "field.empty");
+
+            if(item.getDateScreened()!=null && item.getDateScreened().after(new Date())){
+                errors.rejectValue("dateScreened","date.to.be.past");
+            }
+
             if(item.getRisk() != null && item.getRisk().equals(YesNo.YES)) {
                 if(item.getIdentifiedRisks() == null) {
                     ValidationUtils.rejectIfEmpty(errors, "identifiedRisks", "item.select.one");
                 }
+
             }
             if(item.getSupport()!= null && item.getSupport().equals(YesNo.YES)) {
                 if(item.getSupports() == null) {
                     ValidationUtils.rejectIfEmpty(errors, "supports", "item.select.one");
                 }
             }
-            if(item.getReferral()!= null && item.getReferral().equals(YesNo.YES)) {
-                if(item.getReferrals() == null) {
-                    ValidationUtils.rejectIfEmpty(errors, "referrals", "item.select.one");
-                    ValidationUtils.rejectIfEmpty(errors, "referralComplete", "field.empty");
-                }
-            }
-            if(item.getDiagnosis()!= null && item.getDiagnosis().equals(YesNo.YES)) {
-                if(item.getDiagnoses() == null) {
-                    ValidationUtils.rejectIfEmpty(errors, "diagnoses", "item.select.one");
-                }
-            }
-            if(item.getIntervention()!= null && item.getIntervention().equals(YesNo.YES)) {
-                if(item.getInterventions() == null) {
-                    ValidationUtils.rejectIfEmpty(errors, "interventions", "item.select.one");
-                }
-            }
+
+        }else{
+            item.setIdentifiedRisks(null);
+            item.setDateScreened(null);
+            item.setRisk(null);
+            item.setSupport(null);
+            item.setSupports(null);
         }
     }
+
+
+
     
 }

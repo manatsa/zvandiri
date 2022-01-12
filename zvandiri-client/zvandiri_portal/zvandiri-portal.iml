@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" version="4">
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
-    <facet type="Spring" name="Spring">
+    <facet type="jpa" name="JPA">
       <configuration>
-        <fileset id="fileset" name="Spring Application Context" removed="false">
-          <file>file://$MODULE_DIR$/src/main/resources/applicationContext.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/zw/org/zvandiri/portal/resources/applicationContext.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/zw/org/zvandiri/portal/resources/securityContext.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/securityContext.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/zw/org/zvandiri/portal/resources/zvandiri-webflow-config.xml</file>
-          <file>file://$MODULE_DIR$/../../zvandiri-buciness/src/main/resources/zw/org/zvandiri/business/resources/mailConfig.xml</file>
-          <file>file://$MODULE_DIR$/src/main/java/zw/org/zvandiri/portal/config/ApplicationContext.java</file>
-          <file>file://$MODULE_DIR$/src/main/java/zw/org/zvandiri/portal/config/PatientStatusAutoUpdaterConfig.java</file>
-          <file>file://$MODULE_DIR$/src/main/java/zw/org/zvandiri/portal/config/PeriodConfig.java</file>
-        </fileset>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="Hibernate" />
+        <datasource-mapping>
+          <factory-entry name="Entities" />
+          <factory-entry name="zvandiri-portal" />
+        </datasource-mapping>
       </configuration>
+    </facet>
+    <facet type="Spring" name="Spring">
+      <configuration />
     </facet>
     <facet type="web" name="Web">
       <configuration>
@@ -36,8 +34,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:jcl-over-slf4j:1.7.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.webflow:spring-webflow:2.4.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: opensymphony:ognl:2.6.11" level="project" />

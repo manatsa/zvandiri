@@ -53,63 +53,63 @@ public class CadreBikeController extends BaseController {
     @Resource
     private ProvinceService provinceService;
 
-    Cadre cadre=new Cadre();
 
-
-    public String setUpModel(ModelMap model, Bicycle item, Integer type) {
-        model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit Cadre");
+    public String setUpModel(ModelMap model, Bicycle item, Cadre cadre) {
+        model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit Cadre :"+ cadre!=null?cadre.getName():"");
         model.addAttribute("provinces", provinceService.getAll());
         model.addAttribute("formAction", "item.form");
         model.addAttribute("bikeCondition", Condition.values());
         model.addAttribute("bikeStatus", PhoneStatus.values());
-        model.addAttribute("cadre", this.cadre);
-        model.addAttribute("item", item);
-        if(type!=null && type>0) {
-            model.addAttribute("message", AppMessage.getMessage(type));
-        }
-
+        if(item!=null){
             if(cadre!=null){
                 if (cadre.getPrimaryClinic().getProvince() != null) {
-                    model.addAttribute("districts", districtService.getDistrictByProvince(cadre.getProvince()));
+                    model.addAttribute("districts", districtService.getDistrictByProvince(item.getCadre().getProvince()));
                     if (item.getCadre().getDistrict() != null) {
-                        model.addAttribute("facilities", facilityService.getOptByDistrict(cadre.getDistrict()));
+                        model.addAttribute("facilities", facilityService.getOptByDistrict(item.getCadre().getDistrict()));
                     }
                 }
+            }else{
+                item.setCadre(cadre);
             }
+
+            model.addAttribute("cadre", cadre);
+            model.addAttribute("item", item);
+
+        }else{
+            item=new Bicycle(cadre);
+            model.addAttribute("item", item);
+
+        }
+
+        System.err.println("ITEM"+item);
         return "cadre/bikeForm";
     }
 
-
-    @RequestMapping(value = "/create.form", method = RequestMethod.GET)
-    public String getCreateForm(ModelMap model, @RequestParam(required = false) String id) {
-        Cadre cadre = cadreService.get(id);
-        this.cadre=cadre;
-        Bicycle item=new Bicycle();
-        item.setCadre(cadre);
-        return setUpModel(model, item, null );
-    }
-
     @RequestMapping(value = "/item.form", method = RequestMethod.GET)
-    public String getForm(ModelMap model, @RequestParam(required = false) String id, @RequestParam(required = false) String cadreId) {
-        cadre = cadreService.get(cadreId);
-        Bicycle item = bicycleService.get(id);
+    public String getForm(ModelMap model, @RequestParam(required = false) String id, @ModelAttribute("bike") Bicycle phone1) {
 
-        //System.err.println("CADRE: "+cadre+"\nBike: "+item);
+        Cadre cadre = cadreService.get(id);
+        Bicycle bike=bicycleService.getByCadre(cadre);
 
-        if(item==null){
-            throw new IllegalStateException("Bicycle to be edited cannot be null");
+        if(bike!=null){
+            return setUpModel(model, bike, cadre);
+        }else{
+
+            bike=new Bicycle(cadre);
+
+
         }
-        return setUpModel(model, item ,null);
+        System.err.println("CADRE ID: "+bike.getCadre().toString());
+        return setUpModel(model, bike, cadre);
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.POST)
-    public String saveItem(@ModelAttribute("item") @Valid Bicycle item, @ModelAttribute("cadre") @Valid Cadre cadre, @ModelAttribute("page") String page, ModelMap model,  BindingResult result) {
+    public String saveItem(ModelMap model, @ModelAttribute("item") @Valid Bicycle item, BindingResult result) {
         if (result.hasErrors()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
-            return setUpModel(model, item, Integer.valueOf(1));
+            return setUpModel(model, item, item.getCadre());
         }
-        item.setCadre(this.cadre);
         bicycleService.save(item);
-        return "redirect:"+page+"/cadre/view?type=1&id="+this.cadre.getId();
+        return "redirect:../../view?id=" + item.getCadre().getId() + "&type=1";
     }
 }

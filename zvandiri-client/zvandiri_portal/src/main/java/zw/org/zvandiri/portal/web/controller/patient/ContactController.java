@@ -16,16 +16,15 @@
 package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.*;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.CareLevel;
@@ -59,6 +58,7 @@ import java.util.HashSet;
 import zw.org.zvandiri.business.service.LabTaskService;
 
 import zw.org.zvandiri.portal.web.validator.BeneficiaryContactValidator;
+import zw.org.zvandiri.portal.web.validator.ContactsValidator;
 
 /**
  *
@@ -103,7 +103,15 @@ public class ContactController extends BaseController {
     private UserRoleService userRoleService;
     @Resource
     private LabTaskService labTaskService;
+    @Resource
+    ContactsValidator contactsValidator;
+
     private final Logger LOG = Logger.getLogger(ContactController.class);
+
+    @InitBinder
+    protected void initBinder(final HttpServletRequest request, final ServletRequestDataBinder binder) {
+        binder.addValidators(contactsValidator);
+    }
 
     public String setUpModel(ModelMap model, Contact item, String view) {
         Patient patient = item.getPatient();
@@ -137,10 +145,10 @@ public class ContactController extends BaseController {
                 }*/
                 model.addAttribute("showProvince", Boolean.TRUE);
                 model.addAttribute("showDistrict", Boolean.TRUE);
-                model.addAttribute("districts", districtService.getDistrictByProvince(item.getProvince()));
+                //model.addAttribute("districts", districtService.getDistrictByProvince(item.getProvince()));
             }
         }
-        if (item.getReason() != null) {
+        /*if (item.getReason() != null) {
             if (item.getReason().equals(Reason.EXTERNAL_REFERRAL)) {
                 model.addAttribute("external", Boolean.TRUE);
                 model.addAttribute("externalReferrals", externalReferralService.getAll());
@@ -150,7 +158,7 @@ public class ContactController extends BaseController {
             }
         }
         if (item.getCareLevel() != null) {
-            if (item.getCareLevel().equals(CareLevel.STABLE)) {
+            if (item.getCareLevel().equals(CareLevel.STANDARD)) {
                 model.addAttribute("stable", Boolean.TRUE);
                 model.addAttribute("stables", stableService.getAll());
             } else if (item.getCareLevel().equals(CareLevel.ENHANCED)) {
@@ -169,7 +177,7 @@ public class ContactController extends BaseController {
                 item.setLastClinicAppointmentDate(latestContact.getNextClinicAppointmentDate());
                 item.setCareLevel(latestContact.getCareLevel());
             }
-        }
+        }*/
 
         getPatientStatus(item.getPatient(), model);
         setViralLoad(model, item.getPatient());
@@ -215,9 +223,9 @@ public class ContactController extends BaseController {
         }
         contactService.saveContactDTO(item);
         //if external referral redirect to new referral form
-        if (item.getActionTaken() != null && item.getActionTaken().getName().equalsIgnoreCase("External Referral")) {
+        /*if (item.getActionTaken() != null && item.getActionTaken().getName().equalsIgnoreCase("External Referral")) {
             return "redirect:../../patient/referral/item.form?patientId=" + item.getPatient().getId();
-        }
+        }*/
         return "redirect:../../patient/dashboard/profile.htm?type=1&id=" + item.getPatient().getId();
     }
 

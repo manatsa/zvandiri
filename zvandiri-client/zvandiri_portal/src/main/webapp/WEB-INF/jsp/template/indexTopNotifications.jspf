@@ -1,6 +1,6 @@
 <div class="row">
 	<!-- Start of new notifications -->
-	<div class="col-lg-2 col-md-6">
+	<div class="col-lg-6 col-md-6">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<div class="row">
@@ -15,23 +15,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-2 col-md-6">
+
+	<div class="col-lg-6 col-md-6">
 		<div class="panel panel-red">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="medium">
-						<div>${patientStat['VIRAL_LOAD_ABOVE_MINIMUM']}</div>
-						<div>Viral load above 1000</div>
-					</div>
-				</div>
-			</div>
-			<div class="panel-footer">
-				<span class="pull-left">&nbsp;</span>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-1 col-md-6">
-		<div class="panel panel-green">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="medium">
@@ -45,79 +31,5 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-1 col-md-6">
-		<div class="panel panel-yellow">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="medium">
-						<div>${patientStat['DUE_FOR_VL']}</div>
-						<div>Due For VL</div>
-					</div>
-				</div>
-			</div>
-			<div class="panel-footer">
-				<span class="pull-left">&nbsp;</span>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-1 col-md-6">
-		<div class="panel panel-yellow">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="medium">
-						<div>${patientStat['OPT_OUT']}</div>
-						<div>Opt Out</div>
-					</div>
-				</div>
-			</div>
-			<div class="panel-footer">
-				<span class="pull-left">&nbsp;</span>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-1 col-md-6">
-		<div class="panel panel-red">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="medium">
-						<div>${patientStat['DECEASED']}</div>
-						<div>Deceased</div>
-					</div>
-				</div>
-			</div>
-			<div class="panel-footer">
-				<span class="pull-left">&nbsp;</span>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-2 col-md-6">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="medium">
-						<div>${patientStat['VIRAL_LOAD_BELOW_MINIMUM']}</div>
-						<div>Suppressed VL</div>
-					</div>
-				</div>
-			</div>
-			<div class="panel-footer">
-				<span class="pull-left">&nbsp;</span>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-2 col-md-6">
-		<div class="panel panel-red">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="medium">
-						<div>${patientStat['CD4_COUNT_ABOVE_MINIMUM']}</div>
-						<div>CD4 count below 100</div>
-					</div>
-				</div>
-			</div>
-			<div class="panel-footer">
-				<span class="pull-left">&nbsp;</span>
-			</div>
-		</div>
-	</div>
+
 </div>

@@ -54,7 +54,7 @@
                             <div class="form-group">
                                 <label>Date Of Birth</label>
                                 <form:input path="dateOfBirth" class="form-control beneficiary"/> <c:if test="${item.id != null}"> ( ${item.age} years)</c:if>
-                                    <p class="help-block">
+                                <p class="help-block">
                                     <form:errors path="dateOfBirth" class="alert-danger"/>
                                 </p>
                             </div>
@@ -243,7 +243,7 @@
                                 <p class="help-block">
                                     <form:errors path="referer" class="alert-danger"/>
                                 </p>
-                            </div> 
+                            </div>
                             <div class="form-group">
                                 <label>Referrer Name</label>
                                 <form:input path="refererName" class="form-control"/>
@@ -386,26 +386,26 @@
             $("#hIVDisclosureLocation").val('');
             $(".status-known").addClass("hide");
         }
-    $(function () {
-        window.onload = function () {
-            var name = $("#educationLevel :selected").text();
-            var education = $("#education :selected").text();
-            if (education === "Out of School" && (name === "N/A" || name === "Primary School")) {
-                $(".education-level").removeClass("hide");
-            }
-            var name = $("#hivStatusKnown :selected").text();
-            if (name === "Yes") {
-                $(".status-known").removeClass("hide");
-            }
-            var name = $("#mobileOwner :selected").text();
-            if (name === "No") {
-                $(".own-mobile").removeClass("hide");
-            }
-            var name = $("#ownSecondaryMobile :selected").text();
-            if (name === "No") {
-                $(".sec-own-mobile").removeClass("hide");
-            }
-        };
-    });
-    $(window).scrollTop("<c:out value="${item.currentElement}"/>");
+        $(function () {
+            window.onload = function () {
+                var name = $("#educationLevel :selected").text();
+                var education = $("#education :selected").text();
+                if (education === "Out of School" && (name === "N/A" || name === "Primary School")) {
+                    $(".education-level").removeClass("hide");
+                }
+                var name = $("#hivStatusKnown :selected").text();
+                if (name === "Yes") {
+                    $(".status-known").removeClass("hide");
+                }
+                var name = $("#mobileOwner :selected").text();
+                if (name === "No") {
+                    $(".own-mobile").removeClass("hide");
+                }
+                var name = $("#ownSecondaryMobile :selected").text();
+                if (name === "No") {
+                    $(".sec-own-mobile").removeClass("hide");
+                }
+            };
+        });
+        $(window).scrollTop("<c:out value="${item.currentElement}"/>");
 </script>

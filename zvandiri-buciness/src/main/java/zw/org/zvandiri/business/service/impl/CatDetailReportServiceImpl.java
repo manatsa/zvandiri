@@ -177,13 +177,13 @@ public class CatDetailReportServiceImpl implements CatDetailReportService {
                 catDetail.setTbScreeningDate(tbIpt.getDateScreened());
                 catDetail.setOutcome(tbIpt.getTbIdentificationOutcome()!= null ? tbIpt.getTbIdentificationOutcome().getName() : "");
                 catDetail.setReceivedTreatment(tbIpt.getDateStartedTreatment() != null ? "Yes" : "No");
-                catDetail.setTreatmentOutcome(tbIpt.getTbTreatmentOutcome() != null ? tbIpt.getTbTreatmentOutcome().getName() : "");
+                //catDetail.setTreatmentOutcome(tbIpt.getTbTreatmentOutcome() != null ? tbIpt.getTbTreatmentOutcome().getName() : "");
             }
             catDetail.setHaveChildren(catDetail.getPatient().getMotherOfHei() != null ? "Yes" : "No");
             
             Contact contact = contactService.findLatestContact(catDetail.getPatient());
             if (contact != null) {
-                catDetail.setCurrentStatus(contact.getCurrentCareLevel() != null ? contact.getCurrentCareLevel().getName() : "");
+                catDetail.setCurrentStatus(contact.getCareLevelAfterAssessment() != null ? contact.getCareLevelAfterAssessment().getName() : "");
             }
             CatActivity catActivity = catActivityService.getLatest(catDetail.getId());
             if (catActivity != null) {
