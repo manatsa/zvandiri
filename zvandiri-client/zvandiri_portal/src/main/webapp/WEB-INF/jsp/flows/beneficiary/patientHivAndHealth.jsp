@@ -81,8 +81,9 @@
 <%@include file="../../template/footer.jspf" %>
 <script type="text/javascript">
     $("#hivStatusKnown").change(function () {
-        var name = $("#hivStatusKnown :selected").text();
-        if (name === "Yes") {
+        var name = $("#hivStatusKnown").val();
+        console.log($("#hivStatusKnown").val())
+        if (name == 1) {
             $(".status-known").removeClass("hide");
         } else {
             $("#transmissionMode").val('');
@@ -93,8 +94,8 @@
     });
     $(function () {
         window.onload = function () {
-            var name = $("#hivStatusKnown :selected").text();
-            if (name === "Yes") {
+            var name = $("#hivStatusKnown").val();
+            if (name == 1) {
                 $(".status-known").removeClass("hide");
             }
         };
