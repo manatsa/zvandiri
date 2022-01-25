@@ -7,75 +7,148 @@
             </div>
             <div class="panel-body">
                 <%@include file="template/message.jspf" %>
-                <%@include file="template/indexTopNotifications.jspf" %>
                 <div class="row">
-                    <!--Start of top left panel -->
-                    <%--<div class="col-lg-6">
-                        <div class="panel panel-default">
+                    <div class="col-lg-12">
+
+                                <table class="table table-striped table-hover" cellspacing="0">
+                                    <thead>
+                                    <th></th>
+                                    <th style="font-size: 13px;" >Clients are active and require service.</th>
+                                    <th style="font-size: 13px; text-align: center;" >Clients whom we can not account for.</th>
+                                    </thead>
+                                </table><br/>
+
+                    </div>
+                </div><br/>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="panel panel-primary">
                             <div class="panel-heading">
-                                Distribution of Clients By Age Group
+                                <div class="row">
+                                    <div class="medium">
+                                        <div>${patientStat['ACTIVE']}</div>
+                                        <div>Active Clients</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="panel-body">
-                                <img class="img-responsive" src="${page}${patientAgeGroupDistribution}"/>
-                            </div>                        
+                            <div class="panel-footer">
+                                <span class="pull-left">&nbsp;</span>
+                            </div>
                         </div>
-                    </div>--%>
-                    <!--Start of top right panel -->
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="medium">
+                                        <div>${patientStat['LOST_TO_FOLOWUP']}</div>
+                                        <div>Lost To Followup</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <span class="pull-left">&nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Notifications
-                            </div>
-                            <div class="panel-body">  
-                                <div class="list-group">
+                            <div class="panel-heading"></div>
                                     <table class="table table-striped table-hover" cellspacing="0">
                                         <thead>
                                         <th></th>
-                                        <th style="font-size: 13px;">3 Months</th>
-                                        <th style="font-size: 13px;">6 Months</th>
-                                        <th style="font-size: 13px;">12 Months</th>
+                                        <th style="font-size: 13px;" >Clients who have been deceased.</th>
+                                        <th style="font-size: 13px; text-align: center;" >Clients who have reached the age of 25.</th>
                                         </thead>
-                                        <tbody>
-                                            <c:set var="count" value="0"/>
-                                            <c:forEach var="d" items="${notifications}">
-                                                <c:if test="${count <= 8}">
-                                                    <tr>
-                                                        <td>${d.name}</td>
-                                                        <td>${d.num}</td>
-                                                        <td>${d.num6Months}</td>
-                                                        <td>${d.num12Months}</td>
-                                                    </tr>
-                                            </c:if>
-                                            <c:set var="count" value="${count + 1}"/>
-                                        </c:forEach>
-                                        </tbody>
                                     </table>
-                                </div>
-                            </div>                        
+
+                        </div>
                         </div>
                     </div><br/>
-                    <!-- Start of  bottom left panel-->
-                    <%--<div class="col-lg-6">
-                        <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="panel panel-yellow">
                             <div class="panel-heading">
-                                Number of contacts past 6 months
+                                <div class="row">
+                                    <div class="medium">
+                                        <div>${patientStat['GRADUATED']}</div>
+                                        <div>GRADUATED Clients</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="panel-body">
-                                <img class="img-responsive" src="${page}${contactLevelOfCareDistribution}"/>
-                            </div>                        
+                            <div class="panel-footer">
+                                <span class="pull-left">&nbsp;</span>
+                            </div>
                         </div>
-                    </div>--%>
-                    <!--Start of bottom right panel -->
-                    <%--<div class="col-lg-6">--%>
-                        <%--<div class="panel panel-default">--%>
-                            <%--<div class="panel-heading">--%>
-                                <%--Trends of Contacts by care level--%>
-                            <%--</div>--%>
-                            <%--<div class="panel-body">--%>
-                                <%--<img class="img-responsive" src="${page}${contactLevelTrend}"/>--%>
-                            <%--</div>                        --%>
-                        <%--</div>--%>
-                    <%--</div>                    --%>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="medium">
+                                        <div>${patientStat['GRADUATED']}</div>
+                                        <div>Graduated Clients</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <span class="pull-left">&nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"></div>
+                                    <table class="table table-striped table-hover" cellspacing="0">
+                                        <thead>
+                                        <th></th>
+                                        <th style="font-size: 13px;">Clients who have chosen to leave the program.</th>
+                                        <th style="font-size: 13px; text-align: center;" >Clients with status yet to be established. eg. yet to be located,etc. </th>
+                                        </thead>
+                                    </table>
+
+                        </div>
+                    </div>
+                </div><br/>
+                <div class="row">
+                    <!-- Start of new notifications -->
+                    <div class="col-lg-6 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="medium">
+                                        <div>${patientStat['OPT_OUT']}</div>
+                                        <div>Opted Out Clients</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <span class="pull-left">&nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="medium">
+                                        <div>${patientStat['OTHER']}</div>
+                                        <div>Other Clients</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <span class="pull-left">&nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr  style="border: darkgreen solid 2px;"/>
+
                 </div>
             </div>
         </div>

@@ -21,7 +21,7 @@
                             <%@include file="../../template/formState.jspf" %>
                             <div class="form-group">
                                 <label>HIV Status Known</label>
-                                <form:select path="hivStatusKnown" class="form-control">
+                                <form:select path="hivStatusKnown" class="form-control" onchange="alert('Changed!')">
                                     <form:option value="" label="--Select Item"/>
                                     <form:options itemValue="code" itemLabel="name"/>
                                 </form:select>

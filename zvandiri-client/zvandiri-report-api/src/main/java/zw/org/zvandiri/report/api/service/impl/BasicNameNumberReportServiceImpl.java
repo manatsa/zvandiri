@@ -48,10 +48,16 @@ public class BasicNameNumberReportServiceImpl implements BasicNameNumberReportSe
         Map<String, Long> map = new HashMap<>();
         dto.setStatus(PatientChangeEvent.ACTIVE);
         map.put("ACTIVE", detailedPatientReportService.getCount(dto));
-        /*dto.setStatus(PatientChangeEvent.DECEASED);
-        map.put("DECEASED", detailedPatientReportService.getCount(dto));*/
+        dto.setStatus(PatientChangeEvent.DECEASED);
+        map.put("DECEASED", detailedPatientReportService.getCount(dto));
         dto.setStatus(PatientChangeEvent.LOST_TO_FOLOWUP);
         map.put("LOST_TO_FOLOWUP", detailedPatientReportService.getCount(dto));
+        dto.setStatus(PatientChangeEvent.OPT_OUT);
+        map.put("OPT_OUT", detailedPatientReportService.getCount(dto));
+        dto.setStatus(PatientChangeEvent.OTHER);
+        map.put("OTHER", detailedPatientReportService.getCount(dto));
+        dto.setStatus(PatientChangeEvent.GRADUATED);
+        map.put("GRADUATED", detailedPatientReportService.getCount(dto));
         /*dto.setStatus(PatientChangeEvent.OPT_OUT);
         map.put("OPT_OUT", detailedPatientReportService.getCount(dto));*/
         /*dto.setStatus(PatientChangeEvent.ACTIVE);
