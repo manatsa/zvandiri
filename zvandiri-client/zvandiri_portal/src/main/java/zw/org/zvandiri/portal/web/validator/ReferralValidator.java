@@ -21,7 +21,11 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.Referral;
+import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.domain.util.YesNo;
+import zw.org.zvandiri.business.service.UserService;
+
+import javax.annotation.Resource;
 
 /**
  *
@@ -30,6 +34,8 @@ import zw.org.zvandiri.business.domain.util.YesNo;
 @Component
 public class ReferralValidator implements Validator {
 
+    @Resource
+    UserService userService;
     @Override
     public boolean supports(Class<?> type) {
         return type.equals(Referral.class);
@@ -88,7 +94,11 @@ public class ReferralValidator implements Validator {
             item.setActionTaken(null);
         }
 
-
+        if(errors.hasErrors()){
+            User user=userService.getCurrentUser();
+            System.err.println(" *** UserName : "+user.getUserName()+", FirstName : "+user.getFirstName()+", LastName : "+user.getLastName()+
+                    ", District : "+user.getDistrict()+", Province : "+user.getProvince()+"\n"+errors);
+        }
 
     }
 }

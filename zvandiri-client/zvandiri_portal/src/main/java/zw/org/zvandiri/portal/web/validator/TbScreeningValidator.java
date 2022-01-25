@@ -20,8 +20,11 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.TbIpt;
+import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.domain.util.YesNo;
+import zw.org.zvandiri.business.service.UserService;
 
+import javax.annotation.Resource;
 import java.util.Date;
 
 /**
@@ -30,6 +33,9 @@ import java.util.Date;
  */
 @Component
 public class TbScreeningValidator implements Validator {
+
+    @Resource
+    UserService userService;
 
     @Override
     public boolean supports(Class<?> type) {
@@ -44,9 +50,7 @@ public class TbScreeningValidator implements Validator {
             ValidationUtils.rejectIfEmpty(errors, "dateScreened", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "identifiedWithTb", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "eligibleForIpt", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors, "onTBTreatment", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors, "onIpt", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors, "startedOnIpt", "field.empty");
+
             //completion.date.before.start.date
         }else{
             item.setIdentifiedWithTb(null);
@@ -87,9 +91,12 @@ public class TbScreeningValidator implements Validator {
             ValidationUtils.rejectIfEmpty(errors, "tbSymptoms", "field.empty");
             ValidationUtils.rejectIfEmpty(errors,"referredForInvestigation","field.empty");
             ValidationUtils.rejectIfEmpty(errors, "screenedByHcw", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "onTBTreatment", "field.empty");
         }
         if(item.getEligibleForIpt()!=null && item.getEligibleForIpt().equals(YesNo.YES)){
             ValidationUtils.rejectIfEmpty(errors,"referredForIpt","field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "onIpt", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "startedOnIpt", "field.empty");
         }
         if(item.getScreenedByHcw()!=null && item.getScreenedByHcw().equals(YesNo.YES)){
             ValidationUtils.rejectIfEmpty(errors,"identifiedWithTbByHcw","field.empty");
@@ -135,6 +142,10 @@ public class TbScreeningValidator implements Validator {
             }
         }
 
-        System.err.println(errors);
+        if(errors.hasErrors()){
+            User user=userService.getCurrentUser();
+            System.err.println(" *** UserName : "+user.getUserName()+", FirstName : "+user.getFirstName()+", LastName : "+user.getLastName()+
+                            ", District : "+user.getDistrict()+", Province : "+user.getProvince()+"\n"+errors);
+        }
     }
 }

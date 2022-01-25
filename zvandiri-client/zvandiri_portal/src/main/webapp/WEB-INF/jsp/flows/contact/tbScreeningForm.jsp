@@ -98,7 +98,7 @@
                                     </div>
                                 </div>
 
-                                <div class="panel panel-default major hide">
+                                <div class="panel panel-default symptoms hide">
                                     <div class="panel-heading">
                                         <div class="form-group ">
                                             <label>On TB Treatment</label>
@@ -158,7 +158,7 @@
                                     </div>
                                 </div>
 
-                                <div class="panel panel-default major hide">
+                                <div class="panel panel-default referral hide">
                                     <div class="panel-heading">
                                         <div class="form-group ">
                                             <label>Started On TPT </label>
@@ -190,7 +190,7 @@
                                 </div>
 
 
-                                <div class="panel panel-default major hide">
+                                <div class="panel panel-default referral hide">
                                     <div class="panel-heading">
                                         <div class="form-group major hide">
                                             <label> Already On TPT</label>

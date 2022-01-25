@@ -21,7 +21,7 @@
                             <%@include file="../../template/formState.jspf" %>
                             <div class="form-group">
                                 <label>HIV Status Known</label>
-                                <form:select path="hivStatusKnown" class="form-control" onchange="alert('Changed!')">
+                                <form:select path="hivStatusKnown" class="form-control">
                                     <form:option value="" label="--Select Item"/>
                                     <form:options itemValue="code" itemLabel="name"/>
                                 </form:select>
@@ -81,12 +81,9 @@
 <%@include file="../../template/footer.jspf" %>
 <script type="text/javascript">
     $("#hivStatusKnown").change(function () {
-
-        var name = $("#hivStatusKnown :selected").text().toLowerCase();
-
-        console.log("Name : ", name)
-
-        if (name === "yes") {
+        var name = $("#hivStatusKnown").val();
+        console.log($("#hivStatusKnown").val())
+        if (name == 1) {
             $(".status-known").removeClass("hide");
         } else {
             $("#transmissionMode").val('');
@@ -97,8 +94,8 @@
     });
     $(function () {
         window.onload = function () {
-            var name = $("#hivStatusKnown :selected").text();
-            if (name === "yes") {
+            var name = $("#hivStatusKnown").val();
+            if (name == 1) {
                 $(".status-known").removeClass("hide");
             }
         };

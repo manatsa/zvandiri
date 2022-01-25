@@ -83,8 +83,8 @@
 <%@include file="../../template/footer.jspf" %>
 <script type="text/javascript">
     $("#selfPrimaryCareGiver").change(function () {
-        var name = $("#selfPrimaryCareGiver :selected").text().toLowerCase();
-        if (name === "no") {
+        var name = $("#selfPrimaryCareGiver").val();
+        if (name == 2) {
             $(".self-care-giver").removeClass("hide");
         } else {
             $(".self-care-giver").addClass("hide");
@@ -92,8 +92,8 @@
     });
     $(function () {
         window.onload = function () {
-            var name = $("#selfPrimaryCareGiver :selected").text().toLowerCase();
-            if (name === "no") {
+            var name = $("#selfPrimaryCareGiver").val();
+            if (name === 2) {
                 $(".self-care-giver").removeClass("hide");
             }
         };

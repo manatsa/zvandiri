@@ -21,8 +21,10 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.MentalHealthScreening;
+import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.MentalHealthScreeningService;
+import zw.org.zvandiri.business.service.UserService;
 
 import java.util.Date;
 
@@ -32,7 +34,8 @@ import java.util.Date;
  */
 @Component
 public class MentalHealthScreeningValidator implements Validator{
-    
+    @Resource
+    UserService userService;
     @Resource
     private MentalHealthScreeningService service;
     
@@ -47,7 +50,6 @@ public class MentalHealthScreeningValidator implements Validator{
         MentalHealthScreening item = (MentalHealthScreening) o;
         if(item.getScreenedForMentalHealth() != null && item.getScreenedForMentalHealth().equals(YesNo.YES)) {
             ValidationUtils.rejectIfEmpty(errors, "risk", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors, "support", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "dateScreened", "field.empty");
 
             if(item.getDateScreened()!=null && item.getDateScreened().after(new Date())){
@@ -57,6 +59,7 @@ public class MentalHealthScreeningValidator implements Validator{
             if(item.getRisk() != null && item.getRisk().equals(YesNo.YES)) {
                 if(item.getIdentifiedRisks() == null) {
                     ValidationUtils.rejectIfEmpty(errors, "identifiedRisks", "item.select.one");
+                    ValidationUtils.rejectIfEmpty(errors, "support", "field.empty");
                 }
 
             }
@@ -72,6 +75,13 @@ public class MentalHealthScreeningValidator implements Validator{
             item.setRisk(null);
             item.setSupport(null);
             item.setSupports(null);
+        }
+
+
+        if(errors.hasErrors()){
+            User user=userService.getCurrentUser();
+            System.err.println(" *** UserName : "+user.getUserName()+", FirstName : "+user.getFirstName()+", LastName : "+user.getLastName()+
+                    ", District : "+user.getDistrict()+", Province : "+user.getProvince()+"\n"+errors);
         }
     }
 

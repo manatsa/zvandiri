@@ -71,7 +71,7 @@ public class DashboardController extends BaseController {
         return "index";
     }
 
-    @RequestMapping(value = "/patient-age-group-distribution/pie-chart", method = RequestMethod.GET)
+   /* @RequestMapping(value = "/patient-age-group-distribution/pie-chart", method = RequestMethod.GET)
     public void displayFunctionalityGraph(HttpServletResponse response, SearchDTO dto) {
         response.setContentType("image/png");
         JFreeChart barGraph = null;
@@ -110,6 +110,6 @@ public class DashboardController extends BaseController {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
+    }*/
     
 }

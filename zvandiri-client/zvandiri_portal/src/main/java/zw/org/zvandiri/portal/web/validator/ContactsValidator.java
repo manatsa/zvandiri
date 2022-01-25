@@ -6,9 +6,12 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.Contact;
+import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.domain.util.ContactPhoneOption;
 import zw.org.zvandiri.business.domain.util.YesNo;
+import zw.org.zvandiri.business.service.UserService;
 
+import javax.annotation.Resource;
 import java.util.Date;
 
 /**
@@ -17,6 +20,9 @@ import java.util.Date;
 
 @Component
 public class ContactsValidator implements Validator {
+
+    @Resource
+    UserService userService;
     @Override
     public boolean supports(Class<?> aClass) {
         return aClass.equals(Contact.class);
@@ -75,9 +81,10 @@ public class ContactsValidator implements Validator {
             }
         }
 
-        /*ValidationUtils.invokeValidator(this,item,errors);*/
-        /*for(ObjectError error: errors.getAllErrors()){
-            System.err.println("Error : "+error.getDefaultMessage());
-        }*/
+        if(errors.hasErrors()){
+            User user=userService.getCurrentUser();
+            System.err.println(" *** UserName : "+user.getUserName()+", FirstName : "+user.getFirstName()+", LastName : "+user.getLastName()+
+                    ", District : "+user.getDistrict()+", Province : "+user.getProvince()+"\n"+errors);
+        }
     }
 }

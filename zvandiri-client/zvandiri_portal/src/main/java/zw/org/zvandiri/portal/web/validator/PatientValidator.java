@@ -25,10 +25,12 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.Settings;
+import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.service.SettingsService;
+import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.PatientHeuDTO;
 import zw.org.zvandiri.portal.util.MobileNumberFormat;
@@ -40,6 +42,8 @@ import zw.org.zvandiri.portal.util.MobileNumberFormat;
 @Component
 public class PatientValidator implements Validator {
 
+    @Resource
+    UserService userService;
     @Resource
     private PatientService patientService;
     private final String STRING_PATTERN = "[a-zA-Z]+";
@@ -260,5 +264,11 @@ public class PatientValidator implements Validator {
         validatePatientAddress(o, errors);
         validatePatientContactDetails(o, errors);
         validatePatientDemographic(o, errors);
+
+        if(errors.hasErrors()){
+            User user=userService.getCurrentUser();
+            System.err.println(" *** UserName : "+user.getUserName()+", FirstName : "+user.getFirstName()+", LastName : "+user.getLastName()+
+                    ", District : "+user.getDistrict()+", Province : "+user.getProvince()+"\n"+errors);
+        }
     }
 }

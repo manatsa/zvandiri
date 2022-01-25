@@ -2,37 +2,36 @@
     <thead>
         <tr>
             <th>Date of Contact</th>
-            <th>Level of Care</th>
-            <th>Followup</th>
+            <th>Previous Care Level</th>
+            <th>Current Care Level</th>
             <th>Location</th>
             <th>Position</th>
-            <th>Reason</th>
-            <th>&nbsp;</th>
+            <%--<th>Reason</th>--%>
+            <%--<th>&nbsp;</th>--%>
         </tr>
     </thead>
     <tfoot>
     <th>Date of Contact</th>
-    <th>Level of Care</th>
-    <th>Followup</th>
+    <th>Previous Care Level</th>
+    <th>Current Care Level</th>
     <th>Location</th>
     <th>Position</th>
-    <th>Reason</th>
-    <th>&nbsp;</th>
+    <%--<th>Reason</th>--%>
+    <%--<th>&nbsp;</th>--%>
 </tfoot>
 <tbody>
 <c:forEach var="contact" items="${contacts}">
     <tr>
         <td><spring:eval expression="contact.contactDate"/></td>
     <td>${contact.careLevel.name}</td>
-    <td>${contact.followUp.name}</td>
+    <td>${contact.careLevelAfterAssessment.name}</td>
     <td>${contact.location.name}</td>
     <td>${contact.position.name}</td>
-    <td>${contact.reason.name}</td>
-    <td>
+    <%--<td>
         <a href="${page}/beneficiary/contact/item.view?id=${contact.id}">View</a> |
         <a href="${page}/beneficiary/contact/item.form?id=${contact.id}">Edit</a> |
         <c:if test="${canEdit}"><a href="${page}/beneficiary/contact/item.delete?id=${contact.id}">Delete</a></c:if>
-    </td>
+    </td>--%>
     </tr>
 </c:forEach>
 </tbody>
