@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.Mortality;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.PatientHistory;
+import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.repo.PatientHistoryRepo;
 import zw.org.zvandiri.business.service.MortalityService;
 import zw.org.zvandiri.business.service.PatientHistoryService;
@@ -101,6 +102,12 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     @Transactional
     public void saveItem(PatientHistory history, Patient patient) {
         save(history);
+        if(patient.getStatus().equals(PatientChangeEvent.OTHER)
+        || patient.getStatus().equals(PatientChangeEvent.OPT_OUT)
+        )
+        {
+            patient.setActive(Boolean.FALSE);
+        }
         patientService.save(patient);
     }
     

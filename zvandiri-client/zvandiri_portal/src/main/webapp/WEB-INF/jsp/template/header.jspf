@@ -38,6 +38,14 @@
             .custom-drop li a{
                 color: #000 !important;
             }
+            .white{
+                font-weight: bolder;
+                color: darkgreen;
+            }
+
+            .wide{
+                width: max-content;
+            }
         </style>
     </head>
     <body>

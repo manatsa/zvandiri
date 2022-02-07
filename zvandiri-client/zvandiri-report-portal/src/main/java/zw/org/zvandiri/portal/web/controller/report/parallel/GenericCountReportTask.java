@@ -43,6 +43,7 @@ public class GenericCountReportTask extends RecursiveTask<List> {
     }
 
     private List process() {
+        //System.err.println(searchData.getInstance(searchData).toString());
         int first = arrCount.get(0);
         first = first > 0 ? first - 1 : first;
         searchData.setFirstResult(first);

@@ -33,6 +33,9 @@ public class GenericCountReportTask extends RecursiveTask<List> {
             return process();
         } else {
             int mid = arrCount.size() / 2;
+
+            System.err.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> array Size: "+ arrCount.size());
+
             GenericCountReportTask task = new GenericCountReportTask(arrCount.subList(0, mid), reportService, searchData);
             GenericCountReportTask last = new GenericCountReportTask(arrCount.subList(mid, arrCount.size()), reportService, searchData);
             task.fork();

@@ -14,6 +14,7 @@ import zw.org.zvandiri.business.util.StringUtils;
 public enum Diagnosis {
     
     DEPRESSION(1), ANXIETY(2), PTSD(3), SUBSTANCE_ABUSE(4), PSYCHOSIS(5), OTHER(6);
+   //COMMON_MENTAL_HEALTH_PROBLEMS(1), SUBSTANCE_ABUSE(2), PSYCHOSIS(3), OTHER(4);
 
     private final Integer code;
 

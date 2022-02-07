@@ -17,22 +17,10 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <form:form commandName="item" action="${formAction}">
-                            <form:hidden path="currentElement"/>
                             <%@include file="../template/formState.jspf" %>
                             <form:hidden path="patient" value="${item.patient.id}"/>
-                            <form:hidden path="parent" value="${item.parent.id}"/>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Visit Outcome</label>
-                                        <form:select path="visitOutcome" class="form-control">
-                                            <form:option value="" label="--Select Item"/>
-                                            <form:options itemValue="code" itemLabel="name"/>
-                                        </form:select>
-                                        <p class="help-block">
-                                            <form:errors path="visitOutcome" class="alert-danger"/>
-                                        </p>
-                                    </div>
                                     <div class="form-group">
                                         <label>Date of Contact</label>
                                         <form:input path="contactDate" class="form-control general"/>
@@ -65,7 +53,7 @@
                                         </p>
                                     </div>
                                     <div class="form-group">
-                                        <label>Current Level of Care</label>
+                                        <label>Previous Level of Care</label>
                                         <form:select path="careLevel" class="form-control">
                                             <form:option value="" label="--Select Item"/>
                                             <form:options itemValue="code" itemLabel="name"/>
@@ -111,37 +99,7 @@
                                             <form:errors path="position" class="alert-danger"/>
                                         </p>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Reason</label>
-                                        <form:select path="reason" class="form-control">
-                                            <form:option value="" label="--Select Item"/>
-                                            <form:options itemValue="code" itemLabel="name"/>
-                                        </form:select>
-                                        <p class="help-block">
-                                            <form:errors path="reason" class="alert-danger"/>
-                                        </p>
-                                    </div>
-                                        <div class="form-group reason hide">
-                                        <label>Other Reason</label>
-                                        <form:input path="otherReason"  class="form-control"/>
-                                        <p class="help-block">
-                                            <form:errors path="otherReason" class="alert-danger"/>
-                                        </p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Client's Observations <small>(What is the Client saying)</small></label>
-                                        <form:textarea path="subjective" rows="5" class="form-control"/>
-                                        <p class="help-block">
-                                            <form:errors path="subjective" class="alert-danger"/>
-                                        </p>
-                                    </div> 
-                                    <div class="form-group">
-                                        <label>Findings <small>(What are you noticing)</small></label>
-                                        <form:textarea path="objective" rows="5" class="form-control"/>
-                                        <p class="help-block">
-                                            <form:errors path="objective" class="alert-danger"/>
-                                        </p>
-                                    </div> 
+
                                     <div class="form-group">
                                         <label>Services Offered</label><br/>
                                         <form:checkboxes path="serviceOffereds" items="${servicesOffered}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
@@ -149,56 +107,10 @@
                                             <form:errors path="serviceOffereds" class="alert-danger"/>
                                         </p>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Laboratory Requests</label><br/>
-                                        <form:checkboxes path="labTasks" items="${labTasks}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
-                                        <p class="help-block">
-                                            <form:errors path="labTasks" class="alert-danger"/>
-                                        </p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Differentiated Service Delivery</label>
-                                        <form:select path="differentiatedService" class="form-control">
-                                            <form:option value="" label="--Select Item"/>
-                                            <form:options itemValue="code" itemLabel="name"/>
-                                        </form:select>
-                                        <p class="help-block">
-                                            <form:errors path="differentiatedService" class="alert-danger"/>
-                                        </p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Plan</label>
-                                        <form:textarea path="plan" rows="5" class="form-control"/>
-                                        <p class="help-block">
-                                            <form:errors path="plan" class="alert-danger"/>
-                                        </p>
-                                    </div>
+
                                 </div>
                                 <div class="col-lg-6">
-                                    <c:if test="${external}">
-                                        <div class="form-group">
-                                            <label>External Referral</label>
-                                            <form:select path="externalReferral" class="form-control">
-                                                <form:option value="" label="--Select Item"/>
-                                                <form:options items="${externalReferrals}" itemValue="id" itemLabel="name"/>
-                                            </form:select>
-                                            <p class="help-block">
-                                                <form:errors path="externalReferral" class="alert-danger"/>
-                                            </p>
-                                        </div>
-                                    </c:if>
-                                    <c:if test="${internal}">
-                                        <div class="form-group">
-                                            <label>Internal Referral</label>
-                                            <form:select path="internalReferral" class="form-control">
-                                                <form:option value="" label="--Select Item"/>
-                                                <form:options items="${internalReferrals}" itemValue="id" itemLabel="name"/>
-                                            </form:select>
-                                            <p class="help-block">
-                                                <form:errors path="internalReferral" class="alert-danger"/>
-                                            </p>
-                                        </div>
-                                    </c:if>                            
+
                                     <c:if test="${stable}">
                                         <div class="form-group">
                                             <label>Stable</label><br/><br/>
@@ -232,8 +144,8 @@
                                         </p>
                                     </div>
                                     <div class="form-group">
-                                        <label>Follow Up</label>
-                                        <form:select path="followUp" class="form-control">
+                                        <label>Care Level After Assessment</label>
+                                        <form:select path="careLevelAfterAssessment" class="form-control">
                                             <form:option value="" label="--Select Item"/>
                                             <form:options itemValue="code" itemLabel="name"/>
                                         </form:select>
@@ -242,16 +154,7 @@
                                         </p>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label>Action Taken</label><br/>
-                                        <form:select path="actionTaken" class="form-control">
-                                            <form:option value="" label="--Select Item"/>
-                                            <form:options items="${actionTaken}" itemValue="id" itemLabel="name"/>
-                                        </form:select>
-                                        <p class="help-block">
-                                            <form:errors path="actionTaken" class="alert-danger"/>
-                                        </p>
-                                    </div>
+
                                     <c:if test="${internalStaff}">
                                         <div class="form-group">
                                             <label>User Level</label>
@@ -263,40 +166,7 @@
                                                 <form:errors path="userLevel" class="alert-danger"/>
                                             </p>
                                         </div>
-                                        <c:if test="${showProvince}">
-                                            <div class="form-group">
-                                                <label>Region</label>
-                                                <form:select path="province" class="form-control">
-                                                    <form:option value="" label="--Select Item"/>
-                                                    <form:options items="${provinces}" itemValue="id" itemLabel="name"/>
-                                                </form:select>
-                                                <p class="help-block">
-                                                    <form:errors path="province" class="alert-danger"/>
-                                                </p>
-                                            </div>
-                                        </c:if>
-                                        <c:if test="${showDistrict}">
-                                            <div class="form-group">
-                                                <label>District</label>
-                                                <form:select path="district" class="form-control">
-                                                    <form:option value="" label="--Select Item"/>
-                                                    <form:options items="${districts}" itemValue="id" itemLabel="name"/>
-                                                </form:select>
-                                                <p class="help-block">
-                                                    <form:errors path="district" class="alert-danger"/>
-                                                </p>
-                                            </div>
-                                        </c:if>
-                                        <div class="form-group">
-                                            <label>Zvandiri Staff Member</label><br/><br/>
-                                            <form:select path="referredPerson" class="form-control">
-                                                <form:option value="" label="--Select Item"/>
-                                                <form:options items="${staff}" itemValue="id" itemLabel="displayName"/>
-                                            </form:select>
-                                            <p class="help-block">
-                                                <form:errors path="referredPerson" class="alert-danger"/>
-                                            </p>
-                                        </div> 
+
                                     </c:if>
                                     <c:if test="${item.id == null}">
                                         <!-- start investigations section here -->

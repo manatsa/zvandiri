@@ -111,7 +111,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 
     @Override
     public List<Assessment> getByAssessmentType(ContactAssessment contactAssessment) {
-        return assessmentRepo.findByContactAssessmentOrderByNameAsc(contactAssessment);
+        return assessmentRepo.findByContactAssessmentAndActiveOrderByNameAsc(contactAssessment, Boolean.TRUE);
     }
     
 }

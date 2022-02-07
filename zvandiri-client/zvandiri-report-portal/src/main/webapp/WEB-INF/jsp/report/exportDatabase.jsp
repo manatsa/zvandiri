@@ -88,3 +88,12 @@
     </div>
 </div>
 <%@include file="../template/footer.jspf" %>
+<script type="text/javascript">
+    $("#item").validate({
+       rules: {
+           province: {
+               required: true
+           }
+       } 
+    });
+</script>

@@ -34,6 +34,67 @@ $("#province").change(function () {
         $("#supportGroupDistrict").html(processDropDown(data));
     });
 });
+
+$("#provinces").change(function () {
+    $this = $(this);
+    console.log($this.val())
+
+    if ($this.val() === "") {
+        $("#districts").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
+        $("#facilities").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
+        return;
+    }
+    $("#facilities").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
+    $("#districts").find('option').remove().end().append('<option value="">.......... loading districts</option>').val('');
+    $.get(path + "/global/getdistrictsinprovinces", {"provinces": normalizeArgs($this.val())}, function (data) {
+        $("#districts").html(processDropDown(data));
+
+    });
+});
+
+$("#district").change(function () {
+    $this = $(this);
+    if ($this.val() === "") {
+        $("#primaryClinic").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
+        return;
+    }
+    $("#primaryClinic").find('option').remove().end().append('<option value="">......... loading clinics</option>').val('');
+    $.get(path + "/global/getdistrictstations", {"district": $this.val()}, function (data) {
+        $("#primaryClinic").html(processDropDown(data));
+    });
+});
+$("#districts").change(function () {
+
+    $this = $(this);
+
+    if ($this.val() === "") {
+        $("#facilities").find('option').remove().end().append('<option value="">--Select Item--</option>').val('');
+        return;
+    }
+    $("#facilities").find('option').remove().end().append('<option value="">......... loading clinics</option>').val('');
+    $.get(path + "/global/getfacilitiesindistricts", {"districts": normalizeArgs($this.val())}, function (data) {
+        $("#facilities").html(processDropDown(data));
+    });
+});
+
+$("#periodType").change(function () {
+    $this = $(this);
+    if ($this.val() === "")
+        return;
+    $.get(path + "/global/getperiods", {"periodType": $this.val()}, function (data) {
+        if ($this.val() === "1") {
+            $("#master-content-div").html(processPeriodDropDown(data, "period", "Month"));
+        } else if ($this.val() === "2") {
+            $("#master-content-div").html(processPeriodDropDown(data, "quarterPeriod", "Quarters"));
+        } else if ($this.val() === "3") {
+            $("#master-content-div").html(processPeriodDropDown(data, "halfYearPeriod", "Half Year"));
+        } else if ($this.val() === "4") {
+            $("#master-content-div").html(processPeriodDropDown(data, "yearPeriod", "Year"));
+        }
+    });
+});
+
+
 $(".beneficiary").datepicker({
     changeYear: true,
     changeMonth: true,
@@ -67,40 +128,28 @@ $(".otherdate").datepicker({
     changeMonth: true,
     dateFormat: "dd/mm/yy"
 });
-$("#district").change(function () {
-    $this = $(this);
-    if ($this.val() === "")
-        return;
-    $("#primaryClinic").html("--Select Item--");
-    $.get(path + "/global/getdistrictstations", {"district": $this.val()}, function (data) {
-        $("#primaryClinic").html(processDropDown(data));
+
+/*$(document).ready(function() {
+    $('#provinces').select2({
+        placeholder: '-- Select Item--',
+        theme: 'classic',
+        closeOnSelect: false,
+        allowClear: true
     });
-});
-$("#supportGroupDistrict").change(function () {
-    $this = $(this);
-    if ($this.val() === "")
-        return;
-    $("#supportGroup").html("<option value=''>......... loading support groups </option>");
-    $.get(path + "/global/getdistrictsupportgroups", {"district": $this.val()}, function (data) {
-        $("#supportGroup").html(processDropDown(data));
+    $('#districts').select2({
+        placeholder: '-- Select Item--',
+        theme: 'classic',
+        closeOnSelect: false,
+        allowClear: true
     });
-});
-$("#periodType").change(function () {
-    $this = $(this);
-    if ($this.val() === "")
-        return;
-    $.get(path + "/global/getperiods", {"periodType": $this.val()}, function (data) {
-        if ($this.val() === "1") {
-            $("#master-content-div").html(processPeriodDropDown(data, "period", "Month"));
-        } else if ($this.val() === "2") {
-            $("#master-content-div").html(processPeriodDropDown(data, "quarterPeriod", "Quarters"));
-        } else if ($this.val() === "3") {
-            $("#master-content-div").html(processPeriodDropDown(data, "halfYearPeriod", "Half Year"));
-        } else if ($this.val() === "4") {
-            $("#master-content-div").html(processPeriodDropDown(data, "yearPeriod", "Year"));
-        }
+    $('#facilities').select2({
+        placeholder: '-- Select Item--',
+        theme: 'classic',
+        closeOnSelect: false,
+        allowClear: true
     });
-});
+});*/
+
 
 function processDropDown(items) {
     var list = "<option value=''>--Select Item--</option>";
@@ -167,3 +216,15 @@ function gup(name, search_url) {
     else
         return results[1];
 }
+
+function normalizeArgs(data){
+    var result=''
+    data.forEach(item =>{
+        result +=item+','
+    });
+
+    return result;
+}
+
+
+

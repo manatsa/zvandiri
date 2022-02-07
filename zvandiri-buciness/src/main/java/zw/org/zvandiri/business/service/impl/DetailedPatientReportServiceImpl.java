@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.business.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.swing.*;
 
 import org.hibernate.jpa.QueryHints;
 import org.springframework.stereotype.Repository;
@@ -54,22 +56,8 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         int position = 0;
         if (dto.getSearch(dto)) {
             builder.append(" where ");
-            if (dto.getProvince() != null) {
-                if (position == 0) {
-                    builder.append("p.primaryClinic.district.province=:province");
-                    position++;
-                } else {
-                    builder.append(" and p.primaryClinic.district.province=:province");
-                }
-            }
-            if (dto.getDistrict() != null) {
-                if (position == 0) {
-                    builder.append("p.primaryClinic.district=:district");
-                    position++;
-                } else {
-                    builder.append(" and p.primaryClinic.district=:district");
-                }
-            }
+
+
             if (dto.getPrimaryClinic() != null) {
                 if (position == 0) {
                     builder.append("p.primaryClinic=:primaryClinic");
@@ -77,7 +65,52 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                 } else {
                     builder.append(" and p.primaryClinic=:primaryClinic");
                 }
+            }else if (dto.getDistrict() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic.district=:district");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district=:district");
+                }
+            }else if (dto.getProvince() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic.district.province=:province");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district.province=:province");
+                }
             }
+
+
+
+
+            if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+                //System.err.println("################# DTO facilities is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic in :facilities");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic in :facilities");
+                }
+            }else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+                //System.err.println("$$$$$$$$$$$$$$$$$$$$$$$ DTO districts is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district in :districts");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district in :districts");
+                }
+            }else  if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+                //System.err.println("^^^^^^^^^^^^^^^^^^^^^^^ DTO provinces is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district.province in :provinces");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district.province in :provinces");
+                }
+            }
+
+
             if (dto.getSupportGroup() != null) {
                 if (position == 0) {
                     builder.append("p.supportGroup=:supportGroup");
@@ -128,14 +161,15 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
             }
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append("p.dateJoined between :startDate and :endDate");
+                    builder.append("p.dateCreated between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and (p.dateJoined between :startDate and :endDate)");
+                    builder.append(" and (p.dateCreated between :startDate and :endDate)");
                 }
             }
         }
         builder.append(" order by p.lastName, p.firstName, p.middleName ASC");
+        System.err.println(builder.toString());
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
@@ -143,6 +177,17 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         if (dto.getDistrict() != null) {
             query.setParameter("district", dto.getDistrict());
         }
+
+
+        if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+            query.setParameter("facilities", dto.getFacilities());
+        } else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+            query.setParameter("districts", dto.getDistricts());
+        }else if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+            query.setParameter("provinces", dto.getProvinces());
+        }
+
+
         if (dto.getPrimaryClinic() != null) {
             query.setParameter("primaryClinic", dto.getPrimaryClinic());
         }
@@ -217,6 +262,33 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" and p.supportGroup=:supportGroup");
                 }
             }
+
+            if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+                //System.err.println("################# DTO facilities is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic in :facilities");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic in :facilities");
+                }
+            }else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+                //System.err.println("$$$$$$$$$$$$$$$$$$$$$$$ DTO districts is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district in :districts");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district in :districts");
+                }
+            }else  if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+                //System.err.println("^^^^^^^^^^^^^^^^^^^^^^^ DTO provinces is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district.province in :provinces");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district.province in :provinces");
+                }
+            }
+
             if (dto.getGender() != null) {
                 if (position == 0) {
                     builder.append("p.gender=:gender");
@@ -294,6 +366,15 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         if (dto.getSupportGroup() != null) {
             query.setParameter("supportGroup", dto.getSupportGroup());
         }
+
+        if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+            query.setParameter("facilities", dto.getFacilities());
+        } else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+            query.setParameter("districts", dto.getDistricts());
+        }else if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+            query.setParameter("provinces", dto.getProvinces());
+        }
+
         if (dto.getGender() != null) {
             query.setParameter("gender", dto.getGender());
         }
@@ -358,6 +439,33 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" and p.supportGroup=:supportGroup");
                 }
             }
+
+            if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+                //System.err.println("################# DTO facilities is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic in :facilities");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic in :facilities");
+                }
+            }else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+                //System.err.println("$$$$$$$$$$$$$$$$$$$$$$$ DTO districts is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district in :districts");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district in :districts");
+                }
+            }else  if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+                //System.err.println("^^^^^^^^^^^^^^^^^^^^^^^ DTO provinces is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district.province in :provinces");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district.province in :provinces");
+                }
+            }
+
             if (dto.getGender() != null) {
                 if (position == 0) {
                     builder.append("p.gender=:gender");
@@ -406,6 +514,15 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" and (p.dateJoined between :startDate and :endDate)");
                 }
             }
+            if (dto.getIsDueForVL() != null) {
+            	// record should be t most 12 months old
+                if (position == 0) {
+                    builder.append("p.id not in (Select distinct i.patient.id From InvestigationTest i where i.testType=:testType and (i.result is not null or i.result >= 1) and (i.dateTaken between :start and :end))");
+                    position++;
+                } else {
+                    builder.append(" and p.id not in (Select distinct i.patient.id From InvestigationTest i where i.testType=:testType and (i.result is not null or i.result >= 1) and (i.dateTaken between :start and :end))");
+                }
+            }
         }
         TypedQuery<Long> query = entityManager.createQuery(builder.toString(), Long.class);
         if (dto.getProvince() != null) {
@@ -420,6 +537,16 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         if (dto.getSupportGroup() != null) {
             query.setParameter("supportGroup", dto.getSupportGroup());
         }
+
+
+        if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+            query.setParameter("facilities", dto.getFacilities());
+        } else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+            query.setParameter("districts", dto.getDistricts());
+        }else if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+            query.setParameter("provinces", dto.getProvinces());
+        }
+
         if (dto.getGender() != null) {
             query.setParameter("gender", dto.getGender());
         }
@@ -439,6 +566,13 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         if (dto.getStartDate() != null && dto.getEndDate() != null) {
             query.setParameter("startDate", dto.getStartDate());
             query.setParameter("endDate", dto.getEndDate());
+        }
+        if (dto.getTestType() != null) {
+            query.setParameter("testType", dto.getTestType());
+        }
+        if (dto.getIsDueForVL() != null) {
+        	query.setParameter("start", DateUtil.getDateDiffMonth(new Date(), -12));
+        	query.setParameter("end", new Date());
         }
         return query.getSingleResult();
     }
@@ -475,6 +609,31 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" and p.primaryClinic.district=:district");
                 }
             }
+            if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+                //System.err.println("################# DTO facilities is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic in :facilities");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic in :facilities");
+                }
+            }else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+                //System.err.println("$$$$$$$$$$$$$$$$$$$$$$$ DTO districts is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district in :districts");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district in :districts");
+                }
+            }else  if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+                //System.err.println("^^^^^^^^^^^^^^^^^^^^^^^ DTO provinces is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district.province in :provinces");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district.province in :provinces");
+                }
+            }
             if (dto.getPrimaryClinic() != null) {
                 if (position == 0) {
                     builder.append("p.primaryClinic=:primaryClinic");
@@ -553,6 +712,15 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" and p.status in (:statuses)");
                 }
             }
+            if (dto.getIsDueForVL() != null) {
+            	// record should be t most 12 months old
+                if (position == 0) {
+                    builder.append("p.id not in (Select distinct i.patient.id From InvestigationTest i where i.testType=:testType and (i.result is not null or i.result >= 1) and (i.dateTaken between :start and :end))");
+                    position++;
+                } else {
+                    builder.append(" and p.id not in (Select distinct i.patient.id From InvestigationTest i where i.testType=:testType and (i.result is not null or i.result >= 1) and (i.dateTaken between :start and :end))");
+                }
+            }
         }
         builder.append(" order by p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
@@ -562,6 +730,15 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         if (dto.getDistrict() != null) {
             query.setParameter("district", dto.getDistrict());
         }
+
+        if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+            query.setParameter("facilities", dto.getFacilities());
+        } else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+            query.setParameter("districts", dto.getDistricts());
+        }else if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+            query.setParameter("provinces", dto.getProvinces());
+        }
+
         if (dto.getPrimaryClinic() != null) {
             query.setParameter("primaryClinic", dto.getPrimaryClinic());
         }
@@ -590,6 +767,13 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         }
         if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
             query.setParameter("statuses", dto.getStatuses());
+        }
+        if (dto.getTestType() != null) {
+            query.setParameter("testType", dto.getTestType());
+        }
+        if (dto.getIsDueForVL() != null) {
+        	query.setParameter("start", DateUtil.getDateDiffMonth(new Date(), -12));
+        	query.setParameter("end", new Date());
         }
         query.setFirstResult(dto.getFirstResult());
         query.setMaxResults(dto.getPageSize());
@@ -623,6 +807,32 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" and p.primaryClinic.district=:district");
                 }
             }
+
+            if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+                //System.err.println("################# DTO facilities is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic in :facilities");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic in :facilities");
+                }
+            }else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+                //System.err.println("$$$$$$$$$$$$$$$$$$$$$$$ DTO districts is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district in :districts");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district in :districts");
+                }
+            }else  if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+                //System.err.println("^^^^^^^^^^^^^^^^^^^^^^^ DTO provinces is not null");
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district.province in :provinces");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district.province in :provinces");
+                }
+            }
             if (dto.getPrimaryClinic() != null) {
                 if (position == 0) {
                     builder.append("p.primaryClinic=:primaryClinic");
@@ -703,6 +913,9 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
             }
         }
         builder.append(" order by p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
+
+
+
         TypedQuery<String> query = entityManager.createQuery(builder.toString(), String.class);
         if (dto.getProvince() != null) {
             query.setParameter("province", dto.getProvince());
@@ -710,6 +923,15 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         if (dto.getDistrict() != null) {
             query.setParameter("district", dto.getDistrict());
         }
+
+        if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+            query.setParameter("facilities", dto.getFacilities());
+        } else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+            query.setParameter("districts", dto.getDistricts());
+        }else if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+            query.setParameter("provinces", dto.getProvinces());
+        }
+
         if (dto.getPrimaryClinic() != null) {
             query.setParameter("primaryClinic", dto.getPrimaryClinic());
         }
@@ -747,7 +969,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
     @Override
     public List<Patient> get(List<String> ids) {
         final long start = System.currentTimeMillis();
-        System.err.println("Size::" + ids.size());
+        System.err.println("IDs Size::" + ids.size());
         if (ids == null || ids.isEmpty()) {
         	return null;
         }
@@ -768,6 +990,13 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         entityGraph.addAttributeNodes("disabilityCategorys");
         return entityGraph;
     }
+
+    /*private String printDistricts(List<District> districts){
+        return  districts.stream()
+                .map(District::getName)
+                .collect(Collectors
+                        .joining(","));
+    }*/
     
 
 }

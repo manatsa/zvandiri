@@ -16,20 +16,27 @@
 package zw.org.zvandiri.business.domain;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Index;
+import javax.annotation.Resource;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 import org.hibernate.annotations.Formula;
+import org.springframework.beans.factory.annotation.Configurable;
+import zw.org.zvandiri.business.domain.util.CareLevel;
 import zw.org.zvandiri.business.domain.util.DisabilitySeverity;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
+import zw.org.zvandiri.business.service.ContactService;
+import zw.org.zvandiri.business.service.InvestigationTestService;
+import zw.org.zvandiri.business.service.MentalHealthScreeningService;
+import zw.org.zvandiri.business.service.impl.ContactServiceImpl;
+import zw.org.zvandiri.business.service.impl.InvestigationTestServiceImpl;
 import zw.org.zvandiri.business.util.DateUtil;
 
 /**
@@ -37,6 +44,7 @@ import zw.org.zvandiri.business.util.DateUtil;
  * @author Judge Muzinda
  */
 @Entity
+@Configurable(preConstruction = true)
 @Table(indexes = {
 		@Index(name = "patient_first_name_last_name", columnList = "firstName, lastName"),
 		@Index(name = "patient_status", columnList = "status"),
@@ -47,27 +55,27 @@ import zw.org.zvandiri.business.util.DateUtil;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Patient extends GenericPatient {
 
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
-    private Set<PatientDisability> disabilityCategorys = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private Set<PatientHistory> patientHistories = new HashSet<>();
     @Transient
     private District district;
     @Transient
     private Province province;
     @Transient
+    @JsonIgnore
+    @JsonProperty(value = "disabilities")
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
+    private Set<PatientDisability> disabilityCategorys = new HashSet<>();
+    @JsonIgnore
+    @JsonProperty(value = "patient_histories")
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<PatientHistory> patientHistories = new HashSet<>();
+    @Transient
+    @JsonIgnore
+    @OneToOne(mappedBy = "patient", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
+    private MobilePhone mobilePhone;
     private District supportGroupDistrict;
     @Transient
-    //@Formula("(select (TIMESTAMPDIFF(YEAR,date_of_birth,CURDATE())) as age from patient p where p.id = ? )")
     private int age = 0;
 
-//    @Formula("(select (TIMESTAMPDIFF(YEAR,date_of_birth,CURDATE())) as age from patient p where p.id = id)")
-//    private int currentAge = 0;
-    @Transient
-    private String name;
-    @Formula("(Select c.id From cat_detail c where c.patient = id)")
-    private String catId;
-    @Transient
     private String pic;
     @Transient
     private String dateJoin;
@@ -79,16 +87,63 @@ public class Patient extends GenericPatient {
     private String patientExist;
     @Transient
     private String mother;
+
+    //    @Formula("(select (TIMESTAMPDIFF(YEAR,date_of_birth,CURDATE())) as age from patient p where p.id = id)")
+//    private int currentAge = 0;
+    @Transient
+    private String name;
+    @Formula("(Select c.id From cat_detail c where c.patient = id)")
+    private String catId;
+    @Transient
     @Formula("(Select i.result From investigation_test i where i.patient = id and i.test_type = 0 order by i.date_created desc limit 0,1)")
     private Integer viralLoad;
+
+    @Formula("(Select i.id From investigation_test i where i.patient = id and i.test_type = 0 order by i.date_created desc limit 0,1)")
+    private String lastViralLoad;
+
     @Formula("(Select i.result From investigation_test i where i.patient = id and i.test_type = 1 order by i.date_created desc limit 0,1)")
     private Integer cd4Count;
+
     @Formula("(Select concat(a1.name, ', ', a2.name, ', ', a3.name) From arv_hist a inner join arv_medicine a1 on a1.id=a.arv_medicine inner join arv_medicine a2 on a2.id=a.arv_medicine2 inner join arv_medicine a3 on a3.id=a.arv_medicine3 where a.patient = id order by a.start_date desc limit 0,1)")
     private String currentArvRegimen;
+
     @Formula("(Select p.severity From patient_disability p where p.patient = id order by p.date_screened desc limit 0,1)")
     private Integer disabilitySeverity;
+
+    @Formula("(Select c.follow_up From contact c where c.patient = id order by c.date_created desc limit 0,1)")
+    private Integer enhancedStatus;
+
     @Transient
     private DisabilitySeverity disabilityStatus;
+
+    public InvestigationTest getLastPatientVL(InvestigationTestService investigationTestService) {
+
+        if(lastViralLoad!=null) {
+            if (investigationTestService == null) {
+                System.err.println("last viral load service is null");
+            } else {
+                InvestigationTest test=investigationTestService.get(lastViralLoad);
+                return test;
+            }
+        }
+
+        return null;
+
+    }
+
+    public CareLevel getCurrentCareLevelObject(){
+        if(this.enhancedStatus==null)
+            return CareLevel.ENHANCED;
+        return CareLevel.get(this.enhancedStatus+1);
+    }
+
+    public Integer getEnhancedStatus() {
+        return enhancedStatus;
+    }
+
+    public void setEnhancedStatus(Integer enhancedStatus) {
+        this.enhancedStatus = enhancedStatus;
+    }
 
     public District getDistrict() {
         return district;
@@ -120,6 +175,14 @@ public class Patient extends GenericPatient {
 
     public void setSupportGroupDistrict(District supportGroupDistrict) {
         this.supportGroupDistrict = supportGroupDistrict;
+    }
+
+    public String getLastViralLoad() {
+        return lastViralLoad;
+    }
+
+    public void setLastViralLoad(String lastViralLoad) {
+        this.lastViralLoad = lastViralLoad;
     }
 
     public String getName() {
@@ -216,6 +279,14 @@ public class Patient extends GenericPatient {
         return cd4Count != null ? cd4Count : 0;
     }
 
+    public MobilePhone getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(MobilePhone mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
+
     public void add(PatientDisability item, Patient patient) {
         disabilityCategorys.add(item);
         item.setPatient(patient);
@@ -236,8 +307,10 @@ public class Patient extends GenericPatient {
         return null;
     }
 
-    public String toString() {
-        return "ID :" + getId() + "\nFirstname : " + getFirstName() + "\nLastname : " + getLastName() + "\nFacility : " + getPrimaryClinic() + "\nDistrict : " + getPrimaryClinic().getDistrict().getName() + "\nProvince : " + getPrimaryClinic().getDistrict().getProvince().getName();
+
+    @Override
+    public String toString(){
+        return "Patient:"+this.getId();
     }
 
 }

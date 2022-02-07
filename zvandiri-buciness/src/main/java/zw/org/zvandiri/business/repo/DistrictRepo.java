@@ -35,6 +35,9 @@ public interface DistrictRepo extends AbstractNameDescRepo<District, String> {
     
     @Query("from District d left join fetch d.province where d.province=:province Order By d.name ASC")
     public List<District> getOptByProvince(@Param("province") Province province);
+
+    @Query("from District d left join fetch d.province where d.province in :provinces Order By d.name ASC")
+    public List<District> getDistrictsInProvinces(@Param("provinces") List<Province> provinces);
     
     @Query("from District d left join fetch d.province where d.name=:name and d.province=:province")
     public District getByNameAndProvince(@Param("name") String name, @Param("province") Province province);

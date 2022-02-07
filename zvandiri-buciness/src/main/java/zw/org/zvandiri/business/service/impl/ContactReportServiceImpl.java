@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.service.ContactReportService;
 import zw.org.zvandiri.business.util.ContactInnerJoin;
 import zw.org.zvandiri.business.util.DateUtil;
@@ -77,10 +78,10 @@ public class ContactReportServiceImpl implements ContactReportService {
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
 
                 if (position == 0) {
-                    builder.append(" (c.contactDate between :startDate and :endDate)");
+                    builder.append(" (c.dateCreated between :startDate and :endDate)");
                     position++;
                 } else {
-                    builder.append(" and (c.contactDate between :startDate and :endDate)");
+                    builder.append(" and (c.dateCreated between :startDate and :endDate)");
                 }
 
             }
@@ -241,10 +242,10 @@ public class ContactReportServiceImpl implements ContactReportService {
             }
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append("c.contactDate between :startDate and :endDate");
+                    builder.append("c.dateCreated between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and (c.contactDate between :startDate and :endDate)");
+                    builder.append(" and (c.dateCreated between :startDate and :endDate)");
                 }
             }
             if (dto.getCareLevel() != null) {
@@ -493,10 +494,10 @@ public class ContactReportServiceImpl implements ContactReportService {
             }
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append("c.contactDate between :startDate and :endDate");
+                    builder.append("c.dateCreated between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and (c.contactDate between :startDate and :endDate)");
+                    builder.append(" and (c.dateCreated between :startDate and :endDate)");
                 }
             }
             if (dto.getCareLevel() != null) {
@@ -515,14 +516,7 @@ public class ContactReportServiceImpl implements ContactReportService {
                     builder.append(" and c.patient.status=:status");
                 }
             }
-            if (dto.getReason() != null) {
-                if (position == 0) {
-                    builder.append("c.reason=:reason");
-                    position++;
-                } else {
-                    builder.append(" and c.reason=:reason");
-                }
-            }
+
             if (dto.getYesNo() != null) {
                 if (position == 0) {
                     builder.append("c.attendedClinicAppointment=:attendedClinicAppointment");
@@ -566,9 +560,6 @@ public class ContactReportServiceImpl implements ContactReportService {
         }
         if (dto.getStatus() != null) {
             query.setParameter("status", dto.getStatus());
-        }
-        if (dto.getReason() != null) {
-            query.setParameter("reason", dto.getReason());
         }
         if (dto.getYesNo() != null) {
             query.setParameter("attendedClinicAppointment", dto.getYesNo());

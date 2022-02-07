@@ -116,6 +116,11 @@ public class FacilityServiceImpl implements FacilityService {
     }
 
     @Override
+    public List<Facility> getFacilitiesInDistricts(List<District> districts) {
+        return facilityRepo.getFacilitiesInDistricts(districts);
+    }
+
+    @Override
     public Facility getByNameAndDistrict(String name, District district) {
 
         return facilityRepo.getByNameAndDistrict(name, district);

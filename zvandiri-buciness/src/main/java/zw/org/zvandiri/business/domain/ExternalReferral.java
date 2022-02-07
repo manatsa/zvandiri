@@ -32,9 +32,9 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @Entity @JsonIgnoreProperties(ignoreUnknown = true)
 public class ExternalReferral extends BaseName {
 
-    @OneToMany(mappedBy = "externalReferral", cascade = CascadeType.ALL)
+    /*@OneToMany(mappedBy = "externalReferral", cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<Contact> contacts = new HashSet<>();
+    private Set<Contact> contacts = new HashSet<>();*/
     
     public ExternalReferral() {
     }
@@ -43,12 +43,12 @@ public class ExternalReferral extends BaseName {
         super(id);
     }
 
-    public Set<Contact> getContacts() {
+   /* public Set<Contact> getContacts() {
         return contacts;
     }
 
     public void setContacts(Set<Contact> contacts) {
         this.contacts = contacts;
-    }
+    }*/
     
 }

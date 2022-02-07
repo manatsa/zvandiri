@@ -103,6 +103,7 @@
                 <bean class="zw.org.zvandiri.portal.web.converter.MentalHealthScreeningTypeConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.CauseOfDeathConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.PhoneStatusConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.PhoneConditionConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.InterventionConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.DiagnosisConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.ReferralConverter"/>
@@ -110,6 +111,7 @@
                 <bean class="zw.org.zvandiri.portal.web.converter.TbIdentificationOutcomeConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.TbSymptomConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.LabTaskConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.CadreTypeConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.DifferentiatedServiceConverter"/>
             </set>
         </property>

@@ -16,21 +16,20 @@
 package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import zw.org.zvandiri.business.domain.Bicycle;
+import zw.org.zvandiri.business.domain.MobilePhone;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.domain.util.YesNo;
-import zw.org.zvandiri.business.service.CatDetailService;
-import zw.org.zvandiri.business.service.ContactService;
-import zw.org.zvandiri.business.service.DependentService;
-import zw.org.zvandiri.business.service.EidTestService;
-import zw.org.zvandiri.business.service.InvestigationTestService;
-import zw.org.zvandiri.business.service.PatientService;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
@@ -41,7 +40,7 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
  */
 @Controller
 @RequestMapping("/patient/dashboard")
-public class PatientDashboardController extends BaseController {
+public class  PatientDashboardController extends BaseController {
 
     @Resource
     private PatientService patientService;
@@ -55,12 +54,22 @@ public class PatientDashboardController extends BaseController {
     private InvestigationTestService investigationTestService;
     @Resource
     private EidTestService eidTestService;
+    @Resource
+    MobilePhoneService mobilePhoneService;
+    @Resource
+    BicycleService bicycleService;
+
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String getProfile(@RequestParam String id, @RequestParam(required = false) Integer type, ModelMap model) {
         Patient item = patientService.get(id);
+//        MobilePhone phone=mobilePhoneService.getByCadre(item);
+//        Bicycle bike=bicycleService.getByCadre(item);
+
         model.addAttribute("pageTitle", APP_PREFIX + " " + item.getName() + "'s Dashboard");
         model.addAttribute("patient", item);
+        /*model.addAttribute("phone", phone);
+        model.addAttribute("bike", bike);*/
         model.addAttribute("caregiver", Boolean.FALSE);
         model.addAttribute("cat", Boolean.FALSE);
         model.addAttribute("female", Boolean.FALSE);
@@ -102,11 +111,19 @@ public class PatientDashboardController extends BaseController {
         if(item.getHei() != null && item.getHei().equals(YesNo.YES)) {
             model.addAttribute("heu", Boolean.TRUE);
         }
+
+        /*if(phone!=null){
+                model.addAttribute("hasPhone", true);
+        }
+        if(bike!=null){
+            model.addAttribute("hasBike", true);
+        }*/
         model.addAttribute("dependants", dependentService.getByPatient(item));
         model.addAttribute("contacts", contactService.getByPatient(item));
         model.addAttribute("cd4counts", investigationTestService.getByPatientAndTestType(item, TestType.CD4_COUNT));
         model.addAttribute("viralLoads", investigationTestService.getByPatientAndTestType(item, TestType.VIRAL_LOAD));
         model.addAttribute("eids", eidTestService.getByPatient(item));
+
         setViralLoad(model, item);
         return "patient/dashboard";
     }

@@ -74,11 +74,7 @@ public class MorbidityReportController extends BaseController {
         return setUpModel(model, item, true);
     }
 
-//    @RequestMapping(value="/export/excel", method = RequestMethod.GET)
-//    public void downloadAll(HttpServletResponse response, @ModelAttribute("item") @Valid SearchDTO item){
-//        String name = DateUtil.getFriendlyFileName("Detailed_Morbidity_Report");
-//        forceDownLoadDatabase(morbidityPatients(name, item), name, response);
-//    }
+
     public XSSFWorkbook morbidityPatients(String name, SearchDTO dto) {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFCellStyle XSSFCellStyle = workbook.createCellStyle();
@@ -112,32 +108,71 @@ public class MorbidityReportController extends BaseController {
                 for (Assessment item : contact.getClinicalAssessments()) {
                     int count = 0;
                     assessmentHeader = assessmentDetails.createRow(assessmentRowNum++);
+
                     XSSFCell id = assessmentHeader.createCell(count);
                     id.setCellValue(contact.getPatient().getPatientNumber());
+
                     XSSFCell patientName = assessmentHeader.createCell(++count);
                     patientName.setCellValue(contact.getPatient().getName());
+
                     XSSFCell dateOfBirth = assessmentHeader.createCell(++count);
                     dateOfBirth.setCellValue(contact.getPatient().getDateOfBirth());
                     dateOfBirth.setCellStyle(XSSFCellStyle);
+
                     XSSFCell age = assessmentHeader.createCell(++count);
                     age.setCellValue(contact.getPatient().getAge());
+
                     XSSFCell sex = assessmentHeader.createCell(++count);
                     sex.setCellValue(contact.getPatient().getGender().getName());
+
                     XSSFCell province = assessmentHeader.createCell(++count);
                     province.setCellValue(contact.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
+
                     XSSFCell district = assessmentHeader.createCell(++count);
                     district.setCellValue(contact.getPatient().getPrimaryClinic().getDistrict().getName());
+
                     XSSFCell primaryClinic = assessmentHeader.createCell(++count);
                     primaryClinic.setCellValue(contact.getPatient().getPrimaryClinic().getName());
+
+                    XSSFCell entry = assessmentHeader.createCell(++count);
+                    if(contact.getContactDate()!=null){
+                        entry.setCellValue(contact.getDateCreated());
+                        entry.setCellStyle(XSSFCellStyle);
+                    }else{
+                        entry.setCellValue("");
+                    }
+
                     XSSFCell contactDate = assessmentHeader.createCell(++count);
-                    contactDate.setCellValue(contact.getContactDate());
-                    contactDate.setCellStyle(XSSFCellStyle);
+                    if(contact.getContactDate()!=null){
+                        contactDate.setCellValue(contact.getContactDate());
+                        contactDate.setCellStyle(XSSFCellStyle);
+                    }else{
+                        contactDate.setCellValue("");
+                    }
+
+
                     XSSFCell careLevel = assessmentHeader.createCell(++count);
                     careLevel.setCellValue(contact.getCareLevel().getName());
+
                     XSSFCell assessmentType = assessmentHeader.createCell(++count);
                     assessmentType.setCellValue(item.getContactAssessment().getName());
+
                     XSSFCell assessment = assessmentHeader.createCell(++count);
                     assessment.setCellValue(item.toString());
+
+                    XSSFCell isCats = assessmentHeader.createCell(++count);
+                    isCats.setCellValue(
+                    		contact.getPatient().getCat() != null ? contact.getPatient().getCat().getName() : null
+                    );
+                    XSSFCell youngMumGroup = assessmentHeader.createCell(++count);
+                    youngMumGroup.setCellValue(
+                    		contact.getPatient().getYoungMumGroup() != null ? contact.getPatient().getYoungMumGroup().getName() : null
+                    );
+                    XSSFCell ymd = assessmentHeader.createCell(++count);
+                    ymd.setCellValue(
+                            contact.getPatient().getYoungMumGroup() != null ? contact.getPatient().getYoungMumGroup().getName() : null
+                    );
+
                 }
 
             }

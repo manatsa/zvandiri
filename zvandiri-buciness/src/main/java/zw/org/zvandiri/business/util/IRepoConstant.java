@@ -15,6 +15,8 @@
  */
 package zw.org.zvandiri.business.util;
 
+import zw.org.zvandiri.business.util.dto.SearchDTO;
+
 /**
  *
  * @author jmuzinda
@@ -26,4 +28,6 @@ public interface IRepoConstant {
     public final String USER_ROLE_CONSTANT = "left join fetch p.createdBy left join fetch p.modifiedBy left join fetch p.users";
     
     public final String PATIENT_CONSTANT = "left join fetch p.disabilityCategorys left join fetch p.education left join fetch p.educationLevel left join fetch p.referer left join fetch p.primaryClinic left join fetch p.supportGroup left join fetch p.relationship left join fetch p.mobileOwnerRelation left join fetch p.secondaryMobileownerRelation left join fetch p.motherOfHei left join fetch p.reasonForNotReachingOLevel left join fetch p.modifiedBy left join fetch p.createdBy";
+
+
 }

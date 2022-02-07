@@ -1,7 +1,19 @@
 package zw.org.zvandiri.portal.web.controller.report;
 
 import java.util.ArrayList;
-import org.apache.poi.ss.usermodel.*;
+import java.util.List;
+import java.util.concurrent.ForkJoinPool;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,19 +21,23 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.service.*;
+import zw.org.zvandiri.business.service.DistrictService;
+import zw.org.zvandiri.business.service.FacilityService;
+import zw.org.zvandiri.business.service.LastContactedService;
+import zw.org.zvandiri.business.service.PatientReportService;
+import zw.org.zvandiri.business.service.ProvinceService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+import zw.org.zvandiri.portal.web.controller.report.parallel.UnContactedClientTask;
 import zw.org.zvandiri.report.api.DatabaseHeader;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.util.List;
-import java.util.concurrent.ForkJoinPool;
-import zw.org.zvandiri.portal.web.controller.report.parallel.UnContactedClientTask;
+/**
+ *
+ * @author manatsachinyeruse@gmail.com
+ */
 
 @Controller
 @RequestMapping("/report/uncontacted")
@@ -35,6 +51,9 @@ public class UncontactedReportController extends BaseController {
     private FacilityService facilityService;
     @Resource
     PatientReportService patientReportService;
+
+    @Resource
+    LastContactedService lastContactedService;
 
     List<Patient> patients = new ArrayList<>();
 
@@ -60,13 +79,14 @@ public class UncontactedReportController extends BaseController {
     @RequestMapping(value = "/range", method = RequestMethod.GET)
     public String getUncontactedSetup(ModelMap model) {
         return setUpModel(model, new SearchDTO(), false);
+
     }
 
     @RequestMapping(value = "/range", method = RequestMethod.POST)
     public String getUncontactedClients(HttpServletResponse response, ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
         item = getUserLevelObjectState(item);
         ForkJoinPool pool = ForkJoinPool.commonPool();
-        patients = pool.invoke(new UnContactedClientTask(DateUtil.generateArray(patientReportService.countUncontacted(item)), patientReportService, item));
+        patients = pool.invoke(new UnContactedClientTask(DateUtil.generateArray(patientReportService.getCount(item)), patientReportService, item));
         return setUpModel(model, item, true);
     }
 
@@ -110,6 +130,9 @@ public class UncontactedReportController extends BaseController {
             Cell sex = uncontactedRow.createCell(count++);
             sex.setCellValue(patient.getGender().getName());
 
+            Cell status = uncontactedRow.createCell(count++);
+            status.setCellValue(patient.getStatus().getName());
+
             Cell address = uncontactedRow.createCell(count++);
             address.setCellValue(patient.getAddress());
 
@@ -118,14 +141,33 @@ public class UncontactedReportController extends BaseController {
 
             Cell phone = uncontactedRow.createCell(count++);
             phone.setCellValue(patient.getMobileNumber() == null ? "" : patient.getMobileNumber());
+
             Cell phone1 = uncontactedRow.createCell(count++);
             phone1.setCellValue(patient.getSecondaryMobileNumber() == null ? "" : patient.getSecondaryMobileNumber());
+
             Cell province = uncontactedRow.createCell(count++);
             province.setCellValue(patient.getPrimaryClinic().getDistrict().getProvince().getName());
+
             Cell district = uncontactedRow.createCell(count++);
             district.setCellValue(patient.getPrimaryClinic().getDistrict().getName() == null ? "" : patient.getPrimaryClinic().getDistrict().getName());
+
             Cell primaryClinic = uncontactedRow.createCell(count++);
             primaryClinic.setCellValue(patient.getPrimaryClinic().getName() == null ? "" : patient.getPrimaryClinic().getName());
+
+            Cell isCats = uncontactedRow.createCell(count++);
+            isCats.setCellValue(
+                    patient.getCat() != null ? patient.getCat().getName() : null
+            );
+            Cell youngMumGroup = uncontactedRow.createCell(count++);
+            youngMumGroup.setCellValue(
+                    patient.getYoungMumGroup() != null ? patient.getYoungMumGroup().getName() : null
+            );
+            Cell ymd = uncontactedRow.createCell(count++);
+            ymd.setCellValue(
+                    patient.getYoungDadGroup() != null ? patient.getYoungDadGroup().getName() : null
+            );
+
+
 
         }
 

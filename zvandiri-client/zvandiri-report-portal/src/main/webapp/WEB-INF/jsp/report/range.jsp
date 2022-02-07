@@ -38,4 +38,11 @@
     // ensire toggle side bar is pointing right
     $("span.toggle-span").addClass("fa-long-arrow-right");
     $("span.toggle-span").removeClass("fa-long-arrow-left");
+    ("#item").validate({
+        rules: {
+            province: {
+                required: true
+            }
+        } 
+     });
 </script>

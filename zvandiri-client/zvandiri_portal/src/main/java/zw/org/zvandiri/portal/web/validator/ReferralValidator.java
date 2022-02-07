@@ -21,10 +21,11 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.Referral;
+import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
  *
- * @author Judge Muiznda
+ * @author manatsachinyeruse@gmail.com
  */
 @Component
 public class ReferralValidator implements Validator {
@@ -36,56 +37,58 @@ public class ReferralValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
+        ValidationUtils.rejectIfEmpty(errors, "hasReferred", "field.empty");
         Referral item = (Referral) o;
-        ValidationUtils.rejectIfEmpty(errors, "referralDate", "field.empty");
-        ValidationUtils.rejectIfEmpty(errors, "organisation", "field.empty");
-        if (item.getReferralDate() != null && item.getReferralDate().after(new Date())) {
-            errors.rejectValue("referralDate", "date.aftertoday");
-        }
-        if (item.getReferralDate() != null && item.getPatient().getDateOfBirth() != null && item.getReferralDate().before(item.getPatient().getDateOfBirth())) {
-            errors.rejectValue("referralDate", "date.beforebirth");
-        }
-        if (item.getDateAttended() != null && item.getDateAttended().after(new Date())) {
-            errors.rejectValue("dateAttended", "date.aftertoday");
-        }
-        if (item.getDateAttended() != null && item.getPatient().getDateOfBirth() != null && item.getDateAttended().before(item.getPatient().getDateOfBirth())) {
-            errors.rejectValue("dateAttended", "date.beforebirth");
-        }
-        if ((item.getReferralDate() != null && item.getDateAttended() != null) && item.getDateAttended().before(item.getReferralDate())) {
-            errors.rejectValue("dateAttended", "referraldate.after.dateattended");
-        }
-        // check that @least one section is checked
-        /*boolean serviceReq = false;
-        if ((item.getHivStiServicesReq() != null && !item.getHivStiServicesReq().isEmpty())){
-            serviceReq = true;
-        }
-        if (!serviceReq && (item.getLaboratoryReq() != null && !item.getLaboratoryReq().isEmpty())){
-            serviceReq = true;
-        }
-        if (!serviceReq && (item.getOiArtReq() != null && !item.getOiArtReq().isEmpty())){
-            serviceReq = true;
-        }
-        if (!serviceReq && (item.getLegalReq() != null && !item.getLegalReq().isEmpty())){
-            serviceReq = true;
-        }
-        if (!serviceReq && (item.getPsychReq() != null && !item.getPsychReq().isEmpty())){
-            serviceReq = true;
-        }
-        if (!serviceReq && (item.getSrhReq() != null && !item.getSrhReq().isEmpty())){
-            serviceReq = true;
-        }
-        if (!serviceReq && (item.getTbReq() != null && !item.getTbReq().isEmpty())){
-            serviceReq = true;
-        }
-        if (!serviceReq) {
-            errors.rejectValue("servicesRequestedError", "item.select.one");
-        }*/
-        if (item.getDateAttended() != null) {
-            ValidationUtils.rejectIfEmpty(errors, "attendingOfficer", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors, "designation", "field.empty");
-            if (item.getActionTaken() == null) {
-                errors.rejectValue("actionTaken", "field.empty");
+        if(item.getHasReferred()!=null && item.getHasReferred().equals(YesNo.YES)){
+            ValidationUtils.rejectIfEmpty(errors, "referralDate", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "organisation", "field.empty");
+            if (item.getReferralDate() != null && item.getReferralDate().after(new Date())) {
+                errors.rejectValue("referralDate", "date.aftertoday");
             }
+            if (item.getReferralDate() != null && item.getPatient().getDateOfBirth() != null && item.getReferralDate().before(item.getPatient().getDateOfBirth())) {
+                errors.rejectValue("referralDate", "date.beforebirth");
+            }
+            if (item.getDateAttended() != null && item.getDateAttended().after(new Date())) {
+                errors.rejectValue("dateAttended", "date.aftertoday");
+            }
+            if (item.getDateAttended() != null && item.getPatient().getDateOfBirth() != null && item.getDateAttended().before(item.getPatient().getDateOfBirth())) {
+                errors.rejectValue("dateAttended", "date.beforebirth");
+            }
+            if ((item.getReferralDate() != null && item.getDateAttended() != null) && item.getDateAttended().before(item.getReferralDate())) {
+                errors.rejectValue("dateAttended", "referraldate.after.dateattended");
+            }
+            if (item.getDateAttended() != null) {
+                ValidationUtils.rejectIfEmpty(errors, "attendingOfficer", "field.empty");
+                ValidationUtils.rejectIfEmpty(errors, "designation", "field.empty");
+                if (item.getActionTaken() == null) {
+                    errors.rejectValue("actionTaken", "field.empty");
+                }
+            }
+        }else{
+            item.setReferralDate(null);
+            item.setAttendingOfficer(null);
+            item.setDateAttended(null);
+            item.setExpectedVisitDate(null);
+            item.setHivStiServicesReq(null);
+            item.setHivStiServicesAvailed(null);
+            item.setLaboratoryAvailed(null);
+            item.setLaboratoryReq(null);
+            item.setLegalAvailed(null);
+            item.setLegalReq(null);
+            item.setOiArtAvailed(null);
+            item.setOiArtReq(null);
+            item.setPsychAvailed(null);
+            item.setPsychReq(null);
+            item.setSrhAvailed(null);
+            item.setSrhReq(null);
+            item.setTbAvailed(null);
+            item.setTbReq(null);
+            item.setOrganisation(null);
+            item.setDesignation(null);
+            item.setActionTaken(null);
         }
+
+
+
     }
 }

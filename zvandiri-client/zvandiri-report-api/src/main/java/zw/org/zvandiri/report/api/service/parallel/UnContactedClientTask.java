@@ -24,6 +24,7 @@ public class UnContactedClientTask extends RecursiveTask<List>{
         this.reportService = reportService;
         this.searchData = searchData;
         this.arrCount = arrCount;
+
     }
 
     @Override
@@ -47,6 +48,6 @@ public class UnContactedClientTask extends RecursiveTask<List>{
         searchData.setFirstResult(first);
         Integer pageSize = arrCount.get(arrCount.size() - 1) - searchData.getFirstResult();
         searchData.setPageSize(pageSize);
-        return reportService.getUncontactedClients(searchData.getInstance(searchData));
+        return reportService.getUncontactedClients(searchData);
     }
 }

@@ -197,11 +197,11 @@ public class TbIptServiceImpl implements TbIptService {
             }
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append(" t.dateScreened ");
+                    builder.append(" t.dateCreated ");
                     builder.append(" between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and t.dateScreened");
+                    builder.append(" and t.dateCreated");
                     builder.append(" between :startDate and :endDate)");
                 }
             }
@@ -328,11 +328,11 @@ public class TbIptServiceImpl implements TbIptService {
             }
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append(" t.dateScreened ");
+                    builder.append(" t.dateCreated ");
                     builder.append(" between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and t.dateScreened");
+                    builder.append(" and t.dateCreated");
                     builder.append(" between :startDate and :endDate)");
                 }
             }

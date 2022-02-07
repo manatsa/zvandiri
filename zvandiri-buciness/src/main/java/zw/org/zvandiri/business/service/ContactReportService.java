@@ -19,7 +19,10 @@ import java.util.List;
 
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
+
+import javax.persistence.Query;
 
 /**
  *

@@ -5,34 +5,16 @@
  */
 package zw.org.zvandiri.business.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
+import zw.org.zvandiri.business.domain.util.*;
+import zw.org.zvandiri.business.domain.util.Referral;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
-
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import zw.org.zvandiri.business.domain.util.Diagnosis;
-import zw.org.zvandiri.business.domain.util.IdentifiedRisk;
-import zw.org.zvandiri.business.domain.util.Intervention;
-import zw.org.zvandiri.business.domain.util.MentalHealthScreeningType;
-import zw.org.zvandiri.business.domain.util.Referral;
-import zw.org.zvandiri.business.domain.util.Support;
-import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
  *
@@ -42,11 +24,13 @@ import zw.org.zvandiri.business.domain.util.YesNo;
 @Table(indexes = {
 		@Index(name = "mental_health_screening_patient", columnList = "patient")
 })
-@JsonIgnoreProperties(ignoreUnknown = true)
+
+@ToString
 public class MentalHealthScreening extends BaseEntity {
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JsonIgnore
+    @NotNull
     private Patient patient;
     @Enumerated
     private YesNo screenedForMentalHealth;
@@ -54,6 +38,7 @@ public class MentalHealthScreening extends BaseEntity {
     private MentalHealthScreeningType screening;
     @Enumerated
     private YesNo risk;
+    @JsonIgnore
     @ElementCollection(targetClass = IdentifiedRisk.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "mental_health_screening_risk",
             joinColumns = @JoinColumn(name = "screening_id"))
@@ -61,6 +46,7 @@ public class MentalHealthScreening extends BaseEntity {
     private Set<IdentifiedRisk> identifiedRisks;
     @Enumerated
     private YesNo support;
+    @JsonIgnore
     @ElementCollection(targetClass = Support.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "mental_health_screening_support",
             joinColumns = @JoinColumn(name = "screening_id"))
@@ -68,6 +54,7 @@ public class MentalHealthScreening extends BaseEntity {
     private Set<Support> supports;
     @Enumerated
     private YesNo referral;
+    @JsonIgnore
     @ElementCollection(targetClass = zw.org.zvandiri.business.domain.util.Referral.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "mental_health_screening_referral",
             joinColumns = @JoinColumn(name = "screening_id"))
@@ -75,6 +62,7 @@ public class MentalHealthScreening extends BaseEntity {
     private Set<zw.org.zvandiri.business.domain.util.Referral> referrals;
     @Enumerated
     private YesNo diagnosis;
+    @JsonIgnore
     @ElementCollection(targetClass = Diagnosis.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "mental_health_screening_diagnosis",
             joinColumns = @JoinColumn(name = "screening_id"))
@@ -83,6 +71,7 @@ public class MentalHealthScreening extends BaseEntity {
     private String otherDiagnosis;
     @Enumerated
     private YesNo intervention;
+    @JsonIgnore
     @ElementCollection(targetClass = Intervention.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "mental_health_screening_intervention",
             joinColumns = @JoinColumn(name = "screening_id"))
@@ -96,6 +85,8 @@ public class MentalHealthScreening extends BaseEntity {
     private Date dateScreened;
     @Enumerated
     private YesNo referralComplete;
+    @Transient
+    private String currentElement;
 
     public MentalHealthScreening(Patient patient) {
         this.patient = patient;
@@ -246,6 +237,14 @@ public class MentalHealthScreening extends BaseEntity {
 
     public void setReferralComplete(YesNo referralComplete) {
         this.referralComplete = referralComplete;
+    }
+    
+    public String getCurrentElement() {
+        return currentElement;
+    }
+
+    public void setCurrentElement(String currentElement) {
+        this.currentElement = currentElement;
     }
     
 }

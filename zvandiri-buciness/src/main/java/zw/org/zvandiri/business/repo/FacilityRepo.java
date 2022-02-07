@@ -34,6 +34,9 @@ public interface FacilityRepo extends AbstractNameDescRepo<Facility, String> {
     @Query("from Facility f left join fetch f.district where f.district=:district Order By f.name ASC")
     public List<Facility> getOptByDistrict(@Param("district") District district);
 
+    @Query("from Facility f left join fetch f.district where f.district in :districts Order By f.name ASC")
+    public List<Facility> getFacilitiesInDistricts(@Param("districts") List<District> districts);
+
     @Query("from Facility f left join fetch f.district where f.name=:name and f.district=:district")
     public Facility getByNameAndDistrict(@Param("name") String name, @Param("district") District district);
     

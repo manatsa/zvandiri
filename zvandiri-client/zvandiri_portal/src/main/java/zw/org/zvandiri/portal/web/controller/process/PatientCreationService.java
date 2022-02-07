@@ -29,4 +29,6 @@ public interface PatientCreationService {
     public Patient savePatient(Patient patient);
     
     public Dependent createDependant(Patient patient);
+
+    public Patient getPatientById(String id);
 }

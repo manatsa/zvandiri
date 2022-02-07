@@ -74,9 +74,11 @@ public class ExportDataBaseController extends BaseController {
 	@RequestMapping(value = "/index", method = RequestMethod.POST)
 	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_DATA_CLERK') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
 	public void getExcelExport(HttpServletResponse response, @ModelAttribute("item") SearchDTO dto) {
-		
+		long begin=System.currentTimeMillis();
 		dto = getUserLevelObjectState(dto);
 		String name = DateUtil.getFriendlyFileName("Zvandiri_Database");
 		forceDownLoadXLSX(officeExportService.exportDatabase(name, dto), name, response);
+		System.err.println(">>>>> Export Database Time Taken: "+(System.currentTimeMillis()-begin)/60000 +" minutes.");
 	}
+	
 }

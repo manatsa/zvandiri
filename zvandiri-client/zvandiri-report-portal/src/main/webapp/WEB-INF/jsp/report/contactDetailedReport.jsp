@@ -9,6 +9,13 @@
 				Reports DashBoard Home</a><br />
 			<%@include file="../template/contactSearchFragment.jspf"%>
 			<div class="row">
+				<div class="panel-footer" style="text-align: right">
+					Export/ View As <a href="${page}${excelExport}"> <img
+						src="<c:url value="/resources/images/excel.jpeg"/>" />
+				</a>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-lg-12">
 					<table id="tableList" class="display" cellspacing="0">
 						<thead>
@@ -16,6 +23,9 @@
 							<th>Age</th>
 							<th>Gender</th>
 							<th>Phone No.</th>
+							<th>Is CATS</th>
+							<th>In YMM</th>
+							<th>In YMD</th>
 							<th>District</th>
 							<th>Clinic</th>
 							<th>Current Level Of Care</th>
@@ -30,6 +40,9 @@
 							<th>Age</th>
 							<th>Gender</th>
 							<th>Phone No.</th>
+							<th>Is CATS</th>
+							<th>In YMM</th>
+							<th>In YMD</th>
 							<th>District</th>
 							<th>Clinic</th>
 							<th>Current Level Of Care</th>
@@ -46,14 +59,17 @@
 									<td>${item.patient.age}</td>
 									<td>${item.patient.gender.name}</td>
 									<td>${item.patient.mobileNumber}</td>
+									<td>${item.patient.cat.name}</td>
+									<td>${item.patient.youngMumGroup.name}</td>
+									<td>${item.patient.youngDadGroup.name}</td>
 									<td>${item.patient.primaryClinic.district.name}</td>
 									<td>${item.patient.primaryClinic.name}</td>
 									<td>${item.currentCareLevel.name}</td>
 									<td><spring:eval expression="item.contactDate" /></td>
 									<td>${item.followUp.name}</td>
-									<td>${item.location}</td>
+									<td>${item.location.name}</td>
 									<td>${item.careLevel.name}</td>
-									<td>${item.position}</td>
+									<td>${item.position.name}</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -76,4 +92,15 @@
 	// ensire toggle side bar is pointing right
 	$("span.toggle-span").addClass("fa-long-arrow-right");
 	$("span.toggle-span").removeClass("fa-long-arrow-left");
+	
+	$("#item").validate({
+	       rules: {
+	           startDate: {
+	               required: true
+	           },
+	           endDate: {
+	               required: true
+	           }
+	       } 
+	    });
 </script>

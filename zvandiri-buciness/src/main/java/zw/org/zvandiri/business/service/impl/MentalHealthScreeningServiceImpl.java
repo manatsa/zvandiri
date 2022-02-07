@@ -6,7 +6,9 @@
 package zw.org.zvandiri.business.service.impl;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,10 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.MentalHealthScreening;
 import zw.org.zvandiri.business.domain.TbIpt;
+import zw.org.zvandiri.business.domain.util.IdentifiedRisk;
 import zw.org.zvandiri.business.repo.MentalHealthScreeningRepo;
 import zw.org.zvandiri.business.service.MentalHealthScreeningService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.DateUtil;
+import zw.org.zvandiri.business.util.Reportutil;
 import zw.org.zvandiri.business.util.UUIDGen;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
@@ -68,15 +72,44 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
 
     @Override
     public MentalHealthScreening save(MentalHealthScreening t) {
-        if (t.getId() == null) {
-            t.setId(UUIDGen.generateUUID());
-            t.setCreatedBy(userService.getCurrentUser());
-            t.setDateCreated(new Date());
+
+        try{
+            if (t.getId() == null) {
+
+                Set<IdentifiedRisk> risks=t.getIdentifiedRisks();
+                Set<IdentifiedRisk> newRisks=new HashSet<>();
+
+                if(risks!=null && !risks.isEmpty()){
+                    System.err.println("RISKS BEFORE : "+ Reportutil.StringsFromList(t.getIdentifiedRisks()));
+                    /*Set<IdentifiedRisk> riskStream=risks.stream()
+                            .map(r->(r.getCode()==5)?IdentifiedRisk.SUICIDAL_IDEATION:((r.getCode()==6)?IdentifiedRisk.PSYCHOSIS:
+                                    (r.getCode()==1 || r.getCode()==2 || r.getCode()==3)?IdentifiedRisk.COMMON_MENTAL_HEALTH_PROBLEMS:r))
+                            .collect(Collectors.toSet());*/
+                    for(IdentifiedRisk risk:risks)
+                    {
+                        if(risk.getName().equalsIgnoreCase("DEPRESSION") || risk.getName().equalsIgnoreCase("ANXIETY") || risk.getName().equalsIgnoreCase("POST_TRAUMATIC_STRESS")){
+                            newRisks.add(IdentifiedRisk.COMMON_MENTAL_HEALTH_PROBLEMS);
+                        }
+                    }
+
+                    System.err.println("RISKS AFTER : "+ Reportutil.StringsFromList(newRisks));
+                    t.setIdentifiedRisks(newRisks);
+                    t.setDateCreated(new Date());
+                }
+
+                t.setDateModified(new Date());
+                t.setId(UUIDGen.generateUUID());
+                t.setCreatedBy(userService.getCurrentUser());
+
+                return repo.save(t);
+            }
+            t.setModifiedBy(userService.getCurrentUser());
+            t.setDateModified(new Date());
             return repo.save(t);
+        }catch(Exception e){
+
         }
-        t.setModifiedBy(userService.getCurrentUser());
-        t.setDateModified(new Date());
-        return repo.save(t);
+       return null;
     }
 
     @Override
@@ -155,11 +188,11 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
 
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append(" m.dateScreened ");
+                    builder.append(" m.dateCreated ");
                     builder.append(" between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and m.dateScreened");
+                    builder.append(" and m.dateCreated");
                     builder.append(" between :startDate and :endDate)");
                 }
             }
@@ -233,11 +266,11 @@ public class MentalHealthScreeningServiceImpl implements MentalHealthScreeningSe
 
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append(" m.dateScreened ");
+                    builder.append(" m.dateCreated ");
                     builder.append(" between :startDate and :endDate");
                     position++;
                 } else {
-                    builder.append(" and m.dateScreened");
+                    builder.append(" and m.dateCreated");
                     builder.append(" between :startDate and :endDate)");
                 }
             }

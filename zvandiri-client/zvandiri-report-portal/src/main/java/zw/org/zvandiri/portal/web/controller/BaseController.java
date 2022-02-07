@@ -83,14 +83,6 @@ abstract public class BaseController implements IAppTitle {
         return userService.getCurrentUser().getUserLevel();
     }
     
-//    @ModelAttribute("userContacts")
-//    public List<Contact> getUserContacts() {
-//        if (getUserName() == null) {
-//            return null;
-//        }
-//        return contactService.findByReferredPersonAndOpen(getUserName());
-//    }
-    
     public SearchDTO getUserLevelObjectState(SearchDTO dto){
         User user = getUserName();
         if (user.getUserLevel() == null){
@@ -101,8 +93,10 @@ abstract public class BaseController implements IAppTitle {
         } else if (user.getUserLevel().equals(UserLevel.DISTRICT)){
             dto.setDistrict(user.getDistrict());
         }
+       // System.err.println(dto.toString());
         return dto;
     }
+
     
     public void getPatientStatus(Patient patient, ModelMap model) {
         StringBuilder warning = new StringBuilder();

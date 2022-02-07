@@ -42,6 +42,16 @@ public class PatientCreationServiceImpl implements PatientCreationService {
     }
 
     @Override
+    public Patient getPatientById(String id) {
+        if(id==null){
+            return null;
+        }
+        Patient p=patientService.get(id);
+        //System.err.println("-------- Webflow Patient -------- enhanced Status is :"+p.getEnhancedStatus());
+        return p;
+    }
+
+    @Override
     public Patient savePatient(Patient patient) {
         return patientService.save(patient);
     }

@@ -89,14 +89,17 @@ public class DetailedReportController extends BaseController {
             item.setHei(YesNo.YES);
         }
         model.addAttribute("excelExport", "/report/detailed/export/excel" + item.getQueryString(item.getInstance(item)));
-        if (item.getMaxViralLoad() == null && item.getMinCd4Count() == null && item.getMinViralLoad() == null && item.getIsDueForVL() == null) {
+        if (item.getMaxViralLoad() == null && item.getMinCd4Count() == null && item.getMinViralLoad() == null) {
             if (post) {
                 ForkJoinPool pool = ForkJoinPool.commonPool();
+                if (item.getIsDueForVL() != null) {
+                	item.setTestType(TestType.VIRAL_LOAD);
+                }
                 List items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(item)), detailedPatientReportService, item));
                 model.addAttribute("items", items);
             }
         } else {
-            if (item.getMaxViralLoad() != null || item.getMinViralLoad() != null || item.getIsDueForVL() != null) {
+            if (item.getMaxViralLoad() != null || item.getMinViralLoad() != null) {
                 item.setTestType(TestType.VIRAL_LOAD);
                 ForkJoinPool pool = ForkJoinPool.commonPool();
                 List items = pool.invoke(new LabResultTask(DateUtil.generateArray(patientReportService.getPatientWithViralLoad(item)), patientReportService, item));
@@ -115,7 +118,7 @@ public class DetailedReportController extends BaseController {
     public String getRangeIndex(ModelMap model, SearchDTO dto) {
         model.addAttribute("pageTitle", APP_PREFIX + "Client Detailed Report");
         Boolean post = Boolean.TRUE;
-        if (dto.getStatus() != null && dto.getStatus().equals(PatientChangeEvent.ACTIVE) && (dto.getMaxViralLoad() == null && dto.getMinCd4Count() == null && dto.getMinViralLoad() == null && dto.getIsDueForVL() == null)) {
+        if (dto.getStatus() != null && dto.getStatus().equals(PatientChangeEvent.ACTIVE) && (dto.getMaxViralLoad() == null && dto.getMinCd4Count() == null && dto.getMinViralLoad() == null)) {
             post = Boolean.FALSE;
         }
         setUpModel(model, dto, post, Boolean.FALSE);
@@ -151,11 +154,14 @@ public class DetailedReportController extends BaseController {
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Detailed_Beneficiary_Report");
         List<Patient> items;
-        if (item.getMaxViralLoad() == null && item.getMinCd4Count() == null && item.getMinViralLoad() == null && item.getIsDueForVL() == null) {
+        if (item.getMaxViralLoad() == null && item.getMinCd4Count() == null && item.getMinViralLoad() == null) {
             ForkJoinPool pool = ForkJoinPool.commonPool();
+            if (item.getIsDueForVL() != null) {
+            	item.setTestType(TestType.VIRAL_LOAD);
+            }
             items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(item)), detailedPatientReportService, item));
         } else {
-            if (item.getMaxViralLoad() != null || item.getMinViralLoad() != null || item.getIsDueForVL() != null) {
+            if (item.getMaxViralLoad() != null || item.getMinViralLoad() != null) {
                 item.setTestType(TestType.VIRAL_LOAD);
                 ForkJoinPool pool = ForkJoinPool.commonPool();
                 items = pool.invoke(new LabResultTask(DateUtil.generateArray(patientReportService.getPatientWithViralLoad(item)), patientReportService, item));

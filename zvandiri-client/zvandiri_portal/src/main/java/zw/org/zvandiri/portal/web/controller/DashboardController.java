@@ -16,8 +16,10 @@
 package zw.org.zvandiri.portal.web.controller;
 
 import java.io.IOException;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,10 +27,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.service.SettingsService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
-import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
 import zw.org.zvandiri.report.api.ChartModelItem;
 import zw.org.zvandiri.report.api.service.AggregateVisualReportService;
 import zw.org.zvandiri.report.api.service.BasicNameNumberReportService;
@@ -62,10 +64,10 @@ public class DashboardController extends BaseController {
         model.addAttribute("pageTitle", APP_PREFIX + "HOME");
         model.addAttribute("patientStat", basicNameNumberReportService.getHomeStats(dto.getInstance(dto)));
         model.addAttribute("notifications", referralReportAPIService.getNotifications(dto.getInstance(dto)));
-        model.addAttribute("contactLevelTrend", "/contact-trend-by-care-level/trend" + dto.getQueryString(dto.getInstance(dto)));
+        /*model.addAttribute("contactLevelTrend", "/contact-trend-by-care-level/trend" + dto.getQueryString(dto.getInstance(dto)));
         model.addAttribute("patientAgeGroupDistribution", "/patient-age-group-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
         model.addAttribute("contactLevelOfCareDistribution", "/contact-distribution-past-six-months/bar-graph" + dto.getQueryString(dto.getInstance(dto)));
-        model.addAttribute("patientStatusDistribution", "/patient-status-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));
+        model.addAttribute("patientStatusDistribution", "/patient-status-distribution/pie-chart" + dto.getQueryString(dto.getInstance(dto)));*/
         return "index";
     }
 

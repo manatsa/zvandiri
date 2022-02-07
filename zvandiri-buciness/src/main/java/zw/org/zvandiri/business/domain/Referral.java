@@ -33,16 +33,19 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import lombok.ToString;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import zw.org.zvandiri.business.domain.util.ReferralActionTaken;
+import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
  *
  * @author Judge Muzinda
  */
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
+@Entity
 @Table(indexes = {
 		@Index(name = "referral_patient", columnList = "patient"),
 		@Index(name = "referral_referral_date", columnList = "referralDate")
@@ -71,6 +74,9 @@ public class Referral extends BaseEntity {
     private Set<String> servicesReceived;
     @Transient
     private Set<String> servicesRequested;
+    @Transient
+    @Enumerated
+    private YesNo hasReferred;
     @Enumerated
     private ReferralActionTaken actionTaken;
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
@@ -149,6 +155,14 @@ public class Referral extends BaseEntity {
         @JoinColumn(name = "referral_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "legal_id", nullable = false)})
     private Set<ServicesReferred> legalAvailed = new HashSet<>();
+
+    public YesNo getHasReferred() {
+        return hasReferred;
+    }
+
+    public void setHasReferred(YesNo hasReferred) {
+        this.hasReferred = hasReferred;
+    }
 
     public Referral() {
     }
@@ -376,9 +390,13 @@ public class Referral extends BaseEntity {
 
     private Set<String> filterServices(Set<ServicesReferred> services) {
         Set<String> service = new HashSet<>();
-        for (ServicesReferred item : services) {
-            service.add(item.getName());
+        if(services!=null && !services.isEmpty())
+        {
+            for (ServicesReferred item : services) {
+                service.add(item.getName());
+            }
         }
+
         return service;
     }
 

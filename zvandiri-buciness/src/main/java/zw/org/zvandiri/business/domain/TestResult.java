@@ -15,25 +15,27 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import java.util.Date;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
+import lombok.ToString;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.util.Cd4CountResultSource;
 import zw.org.zvandiri.business.domain.util.YesNo;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  *
  * @author Judge Muzinda
  */
 @MappedSuperclass
+@ToString
 public class TestResult extends BaseEntity {
     
     @ManyToOne
+    @NotNull
+    //@JsonIgnore
     private Patient patient;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -111,9 +113,5 @@ public class TestResult extends BaseEntity {
         this.resultTaken = resultTaken;
     }
 
-    @Override
-    public String toString() {
-        return "TestResult{" + "patient=" + patient + ", dateTaken=" + dateTaken + ", nextTestDate=" + nextTestDate + ", result=" + result + ", tnd=" + tnd + ", source=" + source + ", resultTaken=" + resultTaken + '}';
-    }
-    
+
 }

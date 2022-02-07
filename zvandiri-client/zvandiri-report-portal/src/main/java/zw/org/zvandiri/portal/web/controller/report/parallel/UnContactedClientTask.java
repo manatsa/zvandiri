@@ -24,6 +24,7 @@ public class UnContactedClientTask extends RecursiveTask<List>{
         this.reportService = reportService;
         this.searchData = searchData;
         this.arrCount = arrCount;
+        //System.err.println("** ##################################### >> "+searchData);
     }
 
     @Override

@@ -48,13 +48,13 @@ public class BasicNameNumberReportServiceImpl implements BasicNameNumberReportSe
         Map<String, Long> map = new HashMap<>();
         dto.setStatus(PatientChangeEvent.ACTIVE);
         map.put("ACTIVE", detailedPatientReportService.getCount(dto));
-        dto.setStatus(PatientChangeEvent.DECEASED);
-        map.put("DECEASED", detailedPatientReportService.getCount(dto));
+        /*dto.setStatus(PatientChangeEvent.DECEASED);
+        map.put("DECEASED", detailedPatientReportService.getCount(dto));*/
         dto.setStatus(PatientChangeEvent.LOST_TO_FOLOWUP);
         map.put("LOST_TO_FOLOWUP", detailedPatientReportService.getCount(dto));
-        dto.setStatus(PatientChangeEvent.OPT_OUT);
-        map.put("OPT_OUT", detailedPatientReportService.getCount(dto));
-        dto.setStatus(PatientChangeEvent.ACTIVE);
+        /*dto.setStatus(PatientChangeEvent.OPT_OUT);
+        map.put("OPT_OUT", detailedPatientReportService.getCount(dto));*/
+        /*dto.setStatus(PatientChangeEvent.ACTIVE);
         dto.setMaxViralLoad(settings.getViralLoadMaxCount());
         dto.setTestType(TestType.VIRAL_LOAD);
         map.put("VIRAL_LOAD_ABOVE_MINIMUM", patientReportService.getPatientLabResults(dto));
@@ -72,7 +72,7 @@ public class BasicNameNumberReportServiceImpl implements BasicNameNumberReportSe
         dto.setMinViralLoad(null);
         dto.setIsDueForVL(Boolean.TRUE);
         dto.setTestType(TestType.VIRAL_LOAD);
-        map.put("DUE_FOR_VL", patientReportService.getPatientLabResults(dto));
+        map.put("DUE_FOR_VL", detailedPatientReportService.getCount(dto));*/
         return map;
     }    
 }

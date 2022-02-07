@@ -21,6 +21,20 @@
 					class="fa fatable fafw"></i> Manage Client</a></li>
 			<li><a href="${page}/data/item.form"><i
 					class="fa fagavel fafw"></i> Data Cleaning Tool</a></li>
+			<sec:authorize
+					access="
+                           hasRole('ROLE_ZI') or
+                           hasRole('ROLE_ADMINISTRATOR') or
+                           hasRole('ROLE_ZM') or
+                           hasRole('ROLE_NURSE') or
+                           hasRole('ROLE_DATA_CLERK') or
+                           hasRole('ROLE_HOD_M_AND_E') or
+                           hasRole('ROLE_ADMINISTRATOR')
+
+                           ">
+				<li><a href="${page}/cadre/index.htm"><i
+						class="fa fatable fafw"></i> Manage Cadre</a></li>
+			</sec:authorize>
 			<sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
 				<li><a href="${page}/admin/index.htm"><i
 						class="fa fatable fafw"></i> Administration</a></li>

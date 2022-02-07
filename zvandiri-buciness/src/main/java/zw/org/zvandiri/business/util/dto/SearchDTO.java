@@ -18,7 +18,9 @@ package zw.org.zvandiri.business.util.dto;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.District;
@@ -100,6 +102,9 @@ public class SearchDTO implements Serializable {
     private Set<UserRole> userRoles = new HashSet<>();
     private Integer firstResult;
     private Integer pageSize;
+    private List<District> districts;
+    private List<Province> provinces;
+    private List<Facility> facilities;
 
     public SearchDTO() {
     }
@@ -112,7 +117,7 @@ public class SearchDTO implements Serializable {
             User createdBy, Indicator indicator, Integer start, Integer max, Set<PatientChangeEvent> statuses,
             Integer maxViralLoad, Integer minViralLoad, Boolean isDueForVL, Integer minCd4Count, UserType userType, TestType testType, Reason reason, YesNo hei,
             Result result, TbTreatmentStatus tbTreatmentStatus, TbTreatmentOutcome tbTreatmentOutcome,
-            UserLevel userLevel, Set<UserRole> userRoles, Integer firstResult, Integer pageSize) {
+            UserLevel userLevel, Set<UserRole> userRoles, Integer firstResult, Integer pageSize, List<Province> provinces, List<District> districts, List<Facility> facilities) {
         this.period = period;
         this.province = province;
         this.district = district;
@@ -154,6 +159,33 @@ public class SearchDTO implements Serializable {
         this.userRoles = userRoles;
         this.firstResult = firstResult;
         this.pageSize = pageSize;
+        this.provinces=provinces;
+        this.districts=districts;
+        this.facilities=facilities;
+    }
+
+    public List<District> getDistricts() {
+        return districts;
+    }
+
+    public void setDistricts(List<District> districts) {
+        this.districts = districts;
+    }
+
+    public List<Province> getProvinces() {
+        return provinces;
+    }
+
+    public void setProvinces(List<Province> provinces) {
+        this.provinces = provinces;
+    }
+
+    public List<Facility> getFacilities() {
+        return facilities;
+    }
+
+    public void setFacilities(List<Facility> facilities) {
+        this.facilities = facilities;
     }
 
     public Period getPeriod() {
@@ -493,7 +525,9 @@ public class SearchDTO implements Serializable {
                 || dto.getFollowUp() != null || dto.getCreatedBy() != null || dto.getStart() != null
                 || dto.getMax() != null || dto.getReason() != null || dto.getResult() != null
                 || dto.getTbTreatmentStatus() != null || dto.getTbTreatmentOutcome() != null
-                || dto.getUserLevel() != null) {
+                || dto.getUserLevel() != null || (dto.getDistricts()!=null && !dto.getDistricts().isEmpty())
+                || (dto.getProvinces()!=null && !dto.getProvinces().isEmpty()) || (dto.getFacilities()!=null && !dto.getFacilities().isEmpty())
+        ){
             return Boolean.TRUE;
         }
         return Boolean.FALSE;
@@ -797,6 +831,11 @@ public class SearchDTO implements Serializable {
                 dto.getCreatedBy(), dto.getIndicator(), dto.getStart(), dto.getMax(), dto.getStatuses(),
                 dto.getMaxViralLoad(), dto.getMinViralLoad(), dto.getIsDueForVL(), dto.getMinCd4Count(), dto.getUserType(), dto.getTestType(), dto.getReason(),
                 dto.getHei(), dto.getResult(), dto.getTbTreatmentStatus(), dto.getTbTreatmentOutcome(),
-                dto.getUserLevel(), dto.getUserRoles(), dto.getFirstResult(), dto.getPageSize());
+                dto.getUserLevel(), dto.getUserRoles(), dto.getFirstResult(), dto.getPageSize(), dto.getProvinces(), dto.getDistricts(),dto.getFacilities());
     }
+
+    /*public String toString(){
+        return "Province: "+this.province+", District: "+this.district+", Facility: "+this.primaryClinic+", start date: "+this.startDate+", end date: "+this.endDate+", status: "+this.status+
+                ", Districts :"+districts.toString()+" ,Provinces:"+provinces.toString()+" ,Facilities:"+facilities.toString();
+    }*/
 }

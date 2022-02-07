@@ -18,6 +18,7 @@ package zw.org.zvandiri.business.repo;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.ArvHist;
 import zw.org.zvandiri.business.domain.Patient;
 
@@ -25,6 +26,7 @@ import zw.org.zvandiri.business.domain.Patient;
  *
  * @author Judge Muzinda
  */
+@Repository
 public interface ArvHistRepo extends AbstractRepo<ArvHist, String> {
  
     @Query("from ArvHist a left join fetch a.patient left join fetch a.modifiedBy left join fetch a.createdBy where a.patient=:patient order by a.dateCreated DESC")

@@ -21,9 +21,11 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import lombok.ToString;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import zw.org.zvandiri.business.domain.util.TestType;
+import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
  *
@@ -34,11 +36,15 @@ import zw.org.zvandiri.business.domain.util.TestType;
 		@Index(name = "investigation_test_patient", columnList = "patient"),
 		@Index(name = "investigation_test_dateTaken", columnList = "dateTaken"),
 })
-@JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class InvestigationTest extends TestResult {
 
     @Enumerated
     private TestType testType;
+    @Enumerated
+    private YesNo testDone;
+    @Enumerated
+    private YesNo haveResult;
     @Transient
     private String viralLoadSuppressionStatus;
 
@@ -58,10 +64,26 @@ public class InvestigationTest extends TestResult {
         this.testType = testType;
     }
 
+    public YesNo getTestDone() {
+        return testDone;
+    }
+
+    public void setTestDone(YesNo testDone) {
+        this.testDone = testDone;
+    }
+
+    public YesNo getHaveResult() {
+        return haveResult;
+    }
+
+    public void setHaveResult(YesNo haveResult) {
+        this.haveResult = haveResult;
+    }
+
     public String getViralLoadSuppressionStatus() {
-        if (testType.equals(TestType.VIRAL_LOAD)) {
+        if (testType!=null && testType.equals(TestType.VIRAL_LOAD)) {
             return (getResult() != null && getResult() < 1000) ? "Suppressed" : "Unsuppressed";
         }
-        return null;
+        return "";
     }
 }

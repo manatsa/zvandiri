@@ -17,7 +17,7 @@
                 <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/><br/>
                 <div class="row">
                     <div class="col-lg-12">
-                        <b class="titleHeader">Patient Referrals</b>  <c:if test="${canEdit}">| <a href="item.form?patientId=${patient.id}">Add New Referral </a></c:if>
+                        <b class="titleHeader">Patient Referrals</b>  <c:if test="${canEdit}">| <a href="${page}/contact?id==${patient.id}">Add New Referral </a></c:if>
                         <hr/>
                         <div class="table-responsive">
                             <table class="itemList" class="display" cellspacing="0">
@@ -28,7 +28,7 @@
                                         <th>Officer</th>
                                         <th>Date Attended</th>
                                         <th>Action Taken</th>
-                                        <th>&nbsp;</th>
+                                        <%--<th>&nbsp;</th>--%>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -39,11 +39,11 @@
                                             <td>${item.attendingOfficer}</td>
                                             <td><spring:eval expression="item.dateAttended"/></td>
                                             <td>${item.actionTaken.name}</td>
-                                            <td>
+                                            <%--<td>
                                                 <a href="item.view?itemId=${item.id}">View</a> |
                                                 <a href="item.form?itemId=${item.id}">Edit</a> |
-<%--                                                <c:if test="${canEdit}"><a href="item.delete?id=${item.id}">Delete</a></c:if>--%>
-                                            </td>
+&lt;%&ndash;                                                <c:if test="${canEdit}"><a href="item.delete?id=${item.id}">Delete</a></c:if>&ndash;%&gt;
+                                            </td>--%>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

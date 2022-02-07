@@ -16,14 +16,13 @@
 package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.*;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.util.TestType;
@@ -49,6 +48,11 @@ public class ViralLoadController extends BaseController {
     private PatientService patientService;
     @Resource
     private ViralLoadValidator viralLoadValidator;
+
+    @InitBinder
+    protected void initBinder(final HttpServletRequest request, final ServletRequestDataBinder binder) {
+        binder.addValidators(viralLoadValidator);
+    }
 
     public String setUpModel(ModelMap model, InvestigationTest item) {
         model.addAttribute("pageTitle", APP_PREFIX + " " + item.getPatient().getName() + "'s Viral Load");

@@ -37,16 +37,16 @@
                                     <form:errors path="cat" class="alert-danger"/>
                                 </p>
                             </div>
-                            <div class="form-group">
-                                <label>Is In Young People's Group</label>
-                                <form:select path="youngMumGroup" class="form-control">
-                                    <form:option value="" label="--Select Item"/>
-                                    <form:options itemValue="code" itemLabel="name"/>
-                                </form:select>
-                                <p class="help-block">
-                                    <form:errors path="youngMumGroup" class="alert-danger"/>
-                                </p>
-                            </div>
+<%--                            <div class="form-group">--%>
+<%--                                <label>Is In Young People's Group</label>--%>
+<%--                                <form:select path="youngMumGroup" class="form-control">--%>
+<%--                                    <form:option value="" label="--Select Item"/>--%>
+<%--                                    <form:options itemValue="code" itemLabel="name"/>--%>
+<%--                                </form:select>--%>
+<%--                                <p class="help-block">--%>
+<%--                                    <form:errors path="youngMumGroup" class="alert-danger"/>--%>
+<%--                                </p>--%>
+<%--                            </div>--%>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit" id="back" name="_eventId_back">&Lt;&Lt;Back</button>
                                 <button class="btn btn-primary" type="submit" id="next" name="_eventId_next">Next&Gt;&Gt;</button>
