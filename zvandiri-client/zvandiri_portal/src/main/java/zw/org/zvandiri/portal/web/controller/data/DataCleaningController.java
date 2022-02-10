@@ -76,7 +76,7 @@ public class DataCleaningController extends BaseController {
         }
         model.addAttribute("item", item.getInstance(item));
         if (post) {
-        	ForkJoinPool pool = ForkJoinPool.commonPool();
+            ForkJoinPool pool = ForkJoinPool.commonPool();
             List<Patient> patients = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(item)), detailedPatientReportService, item));
             duplicates = patientService.getAllPossibleDuplicates(patients);
             model.addAttribute("patients", duplicates);

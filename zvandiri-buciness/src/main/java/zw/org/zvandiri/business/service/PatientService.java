@@ -18,7 +18,6 @@ package zw.org.zvandiri.business.service;
 import java.util.List;
 import java.util.Set;
 import zw.org.zvandiri.business.domain.CatDetail;
-import zw.org.zvandiri.business.domain.Facility;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.util.dto.NameIdDTO;
 import zw.org.zvandiri.business.util.dto.PatientDuplicateDTO;

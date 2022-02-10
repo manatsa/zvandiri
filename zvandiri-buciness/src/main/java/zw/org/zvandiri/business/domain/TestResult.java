@@ -35,7 +35,7 @@ public class TestResult extends BaseEntity {
     
     @ManyToOne
     @NotNull
-    @JsonIgnore
+    //@JsonIgnore
     private Patient patient;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")

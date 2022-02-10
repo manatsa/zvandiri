@@ -22,7 +22,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -36,15 +35,11 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.ToString;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.hibernate.annotations.Formula;
 import org.springframework.format.annotation.DateTimeFormat;
 import zw.org.zvandiri.business.domain.util.CareLevel;
 import zw.org.zvandiri.business.domain.util.ContactPhoneOption;
-import zw.org.zvandiri.business.domain.util.DifferentiatedService;
 import zw.org.zvandiri.business.domain.util.FollowUp;
-import zw.org.zvandiri.business.domain.util.Reason;
 import zw.org.zvandiri.business.domain.util.UserLevel;
-import zw.org.zvandiri.business.domain.util.VisitOutcome;
 import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
