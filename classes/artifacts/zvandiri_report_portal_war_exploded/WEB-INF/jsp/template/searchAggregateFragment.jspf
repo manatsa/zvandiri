@@ -1,0 +1,120 @@
+<form:form commandName="item" role="form">
+    <table class="table">
+        <tbody>
+            <tr>
+        <c:if test="${userLevel == 'NATIONAL'}">
+            <td>
+                <div class="form-group">
+                    <label>Region</label>
+                    <form:select path="province" class="form-control">
+                        <form:option value="" label="--Select Item--"/>
+                        <form:options items="${provinces}" itemLabel="name" itemValue="id"/>
+                    </form:select>
+                    <p class="help-block">
+                    <form:errors path="province"/>
+                    </p>
+                </div> 
+            </td>
+        </c:if>
+        <c:if test="${userLevel == 'NATIONAL' or userLevel == 'PROVINCE'}">
+            <td>
+                <div class="form-group">
+                    <label>District</label>
+                    <form:select path="district" class="form-control">
+                        <form:option value="" label="--Select Item--"/>
+                        <form:options items="${districts}" itemLabel="name" itemValue="id"/>
+                    </form:select>
+                    <p class="help-block">
+                    <form:errors path="district"/>
+                    </p>
+                </div> 
+            </td>
+        </c:if>
+        <td>
+            <div class="form-group">
+                <label>Facility</label>
+                <form:select path="primaryClinic" class="form-control">
+                    <form:option value="" label="--Select Item--"/>
+                    <form:options items="${facilities}" itemLabel="name" itemValue="id"/>
+                </form:select>
+                <p class="help-block">
+                <form:errors path="primaryClinic"/>
+                </p>
+            </div> 
+        </td>
+        <td>
+            <div class="form-group">
+                <label>Period Type</label>
+                <form:select path="periodType" class="form-control">
+                    <form:option value="" label="--Select Item--"/>
+                    <form:options itemLabel="name" itemValue="code"/>
+                </form:select>
+                <p class="help-block">
+                <form:errors path="periodType"/>
+                </p>
+            </div> 
+        </td>
+        <c:if test="${not empty item.quarterPeriod}">
+            <td>
+                <div class="form-group" id="master-content-div">
+                    <label>Period</label>
+                    <select name="quarterPeriod" id="period" class="form-control">
+                        <option value="">--Select Item--</option>
+                        <c:forEach items="${quarters}" var="per">
+                            <option <c:if test="${per.id== item.quarterPeriod.id}"> selected=""</c:if>  value="${per.id}">${per.name}</option>
+                        </c:forEach>
+                    </select>
+                    </p>
+                </div> 
+            </td>
+        </c:if>
+        <c:if test="${not empty item.halfYearPeriod}">
+            <td>
+                <div class="form-group" id="master-content-div">
+                    <label>Half Year</label>
+                    <select name="halfYearPeriod" id="period" class="form-control">
+                        <option value="">--Select Item--</option>
+                        <c:forEach items="${halfyears}" var="per">
+                            <option <c:if test="${per.id== item.halfYearPeriod.id}"> selected=""</c:if>  value="${per.id}">${per.name}</option>
+                        </c:forEach>
+                    </select>
+                    </p>
+                </div> 
+            </td>
+        </c:if>
+        <c:if test="${not empty item.yearPeriod}">
+            <td>
+                <div class="form-group" id="master-content-div">
+                    <label>Year</label>
+                    <select name="yearPeriod" id="period" class="form-control">
+                        <option value="">--Select Item--</option>
+                        <c:forEach items="${years}" var="per">
+                            <option <c:if test="${per.id== item.yearPeriod.id}"> selected=""</c:if>  value="${per.id}">${per.name}</option>
+                        </c:forEach>
+                    </select>
+                </div> 
+            </td>
+        </c:if>
+        <c:if test="${not empty item.period}">
+            <td>
+                <div class="form-group" id="master-content-div">
+                    <label>Period</label>
+                    <select name="period" id="period" class="form-control">
+                        <option value="">--Select Item--</option>
+                        <c:forEach items="${periods}" var="per">
+                            <option <c:if test="${per.id== item.period.id}"> selected=""</c:if>  value="${per.id}">${per.name}</option>
+                        </c:forEach>
+                    </select>
+                </div> 
+            </td>
+        </c:if>
+        <td>
+            <div class="form-group">
+                <label>&nbsp;</label><br/>
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div> 
+        </td>
+        </tr>
+        </tbody>
+    </table>
+</form:form>

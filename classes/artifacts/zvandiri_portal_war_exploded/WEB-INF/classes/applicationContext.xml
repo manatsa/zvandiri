@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/data/jpa
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    
+    <import resource="zvandiri-webflow-config.xml" />
+    <mvc:annotation-driven  conversion-service="conversionService"/>
+    <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
+        <property name="converters">
+            <set>
+                <bean class="zw.org.zvandiri.portal.web.converter.DateConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.UserLevelConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.DistrictConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.FacilityConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.GenderConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.PeriodConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ProvinceConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.UserConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.UserRoleConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.SupportGroupConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.RelationshipConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.RefererConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.OrphanStatusConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.EducationLevelConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.EducationConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.HIVDisclosureLocationConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.PatientConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.HIVStatusConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.FollowUpConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ExternalReferralConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.InternalReferralConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.PositionConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.LevelofCareConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.LocationConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.EnhanedConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.StringConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.StableConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ServicesReferredConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ChronicInfectionConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.MentalHealthConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.SubstanceConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ReasonConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ActionTakenConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ContactConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.MedicineIntervalConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.CondomUseConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.PregTypeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.TransmissionModeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.HivCoInfectionConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.YesNoConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.DisabilityCategoryConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.AgeGroupConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.CurrentStatusConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ARVDrugRegimenConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.AbuseOutcomeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.DrugInterventionConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.CatDetailConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.AssessmentConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ArvMedicineConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.StatusConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.SourceConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ArvHistConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.Cd4CountResultSourceConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.UserTypeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ReferralActionTakenConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.HospCauseConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.CareLevelConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.AbuseTypeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ReferralStatusConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.PatientChangeEventConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.PeriodTypeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.QuarterPeriodConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.HalfYearPeriodConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.YearPeriodConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.CrossTabOptionConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.DateRangeItemConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.IndicatorConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ReasonForNotReachingOLevelConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ReferalTypeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.NumberOfANCVisitConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.GestationalAgeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ArtStartedConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.TestTypeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ResultConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.CatsMentorshipConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.TbTreatmentOutcomeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.TbTreatmentStatusConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.MentalScreenResultConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.IdentifiedRiskConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.DisabilitySeverityConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ContactPhoneOptionConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ServiceOfferedConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ContactAssessmentConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.VisitOutcomeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.MentalHealthScreeningTypeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.CauseOfDeathConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.PhoneStatusConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.PhoneConditionConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.InterventionConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.DiagnosisConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ReferralConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.SupportConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.TbIdentificationOutcomeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.TbSymptomConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.LabTaskConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.CadreTypeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.DifferentiatedServiceConverter"/>
+            </set>
+        </property>
+    </bean> 
+    <mvc:default-servlet-handler/>  
+</beans>

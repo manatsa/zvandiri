@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+<input name="id"  />
+
+    <on-start>
+        <evaluate expression="patientContactCreationService.createPatientContact()" result="flowScope.patientContact" />
+        <evaluate expression="patientCreationService.getPatientById(id)" result="flowScope.patient" />
+        <evaluate expression="contactVisitOutcomeService.createContactVisitOutcome()" result="flowScope.contactVisit" />
+        <evaluate expression="contactCreationService.createContact()" result="flowScope.contacts" />
+        <evaluate expression="mentalHealthCreationService.createMentalHealthScreening()" result="flowScope.mentalHealthScreening" />
+        <evaluate expression="tbIptCreationService.TB_IPTScreening()" result="flowScope.tbScreening" />
+        <evaluate expression="labResultCreationService.createResult()" result="flowScope.labResult" />
+        <evaluate expression="referralCreationService.createReferral()" result="flowScope.referral" />
+        <evaluate expression="sysPropService.getUserName()" result="flowScope.currentUser" />
+        <evaluate expression="sysPropService.getDateYearRanges()" result="flowScope.yearRanges" />
+        <evaluate expression="yesNoService.getYesNoValues()" result="flowScope.yesNo" />
+        <evaluate expression="mhIdentifiedRisksService.getIdentifiedRisks()" result="flowScope.mh_risks" />
+        <evaluate expression="supportService.getSupports()" result="flowScope.supports" />
+        <evaluate expression="referalEnumService.getReferrals()" result="flowScope.referrals" />
+        <evaluate expression="diagnosisService.getDiagnosis()" result="flowScope.diagnoses" />
+        <evaluate expression="interventionService.getInterventions()" result="flowScope.interventions" />
+        <evaluate expression="tbSymptomsService.getTBSymptoms()" result="flowScope.tbSymptoms" />
+        <evaluate expression="labTasksService.getLabTasks()" result="flowScope.labTasks" />
+        <evaluate expression="positionsService.getPositions()" result="flowScope.positions" />
+        <evaluate expression="locationsService.getLocations()" result="flowScope.locations" />
+        <evaluate expression="serviceOfferedsService.getServiceOffereds()" result="flowScope.servicesOffered" />
+        <evaluate expression="assessmentsCreationService.getClinicalAssessments()" result="flowScope.clinicalAssessments" />
+        <evaluate expression="assessmentsCreationService.getNonClinicalAssessments()" result="flowScope.nonClinicalAssessments" />
+        <evaluate expression="referralListService.getHiveSTIPrevention()" result="flowScope.hivStiItems" />
+        <evaluate expression="referralListService.getLabDiagnosis()" result="flowScope.laboratoryItems" />
+        <evaluate expression="referralListService.getOIArtServices()" result="flowScope.oiArtItems" />
+        <evaluate expression="referralListService.getTBServices()" result="flowScope.tbItems" />
+        <evaluate expression="referralListService.getPsychoSocialSupoort()" result="flowScope.psychItems" />
+        <evaluate expression="referralListService.getSRHServices()" result="flowScope.srhItems" />
+        <evaluate expression="referralListService.getLegalSupport()" result="flowScope.legalItems" />
+        <set name="patientContact.patient" value="patient"></set>
+    </on-start>
+
+    <view-state id="contactVisitForm" model="contactvisit">
+        <on-render>
+            <evaluate expression="sysPropService.processTitle('Add Client Contact Result Details Step 1 of 7')" result="viewScope.pageTitle"/>
+        </on-render>
+        <transition on="next" to="mentalHealthScreeningForm"/>
+        <transition on="cancel" to="cancel" bind="false" />
+    </view-state>
+
+    <view-state id="mentalHealthScreeningForm" model="mentalHealthScreening">
+        <on-render>           
+            <evaluate expression="sysPropService.processTitle('Add Mental Health Screening Details Step 2 of 7')" result="viewScope.pageTitle"/>
+            <set name="mentalHealthScreening.patient" value="patient"></set>
+        </on-render>
+        <transition on="back" to="contactVisitForm" bind="false" />
+        <transition on="next" to="tbScreeningForm">
+            <set name="patientContact.mentalHealthScreening" value="mentalHealthScreening"></set>
+        </transition>
+        <transition on="cancel" to="cancel" bind="false" />
+    </view-state>
+
+    <view-state id="tbScreeningForm" model="tbScreening">
+        <on-render>
+            <evaluate expression="sysPropService.processTitle('Add TB/IPT Screening Details Step 3 of 7')" result="viewScope.pageTitle"/>
+            <set name="tbScreening.patient" value="patient"></set>
+        </on-render>
+        <transition on="next" to="labResultForm">
+            <set name="patientContact.tbIpt" value="tbScreening"></set>
+        </transition>
+        <transition on="back" to="mentalHealthScreeningForm" bind="false" />
+        <transition on="cancel" to="cancel" bind="false" />
+    </view-state>
+
+    <view-state id="labResultForm" model="labResult">
+        <on-render>
+            <evaluate expression="sysPropService.processTitle('Add Lab Results Details Step 4 of 7')" result="viewScope.pageTitle"/>
+            <set name="labResult.patient" value="patient"></set>
+        </on-render>
+        <transition on="next" to="referralForm">
+            <set name="patientContact.investigationTest" value="labResult"></set>
+        </transition>
+        <transition on="back" to="tbScreeningForm" bind="false" />
+        <transition on="cancel" to="cancel" bind="false" />
+    </view-state>
+
+    <view-state id="referralForm" model="referral">
+        <on-render>
+            <evaluate expression="sysPropService.processTitle('Add Referrals Details Step 5 of 7')" result="viewScope.pageTitle"/>
+            <set name="referral.patient" value="patient"></set>
+        </on-render>
+        <transition on="next" to="contactsForm">
+            <set name="patientContact.referral" value="referral"></set>
+        </transition>
+        <transition on="back" to="labResultForm" bind="false" />
+        <transition on="cancel" to="cancel" bind="false" />
+    </view-state>
+
+    <view-state id="contactsForm" model="contacts">
+        <on-render>
+            <evaluate expression="sysPropService.processTitle('Add Contact Details Step 6 of 7')" result="viewScope.pageTitle"/>
+            <set name="contacts.patient" value="patient"></set>
+            <set name="contacts.careLevel" value="patient.getCurrentCareLevelObject()"></set>
+            <set name="contacts.careLevelAfterAssessment" value="patientContactCreationService.getCurrentCareLevel(patientContact)"></set>
+        </on-render>
+        <transition on="next" to="contactVisitDetails">
+            <set name="patientContact.contact" value="contacts"></set>
+        </transition>
+        <transition on="back" to="referralForm" bind="false" />
+        <transition on="cancel" to="cancel" bind="false" />
+    </view-state>
+
+    <view-state id="contactVisitDetails" model="patientContact">
+        <on-render>
+            <evaluate expression="sysPropService.processTitle('Add Contact Details Step 7 of 7')" result="viewScope.pageTitle"/>
+        </on-render>
+        <transition on="save" to="save">
+            <evaluate expression="patientContactCreationService.savePatientContact(patientContact)" />
+        </transition>
+        <transition on="back" to="contactsForm" bind="false" />
+        <transition on="cancel" to="cancel" bind="false" />
+    </view-state>
+
+    <end-state id="cancel" view="externalRedirect:/patient/index.htm"/>
+    <end-state id="save" view="externalRedirect:/patient/dashboard/profile.htm?type=1&#38;id=#{patient.id}" />
+</flow>

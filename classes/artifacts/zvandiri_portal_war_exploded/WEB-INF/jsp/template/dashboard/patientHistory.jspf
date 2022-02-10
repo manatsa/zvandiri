@@ -1,0 +1,16 @@
+<b class="titleHeader">Patient Past Medical History</b><hr/>
+<div style="position: relative; padding-left: 20px; font-size: 14px; font-weight: bold;">
+    <a href="${page}/beneficiary/familyhist/item.list?id=${patient.id}">Family History</a><br/><br/>
+    <a href="${page}/beneficiary/socialhist/item.list?id=${patient.id}">Social History</a><br/><br/>
+    <c:if test="${female}">
+        <a href="${page}/beneficiary/obstetric/item.list?id=${patient.id}">Obstetric History</a><br/><br/>
+    </c:if>
+    <a href="${page}/beneficiary/mental-health/item.list?id=${patient.id}">Mental Health History</a><br/><br/>
+    <a href="${page}/beneficiary/substance/item.list?id=${patient.id}">Substance Use History</a><br/><br/>
+    <a href="${page}/beneficiary/arv-hist/item.list?id=${patient.id}">ARV History</a><br/><br/>
+    <a href="${page}/beneficiary/chronic-infection/item.list?id=${patient.id}">Opportunistic Infections History</a><br/><br/>
+    <a href="${page}/beneficiary/medhist/item.list?id=${patient.id}">Hospitalisation History</a><br/><br/>    
+    <a href="${page}/beneficiary/srh/item.list?id=${patient.id}">SRH History</a><br/><br/>    
+    <a href="${page}/beneficiary/mental-health-screening/item.list?id=${patient.id}">Mental Health Screening</a><br/><br/>
+    <a href="${page}/beneficiary/disability/item.list?id=${patient.id}">Disability</a><br/><br/>
+</div>

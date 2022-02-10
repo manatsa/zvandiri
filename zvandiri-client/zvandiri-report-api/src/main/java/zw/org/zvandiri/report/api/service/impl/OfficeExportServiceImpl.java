@@ -271,6 +271,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             XSSFCell hivDisclosureLoc = header.createCell(++count);
             hivDisclosureLoc.setCellValue(patient.gethIVDisclosureLocation() != null? patient.gethIVDisclosureLocation().getName() : null);
 
+
             XSSFCell hasDisability = header.createCell(++count);
             hasDisability.setCellValue(patient.getDisability() != null ? patient.getDisability().getName() : null);
 
@@ -285,6 +286,9 @@ public class OfficeExportServiceImpl implements OfficeExportService {
 
             XSSFCell transMode = header.createCell(++count);
             transMode.setCellValue(patient.getTransmissionMode() != null? patient.getTransmissionMode().getName() : null);
+
+            XSSFCell drugRegimen = header.createCell(++count);
+            drugRegimen.setCellValue(patient.getCurrentArvRegimen() != null? patient.getCurrentArvRegimen() : null);
 
             XSSFCell hivStatusKnown = header.createCell(++count);
             hivStatusKnown.setCellValue(patient.getHivStatusKnown() != null? patient.getHivStatusKnown().getName() : null);

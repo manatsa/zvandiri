@@ -91,6 +91,12 @@ public class PatientContactCreationServiceImpl implements PatientContactCreation
         }
 
         Contact contact=patientContact.getContact();
+        contact.setSystemDeterminedCareLevel(contact.getCareLevelAfterAssessment());
+        if((contact.getNonClinicalAssessments()!=null && !contact.getNonClinicalAssessments().isEmpty()) || (contact.getClinicalAssessments()!=null && !contact.getClinicalAssessments().isEmpty())){
+            contact.setSystemDeterminedCareLevel(FollowUp.ENHANCED);
+            System.err.println(" >>>>>>>  Client is Enhanced");
+        }
+
         contact=contactService.save(contact);
         System.err.println(" >>>>> SAVED CONTACT ITEM :"+contact.toString());
         patientContact.setContact(contact);

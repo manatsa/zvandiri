@@ -75,6 +75,8 @@ public class Contact extends BaseEntity {
     @Enumerated
     @Column(name = "follow_up")
     private FollowUp careLevelAfterAssessment;
+    @Enumerated
+    private FollowUp systemDeterminedCareLevel;
     @ManyToOne
     private Location location;
     @Enumerated
@@ -180,6 +182,8 @@ public class Contact extends BaseEntity {
     private Integer eac2;
     private Integer eac3;
     private String contactMadeBy;
+
+
 
     public Contact(Patient patient) {
         this.patient = patient;
@@ -559,6 +563,14 @@ public class Contact extends BaseEntity {
 
     public void setContactMadeBy(String contactMadeBy) {
         this.contactMadeBy = contactMadeBy;
+    }
+
+    public FollowUp getSystemDeterminedCareLevel() {
+        return systemDeterminedCareLevel;
+    }
+
+    public void setSystemDeterminedCareLevel(FollowUp systemDeterminedCareLevel) {
+        this.systemDeterminedCareLevel = systemDeterminedCareLevel;
     }
 
     @Override

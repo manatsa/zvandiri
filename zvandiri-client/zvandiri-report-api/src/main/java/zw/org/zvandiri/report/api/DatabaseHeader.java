@@ -25,7 +25,7 @@ public interface DatabaseHeader {
             "UIC","Name", "OI/ Art Number", "Date of Birth", "Age","Date Of Entry", "Date Joined", "Gender", "Address", "Mobile Number",
             "Consent To M-Health","Education", "Highest Education",
             "Refer", "Region", "District","Primary Clinic", "Support Group", "Date Tested","HIV Disclosure Location",
-            "Has Disability", "IS CATS", "In YMM Programme","In YMD Programme", "HIV Transmission Mode",
+            "Has Disability", "IS CATS", "In YMM Programme","In YMD Programme", "HIV Transmission Mode","Current Regimen",
             "HIV Status Known", "Patient Status", "Date Status Changed","Last Contact Date","Current Care Level","Viral Load","Date Taken"
     };
 
