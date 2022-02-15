@@ -67,6 +67,13 @@ public class PatientValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "firstName", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "lastName", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "dateOfBirth", "field.empty");
+        ValidationUtils.rejectIfEmpty(errors, "oINumber", "field.empty");
+        ValidationUtils.rejectIfEmpty(errors, "IDNumber", "field.empty");
+        ValidationUtils.rejectIfEmpty(errors, "haveBirthCertificate", "field.empty");
+        //ValidationUtils.rejectIfEmpty(errors, "maritalStatus", "field.empty");
+        //ValidationUtils.rejectIfEmpty(errors, "orphanStatus", "field.empty");
+        ValidationUtils.rejectIfEmpty(errors, "clientType", "field.empty");
+        ValidationUtils.rejectIfEmpty(errors, "artRegimen", "field.empty");
         if (item.getFirstName() != null && !item.getFirstName().isEmpty()) {
             pattern = Pattern.compile(STRING_PATTERN);
             matcher = pattern.matcher(item.getFirstName());
@@ -104,6 +111,10 @@ public class PatientValidator implements Validator {
                 }
             }
         }
+
+        //System.err.println(">>>>> "+item.getMaritalStatus()+"\t*****"+item.getOrphanStatus());
+
+
     }
 
     public void validatePatientContactDetails(Object o, Errors errors) {
@@ -175,6 +186,7 @@ public class PatientValidator implements Validator {
         Patient item = (Patient) o;
         if (item.getHei().equals(YesNo.NO)) {
             ValidationUtils.rejectIfEmpty(errors, "dateJoined", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "isKeypopulation", "field.empty");
             if (item.getEducation() == null) {
                 errors.rejectValue("education", "field.empty");
             }
@@ -198,6 +210,14 @@ public class PatientValidator implements Validator {
             if (item.getDateJoined() != null && item.getDateOfBirth() != null && item.getDateJoined().before(item.getDateOfBirth())) {
                 errors.rejectValue("dateJoined", "date.beforebirth");
             }
+            if(item.getIsKeypopulation()!=null && item.getIsKeypopulation().equals(YesNo.YES)){
+                if(item.getKeyPopulation()==null) {
+                    errors.rejectValue("keyPopulation","field.empty");
+                }
+            }else{
+               // item.setKeyPopulation(null);
+            }
+
         }
     }
 
@@ -219,9 +239,12 @@ public class PatientValidator implements Validator {
             if (item.getHivStatusKnown() != null && item.getHivStatusKnown().equals(YesNo.YES)) {
                 if (item.gethIVDisclosureLocation() == null) {
                     errors.rejectValue("hIVDisclosureLocation", "field.empty");
+                    errors.rejectValue("hIVDisclosureLocation", "field.empty");
                 }
             }
         }
+
+        //System.err.println("Disclosure Type :"+item.getDisclosureType().getName());
     }
 
     public void validatePrimaryCareGiver(Object o, Errors errors) {

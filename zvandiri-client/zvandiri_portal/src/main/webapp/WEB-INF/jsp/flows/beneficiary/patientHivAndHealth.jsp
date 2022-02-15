@@ -29,7 +29,8 @@
                                     <form:errors path="hivStatusKnown" class="alert-danger"/>
                                 </p>
                             </div>
-                            <div class="form-group status-known hide">
+                            <div class="form-group">
+<%--                            <div class="form-group status-known hide">--%>
                                 <label>Type of Disclosure</label>
                                 <form:select path="disclosureType" class="form-control">
                                     <form:option value="" label="--Select Item"/>

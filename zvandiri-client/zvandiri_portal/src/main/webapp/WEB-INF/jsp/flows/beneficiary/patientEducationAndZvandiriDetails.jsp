@@ -59,7 +59,8 @@
                                     <form:errors path="isKeypopulation" class="alert-danger"/>
                                 </p>
                             </div>
-                            <div class="form-group population hide">
+                            <div class="form-group">
+<%--                            <div class="form-group population hide">--%>
                                 <label>Key Population</label>
                                 <form:select path="keyPopulation" class="form-control">
                                     <form:option value="" label="--Select Item"/>
@@ -116,7 +117,7 @@
             $(".education-level").addClass("hide");
         }
     });
-    $("#isKeypopulation").change(function () {
+    /*$("#isKeypopulation").change(function () {
 
         var result=$("#isKeypopulation").val();
         if(result==1){
@@ -124,7 +125,7 @@
         }else{
             $(".population").addClass("hide")
         }
-    })
+    })*/
 
     $(function () {
         window.onload = function () {
@@ -133,7 +134,7 @@
             if (education === "Out of School" && (name === "N/A" || name === "Primary School")) {
                 $(".education-level").removeClass("hide");
             }
-            $("#isKeypopulation").change(function () {
+           /* $("#isKeypopulation").change(function () {
 
                 var result=$("#isKeypopulation").val();
                 if(result==1){
@@ -141,7 +142,7 @@
                 }else{
                     $(".population").addClass("hide")
                 }
-            })
+            })*/
 
         };
     });

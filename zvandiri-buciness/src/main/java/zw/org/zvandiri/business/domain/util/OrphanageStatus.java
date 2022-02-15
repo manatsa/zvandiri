@@ -21,21 +21,6 @@ public enum OrphanageStatus {
         return code;
     }
 
-    public static OrphanageStatus get(String code){
-        switch(code){
-            case "1":
-                return NONE;
-            case "2":
-                return DOUBLE;
-            case "3":
-                return MATERNAL;
-            case "4":
-                return PATERNAL;
-            default:
-                throw new IllegalArgumentException("Illegal parameter passed to method :"+code);
-        }
-    }
-
 
     public static OrphanageStatus get(Integer code){
         switch(code){

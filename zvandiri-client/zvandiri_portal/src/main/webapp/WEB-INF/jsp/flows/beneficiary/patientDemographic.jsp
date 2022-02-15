@@ -116,7 +116,7 @@
                                     </p>
                                 </div>
                                 <div class="form-group">
-                                    <label>Drug Regimen</label>
+                                    <label>Art Regimen</label>
                                     <form:input path="artRegimen" class="form-control word-case"/>
                                     <p class="help-block">
                                         <form:errors path="artRegimen" class="alert-danger"/>
