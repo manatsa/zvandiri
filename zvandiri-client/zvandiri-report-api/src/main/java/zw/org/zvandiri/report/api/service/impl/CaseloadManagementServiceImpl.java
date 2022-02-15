@@ -38,7 +38,7 @@ import zw.org.zvandiri.report.api.service.parallel.*;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
-import java.util.stream.Collectors;
+
 
 /**
  *
@@ -116,9 +116,7 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
         }
         for (Patient patient : patients) {
 
-            //Contact lastContact=patient.getLastPatientContact(contactService);
             InvestigationTest vlTest=patient.getLastPatientVL(investigationTestService);
-            //MentalHealthScreening mentalHealthScreening=patient.getLastPatientMentalHealthScreening(mentalHealthScreeningService);
             int count = 0;
 
             enhancedRow = enhancedClientsDetails.createRow(assessmentRowNum++);

@@ -576,7 +576,7 @@ public class Contact extends BaseEntity {
                 ", clinicalAssessments=" + clinicalAssessments + ", nonClinicalAssessments=" + nonClinicalAssessments + ", serviceOffereds=" + serviceOffereds
                 + ", lastClinicAppointmentDate=" + lastClinicAppointmentDate + ", attendedClinicAppointment=" + attendedClinicAppointment +
                 ", careLevelAfterAssessment ="+careLevelAfterAssessment+", EAC="+eac+", eac1="+eac1+",eac2="+eac2+",eac3="+eac3+",contactMadeBy="+contactMadeBy+
-                '}');
+                ", SystemDeterminedCareLevel = "+systemDeterminedCareLevel+"}");
     }
 
 }

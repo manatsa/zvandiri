@@ -28,10 +28,8 @@ import lombok.ToString;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.Formula;
 import org.springframework.beans.factory.annotation.Configurable;
-import zw.org.zvandiri.business.domain.util.CareLevel;
-import zw.org.zvandiri.business.domain.util.DisabilitySeverity;
-import zw.org.zvandiri.business.domain.util.Gender;
-import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
+import zw.org.zvandiri.business.domain.util.*;
+import zw.org.zvandiri.business.domain.util.OrphanStatus;
 import zw.org.zvandiri.business.service.ContactService;
 import zw.org.zvandiri.business.service.InvestigationTestService;
 import zw.org.zvandiri.business.service.MentalHealthScreeningService;
@@ -72,6 +70,7 @@ public class Patient extends GenericPatient {
     @JsonIgnore
     @OneToOne(mappedBy = "patient", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
     private MobilePhone mobilePhone;
+    @Transient
     private District supportGroupDistrict;
     @Transient
     private int age = 0;
@@ -87,9 +86,6 @@ public class Patient extends GenericPatient {
     private String patientExist;
     @Transient
     private String mother;
-
-    //    @Formula("(select (TIMESTAMPDIFF(YEAR,date_of_birth,CURDATE())) as age from patient p where p.id = id)")
-//    private int currentAge = 0;
     @Transient
     private String name;
     @Formula("(Select c.id From cat_detail c where c.patient = id)")
@@ -115,6 +111,53 @@ public class Patient extends GenericPatient {
 
     @Transient
     private DisabilitySeverity disabilityStatus;
+
+    @Enumerated
+    private YesNo haveBirthCertificate;
+
+    @JsonProperty(value = "idNumber")
+    private String IDNumber;
+
+    @Enumerated
+    @JsonProperty(value = "maritalStatus")
+    private MaritalStatus maritalStatus;
+
+    @Enumerated
+    @JsonProperty(value = "orphanStatus")
+    private OrphanageStatus orphanStatus;
+
+    @Enumerated
+    @JsonProperty(value = "onArvs")
+    private YesNo onArvs;
+
+    @Enumerated
+    @JsonProperty(value = "OnCotrimoxazole")
+    private YesNo onCotrimoxazole;
+
+    @JsonProperty(value = "dateStartedTreatment")
+    private Date dateStartedTreatment;
+
+    @Enumerated
+    @JsonProperty(value = "disclosureType")
+    private DisclosureType disclosureType;
+
+    @JsonProperty(value = "artRegimen")
+    private String artRegimen;
+
+    @Enumerated
+    @JsonProperty(value = "isKeypopulation")
+    private YesNo isKeypopulation;
+
+    @Enumerated
+    @JsonProperty(value = "keyPopulation")
+    private KeyPopulation keyPopulation;
+
+    @JsonProperty(value = "disablityType")
+    private String disablityType;
+
+    @JsonProperty(value = "clientType")
+    private ClientType clientType;
+
 
     public InvestigationTest getLastPatientVL(InvestigationTestService investigationTestService) {
 
@@ -307,6 +350,110 @@ public class Patient extends GenericPatient {
         return null;
     }
 
+
+    public YesNo getHaveBirthCertificate() {
+        return haveBirthCertificate;
+    }
+
+    public void setHaveBirthCertificate(YesNo haveBirthCertificate) {
+        this.haveBirthCertificate = haveBirthCertificate;
+    }
+
+    public String getIDNumber() {
+        return IDNumber;
+    }
+
+    public void setIDNumber(String IDNumber) {
+        this.IDNumber = IDNumber;
+    }
+
+    public MaritalStatus getMaritalStatus() {
+        return maritalStatus;
+    }
+
+    public void setMaritalStatus(MaritalStatus maritalStatus) {
+        this.maritalStatus = maritalStatus;
+    }
+
+    public OrphanageStatus getOrphanStatus() {
+        return orphanStatus;
+    }
+
+    public void setOrphanStatus(OrphanageStatus orphanStatus) {
+        this.orphanStatus = orphanStatus;
+    }
+
+    public YesNo getOnArvs() {
+        return onArvs;
+    }
+
+    public void setOnArvs(YesNo onArvs) {
+        this.onArvs = onArvs;
+    }
+
+    public YesNo getOnCotrimoxazole() {
+        return onCotrimoxazole;
+    }
+
+    public void setOnCotrimoxazole(YesNo onCotrimoxazole) {
+        onCotrimoxazole = onCotrimoxazole;
+    }
+
+    public Date getDateStartedTreatment() {
+        return dateStartedTreatment;
+    }
+
+    public void setDateStartedTreatment(Date dateStartedTreatment) {
+        this.dateStartedTreatment = dateStartedTreatment;
+    }
+
+    public DisclosureType getDisclosureType() {
+        return disclosureType;
+    }
+
+    public void setDisclosureType(DisclosureType disclosureType) {
+        this.disclosureType = disclosureType;
+    }
+
+    public String getArtRegimen() {
+        return artRegimen;
+    }
+
+    public void setArtRegimen(String artRegimen) {
+        this.artRegimen = artRegimen;
+    }
+
+    public YesNo getIsKeypopulation() {
+        return isKeypopulation;
+    }
+
+    public void setIsKeypopulation(YesNo isKeypopulation) {
+        this.isKeypopulation = isKeypopulation;
+    }
+
+    public KeyPopulation getKeyPopulation() {
+        return keyPopulation;
+    }
+
+    public void setKeyPopulation(KeyPopulation keyPopulation) {
+        this.keyPopulation = keyPopulation;
+    }
+
+    public String getDisablityType() {
+        return disablityType;
+    }
+
+    public void setDisablityType(String disablityType) {
+        this.disablityType = disablityType;
+    }
+
+    public ClientType getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(ClientType clientType) {
+        this.clientType = clientType;
+    }
 
     @Override
     public String toString(){

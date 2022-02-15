@@ -17,6 +17,7 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import org.springframework.core.convert.converter.Converter;
+import zw.org.zvandiri.business.domain.util.ClientType;
 import zw.org.zvandiri.business.domain.util.DisclosureType;
 
 
@@ -25,9 +26,9 @@ import zw.org.zvandiri.business.domain.util.DisclosureType;
  */
 
 
-public class DisclosureTypeConverter implements Converter<String, DisclosureType> {
+public class ClientTypeConverter implements Converter<String, ClientType> {
     @Override
-    public DisclosureType convert(String s) {
-        return DisclosureType.get(Integer.valueOf(s));
+    public ClientType convert(String s) {
+        return ClientType.get(Integer.valueOf(s));
     }
 }

@@ -8,12 +8,12 @@ import zw.org.zvandiri.business.util.StringUtils;
  */
 
 
-public enum MaritalStatus {
-    MARRIED(1), SINGLE_OR_CHILD(2);
+public enum OrphanageStatus {
+    NONE(1),DOUBLE(2), MATERNAL(3), PATERNAL(4);
 
     private final Integer code;
 
-    MaritalStatus(Integer code) {
+    OrphanageStatus(Integer code) {
         this.code = code;
     }
 
@@ -21,24 +21,32 @@ public enum MaritalStatus {
         return code;
     }
 
-    public static MaritalStatus get(String code){
+    public static OrphanageStatus get(String code){
         switch(code){
             case "1":
-                return MARRIED;
+                return NONE;
             case "2":
-                return SINGLE_OR_CHILD;
+                return DOUBLE;
+            case "3":
+                return MATERNAL;
+            case "4":
+                return PATERNAL;
             default:
                 throw new IllegalArgumentException("Illegal parameter passed to method :"+code);
         }
     }
 
 
-    public static MaritalStatus get(Integer code){
+    public static OrphanageStatus get(Integer code){
         switch(code){
             case 1:
-                return MARRIED;
+                return NONE;
             case 2:
-                return SINGLE_OR_CHILD;
+                return DOUBLE;
+            case 3:
+                return MATERNAL;
+            case 4:
+                return PATERNAL;
             default:
                 throw new IllegalArgumentException("Illegal parameter passed to method :"+code);
         }

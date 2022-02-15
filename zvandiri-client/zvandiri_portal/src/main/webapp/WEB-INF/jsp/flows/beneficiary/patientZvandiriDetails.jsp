@@ -37,16 +37,35 @@
                                     <form:errors path="cat" class="alert-danger"/>
                                 </p>
                             </div>
-<%--                            <div class="form-group">--%>
-<%--                                <label>Is In Young People's Group</label>--%>
-<%--                                <form:select path="youngMumGroup" class="form-control">--%>
-<%--                                    <form:option value="" label="--Select Item"/>--%>
-<%--                                    <form:options itemValue="code" itemLabel="name"/>--%>
-<%--                                </form:select>--%>
-<%--                                <p class="help-block">--%>
-<%--                                    <form:errors path="youngMumGroup" class="alert-danger"/>--%>
-<%--                                </p>--%>
-<%--                            </div>--%>
+                            <div class="form-group">
+                                <label>On Cotromoxazole</label>
+                                <form:select path="onCotrimoxazole" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="onCotrimoxazole" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>Client on ARVs</label>
+                                <form:select path="onArvs" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="onArvs" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>Date Started Treatment</label>
+                                <form:input path="dateStartedTreatment" class="form-control beneficiary"/>
+                                <p class="help-block">
+                                    <form:errors path="dateStartedTreatment" class="alert-danger"/>
+                                </p>
+                            </div>
+
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit" id="back" name="_eventId_back">&Lt;&Lt;Back</button>
                                 <button class="btn btn-primary" type="submit" id="next" name="_eventId_next">Next&Gt;&Gt;</button>

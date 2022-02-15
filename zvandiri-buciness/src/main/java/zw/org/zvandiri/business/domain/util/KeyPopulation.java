@@ -8,12 +8,12 @@ import zw.org.zvandiri.business.util.StringUtils;
  */
 
 
-public enum MaritalStatus {
-    MARRIED(1), SINGLE_OR_CHILD(2);
+public enum KeyPopulation {
+    YOUNG_WOMEN_SELLING_SEX(1), DRUG_ABUSER(2), OTHER(3);
 
     private final Integer code;
 
-    MaritalStatus(Integer code) {
+    KeyPopulation(Integer code) {
         this.code = code;
     }
 
@@ -21,13 +21,30 @@ public enum MaritalStatus {
         return code;
     }
 
-    public static final MaritalStatus get(Integer code){
-        for(MaritalStatus item : values()){
-            if(item.getCode().equals(code)){
-                return item;
-            }
+    public static KeyPopulation get(String code){
+        switch(code){
+            case "1":
+                return YOUNG_WOMEN_SELLING_SEX;
+            case "2":
+                return DRUG_ABUSER;
+            case "3":
+                return OTHER;
+            default:
+                throw new IllegalArgumentException("Illegal parameter passed to method :"+code);
         }
-        throw new IllegalArgumentException("Parameter passed to method not recognized:" + code);
+    }
+
+    public static KeyPopulation get(Integer code){
+        switch(code){
+            case 1:
+                return YOUNG_WOMEN_SELLING_SEX;
+            case 2:
+                return DRUG_ABUSER;
+            case 3:
+                return OTHER;
+            default:
+                throw new IllegalArgumentException("Illegal parameter passed to method :"+code);
+        }
     }
 
     public String getName(){

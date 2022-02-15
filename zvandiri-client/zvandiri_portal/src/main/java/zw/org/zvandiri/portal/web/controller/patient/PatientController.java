@@ -187,12 +187,13 @@ public class PatientController extends BaseController {
         model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Are you sure you want to delete this record").messageType(MessageType.WARNING).build());
         model.addAttribute("pageTitle", APP_PREFIX + "Delete " + item.getName() + " :" + dto.getName());
         return "admin/deleteItem";
+
     }
 
     @RequestMapping(value = "item.delete", method = RequestMethod.POST)
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         Patient item = patientService.get(dto.getId());
-        patientService.delete(item);
+        //patientService.delete(item);
         return "redirect:index.htm?type=2";
     }
 }

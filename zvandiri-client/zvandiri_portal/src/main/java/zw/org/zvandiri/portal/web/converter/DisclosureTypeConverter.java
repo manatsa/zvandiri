@@ -16,24 +16,18 @@
 
 package zw.org.zvandiri.portal.web.converter;
 
-import javax.annotation.Resource;
 import org.springframework.core.convert.converter.Converter;
-import zw.org.zvandiri.business.domain.District;
-import zw.org.zvandiri.business.service.DistrictService;
+import zw.org.zvandiri.business.domain.util.DisclosureType;
+
 
 /**
- *
- * @author Edward Zengeni
+ * @author manatsachinyeruse@gmail.com
  */
-public class DistrictConverter implements Converter<String, District> {
-    
-    @Resource
-    private DistrictService districtService;
 
+
+public class DisclosureTypeConverter implements Converter<String, DisclosureType> {
     @Override
-    public District convert(String s) {
-        if(s.equals("")) return null;
-        return districtService.get(s);
+    public DisclosureType convert(String s) {
+        return DisclosureType.get(Integer.valueOf(s));
     }
-    
 }

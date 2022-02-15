@@ -49,7 +49,6 @@ public class TbScreeningValidator implements Validator {
         if (item.getScreenedForTb() != null && item.getScreenedForTb().equals(YesNo.YES)) {
             ValidationUtils.rejectIfEmpty(errors, "dateScreened", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "identifiedWithTb", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors, "eligibleForIpt", "field.empty");
 
             //completion.date.before.start.date
         }else{
@@ -71,6 +70,7 @@ public class TbScreeningValidator implements Validator {
             item.setReferredForInvestigation(null);
             item.setTbSymptoms(null);
             item.setDateStartedOnIpt(null);
+            item.setStartedOnIpt(null);
         }
         if (item.getDateScreened() != null && item.getDateScreened().after(new Date()) ) {
             errors.rejectValue("dateScreened","date.to.be.past");
@@ -95,7 +95,6 @@ public class TbScreeningValidator implements Validator {
         }
         if(item.getEligibleForIpt()!=null && item.getEligibleForIpt().equals(YesNo.YES)){
             ValidationUtils.rejectIfEmpty(errors,"referredForIpt","field.empty");
-            ValidationUtils.rejectIfEmpty(errors, "onIpt", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "startedOnIpt", "field.empty");
         }
         if(item.getScreenedByHcw()!=null && item.getScreenedByHcw().equals(YesNo.YES)){
@@ -114,6 +113,11 @@ public class TbScreeningValidator implements Validator {
             if(item.getDateStartedTreatment()!=null && item.getDateCompletedTreatment()!=null && item.getDateStartedTreatment().after(item.getDateCompletedTreatment())){
                 errors.rejectValue("dateCompletedTreatment","completion.date.before.start.date");
             }
+        }
+
+        if(item.getOnTBTreatment()!=null && item.getOnTBTreatment().equals(YesNo.NO)){
+            ValidationUtils.rejectIfEmpty(errors, "eligibleForIpt", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "onIpt", "field.empty");
         }
 
         if (item.getOnIpt() != null && item.getOnIpt().equals(YesNo.YES)) {

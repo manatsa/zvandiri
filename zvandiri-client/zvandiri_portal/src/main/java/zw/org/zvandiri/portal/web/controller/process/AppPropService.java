@@ -33,4 +33,5 @@ public interface AppPropService extends IAppTitle {
     public String processTitle(String name);
     
     public Boolean getHeu(Patient patient);
+
 }

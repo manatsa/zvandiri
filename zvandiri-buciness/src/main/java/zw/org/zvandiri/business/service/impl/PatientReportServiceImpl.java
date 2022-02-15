@@ -50,6 +50,11 @@ public class PatientReportServiceImpl implements PatientReportService {
     @PersistenceContext
     private EntityManager entityManager;
 
+    LocalDate now = LocalDate.now();
+    LocalDate vlDate=now.minusMonths(12);
+    LocalDate mhDate=now.minusMonths(6);
+    LocalDate tbDate=now.minusMonths(1);
+
     @Override
     public Integer get(SearchNationalDTO dto, HIVStatus hivStatus) {
         if (dto.getFacility() != null) {
@@ -1827,21 +1832,14 @@ public class PatientReportServiceImpl implements PatientReportService {
         position=Reportutil.commonPatientQuery(builder, dto, position);
 
         if (position == 0) {
-            builder.append(" p.id not in ( select m.patient from MentalHealthScreening m ");
+            builder.append(" p.id not in ( select m.patient from MentalHealthScreening m where m.dateScreened < :when ) order by p.lastName ASC");
             position++;
         } else {
-            builder.append(" and p.id not in ( select m.patient from MentalHealthScreening m ");
+            builder.append(" and p.id not in ( select m.patient from MentalHealthScreening m where m.dateScreened < :when ) order by p.lastName ASC");
         }
-        if(dto.getStartDate()!=null & dto.getEndDate()!=null){
-            builder.append(" where m.dateScreened between :startDate and :endDate ");
-        }
-        builder.append(") order by p.lastName ASC");
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
         Reportutil.commonQueryParams(query, dto);
-        if (dto.getStartDate() != null && dto.getEndDate() != null) {
-            query.setParameter("startDate", dto.getStartDate());
-            query.setParameter("endDate", dto.getEndDate());
-        }
+        query.setParameter("when", mhDate.toDate());
         query.setFirstResult(dto.getFirstResult());
         return query.getResultList();
     }
@@ -1857,19 +1855,13 @@ public class PatientReportServiceImpl implements PatientReportService {
             builder.append(" p not in (select distinct c.patient from TbIpt c ");
             position++;
         } else {
-            builder.append(" and p not in (select distinct c.patient from TbIpt c ");
+            builder.append(" and p not in (select distinct c.patient from TbIpt c where c.dateScreened < :when)");
         }
-        if (dto.getStartDate() != null && dto.getEndDate() != null) {
-            builder.append(" where c.dateCreated between :startDate and :endDate");
-        }
-        builder.append(" )");
+
         builder.append(" order by p.lastName ASC");
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
         Reportutil.commonQueryParams(query, dto);
-        if (dto.getStartDate() != null && dto.getEndDate() != null) {
-            query.setParameter("startDate", dto.getStartDate());
-            query.setParameter("endDate", dto.getEndDate());
-        }
+        query.setParameter("when", tbDate.toDate());
         query.setFirstResult(dto.getFirstResult());
 
         return query.getResultList();
@@ -1877,9 +1869,6 @@ public class PatientReportServiceImpl implements PatientReportService {
 
     @Override
     public List<Patient> getPatientsWithInvalidVL(SearchDTO dto) {
-
-        LocalDate now = LocalDate.now();
-        LocalDate then=now.minusMonths(12);
 
         StringBuilder builder = new StringBuilder("Select Distinct p from Patient p  ");
         int position = 0;
@@ -1894,7 +1883,7 @@ public class PatientReportServiceImpl implements PatientReportService {
         builder.append(" order by p.lastName ASC");
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
         Reportutil.commonQueryParams(query, dto);
-        query.setParameter("when", then.toDate());
+        query.setParameter("when", vlDate.toDate());
         query.setFirstResult(dto.getFirstResult());
 
         return query.getResultList();

@@ -18,7 +18,7 @@
                     <div class="col-lg-10">
                         <form:form commandName="patient" id="primaryCareGiver">
                             <div class="form-group">
-                                <label>Self</label>
+                                <label>Registering Self</label>
                                 <form:select path="selfPrimaryCareGiver" class="form-control">
                                     <form:option value="" label="--Select Item"/>
                                     <form:options itemValue="code" itemLabel="name"/>

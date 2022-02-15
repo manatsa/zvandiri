@@ -112,7 +112,11 @@
                 <bean class="zw.org.zvandiri.portal.web.converter.TbSymptomConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.LabTaskConverter"/>
                 <bean class="zw.org.zvandiri.portal.web.converter.CadreTypeConverter"/>
-                <bean class="zw.org.zvandiri.portal.web.converter.DifferentiatedServiceConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.MaritalStatusConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.DisclosureTypeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.KeyPopulationConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.ClientTypeConverter"/>
+                <bean class="zw.org.zvandiri.portal.web.converter.OrphanageStatusConverter"/>
             </set>
         </property>
     </bean> 

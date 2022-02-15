@@ -50,6 +50,26 @@
                                 </p>
                             </div>
                             <div class="form-group">
+                                <label>Is Key Population</label>
+                                <form:select path="isKeypopulation" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="isKeypopulation" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group population hide">
+                                <label>Key Population</label>
+                                <form:select path="keyPopulation" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="keyPopulation" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
                                 <label>Date Joined Zvandiri</label>
                                 <form:input path="dateJoined" class="form-control general"/>
                                 <p class="help-block">
@@ -96,6 +116,16 @@
             $(".education-level").addClass("hide");
         }
     });
+    $("#isKeypopulation").change(function () {
+
+        var result=$("#isKeypopulation").val();
+        if(result==1){
+            $(".population").removeClass("hide")
+        }else{
+            $(".population").addClass("hide")
+        }
+    })
+
     $(function () {
         window.onload = function () {
             var name = $("#educationLevel :selected").text();
@@ -103,6 +133,16 @@
             if (education === "Out of School" && (name === "N/A" || name === "Primary School")) {
                 $(".education-level").removeClass("hide");
             }
+            $("#isKeypopulation").change(function () {
+
+                var result=$("#isKeypopulation").val();
+                if(result==1){
+                    $(".population").removeClass("hide")
+                }else{
+                    $(".population").addClass("hide")
+                }
+            })
+
         };
     });
 </script>

@@ -3,15 +3,16 @@ package zw.org.zvandiri.portal.web.converter;
 
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.MaritalStatus;
+import zw.org.zvandiri.business.domain.util.OrphanageStatus;
 
 /**
  * @author manatsachinyeruse@gmail.com
  */
 
 
-public class MaritalStatusConverter implements Converter<String, MaritalStatus> {
+public class OrphanageStatusConverter implements Converter<String, OrphanageStatus> {
     @Override
-    public MaritalStatus convert(String s) {
-        return MaritalStatus.get(Integer.valueOf(s));
+    public OrphanageStatus convert(String s) {
+        return OrphanageStatus.get(Integer.valueOf(s));
     }
 }

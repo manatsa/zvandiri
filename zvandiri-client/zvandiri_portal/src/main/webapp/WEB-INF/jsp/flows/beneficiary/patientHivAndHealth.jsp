@@ -30,6 +30,16 @@
                                 </p>
                             </div>
                             <div class="form-group status-known hide">
+                                <label>Type of Disclosure</label>
+                                <form:select path="disclosureType" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="disclosureType" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group status-known hide">
                                 <label>Mode of Transmission</label>
                                 <form:select path="transmissionMode" class="form-control">
                                     <form:option value="" label="--Select Item"/>
@@ -66,6 +76,13 @@
                                     <form:errors path="disability" class="alert-danger"/>
                                 </p>
                             </div>
+                            <div class="form-group disable hide">
+                                <label>Disability Type</label>
+                                <form:input path="disablityType" class="form-control general"/>
+                                <p class="help-block">
+                                    <form:errors path="disablityType" class="alert-danger"/>
+                                </p>
+                            </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit" id="back" name="_eventId_back">&Lt;&Lt;Back</button>
                                 <button class="btn btn-primary" type="submit" id="next" name="_eventId_next">Next&Gt;&Gt;</button>
@@ -92,11 +109,30 @@
             $(".status-known").addClass("hide");
         }
     });
+
+    $('#disability').change(()=>{
+        var dis=$('#disability').val();
+        if(dis==1){
+            $('.disable').removeClass('hide');
+        }else{
+            $('.disable').addClass('hide')
+        }
+    })
+
+
+
+
     $(function () {
         window.onload = function () {
             var name = $("#hivStatusKnown").val();
             if (name == 1) {
                 $(".status-known").removeClass("hide");
+            }
+            var result=$('#disability').val();
+            if(result==1){
+                $('.disable').removeClass('hide');
+            }else{
+                $('.disable').addClass('hide')
             }
         };
     });

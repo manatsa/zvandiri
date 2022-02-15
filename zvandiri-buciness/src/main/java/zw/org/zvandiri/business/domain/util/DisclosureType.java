@@ -1,14 +1,5 @@
 package zw.org.zvandiri.business.domain.util;
 
-
-/**
- * @author manatsachinyeruse@gmail.com
- */
-
-
-package zw.org.zvandiri.business.domain.util;
-
-
 import zw.org.zvandiri.business.util.StringUtils;
 
 /**
@@ -17,7 +8,7 @@ import zw.org.zvandiri.business.util.StringUtils;
 
 
 public enum DisclosureType {
-    NONE(1),DOUBLE(2), MATERNAL(3), PATERNAL(4);
+    PARTIAL(1),FULL_DISCLOSURE(2), NONE(3);
 
     private final Integer code;
 
@@ -27,6 +18,19 @@ public enum DisclosureType {
 
     public Integer getCode() {
         return code;
+    }
+
+    public static DisclosureType get(String code){
+        switch(code){
+            case "1":
+                return PARTIAL;
+            case "2":
+                return FULL_DISCLOSURE;
+            case "3":
+                return NONE;
+            default:
+                throw new IllegalArgumentException("Illegal parameter passed to method :"+code);
+        }
     }
 
     public static final DisclosureType get(Integer code){
