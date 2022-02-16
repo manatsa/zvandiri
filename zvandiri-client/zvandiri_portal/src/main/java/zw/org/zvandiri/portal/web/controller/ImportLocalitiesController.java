@@ -74,11 +74,11 @@ public class ImportLocalitiesController extends BaseController {
                 } else if (count == 1 && firstRecord != null) {
                     ArvHist secondRecord = arvHistIterator.next();
                     firstRecord.setArvMedicine2(secondRecord.getArvMedicine());
-                    arvHistService.delete(secondRecord);
+                    //arvHistService.delete(secondRecord);
                 } else if (count == 2 && firstRecord != null) {
                     ArvHist thirdRecord = arvHistIterator.next();
                     firstRecord.setArvMedicine3(thirdRecord.getArvMedicine());
-                    arvHistService.delete(thirdRecord);
+                   // arvHistService.delete(thirdRecord);
                 }
                 count++;
             }

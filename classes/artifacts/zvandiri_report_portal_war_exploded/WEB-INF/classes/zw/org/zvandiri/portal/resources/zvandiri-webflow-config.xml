@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/webflow-config
+           http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd">
+
+    <!-- Executes flows: the entry point into the Spring Web Flow system -->
+    <webflow:flow-executor id="flowExecutor">
+        <webflow:flow-execution-listeners>
+            <!--<webflow:listener ref="jpaFlowExecutionListener" />-->
+            <webflow:listener ref="securityFlowExecutionListener" />
+        </webflow:flow-execution-listeners>
+    </webflow:flow-executor>
+	
+    <!-- The registry of executable flow definitions -->
+    <webflow:flow-registry id="flowRegistry" flow-builder-services="flowBuilderServices" base-path="/WEB-INF/jsp/flows">
+        <webflow:flow-location-pattern value="/**/*-flow.xml" />
+    </webflow:flow-registry>
+		
+    <!-- Plugs in a custom creator for Web Flow views -->
+    <webflow:flow-builder-services id="flowBuilderServices" conversion-service="defaultConversionService" development="true" />
+
+
+    <!-- Installs a listener that manages Hibernate persistence contexts for flows that require them -->
+    <!--<bean id="jpaFlowExecutionListener"
+          class="org.springframework.webflow.persistence.JpaFlowExecutionListener">
+        <constructor-arg ref="entityManagerFactory" />
+        <constructor-arg ref="transactionManager" />
+    </bean>-->
+	
+    <!-- Installs a listener to apply Spring Security authorities -->
+    <bean id="securityFlowExecutionListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener" />
+
+    <!--Connecting the dots in order to register your own formatters for use in both Spring MVC and in Spring Web Flow you can do the following. Create a class to register your custom formatters:-->
+    <bean id="defaultConversionService" class="org.springframework.binding.convert.service.DefaultConversionService">
+        <constructor-arg ref="conversionService"/>
+    </bean> 
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+        <property name="order" value="0"/>
+        <property name="flowRegistry" ref="flowRegistry" />
+    </bean>
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+        <property name="flowExecutor" ref="flowExecutor"/>
+    </bean>
+</beans>

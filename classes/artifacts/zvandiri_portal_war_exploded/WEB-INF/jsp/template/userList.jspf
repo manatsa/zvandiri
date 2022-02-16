@@ -1,0 +1,21 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${items}" var="item">
+        <tr>
+            <td><spring:eval expression="item.id"/></td>
+        <td><spring:eval expression="item.name"/></td>
+        <td>
+            <a href="item.form?id=${item.id}">Edit</a>
+            <a href="item.delete?id=${item.id}">Delete</a>
+        </td>
+        </tr>
+    </c:forEach>
+</tbody>
+</table>

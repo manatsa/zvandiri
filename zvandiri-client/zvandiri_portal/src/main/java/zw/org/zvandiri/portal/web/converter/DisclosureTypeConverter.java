@@ -28,6 +28,7 @@ import zw.org.zvandiri.business.domain.util.DisclosureType;
 public class DisclosureTypeConverter implements Converter<String, DisclosureType> {
     @Override
     public DisclosureType convert(String s) {
+        if(s.equals("")) return null;
         return DisclosureType.get(Integer.valueOf(s));
     }
 }

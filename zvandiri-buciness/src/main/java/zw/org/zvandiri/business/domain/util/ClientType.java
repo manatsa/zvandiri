@@ -22,6 +22,7 @@ public enum ClientType {
     }
 
     public static ClientType get(String code){
+        if(code=="")return null;
         switch(code){
             case "1":
                 return CAYPLHIV;
@@ -35,6 +36,7 @@ public enum ClientType {
     }
 
     public static final ClientType get(Integer code){
+        if(code==null)return null;
         for(ClientType item : values()){
             if(item.getCode().equals(code)){
                 return item;

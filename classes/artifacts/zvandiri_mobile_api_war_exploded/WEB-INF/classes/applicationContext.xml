@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/data/jpa
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    
+    <context:component-scan base-package="zw.org.zvandiri.mobile.api.config"/>
+    <mvc:annotation-driven  conversion-service="conversionService"/>
+    <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
+        <property name="converters">
+            <set>
+                <bean class="zw.org.zvandiri.mobile.api.converter.DateConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.UserLevelConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.DistrictConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.FacilityConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.GenderConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.PeriodConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.ProvinceConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.UserConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.UserRoleConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.SupportGroupConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.RelationshipConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.RefererConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.OrphanStatusConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.EducationLevelConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.EducationConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.HIVDisclosureLocationConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.PatientConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.HIVStatusConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.FollowUpConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.ExternalReferralConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.InternalReferralConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.PositionConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.LevelofCareConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.LocationConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.EnhanedConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.StringConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.StableConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.ServicesReferredConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.ChronicInfectionConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.MentalHealthConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.SubstanceConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.ReasonConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.ActionTakenConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.ContactConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.MedicineIntervalConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.CondomUseConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.PregTypeConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.TransmissionModeConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.HivCoInfectionConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.YesNoConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.DisabilityCategoryConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.AgeGroupConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.CurrentStatusConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.ARVDrugRegimenConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.AbuseOutcomeConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.DrugInterventionConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.CatDetailConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.AssessmentConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.ArvMedicineConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.StatusConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.SourceConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.ArvHistConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.Cd4CountResultSourceConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.UserTypeConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.ReferralActionTakenConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.HospCauseConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.CareLevelConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.AbuseTypeConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.ReferralStatusConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.PatientChangeEventConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.PeriodTypeConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.QuarterPeriodConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.HalfYearPeriodConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.YearPeriodConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.CrossTabOptionConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.DateRangeItemConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.IndicatorConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.ReasonForNotReachingOLevelConverter"/>
+                <bean class="zw.org.zvandiri.mobile.api.converter.ReferalTypeConverter"/>
+            </set>
+        </property>
+    </bean> 
+    <mvc:default-servlet-handler/>  
+</beans>

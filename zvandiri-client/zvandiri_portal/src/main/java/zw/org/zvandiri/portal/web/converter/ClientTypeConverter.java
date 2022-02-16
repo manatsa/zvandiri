@@ -29,6 +29,7 @@ import zw.org.zvandiri.business.domain.util.DisclosureType;
 public class ClientTypeConverter implements Converter<String, ClientType> {
     @Override
     public ClientType convert(String s) {
+        if(s.equals("")) return null;
         return ClientType.get(Integer.valueOf(s));
     }
 }

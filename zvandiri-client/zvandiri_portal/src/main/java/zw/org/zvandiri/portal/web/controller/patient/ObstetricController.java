@@ -134,7 +134,7 @@ public class ObstetricController extends BaseController {
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         ObstercHist item = obstercHistService.get(dto.getId());
         Patient patient = item.getPatient();
-        obstercHistService.delete(item);
+        //obstercHistService.delete(item);
         return "redirect:item.list?type=2&id=" + patient.getId();
     }
 }

@@ -1,0 +1,100 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<form:form commandName="item" action="user.form">
+    <%@include file="../template/formState.jspf" %>
+    <form:hidden path="currentElement"/>
+    <c:if test="${item.id != null}">
+        <form:hidden path="password"/>
+    </c:if>
+    <div class="form-group">
+        <label>First Name</label>
+        <form:input path="firstName" class="form-control"/>
+        <p class="help-block">
+        <form:errors path="firstName"/>
+        </p>
+    </div>
+    <div class="form-group">
+        <label>Last Name</label>
+        <form:input path="lastName" class="form-control"/>
+        <p class="help-block">
+        <form:errors path="lastName" class="alert-danger"/>
+        </p>
+    </div>
+    <div class="form-group">
+        <label>User Type</label>
+        <form:select path="userType" class="form-control">
+            <form:option value="" label="--Select Item"/>
+            <form:options itemValue="code" itemLabel="name"/>
+        </form:select>
+        <p class="help-block">
+        <form:errors path="userType" class="alert-danger"/>
+        </p>
+    </div>
+    <div class="form-group">
+        <label>User Level</label>
+        <form:select path="userLevel" class="form-control">
+            <form:option value="" label="--Select Item"/>
+            <form:options itemValue="code" itemLabel="name"/>
+        </form:select>
+        <p class="help-block">
+        <form:errors path="userLevel" class="alert-danger"/>
+        </p>
+    </div>
+    <c:if test="${showProvince}">
+        <div class="form-group">
+            <label>Region</label>
+            <form:select path="province" class="form-control">
+                <form:option value="" label="--Select Item"/>
+                <form:options items="${provinces}" itemValue="id" itemLabel="name"/>
+            </form:select>
+            <p class="help-block">
+            <form:errors path="province" class="alert-danger"/>
+            </p>
+        </div>
+    </c:if>
+    <c:if test="${showDistrict}">
+        <div class="form-group">
+            <label>District</label>
+            <form:select path="district" class="form-control">
+                <form:option value="" label="--Select Item"/>
+                <form:options items="${districts}" itemValue="id" itemLabel="name"/>
+            </form:select>
+            <p class="help-block">
+            <form:errors path="district" class="alert-danger"/>
+            </p>
+        </div>
+    </c:if>
+    <div class="form-group">
+        <label>User Name</label>
+        <form:input path="userName" class="form-control"/>
+        <p class="help-block">
+        <form:errors path="userName" class="alert-danger"/>
+        </p>
+    </div>
+    <c:if test="${item.id == null}">
+        <div class="form-group">
+            <label>Password</label>
+            <form:password path="password" class="form-control"/>
+            <p class="help-block">
+            <form:errors path="password" class="alert-danger"/>
+            </p>
+        </div>
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <form:password path="confirmPassword" class="form-control"/>
+            <p class="help-block">
+            <form:errors path="confirmPassword" class="alert-danger"/>
+            </p>
+        </div>
+    </c:if>
+    <div class="form-group">
+        <label>User Roles</label><br/><br/>
+        <form:checkboxes path="userRoles" items="${roles}" itemLabel="printName" itemValue="id" delimiter="<br/>"/>
+        <p class="help-block">
+        <form:errors path="userRoles" class="alert-danger"/>
+        </p>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a href="${itemDelete}"><button class="btn btn-primary" type="button">Cancel</button></a>
+    </div>
+</form:form>

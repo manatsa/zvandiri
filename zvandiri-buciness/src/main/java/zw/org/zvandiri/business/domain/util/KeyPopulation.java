@@ -22,6 +22,7 @@ public enum KeyPopulation {
     }
 
     public static KeyPopulation get(String code){
+        if(code=="")return null;
         switch(code){
             case "1":
                 return YOUNG_WOMEN_SELLING_SEX;
@@ -35,6 +36,7 @@ public enum KeyPopulation {
     }
 
     public static KeyPopulation get(Integer code){
+        if(code==null)return null;
         switch(code){
             case 1:
                 return YOUNG_WOMEN_SELLING_SEX;

@@ -1,0 +1,65 @@
+<div class="table-responsive">
+    <table class="table" width="100%">                                   
+        <c:set value="0" var="numCount"/>
+        <c:forEach var="top" items="${items}">
+            <c:choose>
+                <c:when test="${numCount == 0}">
+                    <thead>
+                        <tr>
+                    <c:set value="0" var="topRowColCount"/>    
+                    <c:forEach var="topRow" items="${top.row}">
+                        <c:if test="${topRowColCount == 0}">
+                            <th class="report-header">${topRow}</th>
+                        </c:if>
+                        <c:if test="${not empty topRow}">
+                            <th class="report-header" colspan="15">${topRow}</th>
+                        </c:if>
+                        <c:set var="topRowColCount" value="${numCount+1}"/>
+                    </c:forEach>
+                    </tr>
+                    </thead>
+                    <c:set var="numCount" value="${numCount+1}"/>
+                </c:when>
+                <c:when test="${numCount == 1}">
+                    <tr>
+                    <c:set value="0" var="topRowColCount"/>    
+                    <c:forEach var="topRow" items="${top.row}">
+                        <c:if test="${topRowColCount == 0}">
+                            <th class="report-header">${topRow}</th>
+                        </c:if>
+                        <c:if test="${not empty topRow}">
+                            <th class="report-header" colspan="3">${topRow}</th> 
+                        </c:if>
+                        <c:set var="topRowColCount" value="${numCount+1}"/>
+                    </c:forEach>
+                    </tr>
+                    <c:set var="numCount" value="${numCount+1}"/>
+                </c:when>
+                <c:when test="${numCount == 2}">
+                    <tr>
+                    <c:forEach var="topRow" items="${top.row}">
+                        <th class="report-header">${topRow}</th> 
+                    </c:forEach>
+                    </tr>
+                    <c:set var="numCount" value="${numCount+1}"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="innerCount" value="0"/>
+                    <tr>
+                    <c:forEach var="r" items="${top.row}">
+                        <c:choose>
+                            <c:when test="${innerCount == 0}">
+                                <td class="left-col-report-header">${r}</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="table-text">${r}</td>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:set var="innerCount" value="${innerCount+1}"/>
+                    </c:forEach>
+                    </tr>
+                </c:otherwise>
+            </c:choose>   
+        </c:forEach>
+    </table>
+</div>

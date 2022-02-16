@@ -60,6 +60,7 @@ public class MentalHealthScreeningValidator implements Validator{
                 if(item.getIdentifiedRisks() == null) {
                     ValidationUtils.rejectIfEmpty(errors, "identifiedRisks", "item.select.one");
                     ValidationUtils.rejectIfEmpty(errors, "support", "field.empty");
+                    ValidationUtils.rejectIfEmpty(errors, "referral", "field.empty");
                 }
 
             }
@@ -75,6 +76,7 @@ public class MentalHealthScreeningValidator implements Validator{
             item.setRisk(null);
             item.setSupport(null);
             item.setSupports(null);
+            item.setReferral(null);
         }
 
 

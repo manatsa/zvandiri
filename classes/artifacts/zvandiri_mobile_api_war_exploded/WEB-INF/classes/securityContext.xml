@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!-- Stateless RESTful services use BASIC authentication -->
+    <security:http create-session="stateless" pattern="/rest/**">
+        <security:intercept-url pattern="/**" access="ROLE_MOBILE"/>
+        <security:http-basic/>
+    </security:http>
+
+    <!-- manager responsible for loading user account with assigned roles -->
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <constructor-arg name="strength" value="11" />
+    </bean>
+    <!-- manager responsible for loading user account with assigned roles -->
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider user-service-ref="userDetailsService" >
+            <security:password-encoder ref="passwordEncoder" /> 
+        </security:authentication-provider>
+    </security:authentication-manager>
+    
+    <!-- User Detail Services -->
+    <bean id="userDetailsService" class="zw.org.zvandiri.business.security.provider.UserDetailsServiceImpl"/>
+</beans>

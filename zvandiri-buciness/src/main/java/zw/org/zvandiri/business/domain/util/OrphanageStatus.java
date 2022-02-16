@@ -23,6 +23,7 @@ public enum OrphanageStatus {
 
 
     public static OrphanageStatus get(Integer code){
+        if(code==null)return null;
         switch(code){
             case 1:
                 return NONE;

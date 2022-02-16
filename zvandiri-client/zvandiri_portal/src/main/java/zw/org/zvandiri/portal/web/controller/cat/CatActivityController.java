@@ -119,7 +119,7 @@ public class CatActivityController extends BaseController {
     @RequestMapping(value = "item.delete", method = RequestMethod.POST)
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         CatActivity item = catActivityService.get(dto.getId());
-        catActivityService.delete(item);
+        //catActivityService.delete(item);
         return "redirect:item.list?type=2&id=" + item.getCatDetail().getId();
     }
 }

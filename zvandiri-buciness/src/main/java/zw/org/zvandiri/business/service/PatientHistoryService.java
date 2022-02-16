@@ -28,7 +28,7 @@ public interface PatientHistoryService extends GenericService<PatientHistory> {
  
     public List<PatientHistory> getByPatient(Patient patient);
     
-    public void saveItem(PatientHistory history, Patient patient);
+    public Patient saveItem(PatientHistory history, Patient patient);
     
     public void saveMortality(PatientHistory history, Patient patient, Mortality mortality);
 }

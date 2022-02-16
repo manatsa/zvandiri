@@ -118,7 +118,7 @@ public class DisabilityController extends BaseController {
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         PatientDisability item = disabilityService.get(dto.getId());
         Patient patient = item.getPatient();
-        disabilityService.delete(item);
+        //disabilityService.delete(item);
         return "redirect:item.list?type=2&id="+patient.getId();
     }
 }

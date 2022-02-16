@@ -244,7 +244,7 @@ public class ContactController extends BaseController {
     public String deleteItem(@Valid ItemDeleteDTO dto) {
         Contact contact = contactService.get(dto.getId());
         Patient item = contact.getPatient();
-        contactService.delete(contact);
+        //contactService.delete(contact);
         return "redirect:../../patient/dashboard/profile.htm?type=2&id=" + item.getId();
     }
 }

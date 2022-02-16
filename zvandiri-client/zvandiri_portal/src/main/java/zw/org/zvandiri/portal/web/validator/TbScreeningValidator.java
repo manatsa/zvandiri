@@ -49,8 +49,6 @@ public class TbScreeningValidator implements Validator {
         if (item.getScreenedForTb() != null && item.getScreenedForTb().equals(YesNo.YES)) {
             ValidationUtils.rejectIfEmpty(errors, "dateScreened", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "identifiedWithTb", "field.empty");
-
-            //completion.date.before.start.date
         }else{
             item.setIdentifiedWithTb(null);
             item.setEligibleForIpt(null);
@@ -71,6 +69,11 @@ public class TbScreeningValidator implements Validator {
             item.setTbSymptoms(null);
             item.setDateStartedOnIpt(null);
             item.setStartedOnIpt(null);
+            item.setIdentifiedWithTb(YesNo.NO);
+            item.setOnTBTreatment(null);
+            item.setOnTBTreatment(null);
+            item.setOnTBTreatment(null);
+            item.setOnTBTreatment(null);
         }
         if (item.getDateScreened() != null && item.getDateScreened().after(new Date()) ) {
             errors.rejectValue("dateScreened","date.to.be.past");
@@ -92,6 +95,14 @@ public class TbScreeningValidator implements Validator {
             ValidationUtils.rejectIfEmpty(errors,"referredForInvestigation","field.empty");
             ValidationUtils.rejectIfEmpty(errors, "screenedByHcw", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "onTBTreatment", "field.empty");
+        }else{
+            item.setStartedOnIpt(null);
+            item.setOnIpt(null);;
+            item.setOnTBTreatment(null);
+            item.setReferredForInvestigation(null);
+            item.setScreenedByHcw(null);
+            item.setEligibleForIpt(null);
+
         }
         if(item.getEligibleForIpt()!=null && item.getEligibleForIpt().equals(YesNo.YES)){
             ValidationUtils.rejectIfEmpty(errors,"referredForIpt","field.empty");
@@ -106,13 +117,16 @@ public class TbScreeningValidator implements Validator {
             if(item.getDateStartedTreatment()!=null && item.getDateStartedTreatment().after(new Date())){
                 errors.rejectValue("dateStartedTreatment","date.to.be.past");
             }
-            /*if(item.getDateCompletedTreatment()!=null && item.getDateCompletedTreatment().after(new Date())){
-                errors.rejectValue("dateCompletedTreatment","date.to.be.past");
-            }*/
+
 
             if(item.getDateStartedTreatment()!=null && item.getDateCompletedTreatment()!=null && item.getDateStartedTreatment().after(item.getDateCompletedTreatment())){
                 errors.rejectValue("dateCompletedTreatment","completion.date.before.start.date");
             }
+            item.setOnIpt(null);
+            item.setEligibleForIpt(null);
+        }else if(item.getOnTBTreatment() !=null && item.getOnTBTreatment().equals(YesNo.NO)){
+            ValidationUtils.rejectIfEmpty(errors,"eligibleForIpt","field.empty");
+            ValidationUtils.rejectIfEmpty(errors,"onIpt","field.empty");
         }
 
         if(item.getOnTBTreatment()!=null && item.getOnTBTreatment().equals(YesNo.NO)){
@@ -121,7 +135,7 @@ public class TbScreeningValidator implements Validator {
         }
 
         if (item.getOnIpt() != null && item.getOnIpt().equals(YesNo.YES)) {
-            ValidationUtils.rejectIfEmpty(errors, "dateStartedIpt", "field.empty");
+            //ValidationUtils.rejectIfEmpty(errors, "dateStartedIpt", "field.empty");
             if(item.getDateStartedIpt()!=null && item.getDateStartedIpt().after(new Date())){
                 errors.rejectValue("dateStartedIpt","date.to.be.past");
             }

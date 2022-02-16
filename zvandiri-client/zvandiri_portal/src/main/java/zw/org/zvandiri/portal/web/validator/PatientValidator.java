@@ -70,8 +70,8 @@ public class PatientValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "oINumber", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "IDNumber", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "haveBirthCertificate", "field.empty");
-        //ValidationUtils.rejectIfEmpty(errors, "maritalStatus", "field.empty");
-        //ValidationUtils.rejectIfEmpty(errors, "orphanStatus", "field.empty");
+        ValidationUtils.rejectIfEmpty(errors, "maritalStatus", "field.empty");
+        ValidationUtils.rejectIfEmpty(errors, "orphanStatus", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "clientType", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "artRegimen", "field.empty");
         if (item.getFirstName() != null && !item.getFirstName().isEmpty()) {
@@ -223,9 +223,12 @@ public class PatientValidator implements Validator {
 
     public void validatePatientHivAndHealth(Object o, Errors errors) {
         Patient item = (Patient) o;
-        /*if (item.getHivStatusKnown() == null) {
+        if (item.getHivStatusKnown() == null) {
          errors.rejectValue("hivStatusKnown", "field.empty");
-         }*/
+         }
+        if(item.getDisability()==null){
+            errors.rejectValue("disability", "field.empty");
+        }
         if (item.getHei().equals(YesNo.NO)) {
             if (item.getHivStatusKnown() != null && item.getHivStatusKnown().equals(YesNo.YES) && item.getTransmissionMode() == null) {
                 errors.rejectValue("transmissionMode", "field.empty");
@@ -239,8 +242,11 @@ public class PatientValidator implements Validator {
             if (item.getHivStatusKnown() != null && item.getHivStatusKnown().equals(YesNo.YES)) {
                 if (item.gethIVDisclosureLocation() == null) {
                     errors.rejectValue("hIVDisclosureLocation", "field.empty");
-                    errors.rejectValue("hIVDisclosureLocation", "field.empty");
+                    errors.rejectValue("disclosureType", "field.empty");
                 }
+            }
+            if(item.getDisability()!=null && item.getDisability().equals(YesNo.YES)){
+                errors.rejectValue("disablityType", "field.empty");
             }
         }
 

@@ -113,7 +113,7 @@ public class HIVSelfTestingController extends BaseController {
     public String delete(@Valid ItemDeleteDTO dto) {
         HIVSelfTesting item = hIVSelfTestingService.get(dto.getId());
         Person patient = item.getPerson();
-        hIVSelfTestingService.delete(item);
+        //hIVSelfTestingService.delete(item);
         return "redirect:item.list?type=2&id=" + patient.getId();
     }
 }

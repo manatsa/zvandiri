@@ -1,0 +1,37 @@
+<div class="panel-body">
+    <div class="row">
+        <div class="col-lg-12" width="100%">
+            <b class="titleHeader">Primary Care Giver Details</b><hr/>
+            <table class="table-condensed">
+                <c:if test="${caregiver}">
+                    <tr>
+                        <th>First Name</th>
+                        <td>${patient.pfirstName}</td>
+                    </tr>
+                    <tr>
+                        <th>Last Name</th>
+                        <td>${patient.plastName}</td>
+                    </tr>
+                    <tr>
+                        <th>Mobile Number</th>
+                        <td>${patient.pmobileNumber}</td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td>${patient.pgender}</td>
+                    </tr>
+                    <tr>
+                        <th>Relationship</th>
+                        <td>${patient.relationship}</td>
+                    </tr>
+                </c:if>
+                <tr>
+                    <th>&nbsp;</th>
+                    <td>
+                <c:if test="${canEdit}"><a href="${page}/patient/primary-care-giver.form?id=${patient.id}">View / Edit</a></c:if>
+                </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

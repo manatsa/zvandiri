@@ -1,0 +1,27 @@
+<div class="panel-body">
+    <div class="row">
+        <div class="col-lg-12" width="100%">
+            <b class="titleHeader">Contact Details</b><hr/>
+            <table class="table-condensed">
+                <tr>
+                    <th>Address</th>
+                    <td>${patient.address}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>${patient.email}</td>
+                </tr>
+                <tr>
+                    <th>Mobile Number</th>
+                    <td>${patient.mobileNumber}</td>
+                </tr>
+                <tr>
+                    <th>&nbsp;</th>
+                    <td>
+                        <a href="${page}/patient/contact.form?id=${patient.id}">View / Edit</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

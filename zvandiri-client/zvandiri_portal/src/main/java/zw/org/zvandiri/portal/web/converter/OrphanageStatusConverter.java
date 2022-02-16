@@ -13,6 +13,7 @@ import zw.org.zvandiri.business.domain.util.OrphanageStatus;
 public class OrphanageStatusConverter implements Converter<String, OrphanageStatus> {
     @Override
     public OrphanageStatus convert(String s) {
+        if(s.equals("")) return null;
         return OrphanageStatus.get(Integer.valueOf(s));
     }
 }

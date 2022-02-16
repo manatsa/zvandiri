@@ -22,6 +22,7 @@ public enum MaritalStatus {
     }
 
     public static MaritalStatus get(String code){
+        if(code=="") return null;
         switch(code){
             case "1":
                 return MARRIED;
@@ -34,6 +35,7 @@ public enum MaritalStatus {
 
 
     public static MaritalStatus get(Integer code){
+        if(code==null)return null;
         switch(code){
             case 1:
                 return MARRIED;

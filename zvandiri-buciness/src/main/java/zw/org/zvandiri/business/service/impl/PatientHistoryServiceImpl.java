@@ -100,15 +100,19 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
     @Override
     @Transactional
-    public void saveItem(PatientHistory history, Patient patient) {
+    public Patient saveItem(PatientHistory history, Patient patient) {
         save(history);
-        if(patient.getStatus().equals(PatientChangeEvent.OTHER)
-        || patient.getStatus().equals(PatientChangeEvent.OPT_OUT)
+        if((patient.getStatus().equals(PatientChangeEvent.OTHER))
+        || (patient.getStatus().equals(PatientChangeEvent.OPT_OUT))
+        || (patient.getStatus().equals(PatientChangeEvent.DECEASED))
+        || (patient.getStatus().equals(PatientChangeEvent.GRADUATED))
+        || (patient.getStatus().equals(PatientChangeEvent.LOST_TO_FOLOWUP))
         )
         {
             patient.setActive(Boolean.FALSE);
+            patient.setDeleted(Boolean.TRUE);
         }
-        patientService.save(patient);
+        return patientService.save(patient);
     }
     
     @Override
