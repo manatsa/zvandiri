@@ -18,11 +18,10 @@ package zw.org.zvandiri.report.api;
 import java.io.Serializable;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class BasicNameNumber implements Serializable {
- 
+
     private final String name;
     private final Integer num;
     private final Integer num6Months;
@@ -38,7 +37,7 @@ public class BasicNameNumber implements Serializable {
         this.num12Months = num12Months;
     }
 
-    public BasicNameNumber(String name, Integer num, String url,Integer num6Months, String url6Months, Integer num12Months, String url12Months) {
+    public BasicNameNumber(String name, Integer num, String url, Integer num6Months, String url6Months, Integer num12Months, String url12Months) {
         this.name = name;
         this.num = num;
         this.url = url;
@@ -87,6 +86,6 @@ public class BasicNameNumber implements Serializable {
     public void setUrl12Months(String url12Months) {
         this.url12Months = url12Months;
     }
-    
-    
+
+
 }

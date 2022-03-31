@@ -9,14 +9,14 @@
         <label>First Name</label>
         <form:input path="firstName" class="form-control"/>
         <p class="help-block">
-        <form:errors path="firstName"/>
+            <form:errors path="firstName"/>
         </p>
     </div>
     <div class="form-group">
         <label>Last Name</label>
         <form:input path="lastName" class="form-control"/>
         <p class="help-block">
-        <form:errors path="lastName" class="alert-danger"/>
+            <form:errors path="lastName" class="alert-danger"/>
         </p>
     </div>
     <div class="form-group">
@@ -26,7 +26,7 @@
             <form:options itemValue="code" itemLabel="name"/>
         </form:select>
         <p class="help-block">
-        <form:errors path="userType" class="alert-danger"/>
+            <form:errors path="userType" class="alert-danger"/>
         </p>
     </div>
     <div class="form-group">
@@ -36,7 +36,7 @@
             <form:options itemValue="code" itemLabel="name"/>
         </form:select>
         <p class="help-block">
-        <form:errors path="userLevel" class="alert-danger"/>
+            <form:errors path="userLevel" class="alert-danger"/>
         </p>
     </div>
     <c:if test="${showProvince}">
@@ -47,7 +47,7 @@
                 <form:options items="${provinces}" itemValue="id" itemLabel="name"/>
             </form:select>
             <p class="help-block">
-            <form:errors path="province" class="alert-danger"/>
+                <form:errors path="province" class="alert-danger"/>
             </p>
         </div>
     </c:if>
@@ -59,7 +59,7 @@
                 <form:options items="${districts}" itemValue="id" itemLabel="name"/>
             </form:select>
             <p class="help-block">
-            <form:errors path="district" class="alert-danger"/>
+                <form:errors path="district" class="alert-danger"/>
             </p>
         </div>
     </c:if>
@@ -67,7 +67,7 @@
         <label>User Name</label>
         <form:input path="userName" class="form-control"/>
         <p class="help-block">
-        <form:errors path="userName" class="alert-danger"/>
+            <form:errors path="userName" class="alert-danger"/>
         </p>
     </div>
     <c:if test="${item.id == null}">
@@ -75,14 +75,14 @@
             <label>Password</label>
             <form:password path="password" class="form-control"/>
             <p class="help-block">
-            <form:errors path="password" class="alert-danger"/>
+                <form:errors path="password" class="alert-danger"/>
             </p>
         </div>
         <div class="form-group">
             <label>Confirm Password</label>
             <form:password path="confirmPassword" class="form-control"/>
             <p class="help-block">
-            <form:errors path="confirmPassword" class="alert-danger"/>
+                <form:errors path="confirmPassword" class="alert-danger"/>
             </p>
         </div>
     </c:if>
@@ -90,11 +90,13 @@
         <label>User Roles</label><br/><br/>
         <form:checkboxes path="userRoles" items="${roles}" itemLabel="printName" itemValue="id" delimiter="<br/>"/>
         <p class="help-block">
-        <form:errors path="userRoles" class="alert-danger"/>
+            <form:errors path="userRoles" class="alert-danger"/>
         </p>
     </div>
     <div class="form-group">
         <button class="btn btn-primary" type="submit">Save</button>
-        <a href="${itemDelete}"><button class="btn btn-primary" type="button">Cancel</button></a>
+        <a href="${itemDelete}">
+            <button class="btn btn-primary" type="button">Cancel</button>
+        </a>
     </div>
 </form:form>

@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -24,15 +25,14 @@ import zw.org.zvandiri.business.domain.ActionTaken;
 import zw.org.zvandiri.business.service.ActionTakenService;
 
 /**
- *
  * @author User
  */
 @Component
-public class ActionTakenValidator implements Validator{
-    
+public class ActionTakenValidator implements Validator {
+
     @Resource
     private ActionTakenService actionTakenService;
-    
+
     @Override
     public boolean supports(Class<?> type) {
         return type.equals(ActionTaken.class);

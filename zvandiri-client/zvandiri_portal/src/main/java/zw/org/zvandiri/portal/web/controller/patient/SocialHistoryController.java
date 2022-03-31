@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -36,11 +37,12 @@ import zw.org.zvandiri.business.util.dto.ItemDeleteDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+
 import zw.org.zvandiri.portal.web.validator.SocialHistoryValidator;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
@@ -65,7 +67,7 @@ public class SocialHistoryController extends BaseController {
         model.addAttribute("abuseTypes", AbuseType.values());
         getPatientStatus(item.getPatient(), model);
         setViralLoad(model, item.getPatient());
-        if(item.getAbuse() != null && item.getAbuse().equals(YesNo.YES)){
+        if (item.getAbuse() != null && item.getAbuse().equals(YesNo.YES)) {
             model.addAttribute("abuse", Boolean.TRUE);
         }
         return "patient/socialHistForm";
@@ -95,7 +97,7 @@ public class SocialHistoryController extends BaseController {
             return "patient/socialHistForm";
         }
         socialHistService.save(item);
-        if(item.getPatient().getGender() != null && item.getPatient().getGender().equals(Gender.MALE)){
+        if (item.getPatient().getGender() != null && item.getPatient().getGender().equals(Gender.MALE)) {
             return "redirect:../mental-health/item.list?type=1&id=" + item.getPatient().getId();
         }
         return "redirect:..//obstetric/item.list?type=1&id=" + item.getPatient().getId();
@@ -108,14 +110,14 @@ public class SocialHistoryController extends BaseController {
         model.addAttribute("pageTitle", APP_PREFIX + " " + patient.getName() + "'s Social History");
         model.addAttribute("patient", patient);
         model.addAttribute("female", Boolean.FALSE);
-        if(patient.getGender() != null && patient.getGender().equals(Gender.FEMALE)){
+        if (patient.getGender() != null && patient.getGender().equals(Gender.FEMALE)) {
             model.addAttribute("female", Boolean.TRUE);
         }
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
         model.addAttribute("abuse", Boolean.FALSE);
-        if(item != null && item.getAbuse() != null && item.getAbuse().equals(YesNo.YES)){
+        if (item != null && item.getAbuse() != null && item.getAbuse().equals(YesNo.YES)) {
             model.addAttribute("abuse", Boolean.TRUE);
         }
         getPatientStatus(patient, model);
@@ -123,7 +125,7 @@ public class SocialHistoryController extends BaseController {
         model.addAttribute("socialHist", item);
         return "patient/socialHistList";
     }
-    
+
     @RequestMapping(value = "item.delete", method = RequestMethod.GET)
     public String getDeleteForm(@RequestParam("id") String id, ModelMap model) {
         SocialHist item = socialHistService.get(id);

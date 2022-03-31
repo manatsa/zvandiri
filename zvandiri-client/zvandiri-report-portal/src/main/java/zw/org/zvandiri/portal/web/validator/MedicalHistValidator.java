@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import java.util.Date;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -23,7 +24,6 @@ import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.MedicalHist;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
@@ -45,7 +45,7 @@ public class MedicalHistValidator implements Validator {
             errors.rejectValue("hospWhen", "date.beforebirth");
         }
         if (item.getOutcome() == null) {
-        	errors.rejectValue("outcome", "field.empty");
+            errors.rejectValue("outcome", "field.empty");
         }
     }
 }

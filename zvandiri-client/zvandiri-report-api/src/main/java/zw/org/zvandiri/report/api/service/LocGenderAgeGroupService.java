@@ -18,9 +18,8 @@ package zw.org.zvandiri.report.api.service;
 import zw.org.zvandiri.report.api.GenericReportModel;
 
 /**
- *
  * @author Judge Muzinda
  */
 public interface LocGenderAgeGroupService extends GenericReportService<GenericReportModel> {
-    
+
 }

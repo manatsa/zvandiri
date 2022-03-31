@@ -16,22 +16,22 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.SupportGroup;
 import zw.org.zvandiri.business.service.SupportGroupService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class SupportGroupConverter implements Converter<String, SupportGroup> {
-    
+
     @Resource
     private SupportGroupService supportGroupService;
 
     @Override
     public SupportGroup convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return supportGroupService.get(s);
-    }   
+    }
 }

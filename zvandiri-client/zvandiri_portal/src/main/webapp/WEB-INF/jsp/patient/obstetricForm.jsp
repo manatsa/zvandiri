@@ -9,17 +9,18 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
                 </div>
-                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/><br/>
+                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back
+                    To ${patient.name} Dashboard</a><br/><br/>
                 <div class="row">
                     <div class="col-lg-10">
                         <form:form commandName="item">
                             <%@include file="../template/formState.jspf" %>
-                            <form:hidden path="patient" value="${item.patient.id}"/>                            
+                            <form:hidden path="patient" value="${item.patient.id}"/>
                             <div class="form-group">
                                 <label>Have you ever been pregnant</label>
                                 <form:select path="pregnant" class="form-control">
@@ -69,7 +70,7 @@
                                 <p class="help-block">
                                     <form:errors path="gestationalAge" class="alert-danger"/>
                                 </p>
-                            </div>                                
+                            </div>
                             <div class="form-group preg-curr hide">
                                 <label>ART Started</label>
                                 <form:select path="artStarted" class="form-control">
@@ -88,8 +89,12 @@
                                 </p>
                             </div>
                             <div class="form-group">
-                                <c:if test="${canEdit}"><button class="btn btn-primary" type="submit">Save</button></c:if>
-                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <c:if test="${canEdit}">
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </c:if>
+                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>

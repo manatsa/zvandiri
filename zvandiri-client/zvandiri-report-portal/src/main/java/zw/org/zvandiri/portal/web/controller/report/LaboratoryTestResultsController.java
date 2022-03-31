@@ -43,10 +43,10 @@ import zw.org.zvandiri.report.api.DatabaseHeader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
+
 import zw.org.zvandiri.portal.web.controller.report.parallel.LabTestTask;
 
 /**
- *
  * @author jmuzinda
  */
 @Controller
@@ -186,17 +186,17 @@ public class LaboratoryTestResultsController extends BaseController {
 
             Cell isCats = resultsRow.createCell(count++);
             isCats.setCellValue(
-            		test.getPatient().getCat() != null ? test.getPatient().getCat().getName() : null
+                    test.getPatient().getCat() != null ? test.getPatient().getCat().getName() : null
             );
             Cell youngMumGroup = resultsRow.createCell(count++);
             youngMumGroup.setCellValue(
-            		test.getPatient().getYoungMumGroup() != null ? test.getPatient().getYoungMumGroup().getName() : null
+                    test.getPatient().getYoungMumGroup() != null ? test.getPatient().getYoungMumGroup().getName() : null
             );
             Cell ymd = resultsRow.createCell(count++);
             ymd.setCellValue(
-                    test.getPatient().getYoungDadGroup()!= null ? test.getPatient().getYoungDadGroup().getName() : null
+                    test.getPatient().getYoungDadGroup() != null ? test.getPatient().getYoungDadGroup().getName() : null
             );
-            
+
         }
 
         return workbook;

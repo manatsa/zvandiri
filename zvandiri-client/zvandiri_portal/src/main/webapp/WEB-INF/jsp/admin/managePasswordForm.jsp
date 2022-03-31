@@ -27,30 +27,32 @@
                             </li>
                         </ul>
                         <form:form commandName="item" action="${action}">
-                            <form:hidden path="user" value="${item.user.id}"/>
-                            <div class="form-group">
-                                <label >Username:</label>
-                                <label class="form-control">${item.user.userName}</label>
-                            </div> 
-                            <div class="form-group">
-                                <label>New Password:</label>
-                                <form:password path="newPassword" class="form-control"  />
-                                <p class="help-block">
-                                    <form:errors path="newPassword" class="alert-danger"/>
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <label>Confirm Password:</label>
-                                <form:password path="confirmPassword" class="form-control"/>
-                                <p class="help-block">
-                                    <form:errors path="confirmPassword" class="alert-danger"/>
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-primary" type="submit">Save</button>
-                                <a href="../index.htm"><button class="btn btn-primary" type="button">Cancel</button></a>
-                            </div>
+                        <form:hidden path="user" value="${item.user.id}"/>
+                        <div class="form-group">
+                            <label>Username:</label>
+                            <label class="form-control">${item.user.userName}</label>
                         </div>
+                        <div class="form-group">
+                            <label>New Password:</label>
+                            <form:password path="newPassword" class="form-control"/>
+                            <p class="help-block">
+                                <form:errors path="newPassword" class="alert-danger"/>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password:</label>
+                            <form:password path="confirmPassword" class="form-control"/>
+                            <p class="help-block">
+                                <form:errors path="confirmPassword" class="alert-danger"/>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Save</button>
+                            <a href="../index.htm">
+                                <button class="btn btn-primary" type="button">Cancel</button>
+                            </a>
+                        </div>
+                    </div>
                     </form:form>
                 </div>
             </div>

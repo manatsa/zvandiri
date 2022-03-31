@@ -19,7 +19,7 @@ public class LabTasksService {
     @Resource
     LabTaskService labTaskService;
 
-    public List<LabTask> getLabTasks(){
+    public List<LabTask> getLabTasks() {
         return labTaskService.getAll();
     }
 }

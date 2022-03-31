@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -30,11 +31,12 @@ import zw.org.zvandiri.business.util.dto.PatientDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+
 import zw.org.zvandiri.portal.web.validator.PatientChangeEventValidator;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
@@ -72,7 +74,7 @@ public class ChangePatientStatusController extends BaseController {
         patientHistoryService.saveItem(new PatientHistory(item.getPatient()), item.getFacilityInstance(item));
         return "redirect:../dashboard/profile.htm?type=1&id=" + item.getPatient().getId();
     }
-    
+
     @RequestMapping(value = "reload-form", method = RequestMethod.POST)
     public String reloadForm(ModelMap model, @ModelAttribute("item") PatientDTO item) {
         return setUpModel(model, item, "contactForm");

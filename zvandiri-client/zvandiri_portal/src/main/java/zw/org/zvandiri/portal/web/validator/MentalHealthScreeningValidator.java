@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -29,18 +30,17 @@ import zw.org.zvandiri.business.service.UserService;
 import java.util.Date;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 @Component
-public class MentalHealthScreeningValidator implements Validator{
+public class MentalHealthScreeningValidator implements Validator {
     @Resource
     UserService userService;
     @Resource
     private MentalHealthScreeningService service;
-    
+
     @Override
-    public boolean supports(Class<?> type){
+    public boolean supports(Class<?> type) {
         return type.equals(MentalHealthScreening.class);
     }
 
@@ -48,29 +48,29 @@ public class MentalHealthScreeningValidator implements Validator{
     public void validate(Object o, Errors errors) {
         ValidationUtils.rejectIfEmpty(errors, "screenedForMentalHealth", "field.empty");
         MentalHealthScreening item = (MentalHealthScreening) o;
-        if(item.getScreenedForMentalHealth() != null && item.getScreenedForMentalHealth().equals(YesNo.YES)) {
+        if (item.getScreenedForMentalHealth() != null && item.getScreenedForMentalHealth().equals(YesNo.YES)) {
             ValidationUtils.rejectIfEmpty(errors, "risk", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "dateScreened", "field.empty");
 
-            if(item.getDateScreened()!=null && item.getDateScreened().after(new Date())){
-                errors.rejectValue("dateScreened","date.to.be.past");
+            if (item.getDateScreened() != null && item.getDateScreened().after(new Date())) {
+                errors.rejectValue("dateScreened", "date.to.be.past");
             }
 
-            if(item.getRisk() != null && item.getRisk().equals(YesNo.YES)) {
-                if(item.getIdentifiedRisks() == null) {
+            if (item.getRisk() != null && item.getRisk().equals(YesNo.YES)) {
+                if (item.getIdentifiedRisks() == null) {
                     ValidationUtils.rejectIfEmpty(errors, "identifiedRisks", "item.select.one");
                     ValidationUtils.rejectIfEmpty(errors, "support", "field.empty");
                     ValidationUtils.rejectIfEmpty(errors, "referral", "field.empty");
                 }
 
             }
-            if(item.getSupport()!= null && item.getSupport().equals(YesNo.YES)) {
-                if(item.getSupports() == null) {
+            if (item.getSupport() != null && item.getSupport().equals(YesNo.YES)) {
+                if (item.getSupports() == null) {
                     ValidationUtils.rejectIfEmpty(errors, "supports", "item.select.one");
                 }
             }
 
-        }else{
+        } else {
             item.setIdentifiedRisks(null);
             item.setDateScreened(null);
             item.setRisk(null);
@@ -80,14 +80,12 @@ public class MentalHealthScreeningValidator implements Validator{
         }
 
 
-        if(errors.hasErrors()){
-            User user=userService.getCurrentUser();
-            System.err.println(" *** UserName : "+user.getUserName()+", FirstName : "+user.getFirstName()+", LastName : "+user.getLastName()+
-                    ", District : "+user.getDistrict()+", Province : "+user.getProvince()+"\n"+errors);
+        if (errors.hasErrors()) {
+            User user = userService.getCurrentUser();
+            System.err.println(" *** UserName : " + user.getUserName() + ", FirstName : " + user.getFirstName() + ", LastName : " + user.getLastName() +
+                    ", District : " + user.getDistrict() + ", Province : " + user.getProvince() + "\n" + errors);
         }
     }
 
 
-
-    
 }

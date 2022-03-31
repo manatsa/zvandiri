@@ -12,7 +12,6 @@ import zw.org.zvandiri.business.service.GenericReportService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
- *
  * @author tasu
  */
 public class GenericCountReportTask extends RecursiveTask<List> {

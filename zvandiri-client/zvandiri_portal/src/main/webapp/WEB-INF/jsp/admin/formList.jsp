@@ -5,7 +5,8 @@
             District List
         </div>
         <div class="panel-body">
-            <a href="../index.htm">Option Tables</a> | <a href="item.form">New Form</a> | <a href="item.list">Form List</a><br/><br/>
+            <a href="../index.htm">Option Tables</a> | <a href="item.form">New Form</a> | <a href="item.list">Form
+            List</a><br/><br/>
             <%@include file="../template/message.jspf" %>
             <div class="row">
                 <div class="col-lg-10">
@@ -21,16 +22,16 @@
                         <th>&nbsp</th>
                         </tfoot>
                         <tbody>
-                            <c:forEach var="form" items="${items}" >
-                                <tr>
-                                    <td><a href="<c:url value="item.form?id=${form.id}"/>">${form.name}</a></td>
-                                    <td>${form.periodType.name}</td>
-                                    <td>
-                                        <a href="<c:url value="item.form?id=${form.id}"/>">Edit | </a>
-                                        <a href="<c:url value="item.delete?id=${form.id}"/>">Delete</a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                        <c:forEach var="form" items="${items}">
+                            <tr>
+                                <td><a href="<c:url value="item.form?id=${form.id}"/>">${form.name}</a></td>
+                                <td>${form.periodType.name}</td>
+                                <td>
+                                    <a href="<c:url value="item.form?id=${form.id}"/>">Edit | </a>
+                                    <a href="<c:url value="item.delete?id=${form.id}"/>">Delete</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
 

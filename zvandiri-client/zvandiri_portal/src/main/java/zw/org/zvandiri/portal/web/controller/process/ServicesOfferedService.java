@@ -11,7 +11,6 @@ import java.util.List;
  */
 
 
-
 public interface ServicesOfferedService {
 
     List<ServiceOffered> getServicesOffered();

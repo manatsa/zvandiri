@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.ReferalType;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class ReferalTypeConverter implements Converter<String, ReferalType> {
 
     @Override
     public ReferalType convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return ReferalType.get(Integer.valueOf(s));
-    }    
-    
+    }
+
 }

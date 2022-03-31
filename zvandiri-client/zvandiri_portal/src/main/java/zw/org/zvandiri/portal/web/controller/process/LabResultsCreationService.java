@@ -18,13 +18,12 @@ package zw.org.zvandiri.portal.web.controller.process;
 import zw.org.zvandiri.business.domain.InvestigationTest;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 public interface LabResultsCreationService {
- 
+
     public InvestigationTest createResult();
-    
+
     public InvestigationTest saveResult(InvestigationTest investigationTest);
 
 }

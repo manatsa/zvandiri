@@ -28,12 +28,11 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 @Repository("mentalHealthCreationService")
 public class MentalHealthScreeningCreationServiceImpl implements MentalHealthCreationService {
-    
+
     @Resource
     private MentalHealthScreeningService mentalHealthScreeningService;
 
@@ -50,17 +49,17 @@ public class MentalHealthScreeningCreationServiceImpl implements MentalHealthCre
     }
 
     @Override
-    public String isValid(MentalHealthScreening mentalHealthScreening){
+    public String isValid(MentalHealthScreening mentalHealthScreening) {
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
         // now manually validating, which could be achieved by using @Valid annotation
         Set<ConstraintViolation<MentalHealthScreening>> constraintViolations = validator.validate(mentalHealthScreening);
 
-        Iterator errorIterator=constraintViolations.iterator();
-        while(errorIterator.hasNext()){
-            System.err.println(((ObjectError)(errorIterator.next())).getDefaultMessage());
+        Iterator errorIterator = constraintViolations.iterator();
+        while (errorIterator.hasNext()) {
+            System.err.println(((ObjectError) (errorIterator.next())).getDefaultMessage());
         }
-        return constraintViolations.size()<1?"success" : "failure";
+        return constraintViolations.size() < 1 ? "success" : "failure";
     }
-    
+
 }

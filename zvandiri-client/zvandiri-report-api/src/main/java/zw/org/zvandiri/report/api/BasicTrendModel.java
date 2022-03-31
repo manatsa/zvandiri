@@ -18,11 +18,10 @@ package zw.org.zvandiri.report.api;
 import java.util.Date;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class BasicTrendModel extends BasicReportItem {
-    
+
     private final Date date;
     private final String name;
 
@@ -35,13 +34,13 @@ public class BasicTrendModel extends BasicReportItem {
     public Date getDate() {
         return date;
     }
-    
-    public String getName(){
+
+    public String getName() {
         return name;
     }
 
     @Override
     public String toString() {
-        return super.toString()+"  BasicTrendModel{" + "date=" + date + ", name=" + name + '}';
+        return super.toString() + "  BasicTrendModel{" + "date=" + date + ", name=" + name + '}';
     }
 }

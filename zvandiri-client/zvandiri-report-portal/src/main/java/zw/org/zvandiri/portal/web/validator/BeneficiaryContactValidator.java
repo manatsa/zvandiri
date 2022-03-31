@@ -18,6 +18,7 @@ package zw.org.zvandiri.portal.web.validator;
 import java.util.Date;
 
 import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 
 import org.springframework.stereotype.Component;
@@ -33,7 +34,6 @@ import zw.org.zvandiri.business.domain.util.Reason;
 import zw.org.zvandiri.business.service.ContactService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
@@ -133,7 +133,7 @@ public class BeneficiaryContactValidator implements Validator {
         if (item.getDateTaken() != null
                 && item.getPatient().getDateOfBirth() != null
                 && item.getDateTaken().before(
-                        item.getPatient().getDateOfBirth())) {
+                item.getPatient().getDateOfBirth())) {
             errors.rejectValue("viralLoad.dateTaken", "date.beforebirth");
         }
     }

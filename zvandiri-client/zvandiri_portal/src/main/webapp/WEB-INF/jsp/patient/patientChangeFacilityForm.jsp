@@ -9,7 +9,7 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
@@ -19,13 +19,13 @@
                         <form:form commandName="item">
                             <form:hidden path="patient" value="${item.patient.id}"/>
                             <div class="form-group">
-                                <label>Current Region : </label>${item.patient.primaryClinic.district.province.name}                                
+                                <label>Current Region : </label>${item.patient.primaryClinic.district.province.name}
                             </div>
                             <div class="form-group">
-                                <label>Current District : </label>${item.patient.primaryClinic.district.name}                                
+                                <label>Current District : </label>${item.patient.primaryClinic.district.name}
                             </div>
                             <div class="form-group">
-                                <label>Current Primary Clinic : </label>${item.patient.primaryClinic.name}                                
+                                <label>Current Primary Clinic : </label>${item.patient.primaryClinic.name}
                             </div>
                             <div class="form-group">
                                 <label>Region</label>
@@ -58,8 +58,12 @@
                                 </p>
                             </div>
                             <div class="form-group">
-                                <c:if test="${canEdit}"><button class="btn btn-primary" type="submit">Save</button></c:if>
-                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <c:if test="${canEdit}">
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </c:if>
+                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>

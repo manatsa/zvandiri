@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -24,12 +25,11 @@ import zw.org.zvandiri.business.domain.ServicesReferred;
 import zw.org.zvandiri.business.service.ServicesReferredService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
 public class ServicesReferredValidator implements Validator {
-    
+
     @Resource
     private ServicesReferredService servicesReferredService;
 
@@ -53,5 +53,5 @@ public class ServicesReferredValidator implements Validator {
             errors.rejectValue("name", "item.duplicate");
         }
     }
-    
+
 }

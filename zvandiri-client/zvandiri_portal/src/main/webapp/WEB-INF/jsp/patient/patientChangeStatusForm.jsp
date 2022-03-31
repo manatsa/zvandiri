@@ -9,7 +9,7 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
@@ -30,7 +30,9 @@
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Save</button>
-                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>
@@ -41,13 +43,13 @@
 </div>
 <%@include file="../template/footer.jspf" %>
 <script type="text/javascript">
-var patientId = "<c:out value="${item.patient.id}"/>"
-$("#status").change(function () {
-    var name = $.trim($("#status :selected").text());
-    if (name === "Change Location") {
-        location.href = path+"/patient/change-facility/item.form?id="+patientId;
-    } else if (name === "Deceased"){
-    	location.href = path+"/patient/patient-death/item.form?id="+patientId;
-    }
-});
+    var patientId = "<c:out value="${item.patient.id}"/>"
+    $("#status").change(function () {
+        var name = $.trim($("#status :selected").text());
+        if (name === "Change Location") {
+            location.href = path + "/patient/change-facility/item.form?id=" + patientId;
+        } else if (name === "Deceased") {
+            location.href = path + "/patient/patient-death/item.form?id=" + patientId;
+        }
+    });
 </script>

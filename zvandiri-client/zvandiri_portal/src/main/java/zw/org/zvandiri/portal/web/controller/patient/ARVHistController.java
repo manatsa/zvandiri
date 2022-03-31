@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -33,11 +34,12 @@ import zw.org.zvandiri.business.util.dto.ItemDeleteDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+
 import zw.org.zvandiri.portal.web.validator.ARVHistValidator;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
@@ -68,7 +70,7 @@ public class ARVHistController extends BaseController {
         ArvHist item;
         if (itemId != null) {
             item = arvHistService.get(itemId);
-            return setUpModel(model, item);            
+            return setUpModel(model, item);
         }
         item = new ArvHist(patientService.get(patientId));
         return setUpModel(model, item);
@@ -104,7 +106,7 @@ public class ARVHistController extends BaseController {
         model.addAttribute("arvHists", arvHistService.getByPatient(item));
         return "patient/arvHistList";
     }
-    
+
     @RequestMapping(value = "item.delete", method = RequestMethod.GET)
     public String getDeleteForm(@RequestParam("id") String id, ModelMap model) {
         ArvHist item = arvHistService.get(id);

@@ -9,12 +9,13 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
                 </div>
-                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/><br/>
+                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back
+                    To ${patient.name} Dashboard</a><br/><br/>
                 <div class="row">
                     <div class="col-lg-10">
                         <form:form commandName="item">
@@ -29,8 +30,8 @@
                                 <p class="help-block">
                                     <form:errors path="disabilityCategory" class="alert-danger"/>
                                 </p>
-                            </div>                                
-                                <div class="form-group">
+                            </div>
+                            <div class="form-group">
                                 <label>Severity</label>
                                 <form:select path="severity" class="form-control">
                                     <form:option value="" label="--Select Item"/>
@@ -40,8 +41,8 @@
                                     <form:errors path="severity" class="alert-danger"/>
                                 </p>
                             </div>
-                                
-                                <div class="form-group">
+
+                            <div class="form-group">
                                 <label>Screened</label>
                                 <form:select path="screened" class="form-control">
                                     <form:option value="" label="--Select Item"/>
@@ -51,9 +52,8 @@
                                     <form:errors path="screened" class="alert-danger"/>
                                 </p>
                             </div>
-                                
-                                
-                                
+
+
                             <div class="form-group">
                                 <label>Date Screened</label>
                                 <form:input path="dateScreened" class="form-control general"/>
@@ -62,8 +62,12 @@
                                 </p>
                             </div>
                             <div class="form-group">
-                                <c:if test="${canEdit}"><button class="btn btn-primary" type="submit">Save</button></c:if>
-                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <c:if test="${canEdit}">
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </c:if>
+                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>

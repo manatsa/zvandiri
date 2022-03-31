@@ -7,15 +7,15 @@ package zw.org.zvandiri.report.api.service.parallel;
 
 import java.util.List;
 import java.util.concurrent.RecursiveTask;
+
 import zw.org.zvandiri.business.service.MortalityService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
- *
  * @author tasu
  */
-public class MortalityTask extends RecursiveTask<List>{
-    
+public class MortalityTask extends RecursiveTask<List> {
+
     private final MortalityService reportService;
     private final SearchDTO searchData;
     private final List<Integer> arrCount;

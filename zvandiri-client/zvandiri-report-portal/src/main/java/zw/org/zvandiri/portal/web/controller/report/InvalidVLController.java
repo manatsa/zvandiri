@@ -48,7 +48,6 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Collectors;
 
 /**
- *
  * @author Mana
  */
 @Controller
@@ -130,7 +129,7 @@ public class InvalidVLController extends BaseController {
                 createHelper.createDataFormat().getFormat("dd/MM/yyyy"));
 
 
-        return caseloadManagementService.addSheet(workbook,"Invalid VLs", vlPatients,cellStyle);
+        return caseloadManagementService.addSheet(workbook, "Invalid VLs", vlPatients, cellStyle);
     }
 
 }

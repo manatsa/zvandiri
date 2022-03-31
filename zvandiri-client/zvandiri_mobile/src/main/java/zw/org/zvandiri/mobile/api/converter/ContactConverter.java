@@ -16,23 +16,23 @@
 package zw.org.zvandiri.mobile.api.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.service.ContactService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class ContactConverter implements Converter<String, Contact> {
-    
+
     @Resource
     private ContactService contactService;
 
     @Override
     public Contact convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return contactService.get(s);
     }
-    
+
 }

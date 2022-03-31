@@ -9,12 +9,13 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
                 </div>
-                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/><br/>
+                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back
+                    To ${patient.name} Dashboard</a><br/><br/>
                 <div class="row">
                     <div class="col-lg-10">
                         <form:form commandName="item">
@@ -72,7 +73,7 @@
                                 <p class="help-block">
                                     <form:errors path="condomUse" class="alert-danger"/>
                                 </p>
-                            </div> 
+                            </div>
                             <div class="form-group sex-active hide">
                                 <label>Do you use any other form of birth control</label>
                                 <form:select path="birthControl" class="form-control">
@@ -84,8 +85,12 @@
                                 </p>
                             </div>
                             <div class="form-group">
-                                <c:if test="${canEdit}"><button class="btn btn-primary" type="submit">Save</button></c:if>
-                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <c:if test="${canEdit}">
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </c:if>
+                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>
@@ -115,28 +120,28 @@
         };
     });
     $("form").validate({
-       rules: {
-           ageStartMen: {
-               required: true
-           },
-           bleedHowOften: {
-               required: true
-           },
-           bleeddays: {
-               required: true
-           },
-           sexualIntercourse: {
-               required: true
-           },
-           sexuallyActive: {
-               required: true
-           },
-           condomUse: {
-               required: true
-           },
-           birthControl: {
-               required: true
-           }
-       } 
+        rules: {
+            ageStartMen: {
+                required: true
+            },
+            bleedHowOften: {
+                required: true
+            },
+            bleeddays: {
+                required: true
+            },
+            sexualIntercourse: {
+                required: true
+            },
+            sexuallyActive: {
+                required: true
+            },
+            condomUse: {
+                required: true
+            },
+            birthControl: {
+                required: true
+            }
+        }
     });
 </script>

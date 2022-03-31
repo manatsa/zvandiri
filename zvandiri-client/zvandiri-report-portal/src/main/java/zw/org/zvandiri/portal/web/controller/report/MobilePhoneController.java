@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
 /**
- *
  * @author Mana
  */
 @Controller
@@ -136,10 +135,10 @@ public class MobilePhoneController extends BaseController {
             age.setCellValue(phone.getCadre().getAge());
 
             XSSFCell dateOfBirth = phoneRow.createCell(count++);
-            if(phone.getCadre().getDateOfBirth()!=null){
+            if (phone.getCadre().getDateOfBirth() != null) {
                 dateOfBirth.setCellValue(phone.getCadre().getDateOfBirth());
                 dateOfBirth.setCellStyle(cellStyle);
-            }else{
+            } else {
                 dateOfBirth.setCellType(XSSFCell.CELL_TYPE_BLANK);
             }
             //Optional.ofNullable(phone.getCadre().getDateOfBirth()).ifPresent(dateOfBirth::setCellValue);
@@ -151,7 +150,7 @@ public class MobilePhoneController extends BaseController {
 
             XSSFCell cadreStatus = phoneRow.createCell(count++);
             //Optional<PatientChangeEvent> cadreStatusOptional=Optional.ofNullable(phone.getCadre().getStatus());
-            cadreStatus.setCellValue(phone.getCadre().getStatus()!=null?phone.getCadre().getStatus().getName():"");
+            cadreStatus.setCellValue(phone.getCadre().getStatus() != null ? phone.getCadre().getStatus().getName() : "");
 
             XSSFCell primaryClinic = phoneRow.createCell(count++);
             //Optional<Facility> facilityOptional=Optional.ofNullable(phone.getCadre().getPrimaryClinic());
@@ -178,30 +177,30 @@ public class MobilePhoneController extends BaseController {
             serial.setCellValue(phone.getSerialNumber());
 
             XSSFCell phoneDateIssued = phoneRow.createCell(count++);
-            if(phone.getDateIssued()!=null){
+            if (phone.getDateIssued() != null) {
                 phoneDateIssued.setCellValue(phone.getDateIssued());
                 phoneDateIssued.setCellStyle(cellStyle);
-            }else{
+            } else {
                 phoneDateIssued.setCellType(XSSFCell.CELL_TYPE_BLANK);
             }
             //Optional.ofNullable(phone.getDateIssued()).ifPresent(phoneDateIssued::setCellValue);
 
 
             XSSFCell phoneDateRecovered = phoneRow.createCell(count++);
-            if(phone.getDateRecovered()!=null){
+            if (phone.getDateRecovered() != null) {
                 phoneDateRecovered.setCellValue(phone.getDateRecovered());
                 phoneDateRecovered.setCellStyle(cellStyle);
-            }else{
+            } else {
                 phoneDateRecovered.setCellType(XSSFCell.CELL_TYPE_BLANK);
             }
             //Optional.ofNullable(phone.getDateRecovered()).ifPresent(phoneDateRecovered::setCellValue);
 
 
             XSSFCell dateCreated = phoneRow.createCell(count++);
-            if(phone.getDateCreated()!=null){
+            if (phone.getDateCreated() != null) {
                 dateCreated.setCellValue(phone.getDateCreated());
                 dateCreated.setCellStyle(cellStyle);
-            }else{
+            } else {
                 dateCreated.setCellType(XSSFCell.CELL_TYPE_BLANK);
             }
             //Optional.ofNullable(phone.getDateCreated()).ifPresent(dateCreated::setCellValue);
@@ -209,11 +208,11 @@ public class MobilePhoneController extends BaseController {
 
             XSSFCell condition = phoneRow.createCell(count++);
             //Optional<Condition> conditionOptional=Optional.ofNullable(phone.getPhoneCondition());
-            condition.setCellValue(phone.getPhoneCondition()!=null?phone.getPhoneCondition().getName():"");
+            condition.setCellValue(phone.getPhoneCondition() != null ? phone.getPhoneCondition().getName() : "");
 
             XSSFCell phoneStatus = phoneRow.createCell(count++);
             //Optional<PhoneStatus> statusOptional=Optional.ofNullable(phone.getPhoneStatus());
-            phoneStatus.setCellValue(phone.getPhoneStatus()!=null?phone.getPhoneStatus().getName():"");
+            phoneStatus.setCellValue(phone.getPhoneStatus() != null ? phone.getPhoneStatus().getName() : "");
 
             XSSFCell imei1 = phoneRow.createCell(count++);
             //Optional.ofNullable(phone.getImei1()).ifPresent(imei1::setCellValue);
@@ -221,7 +220,7 @@ public class MobilePhoneController extends BaseController {
 
             XSSFCell imei2 = phoneRow.createCell(count++);
             //Optional.ofNullable(phone.getImei2()).ifPresent(imei2::setCellValue);
-            imei2.setCellValue(phone.getImei2()!=null? phone.getImei2():"");
+            imei2.setCellValue(phone.getImei2() != null ? phone.getImei2() : "");
 
             XSSFCell msisdn1 = phoneRow.createCell(count++);
             //Optional.ofNullable(phone.getMsisdn1()).ifPresent(msisdn1::setCellValue);
@@ -229,11 +228,11 @@ public class MobilePhoneController extends BaseController {
 
             XSSFCell msisdn2 = phoneRow.createCell(count++);
             //Optional.ofNullable(phone.getMsisdn2()).ifPresent(msisdn2::setCellValue);
-            msisdn2.setCellValue(phone.getMsisdn2()!=null?phone.getMsisdn2():"");
+            msisdn2.setCellValue(phone.getMsisdn2() != null ? phone.getMsisdn2() : "");
 
             XSSFCell issues = phoneRow.createCell(count++);
             //Optional.ofNullable(phone.getPhoneIssues()).ifPresent(issues::setCellValue);
-            issues.setCellValue(phone.getPhoneIssues()!=null?phone.getPhoneIssues():"");
+            issues.setCellValue(phone.getPhoneIssues() != null ? phone.getPhoneIssues() : "");
 
 
         }

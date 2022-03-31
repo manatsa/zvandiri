@@ -18,6 +18,7 @@ package zw.org.zvandiri.report.api.service.impl;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.bean.CsvToBean;
 import au.com.bytecode.opencsv.bean.HeaderColumnNameTranslateMappingStrategy;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.text.ParseException;
@@ -25,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.District;
 import zw.org.zvandiri.business.domain.Facility;
@@ -36,7 +38,6 @@ import zw.org.zvandiri.report.api.Locality;
 import zw.org.zvandiri.report.api.service.LocalityImporterService;
 
 /**
- *
  * @author jmuzinda
  */
 @Repository
@@ -95,7 +96,7 @@ public class LocalityImporterServiceImpl implements LocalityImporterService {
                 district = districtService.save(district);
             }
             Facility facility = facilityService.getByNameAndDistrict(d.getFacility(), district);
-            if(facility == null){
+            if (facility == null) {
                 facility = new Facility();
                 facility.setName(d.getFacility());
                 facility.setDistrict(district);

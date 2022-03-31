@@ -14,10 +14,16 @@ import java.util.List;
 public interface ReferralListService {
 
     public List<ServicesReferred> getHiveSTIPrevention();
+
     public List<ServicesReferred> getLabDiagnosis();
+
     public List<ServicesReferred> getOIArtServices();
+
     public List<ServicesReferred> getTBServices();
+
     public List<ServicesReferred> getPsychoSocialSupoort();
+
     public List<ServicesReferred> getSRHServices();
+
     public List<ServicesReferred> getLegalSupport();
 }

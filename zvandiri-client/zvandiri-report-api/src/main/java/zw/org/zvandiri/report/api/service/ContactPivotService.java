@@ -16,14 +16,14 @@
 package zw.org.zvandiri.report.api.service;
 
 import java.util.List;
+
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.business.util.pivot.dto.BaseContactPivotDTO;
 
 /**
- *
  * @author Judge Muzinda
  */
 public interface ContactPivotService {
-    
+
     public List<BaseContactPivotDTO> get(SearchDTO dto);
 }

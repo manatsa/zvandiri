@@ -18,6 +18,7 @@ package zw.org.zvandiri.report.api.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.District;
 import zw.org.zvandiri.business.domain.Facility;
@@ -38,12 +39,11 @@ import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.ContactLevelOfCareReportService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Repository
 public class ContactLevelOfCareReportServiceImpl implements ContactLevelOfCareReportService {
-    
+
     @Resource
     private ContactByLevelOfCareService contactByLevelOfCareService;
     @Resource
@@ -76,7 +76,7 @@ public class ContactLevelOfCareReportServiceImpl implements ContactLevelOfCareRe
             row.add(province.getName());
             Long rowCount = 0L;
             for (CareLevel element : CareLevel.values()) {
-                dto.setCareLevel(element);                
+                dto.setCareLevel(element);
                 Long itemCount = contactByLevelOfCareService.getCount(dto);
                 row.add(itemCount.toString());
                 rowCount += itemCount;
@@ -263,7 +263,7 @@ public class ContactLevelOfCareReportServiceImpl implements ContactLevelOfCareRe
         }
         return list;
     }
-    
+
     @Override
     public List<GenericReportModel> getDefaultPieData(SearchDTO dto) {
         List<GenericReportModel> list = new ArrayList<>();
@@ -289,5 +289,5 @@ public class ContactLevelOfCareReportServiceImpl implements ContactLevelOfCareRe
         list.add(model);
         return list;
     }
-    
+
 }

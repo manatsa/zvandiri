@@ -19,18 +19,17 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.CatsMentorship;
 
 /**
- *
  * @author jmuzinda
  */
 public class CatsMentorshipConverter implements Converter<String, CatsMentorship> {
 
     @Override
     public CatsMentorship convert(String s) {
-        
+
         if (s.equals("")) {
             return null;
         }
         return CatsMentorship.get(Integer.valueOf(s));
     }
-    
+
 }

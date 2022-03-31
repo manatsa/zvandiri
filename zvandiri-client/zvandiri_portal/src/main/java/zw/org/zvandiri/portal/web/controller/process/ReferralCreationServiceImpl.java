@@ -30,12 +30,11 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 @Repository("referralCreationService")
 public class ReferralCreationServiceImpl implements ReferralCreationService {
-    
+
     @Resource
     private ReferralService referralService;
 
@@ -52,17 +51,17 @@ public class ReferralCreationServiceImpl implements ReferralCreationService {
     }
 
     @Override
-    public String isValid(Referral referral){
+    public String isValid(Referral referral) {
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
         // now manually validating, which could be achieved by using @Valid annotation
         Set<ConstraintViolation<Referral>> constraintViolations = validator.validate(referral);
 
-        Iterator errorIterator=constraintViolations.iterator();
-        while(errorIterator.hasNext()){
-            System.err.println(((ObjectError)(errorIterator.next())).getDefaultMessage());
+        Iterator errorIterator = constraintViolations.iterator();
+        while (errorIterator.hasNext()) {
+            System.err.println(((ObjectError) (errorIterator.next())).getDefaultMessage());
         }
-        return constraintViolations.size()<1?"success" : "failure";
+        return constraintViolations.size() < 1 ? "success" : "failure";
     }
-    
+
 }

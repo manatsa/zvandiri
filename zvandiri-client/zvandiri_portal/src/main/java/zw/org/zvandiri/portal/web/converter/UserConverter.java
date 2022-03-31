@@ -17,23 +17,23 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.service.UserService;
 
 /**
- *
  * @author Edward Zengeni
  */
 public class UserConverter implements Converter<String, User> {
 
     @Resource
     private UserService userService;
-    
+
     @Override
     public User convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return userService.get(s);
     }
-    
+
 }

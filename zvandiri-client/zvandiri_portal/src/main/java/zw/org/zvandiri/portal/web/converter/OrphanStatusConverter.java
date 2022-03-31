@@ -16,23 +16,23 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.OrphanStatus;
 import zw.org.zvandiri.business.service.OrphanStatusService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class OrphanStatusConverter implements Converter<String, OrphanStatus> {
-    
+
     @Resource
     private OrphanStatusService orphanStatusService;
 
     @Override
     public OrphanStatus convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return orphanStatusService.get(s);
     }
-    
+
 }

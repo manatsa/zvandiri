@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.report;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,19 +30,18 @@ import zw.org.zvandiri.report.api.service.ContactServicesOfferedReportService;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 
 /**
- *
  * @author tasu
  */
 @Controller
 @RequestMapping("/report/contact-services-offered")
-public class ContactServicesOfferedController extends BaseController{
+public class ContactServicesOfferedController extends BaseController {
     @Resource
     private OfficeExportService officeExportService;
     @Resource
     private ContactServicesOfferedReportService reportService;
-    
+
     @RequestMapping(value = "/three-months", method = RequestMethod.GET)
-    public String get3MonthReport(ModelMap map){
+    public String get3MonthReport(ModelMap map) {
         SearchDTO dto = new SearchDTO();
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
         map.addAttribute("pageTitle", APP_PREFIX + " Contact Services Offered Report");
@@ -49,9 +49,9 @@ public class ContactServicesOfferedController extends BaseController{
         map.addAttribute("excelExport", "/report/contact-services-offered/export/excel" + dto.getQueryString(dto.getInstance(dto)));
         return "report/contactServicesOfferedReport";
     }
-    
+
     @RequestMapping(value = "/six-months", method = RequestMethod.GET)
-    public String get6MonthReport(ModelMap map){
+    public String get6MonthReport(ModelMap map) {
         SearchDTO dto = new SearchDTO();
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_SIX_MONTHS.getEnd()));
         map.addAttribute("pageTitle", APP_PREFIX + " Contact Services Offered Report");
@@ -59,9 +59,9 @@ public class ContactServicesOfferedController extends BaseController{
         map.addAttribute("excelExport", "/report/contact-services-offered/export/excel" + dto.getQueryString(dto.getInstance(dto)));
         return "report/contactServicesOfferedReport";
     }
-    
+
     @RequestMapping(value = "/twelve-months", method = RequestMethod.GET)
-    public String get12MonthReport(ModelMap map){
+    public String get12MonthReport(ModelMap map) {
         SearchDTO dto = new SearchDTO();
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
         map.addAttribute("pageTitle", APP_PREFIX + " Contact Services Offered Report");
@@ -69,7 +69,7 @@ public class ContactServicesOfferedController extends BaseController{
         map.addAttribute("excelExport", "/report/contact-services-offered/export/excel" + dto.getQueryString(dto.getInstance(dto)));
         return "report/contactServicesOfferedReport";
     }
-    
+
     @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Contact Services Offered Report");

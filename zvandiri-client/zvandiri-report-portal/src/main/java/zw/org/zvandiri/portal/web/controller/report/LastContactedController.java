@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 @Controller
@@ -143,20 +142,20 @@ public class LastContactedController extends BaseController {
 
 
             XSSFCell dateOfBirth = contactRow.createCell(++count);
-            if(contact.getPatient().getDateOfBirth()!=null){
+            if (contact.getPatient().getDateOfBirth() != null) {
                 dateOfBirth.setCellValue(contact.getPatient().getDateOfBirth());
                 dateOfBirth.setCellStyle(cellStyle);
-            }else{
+            } else {
                 dateOfBirth.setCellType(XSSFCell.CELL_TYPE_BLANK);
             }
             //Optional.ofNullable(contact.getPatient().getDateOfBirth()).ifPresent(dateOfBirth::setCellValue);
 
 
             XSSFCell dateJoined = contactRow.createCell(++count);
-            if(contact.getPatient().getDateJoined()!=null){
+            if (contact.getPatient().getDateJoined() != null) {
                 dateJoined.setCellValue(contact.getPatient().getDateJoin());
                 dateJoined.setCellStyle(cellStyle);
-            }else{
+            } else {
                 dateJoined.setCellType(XSSFCell.CELL_TYPE_BLANK);
             }
             //Optional.ofNullable(contact.getPatient().getDateJoined()).ifPresent(dateJoined::setCellValue);
@@ -177,16 +176,16 @@ public class LastContactedController extends BaseController {
             XSSFCell isCat = contactRow.createCell(++count);
             //phone.setCellValue(contact.getPatient().getMobileNumber());
             //Optional<YesNo> isCatOptional=Optional.ofNullable(contact.getPatient().getCat());
-            isCat.setCellValue(contact.getPatient().getCat()!=null?contact.getPatient().getCat().getName():"");
+            isCat.setCellValue(contact.getPatient().getCat() != null ? contact.getPatient().getCat().getName() : "");
 
             XSSFCell isYMM = contactRow.createCell(++count);
-            isYMM.setCellValue(contact.getPatient().getYoungMumGroup()!=null?contact.getPatient().getYoungMumGroup().getName():"");
+            isYMM.setCellValue(contact.getPatient().getYoungMumGroup() != null ? contact.getPatient().getYoungMumGroup().getName() : "");
             //Optional<YesNo> isYMMOptional=Optional.ofNullable(contact.getPatient().getYoungMumGroup());
             //isYMM.setCellValue(isYMMOptional.isPresent()? isYMMOptional.get().getName(): null);
 
             XSSFCell ymd = contactRow.createCell(++count);
             ymd.setCellValue(
-                    contact.getPatient().getYoungDadGroup()!= null ? contact.getPatient().getYoungDadGroup().getName() : ""
+                    contact.getPatient().getYoungDadGroup() != null ? contact.getPatient().getYoungDadGroup().getName() : ""
             );
 
             XSSFCell primaryClinic = contactRow.createCell(++count);
@@ -202,21 +201,21 @@ public class LastContactedController extends BaseController {
             province.setCellValue(contact.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
 
             XSSFCell contactDate = contactRow.createCell(++count);
-            if(contact.getContactDate()!=null){
+            if (contact.getContactDate() != null) {
                 contactDate.setCellValue(contact.getContactDate());
                 contactDate.setCellStyle(cellStyle);
-            }else{
+            } else {
                 contactDate.setCellType(XSSFCell.CELL_TYPE_BLANK);
             }
             //Optional.ofNullable(contact.getContactDate()).ifPresent(contactDate::setCellValue);
 
             XSSFCell careLevel = contactRow.createCell(++count);
             //Optional<CareLevel> careLevelOptional=Optional.ofNullable(contact.getCareLevel());
-            careLevel.setCellValue(contact.getCareLevelAfterAssessment()!=null?contact.getCareLevelAfterAssessment().getName():"");
+            careLevel.setCellValue(contact.getCareLevelAfterAssessment() != null ? contact.getCareLevelAfterAssessment().getName() : "");
 
             XSSFCell cd4Count = contactRow.createCell(++count);
             //Optional<InvestigationTest> cd4Optional=Optional.ofNullable(contact.getCd4Count());
-            if (contact.getCd4Count()!=null) {
+            if (contact.getCd4Count() != null) {
                 cd4Count.setCellValue(contact.getCd4Count().getResult());
             } else {
                 cd4Count.setCellType(XSSFCell.CELL_TYPE_BLANK);
@@ -224,7 +223,7 @@ public class LastContactedController extends BaseController {
 
             XSSFCell vl = contactRow.createCell(++count);
             //Optional<InvestigationTest> vlOptional=Optional.ofNullable(contact.getViralLoad());
-            if (contact.getViralLoad()!=null) {
+            if (contact.getViralLoad() != null) {
                 vl.setCellValue(contact.getViralLoad().getResult());
             } else {
                 vl.setCellType(XSSFCell.CELL_TYPE_BLANK);

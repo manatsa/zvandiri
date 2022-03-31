@@ -16,23 +16,23 @@
 package zw.org.zvandiri.mobile.api.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.YearPeriod;
 import zw.org.zvandiri.business.service.YearPeriodService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class YearPeriodConverter implements Converter<String, YearPeriod> {
-    
+
     @Resource
     private YearPeriodService yearPeriodService;
 
     @Override
     public YearPeriod convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return yearPeriodService.get(s);
     }
-    
+
 }

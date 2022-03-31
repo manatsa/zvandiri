@@ -17,13 +17,13 @@
 package zw.org.zvandiri.report.api.service;
 
 import java.util.List;
+
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.GenericReportModel;
 
 /**
- *
  * @author Tasunungurwa Muzinda
  */
-public interface ProblemReportService extends GenericReportService<GenericReportModel>{
+public interface ProblemReportService extends GenericReportService<GenericReportModel> {
     List<String> getProblemReport(List<String> row, SearchDTO dto);
 }

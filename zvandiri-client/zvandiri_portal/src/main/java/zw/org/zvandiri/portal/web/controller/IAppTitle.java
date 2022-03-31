@@ -16,11 +16,10 @@
 package zw.org.zvandiri.portal.web.controller;
 
 /**
- *
  * @author Judge Muzinda
  */
 public interface IAppTitle {
-    
+
     public String APP_PREFIX = "Zvandiri System::";
     public final String INACTIVE_MESSAGE = "Error this patient is currently inactive therefore the record cannot be edited";
 }

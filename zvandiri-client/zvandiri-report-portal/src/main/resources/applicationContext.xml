@@ -10,8 +10,8 @@
     http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-    
-    <mvc:annotation-driven  conversion-service="conversionService"/>
+
+    <mvc:annotation-driven conversion-service="conversionService"/>
     <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
         <property name="converters">
             <set>
@@ -113,6 +113,6 @@
                 <bean class="zw.org.zvandiri.portal.web.converter.DifferentiatedServiceConverter"/>
             </set>
         </property>
-    </bean> 
-    <mvc:default-servlet-handler/>  
+    </bean>
+    <mvc:default-servlet-handler/>
 </beans>

@@ -9,40 +9,42 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
                 </div>
-                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/><br/>
+                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back
+                    To ${patient.name} Dashboard</a><br/><br/>
                 <div class="row">
                     <div class="col-lg-12">
-                        <b class="titleHeader">Hiv co-infection  Detail</b>  <c:if test="${canEdit}">| <a href="item.form?patientId=${patient.id}">Add HIV Infection Hist </a></c:if>
+                        <b class="titleHeader">Hiv co-infection Detail</b> <c:if test="${canEdit}">| <a
+                            href="item.form?patientId=${patient.id}">Add HIV Infection Hist </a></c:if>
                         <hr/>
                         <div class="table-responsive">
                             <table class="itemList" class="display" cellspacing="0">
                                 <thead>
-                                    <tr>
-                                        <th>Infection</th>
-                                        <th>Diagnosis Date</th>
-                                        <th>Medication</th>
-                                        <th>Resolution</th>
-                                        <th>&nbsp;</th>
-                                    </tr>
+                                <tr>
+                                    <th>Infection</th>
+                                    <th>Diagnosis Date</th>
+                                    <th>Medication</th>
+                                    <th>Resolution</th>
+                                    <th>&nbsp;</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="hiv" items="${hivInfections}">
-                                        <tr>
-                                            <td>${hiv.hivCoInfection.name}</td>
-                                            <td><spring:eval expression="hiv.infectionDate"/></td>
-                                            <td>${hiv.medication}</td>
-                                            <td>${hiv.resolution}</td>
-                                            <td>
-                                                <a href="item.form?itemId=${hiv.id}">Edit</a> |
-<%--                                                <c:if test="${canEdit}"><a href="item.delete?id=${hiv.id}">Delete</a></c:if>--%>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
+                                <c:forEach var="hiv" items="${hivInfections}">
+                                    <tr>
+                                        <td>${hiv.hivCoInfection.name}</td>
+                                        <td><spring:eval expression="hiv.infectionDate"/></td>
+                                        <td>${hiv.medication}</td>
+                                        <td>${hiv.resolution}</td>
+                                        <td>
+                                            <a href="item.form?itemId=${hiv.id}">Edit</a> |
+                                                <%--                                                <c:if test="${canEdit}"><a href="item.delete?id=${hiv.id}">Delete</a></c:if>--%>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -59,6 +61,7 @@
         changeMonth: true,
         dateFormat: "dd/mm/yy"
     });
-</script>ld!</h1>
+</script>
+ld!</h1>
 </body>
 </html>

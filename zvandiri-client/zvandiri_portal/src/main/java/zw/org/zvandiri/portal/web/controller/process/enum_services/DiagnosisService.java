@@ -12,7 +12,7 @@ import zw.org.zvandiri.business.domain.util.Diagnosis;
 @Service("diagnosisService")
 public class DiagnosisService {
 
-    public Diagnosis[] getDiagnosis(){
+    public Diagnosis[] getDiagnosis() {
         return Diagnosis.values();
     }
 }

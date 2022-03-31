@@ -19,10 +19,9 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.TbTreatmentOutcome;
 
 /**
- *
  * @author tasu
  */
-public class TbTreatmentOutcomeConverter implements Converter<String, TbTreatmentOutcome>{
+public class TbTreatmentOutcomeConverter implements Converter<String, TbTreatmentOutcome> {
     @Override
     public TbTreatmentOutcome convert(String s) {
         if (s.equals("")) {

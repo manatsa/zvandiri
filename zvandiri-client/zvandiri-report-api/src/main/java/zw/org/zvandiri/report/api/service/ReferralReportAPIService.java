@@ -16,19 +16,19 @@
 package zw.org.zvandiri.report.api.service;
 
 import java.util.List;
+
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.BasicNameNumber;
 import zw.org.zvandiri.report.api.GenericReportModel;
 
 /**
- *
  * @author Judge Muzinda
  */
 public interface ReferralReportAPIService extends GenericReportService<GenericReportModel> {
-    
+
     public List<GenericReportModel> getPieDefaultData(SearchDTO dto);
-    
+
     public List<BasicNameNumber> getNotifications(SearchDTO dto);
-    
+
     public List<GenericReportModel> getPeriodRange(SearchDTO dto);
 }

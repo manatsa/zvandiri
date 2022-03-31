@@ -18,6 +18,7 @@ package zw.org.zvandiri.portal.web.controller.patient;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -38,18 +39,17 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.validator.PatientValidator;
 
 /**
- *
  * @author jmuzinda
  */
 @Controller
 @RequestMapping("/patient/heu")
 public class HeuController extends BaseController {
-    
+
     @Resource
     private PatientService patientService;
     @Resource
     private PatientValidator patientValidator;
-    
+
     public String setUpModel(ModelMap model, PatientHeuDTO item) {
         model.addAttribute("pageTitle", APP_PREFIX + " Add " + item.getPatient().getName() + " Mother's Details");
         model.addAttribute("patient", item.getPatient());
@@ -80,7 +80,7 @@ public class HeuController extends BaseController {
         patientService.save(item.getInstance(item));
         return "redirect:../dashboard/profile.htm?type=1&id=" + item.getPatient().getId();
     }
-    
+
     @RequestMapping(value = "/search-heu-mothers", method = RequestMethod.GET)
     @ResponseBody
     public List<PatientSearchDTO> searchPatient(@RequestParam("search") String search, @RequestParam("patientId") String patientId) {

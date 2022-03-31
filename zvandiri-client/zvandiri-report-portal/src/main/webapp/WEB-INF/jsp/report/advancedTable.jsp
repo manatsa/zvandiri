@@ -1,12 +1,14 @@
 <%@include file="../template/header.jspf" %>
 <style type="text/css">
-    .sidebar-nav{
+    .sidebar-nav {
         display: none;
     }
+
     #page-wrapper {
         margin: 0 ! important;
     }
-    .make-scroll{
+
+    .make-scroll {
         height: 445px;
         overflow: scroll;
     }
@@ -27,7 +29,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="panel panel-default">
-                                    <%@include file="../template/specTable.jspf" %> 
+                                    <%@include file="../template/specTable.jspf" %>
                                     <div class="panel-footer" style="text-align: right">
                                         Export/ View As
                                         <a href="${page}${excelExport}">

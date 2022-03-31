@@ -19,14 +19,13 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.ContactPhoneOption;
 
 /**
- *
  * @author jmuzinda
  */
-public class ContactPhoneOptionConverter  implements Converter<String, ContactPhoneOption> {
+public class ContactPhoneOptionConverter implements Converter<String, ContactPhoneOption> {
 
     @Override
     public ContactPhoneOption convert(String s) {
-        
+
         if (s.equals("")) {
             return null;
         }

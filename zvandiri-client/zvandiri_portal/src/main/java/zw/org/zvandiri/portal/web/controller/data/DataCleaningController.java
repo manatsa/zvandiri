@@ -44,13 +44,12 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.report.api.service.parallel.GenericCountReportTask;
 
 /**
- *
  * @author jmuzinda
  */
 @Controller
 @RequestMapping("/data")
 public class DataCleaningController extends BaseController {
- 
+
     @Resource
     private DetailedPatientReportService detailedPatientReportService;
     @Resource
@@ -61,7 +60,7 @@ public class DataCleaningController extends BaseController {
     private FacilityService facilityService;
     @Resource
     private PatientService patientService;
-    
+
     private Set<PatientDuplicateDTO> duplicates = new HashSet<>();
 
     public String setUpModel(ModelMap model, SearchDTO item, Boolean post) {
@@ -88,20 +87,20 @@ public class DataCleaningController extends BaseController {
     public String getForm(ModelMap model) {
         return setUpModel(model, new SearchDTO(), Boolean.FALSE);
     }
-    
+
     @RequestMapping(value = "/item.form", method = RequestMethod.POST)
     public String getListResults(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item) {
         return setUpModel(model, item, Boolean.TRUE);
     }
-    
+
     @RequestMapping(value = "/patient-duplicates", method = RequestMethod.GET)
     @ResponseBody
     public Set<PatientDuplicateDTO> getPatientDuplicates(@RequestParam String id) {
         return search(id);
     }
-    
+
     private Set<PatientDuplicateDTO> search(String id) {
-        PatientDuplicateDTO currentPatient = 
+        PatientDuplicateDTO currentPatient =
                 PatientDuplicateDTO.getInstance(patientService.get(id));
         for (PatientDuplicateDTO dto : duplicates) {
             if (dto.equals(currentPatient)) {
@@ -110,7 +109,7 @@ public class DataCleaningController extends BaseController {
         }
         throw new IllegalStateException("Patient is expected to have duplicates");
     }
-    
+
     @RequestMapping(value = "/merge-patients", method = RequestMethod.GET)
     @ResponseBody
     public String mergePatients(@RequestParam String id, @RequestParam String patientId) {

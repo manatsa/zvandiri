@@ -12,7 +12,7 @@ public class CadreTypeConverter implements Converter<String, CaderType> {
 
     @Override
     public CaderType convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return CaderType.get(Integer.valueOf(s));
     }
 

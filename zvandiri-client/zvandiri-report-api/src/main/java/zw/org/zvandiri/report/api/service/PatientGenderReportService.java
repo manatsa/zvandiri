@@ -16,13 +16,13 @@
 package zw.org.zvandiri.report.api.service;
 
 import java.util.List;
+
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.GenericReportModel;
 
 /**
- *
  * @author User
  */
-public interface PatientGenderReportService extends GenericReportService<GenericReportModel>{
+public interface PatientGenderReportService extends GenericReportService<GenericReportModel> {
     public List<GenericReportModel> getDefaultPieData(SearchDTO dto);
 }

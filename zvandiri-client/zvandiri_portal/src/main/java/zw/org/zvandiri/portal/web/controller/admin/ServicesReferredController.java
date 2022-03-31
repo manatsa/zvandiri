@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.admin;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -33,18 +34,17 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.validator.ServicesReferredValidator;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
 @RequestMapping("/admin/services-referred")
 public class ServicesReferredController extends BaseController {
- 
+
     @Resource
     private ServicesReferredService servicesReferredService;
     @Resource
     private ServicesReferredValidator servicesReferredValidator;
-    
+
     public void setUpModel(ModelMap model, ServicesReferred item) {
         model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit Services Referred");
         model.addAttribute("item", item);

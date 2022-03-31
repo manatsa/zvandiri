@@ -16,23 +16,23 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.ServicesReferred;
 import zw.org.zvandiri.business.service.ServicesReferredService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class ServicesReferredConverter implements Converter<String, ServicesReferred> {
-    
+
     @Resource
     private ServicesReferredService servicesReferredService;
 
     @Override
     public ServicesReferred convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return servicesReferredService.get(s);
     }
-    
+
 }

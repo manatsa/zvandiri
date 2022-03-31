@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.admin;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -34,13 +35,12 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.validator.DistrictValidator;
 
 /**
- *
  * @author Edward Zengeni
  * @author Judge Muzinda
  */
 @Controller
 @RequestMapping("/admin/district")
-public class DistrictController extends BaseController{
+public class DistrictController extends BaseController {
 
     @Resource
     private DistrictService districtService;
@@ -52,7 +52,7 @@ public class DistrictController extends BaseController{
     @RequestMapping(value = "/item.form", method = RequestMethod.GET)
     public String districtForm(ModelMap model, @RequestParam(required = false) String id) {
         model.addAttribute("message", new AppMessage.MessageBuilder().build());
-        model.addAttribute("pageTitle", APP_PREFIX+"Create/ Edit District");
+        model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit District");
         model.addAttribute("itemDelete", "item.list");
         model.addAttribute("provinces", provinceService.getAll());
         District p = new District();
@@ -68,7 +68,7 @@ public class DistrictController extends BaseController{
         districtValidator.validate(district, result);
         model.addAttribute("message", new AppMessage.MessageBuilder().build());
         if (result.hasErrors()) {
-            model.addAttribute("pageTitle", APP_PREFIX+"Create/ Edit District");
+            model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit District");
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
             model.addAttribute("provinces", provinceService.getAll());
             model.addAttribute("item", district);
@@ -82,26 +82,26 @@ public class DistrictController extends BaseController{
     @RequestMapping(value = {"/item.list", "/"}, method = RequestMethod.GET)
     public String districtList(ModelMap model, @RequestParam(required = false) Integer type) {
         model.addAttribute("message", new AppMessage.MessageBuilder().build());
-        model.addAttribute("pageTitle", APP_PREFIX+"District List");
+        model.addAttribute("pageTitle", APP_PREFIX + "District List");
         model.addAttribute("items", districtService.getAll());
-        if(type != null){
+        if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
         return "admin/districtList";
     }
-    
+
     @RequestMapping(value = "item.delete", method = RequestMethod.GET)
-    public String getDistrictDeleteForm(@RequestParam("id") String id, ModelMap model){
+    public String getDistrictDeleteForm(@RequestParam("id") String id, ModelMap model) {
         District district = districtService.get(id);
         ItemDeleteDTO dto = new ItemDeleteDTO(id, district.getName(), "item.list");
         model.addAttribute("item", dto);
         model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Are you sure you want to delete this record").messageType(MessageType.WARNING).build());
-        model.addAttribute("pageTitle", APP_PREFIX+"Delete "+district.getName()+" District");
+        model.addAttribute("pageTitle", APP_PREFIX + "Delete " + district.getName() + " District");
         return "admin/deleteItem";
     }
-    
+
     @RequestMapping(value = "item.delete", method = RequestMethod.POST)
-    public String deleteDistrict(@Valid ItemDeleteDTO dto){
+    public String deleteDistrict(@Valid ItemDeleteDTO dto) {
         districtService.delete(districtService.get(dto.getId()));
         return "redirect:item.list?type=2";
     }

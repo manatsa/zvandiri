@@ -6,7 +6,8 @@
                 ${pageTitle}
             </div>
             <div class="panel-body">
-                <a href="../index.htm">Option Tables</a> | <a href="item.form">New Item</a> | <a href="item.list">Item List</a>
+                <a href="../index.htm">Option Tables</a> | <a href="item.form">New Item</a> | <a href="item.list">Item
+                List</a>
                 <hr/>
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
@@ -20,11 +21,11 @@
 </div>
 <%@include file="../template/footer.jspf" %>
 <script type="text/javascript">
-        $("#nameForm").validate({
-            rules: {
-                name: {
-                    required: true
-                }
+    $("#nameForm").validate({
+        rules: {
+            name: {
+                required: true
             }
-        });
-    </script>
+        }
+    });
+</script>

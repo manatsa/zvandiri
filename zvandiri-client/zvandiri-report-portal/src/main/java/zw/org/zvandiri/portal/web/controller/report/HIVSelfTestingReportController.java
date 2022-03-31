@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.report;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,26 +27,27 @@ import zw.org.zvandiri.business.service.ProvinceService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+
 import zw.org.zvandiri.report.api.service.HIVSelfTestingReportService;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 
 /**
- *
  * @author tasu
  */
 @Controller
 @RequestMapping("/report/hiv-self-testing")
-public class HIVSelfTestingReportController extends BaseController{
-    
+public class HIVSelfTestingReportController extends BaseController {
+
     @Resource
     private OfficeExportService officeExportService;
     @Resource
     private HIVSelfTestingReportService hIVSelfTestingReportService;
     @Resource
     private ProvinceService provinceService;
-    
-     public void setUpModel(ModelMap model, SearchDTO item) {
+
+    public void setUpModel(ModelMap model, SearchDTO item) {
         item = getUserLevelObjectState(item);
         model.addAttribute("pageTitle", APP_PREFIX + "HIV Self Testing Report");
         model.addAttribute("provinces", provinceService.getAll());

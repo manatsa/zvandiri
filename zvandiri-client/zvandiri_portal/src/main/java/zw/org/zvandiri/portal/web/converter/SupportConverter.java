@@ -9,13 +9,12 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.Support;
 
 /**
- *
  * @author tasu
  */
-public class SupportConverter implements Converter<String, Support>{
+public class SupportConverter implements Converter<String, Support> {
     @Override
     public Support convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return Support.get(Integer.valueOf(s));
     }
 }

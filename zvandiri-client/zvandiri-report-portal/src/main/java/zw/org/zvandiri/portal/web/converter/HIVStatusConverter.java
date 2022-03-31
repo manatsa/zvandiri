@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.HIVStatus;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class HIVStatusConverter implements Converter<String, HIVStatus> {
 
     @Override
     public HIVStatus convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return HIVStatus.get(Integer.valueOf(s));
     }
-    
+
 }

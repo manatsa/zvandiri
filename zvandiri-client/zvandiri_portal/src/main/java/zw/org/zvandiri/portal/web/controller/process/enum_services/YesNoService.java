@@ -15,7 +15,7 @@ import java.util.List;
 public class YesNoService {
 
 
-    public YesNo[] getYesNoValues(){
+    public YesNo[] getYesNoValues() {
         return YesNo.values();
     }
 }

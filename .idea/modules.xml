@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/zvandiri-client/mobile-zvandiri.iml" filepath="$PROJECT_DIR$/zvandiri-client/mobile-zvandiri.iml" />
       <module fileurl="file://$PROJECT_DIR$/zvandiri.iml" filepath="$PROJECT_DIR$/zvandiri.iml" />
       <module fileurl="file://$PROJECT_DIR$/zvandiri-buciness/zvandiri-business.iml" filepath="$PROJECT_DIR$/zvandiri-buciness/zvandiri-business.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zvandiri-client/zvandiri-client.iml" filepath="$PROJECT_DIR$/zvandiri-client/zvandiri-client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zvandiri-client/zvandiri_mobile/zvandiri-mobile-api.iml" filepath="$PROJECT_DIR$/zvandiri-client/zvandiri_mobile/zvandiri-mobile-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/zvandiri-client/zvandiri_portal/zvandiri-portal.iml" filepath="$PROJECT_DIR$/zvandiri-client/zvandiri_portal/zvandiri-portal.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zvandiri-client/zvandiri-report-api/zvandiri-report-api.iml" filepath="$PROJECT_DIR$/zvandiri-client/zvandiri-report-api/zvandiri-report-api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zvandiri-client/zvandiri-report-portal/zvandiri-report-portal.iml" filepath="$PROJECT_DIR$/zvandiri-client/zvandiri-report-portal/zvandiri-report-portal.iml" />
     </modules>
   </component>
 </project>

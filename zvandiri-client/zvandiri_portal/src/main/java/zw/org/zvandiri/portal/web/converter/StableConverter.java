@@ -16,23 +16,23 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.Stable;
 import zw.org.zvandiri.business.service.StableService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class StableConverter implements Converter<String, Stable> {
- 
+
     @Resource
     private StableService stableService;
 
     @Override
     public Stable convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return stableService.get(s);
     }
-    
+
 }

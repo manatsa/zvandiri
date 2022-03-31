@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -37,7 +38,6 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.validator.ReferralValidator;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
@@ -66,7 +66,7 @@ public class ReferralController extends BaseController {
         getPatientStatus(item.getPatient(), model);
         model.addAttribute("patient", item.getPatient());
         setViralLoad(model, item.getPatient());
-        return "patient/"+view;
+        return "patient/" + view;
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.GET)
@@ -76,7 +76,7 @@ public class ReferralController extends BaseController {
         }
         return setUpModel(model, new Referral(patientService.get(patientId)), "referralForm");
     }
-    
+
     @RequestMapping(value = "/item.view", method = RequestMethod.GET)
     public String getreferralView(ModelMap model, @RequestParam(required = false) String itemId, @RequestParam(required = false) String patientId) {
         if (itemId != null) {

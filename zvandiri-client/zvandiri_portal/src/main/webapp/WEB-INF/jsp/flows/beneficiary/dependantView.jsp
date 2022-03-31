@@ -9,7 +9,7 @@
                 <%@include file="../../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="profileFragment.jspf" %>
                         </div>
                     </div>
@@ -35,22 +35,26 @@
                             <th>&nbsp</th>
                             </tfoot>
                             <tbody>
-                                <c:forEach var="depe" items="${dependents}" >
-                                    <tr>
-                                        <td>${depe.name}</td>
-                                        <td>${depe.relationship.name}</td>
-                                        <td>${depe.gender.name}</td>
-                                        <td>${depe.age}</td>
-                                        <td>${depe.mobileNumber}</td>
-                                        <td>        
-                                            <form:form>
-                                                <input type="hidden" name="id" id="id" value="${depe.id}" />
-                                                <button  type="submit" name="_eventId_updateEmployeeQualification">Update</button>
-                                                <button  type="submit" onclick="return  confirm('Are you sure you want to permanently delete this record?');" name="_eventId_deletePatientDependant">Delete</button>
-                                            </form:form>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
+                            <c:forEach var="depe" items="${dependents}">
+                                <tr>
+                                    <td>${depe.name}</td>
+                                    <td>${depe.relationship.name}</td>
+                                    <td>${depe.gender.name}</td>
+                                    <td>${depe.age}</td>
+                                    <td>${depe.mobileNumber}</td>
+                                    <td>
+                                        <form:form>
+                                            <input type="hidden" name="id" id="id" value="${depe.id}"/>
+                                            <button type="submit" name="_eventId_updateEmployeeQualification">Update
+                                            </button>
+                                            <button type="submit"
+                                                    onclick="return  confirm('Are you sure you want to permanently delete this record?');"
+                                                    name="_eventId_deletePatientDependant">Delete
+                                            </button>
+                                        </form:form>
+                                    </td>
+                                </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
                     </div>

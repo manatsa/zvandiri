@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -24,14 +25,14 @@ import zw.org.zvandiri.business.domain.Location;
 import zw.org.zvandiri.business.service.LocationService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
 public class LocationValidator implements Validator {
-    
+
     @Resource
     private LocationService locationService;
+
     @Override
     public boolean supports(Class<?> type) {
         return type.equals(Location.class);

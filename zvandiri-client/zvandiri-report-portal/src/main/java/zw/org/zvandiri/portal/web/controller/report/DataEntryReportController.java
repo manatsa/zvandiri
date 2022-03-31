@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.report;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,18 +27,19 @@ import zw.org.zvandiri.business.service.ProvinceService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+
 import zw.org.zvandiri.report.api.service.DataEntryReportService;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 
 /**
- *
  * @author jackie muzinda
  */
 @Controller
 @RequestMapping("/report/aggregate")
-public class DataEntryReportController extends BaseController{
-    
+public class DataEntryReportController extends BaseController {
+
     @Resource
     private OfficeExportService officeExportService;
     @Resource

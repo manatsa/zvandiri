@@ -16,14 +16,14 @@
 package zw.org.zvandiri.report.api;
 
 import java.io.Serializable;
+
 import zw.org.zvandiri.business.util.StringUtils;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class Locality implements Serializable {
-    
+
     private String province;
     private String district;
     private String facility;

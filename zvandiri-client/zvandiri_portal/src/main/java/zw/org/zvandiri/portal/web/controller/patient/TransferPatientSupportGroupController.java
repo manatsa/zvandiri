@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -33,11 +34,12 @@ import zw.org.zvandiri.business.util.dto.PatientDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+
 import zw.org.zvandiri.portal.web.validator.PatientChangeEventValidator;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
@@ -58,7 +60,7 @@ public class TransferPatientSupportGroupController extends BaseController {
     private PatientHistoryService patientHistoryService;
 
     public String setUpModel(ModelMap model, PatientDTO item) {
-        model.addAttribute("pageTitle", APP_PREFIX + item.getPatient().getName()+" : Transfer to New Support Group");
+        model.addAttribute("pageTitle", APP_PREFIX + item.getPatient().getName() + " : Transfer to New Support Group");
         model.addAttribute("item", item);
         model.addAttribute("patient", item.getPatient());
         model.addAttribute("provinces", provinceService.getAll());

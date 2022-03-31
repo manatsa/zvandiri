@@ -21,6 +21,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
+
 import zw.org.zvandiri.portal.web.controller.report.parallel.GenericCountReportTask;
 
 @Controller
@@ -144,19 +145,19 @@ public class ArvHistoryController extends BaseController {
             } else {
                 endDate.setCellValue("");
             }
-            
+
             XSSFCell isCats = arvHistXSSFRow.createCell(++count);
             isCats.setCellValue(
-            		arvHist.getPatient().getCat() != null ? arvHist.getPatient().getCat().getName() : null
+                    arvHist.getPatient().getCat() != null ? arvHist.getPatient().getCat().getName() : null
             );
             XSSFCell youngMumGroup = arvHistXSSFRow.createCell(++count);
             youngMumGroup.setCellValue(
-            		arvHist.getPatient().getYoungMumGroup() != null ? arvHist.getPatient().getYoungMumGroup().getName() : null
+                    arvHist.getPatient().getYoungMumGroup() != null ? arvHist.getPatient().getYoungMumGroup().getName() : null
             );
 
             XSSFCell ymd = arvHistXSSFRow.createCell(++count);
             ymd.setCellValue(
-                    arvHist.getPatient().getYoungDadGroup()!= null ? arvHist.getPatient().getYoungDadGroup().getName() : null
+                    arvHist.getPatient().getYoungDadGroup() != null ? arvHist.getPatient().getYoungDadGroup().getName() : null
             );
         }
 

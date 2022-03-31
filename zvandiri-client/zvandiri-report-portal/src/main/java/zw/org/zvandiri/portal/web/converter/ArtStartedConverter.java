@@ -20,15 +20,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.ArtStarted;
 
 /**
- *
  * @author jmuzinda
  */
 public class ArtStartedConverter implements Converter<String, ArtStarted> {
 
     @Override
     public ArtStarted convert(String s) {
-        if(StringUtils.isEmpty(s)) return null;
+        if (StringUtils.isEmpty(s)) return null;
         return ArtStarted.get(Integer.valueOf(s));
     }
-    
+
 }

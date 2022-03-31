@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -24,12 +25,11 @@ import zw.org.zvandiri.business.domain.DisabilityCategory;
 import zw.org.zvandiri.business.service.DisabilityCategoryService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
-public class DisabilityCategoryValidator implements Validator{
-    
+public class DisabilityCategoryValidator implements Validator {
+
     @Resource
     private DisabilityCategoryService disabilityCategoryService;
 
@@ -52,5 +52,5 @@ public class DisabilityCategoryValidator implements Validator{
         if (disabilityCategoryService.checkDuplicate(current, old)) {
             errors.rejectValue("name", "item.duplicate");
         }
-    }   
+    }
 }

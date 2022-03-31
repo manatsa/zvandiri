@@ -4,17 +4,21 @@ package zw.org.zvandiri.business.util.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import zw.org.zvandiri.business.domain.Facility;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.ClientType;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+
 /**
  * @author manatsachinyeruse@gmail.com
  */
 
-
+//@JsonIgnoreProperties(value = { "uuid", "createdBy", "modifiedBy", "dateCreated","dateModified","version","deleted" })
 public class MobilePatientDTO implements Serializable {
 
     private String name;
@@ -24,7 +28,9 @@ public class MobilePatientDTO implements Serializable {
     private PatientChangeEvent status;
     private Boolean active;
     private String primaryClinicId;
-    private Facility facility;
+    private String facility;
+    private String district;
+    private String province;
     private Integer vlResult;
     private Integer enhancedStatus;
     private ClientType clientType;
@@ -49,7 +55,9 @@ public class MobilePatientDTO implements Serializable {
         this.clientType=patient.getClientType();
         this.vlResult=patient.getViralLoad();
         this.enhancedStatus=patient.getEnhancedStatus();
-        this.facility=patient.getPrimaryClinic();
+        this.facility=patient.getPrimaryClinic().getName();
+        this.district=patient.getPrimaryClinic().getDistrict().getName();
+        this.province=patient.getPrimaryClinic().getDistrict().getProvince().getName();
     }
 
     public MobilePatientDTO(String name, String id, Date dateOfBirth, Gender gender, PatientChangeEvent status, Boolean active, String facilityId) {
@@ -118,12 +126,28 @@ public class MobilePatientDTO implements Serializable {
         this.primaryClinicId = primaryClinicId;
     }
 
-    public Facility getFacility() {
+    public String getFacility() {
         return facility;
     }
 
-    public void setFacility(Facility facility) {
+    public void setFacility(String facility) {
         this.facility = facility;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
     }
 
     public Integer getVlResult() {
@@ -160,7 +184,7 @@ public class MobilePatientDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "NameIdDTO{" +
+        return "MobilePatientDTO{" +
                 "name='" + name + '\'' +
                 ", id='" + id + '\'' +
                 ", dateOfBirth=" + dateOfBirth +

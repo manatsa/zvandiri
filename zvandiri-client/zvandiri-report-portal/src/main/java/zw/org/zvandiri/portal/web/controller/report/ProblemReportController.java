@@ -18,6 +18,7 @@ package zw.org.zvandiri.portal.web.controller.report;
 import java.util.Set;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,12 +33,13 @@ import zw.org.zvandiri.business.service.ProvinceService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 import zw.org.zvandiri.report.api.service.ProblemReportService;
 
 /**
- *
  * @author Tasunungurwa Muzinda
  */
 @Controller
@@ -86,7 +88,7 @@ public class ProblemReportController extends BaseController {
         model.addAttribute("items", problemReportService.getDefaultReport(item.getInstance(item)));
         model.addAttribute("careLevels", CareLevel.values());
         model.addAttribute("crossTabOptions", CrossTabOption.values());
-        if(item.getCrossTabOptions() != null && !item.getCrossTabOptions().isEmpty()){
+        if (item.getCrossTabOptions() != null && !item.getCrossTabOptions().isEmpty()) {
             Set<CrossTabOption> options = item.getCrossTabOptions();
             model.addAttribute("colSpan", options.contains(CrossTabOption.GENDER) ? 3 : 5);
             return options.size() > 1 ? "report/statisticalReportTwo" : "report/statisticalReport";

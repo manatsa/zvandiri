@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.service.ProblemReportHeaderNames;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -43,7 +44,6 @@ import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.report.api.service.parallel.CombinedReportTask;
 
 /**
- *
  * @author Tasunungurwa Muzinda
  */
 @Repository
@@ -133,7 +133,7 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         List<String> items = new ArrayList<>();
         items.addAll(Arrays.asList(ProblemReportHeaderNames.headerNames));
         list.add(new GenericReportModel(items));
-       
+
         for (Province province : provinceService.getAll()) {
             dto.setProvince(province);
             int pos = 0;
@@ -724,27 +724,27 @@ public class ProblemReportServiceImpl implements ProblemReportService {
         count = arvHistReportService.getNumberCurrentlyOnART(dto.getInstance(dto));
         row.add(count.toString());
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THREE_MONTHS.getEnd()));
-        dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.PAST_SIX_MONTHS.getEnd() -1)));
+        dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.PAST_SIX_MONTHS.getEnd() - 1)));
         count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));
         row.add(count.toString());
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_SIX_MONTHS.getEnd()));
-        dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.PAST_TWELVE_MONTHS.getEnd() -1)));
+        dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.PAST_TWELVE_MONTHS.getEnd() - 1)));
         count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));
         row.add(count.toString());
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
-        dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.PAST_TWENTY_FOUR_MONTHS.getEnd() -1)));
+        dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.PAST_TWENTY_FOUR_MONTHS.getEnd() - 1)));
         count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));
         row.add(count.toString());
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWENTY_FOUR_MONTHS.getEnd()));
-        dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.PAST_THIRTY_SIX_MONTHS.getEnd() -1)));
+        dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.PAST_THIRTY_SIX_MONTHS.getEnd() - 1)));
         count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));
         row.add(count.toString());
         dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_THIRTY_SIX_MONTHS.getEnd()));
-        dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.ABOVE_THIRTY_SIX_MONTHS.getEnd() -1)));
+        dto.setEndDate(DateUtil.getDateDiffDate(-(DateRangeItem.ABOVE_THIRTY_SIX_MONTHS.getEnd() - 1)));
         count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));
         row.add(count.toString());
         Date startDate = DateUtil.getDateDiffDate(-DateRangeItem.ABOVE_THIRTY_SIX_MONTHS.getEnd());
-        Date endDate = DateUtil.getDateDiffDate(-(DateRangeItem.ABOVE_THIRTY_SIX_MONTHS.getStart() -1));
+        Date endDate = DateUtil.getDateDiffDate(-(DateRangeItem.ABOVE_THIRTY_SIX_MONTHS.getStart() - 1));
         dto.setStartDate(startDate);
         dto.setEndDate(endDate);
         count = arvHistReportService.getOnARTForGivenPeriod(dto.getInstance(dto));

@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.DateRangeItem;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class DateRangeItemConverter implements Converter<String, DateRangeItem> {
 
     @Override
     public DateRangeItem convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return DateRangeItem.get(Integer.valueOf(s));
     }
-    
+
 }

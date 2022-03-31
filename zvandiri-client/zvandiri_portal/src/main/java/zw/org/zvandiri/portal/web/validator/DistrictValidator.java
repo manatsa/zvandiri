@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -24,7 +25,6 @@ import zw.org.zvandiri.business.domain.District;
 import zw.org.zvandiri.business.service.DistrictService;
 
 /**
- *
  * @author Edward Zengeni
  */
 @Component
@@ -46,20 +46,20 @@ public class DistrictValidator implements Validator {
          */
         District current = (District) o;
         District old = null;
-        if(current.getId() != null){
+        if (current.getId() != null) {
             old = districtService.get(current.getId());
         }
-        if(districtService.checkDuplicate(current, old)){
+        if (districtService.checkDuplicate(current, old)) {
             errors.rejectValue("name", "item.duplicate");
         }
-        if(current.getProvince() == null){
+        if (current.getProvince() == null) {
             errors.rejectValue("province", "field.empty");
         }
         /**
          * currently no districts with less than three characters so we start @ 4
          */
-        if(current.getName() != null && !current.getName().equals("")){
-            if(current.getName().length() <= 3){
+        if (current.getName() != null && !current.getName().equals("")) {
+            if (current.getName().length() <= 3) {
                 errors.rejectValue("name", "field.short");
             }
         }

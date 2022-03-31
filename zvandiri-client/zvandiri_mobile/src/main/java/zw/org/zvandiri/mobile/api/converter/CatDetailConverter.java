@@ -16,23 +16,23 @@
 package zw.org.zvandiri.mobile.api.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.CatDetail;
 import zw.org.zvandiri.business.service.CatDetailService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class CatDetailConverter implements Converter<String, CatDetail> {
-    
+
     @Resource
     private CatDetailService catDetailService;
 
     @Override
     public CatDetail convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return catDetailService.get(s);
     }
-    
+
 }

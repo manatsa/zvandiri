@@ -73,7 +73,9 @@
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-primary" type="submit">Save</button>
-                                    <a href="${itemDelete}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                    <a href="${itemDelete}">
+                                        <button class="btn btn-primary" type="button">Cancel</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>

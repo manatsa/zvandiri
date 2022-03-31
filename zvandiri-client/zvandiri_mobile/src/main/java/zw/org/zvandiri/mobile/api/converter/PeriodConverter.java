@@ -16,21 +16,21 @@
 package zw.org.zvandiri.mobile.api.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.Period;
 import zw.org.zvandiri.business.service.PeriodService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class PeriodConverter implements Converter<String, Period> {
-    
+
     @Resource
     private PeriodService periodService;
 
     public Period convert(String s) {
-        if(s.equals("") || s.equals("null")) return null;
+        if (s.equals("") || s.equals("null")) return null;
         return periodService.get(s);
-    }   
+    }
 }

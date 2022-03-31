@@ -9,13 +9,12 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.Intervention;
 
 /**
- *
  * @author tasu
  */
-public class InterventionConverter implements Converter<String, Intervention>{
-     @Override
+public class InterventionConverter implements Converter<String, Intervention> {
+    @Override
     public Intervention convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return Intervention.get(Integer.valueOf(s));
     }
 }

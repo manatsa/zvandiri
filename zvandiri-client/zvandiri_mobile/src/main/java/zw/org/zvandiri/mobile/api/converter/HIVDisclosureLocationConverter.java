@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.HIVDisclosureLocation;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class HIVDisclosureLocationConverter implements Converter<String, HIVDisclosureLocation> {
 
     @Override
     public HIVDisclosureLocation convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return HIVDisclosureLocation.get(Integer.valueOf(s));
     }
-    
+
 }

@@ -17,6 +17,8 @@ package zw.org.zvandiri.business.domain;
 
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import zw.org.zvandiri.business.util.StringUtils;
 
 /**
@@ -27,6 +29,7 @@ import zw.org.zvandiri.business.util.StringUtils;
 abstract public class BaseName extends BaseEntity {
 
     private String name;
+    @JsonIgnore
     private String description;
 
     public BaseName() {

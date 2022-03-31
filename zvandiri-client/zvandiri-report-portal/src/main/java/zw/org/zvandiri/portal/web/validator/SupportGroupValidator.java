@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -24,12 +25,11 @@ import zw.org.zvandiri.business.domain.SupportGroup;
 import zw.org.zvandiri.business.service.SupportGroupService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
 public class SupportGroupValidator implements Validator {
-    
+
     @Resource
     private SupportGroupService supportGroupService;
 
@@ -40,22 +40,22 @@ public class SupportGroupValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-         ValidationUtils.rejectIfEmpty(errors, "name", "field.empty");
+        ValidationUtils.rejectIfEmpty(errors, "name", "field.empty");
         /**
          * @param name district name must always be unique
          */
         SupportGroup current = (SupportGroup) o;
         SupportGroup old = null;
-        if(current.getId() != null){
+        if (current.getId() != null) {
             old = supportGroupService.get(current.getId());
         }
-        if(supportGroupService.checkDuplicate(current, old)){
+        if (supportGroupService.checkDuplicate(current, old)) {
             errors.rejectValue("name", "item.duplicate");
         }
-        if(current.getProvince() == null){
+        if (current.getProvince() == null) {
             errors.rejectValue("province", "field.empty");
         }
-        if(current.getDistrict()== null){
+        if (current.getDistrict() == null) {
             errors.rejectValue("district", "field.empty");
         }
     }

@@ -17,23 +17,23 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.District;
 import zw.org.zvandiri.business.service.DistrictService;
 
 /**
- *
  * @author Edward Zengeni
  */
 public class DistrictConverter implements Converter<String, District> {
-    
+
     @Resource
     private DistrictService districtService;
 
     @Override
     public District convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return districtService.get(s);
     }
-    
+
 }

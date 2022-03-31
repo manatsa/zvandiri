@@ -40,6 +40,6 @@ public interface CatDetailRepo extends AbstractRepo<CatDetail, String> {
     @Query("from CatDetail c left join fetch c.patient left join fetch c.primaryClinic where c.id=:id")
     public CatDetail findById(@Param("id") String id);
 
-    @Query("Select new zw.org.zvandiri.business.util.dto.NameIdDTO(CONCAT(p.lastName, p.firstName), p.id, p.dateOfBirth, p.gender, p.status, p.active, p.primaryClinic.id) from Patient p where p.primaryClinic=:facility and p.deleted=:deleted and p.active=:active")
+    @Query("Select new zw.org.zvandiri.business.util.dto.NameIdDTO(CONCAT(p.lastName,' ', p.firstName), p.id, p.dateOfBirth, p.gender, p.status, p.active, p.primaryClinic.id) from Patient p where p.primaryClinic=:facility and p.deleted=:deleted and p.active=:active")
     public List<NameIdDTO> getFacilityPatients(@Param("facility") Facility primaryClinic, @Param("active") boolean active, @Param("deleted") boolean deleted);
 }

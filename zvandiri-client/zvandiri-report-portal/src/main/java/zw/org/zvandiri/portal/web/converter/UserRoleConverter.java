@@ -17,22 +17,22 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.UserRole;
 import zw.org.zvandiri.business.service.UserRoleService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class UserRoleConverter implements Converter<String, UserRole> {
-    
+
     @Resource
     private UserRoleService userRoleService;
 
     @Override
     public UserRole convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return userRoleService.get(s);
-    }   
+    }
 }

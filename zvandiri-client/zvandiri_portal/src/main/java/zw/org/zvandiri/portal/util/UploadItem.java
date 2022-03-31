@@ -5,13 +5,13 @@
 package zw.org.zvandiri.portal.util;
 
 import java.io.Serializable;
+
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 /**
- *
  * @author Edward Zengeni
  */
-public class UploadItem implements Serializable{
+public class UploadItem implements Serializable {
 
     private String name;
     private CommonsMultipartFile fileData;

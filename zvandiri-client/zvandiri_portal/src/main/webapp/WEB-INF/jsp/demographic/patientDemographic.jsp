@@ -43,8 +43,9 @@
                             </div>
                             <div class="form-group">
                                 <label>Date Of Birth</label>
-                                <form:input path="dateOfBirth" class="form-control beneficiary"/> <c:if test="${item.id != null}"> ( ${item.age} years)</c:if>
-                                    <p class="help-block">
+                                <form:input path="dateOfBirth" class="form-control beneficiary"/> <c:if
+                                    test="${item.id != null}"> ( ${item.age} years)</c:if>
+                                <p class="help-block">
                                     <form:errors path="dateOfBirth" class="alert-danger"/>
                                 </p>
                             </div>
@@ -67,7 +68,9 @@
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit" id="submit_btn" name="_eventId_next">Next&Gt;&Gt;</button>
-                                <a href="${itemDelete}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <a href="${itemDelete}">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>

@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -24,7 +25,6 @@ import zw.org.zvandiri.business.domain.ServiceOffered;
 import zw.org.zvandiri.business.service.ServiceOfferedService;
 
 /**
- *
  * @author jmuzinda
  */
 @Component

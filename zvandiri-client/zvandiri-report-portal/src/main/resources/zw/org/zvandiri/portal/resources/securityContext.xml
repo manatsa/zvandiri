@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
 
-       xmlns:tx="http://www.springframework.org/schema/tx" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:sec="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/integration/security http://www.springframework.org/schema/integration/security/spring-integration-security.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
@@ -13,7 +13,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-   <!-- business logic (method) security -->
+    <!-- business logic (method) security -->
     <sec:global-method-security secured-annotations="enabled" jsr250-annotations="enabled"/>
 
     <!--	resource security 
@@ -21,7 +21,7 @@
     Note: 
     Access-denied-page is invoked when user is AUTHENTICATED but is not AUTHORIZED to access protected resources.
     When user is NOT AUTHENTICATED, he is moved into form-login instead of access-denied-page.-->
-    <sec:http auto-config="true" access-denied-page="/acceessdenied.htm"  use-expressions="true" create-session="never" >
+    <sec:http auto-config="true" access-denied-page="/acceessdenied.htm" use-expressions="true" create-session="never">
         <sec:intercept-url pattern="/resources/**" access="permitAll"/>
         <sec:intercept-url pattern="/login*" access="permitAll"/>
         <!--<sec:intercept-url pattern="/**" access="permitAll"/>
@@ -39,24 +39,25 @@
                 hasRole('ROLE_HOD_M_AND_E') or
                 hasRole('ROLE_MANAGEMENT') or
                 hasRole('ROLE_ADMINISTRATOR') "/>
-       <!--<sec:intercept-url pattern="/**" access="hasRole('ROLE_ADMINISTRATOR')"/>
-        <sec:intercept-url pattern="/**" access="hasRole('ROLE_DATA_CAPTURE_CLERK')"/>
-        <sec:intercept-url pattern="/**" access="hasRole('ROLE_DATA_MANAGER')"/>-->
-        <sec:form-login login-page="/login.htm" always-use-default-target="true" default-target-url="/index.htm" authentication-failure-url="/loginfailed.htm" />
-        <sec:logout invalidate-session="true" logout-success-url="/logout.htm" />
+        <!--<sec:intercept-url pattern="/**" access="hasRole('ROLE_ADMINISTRATOR')"/>
+         <sec:intercept-url pattern="/**" access="hasRole('ROLE_DATA_CAPTURE_CLERK')"/>
+         <sec:intercept-url pattern="/**" access="hasRole('ROLE_DATA_MANAGER')"/>-->
+        <sec:form-login login-page="/login.htm" always-use-default-target="true" default-target-url="/index.htm"
+                        authentication-failure-url="/loginfailed.htm"/>
+        <sec:logout invalidate-session="true" logout-success-url="/logout.htm"/>
     </sec:http>
 
     <!-- manager responsible for loading user account with assigned roles -->
     <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-        <constructor-arg name="strength" value="6" />
+        <constructor-arg name="strength" value="6"/>
     </bean>
     <!-- manager responsible for loading user account with assigned roles -->
     <sec:authentication-manager alias="authenticationManager">
-        <sec:authentication-provider user-service-ref="userDetailsService" >
-            <sec:password-encoder ref="passwordEncoder" /> 
+        <sec:authentication-provider user-service-ref="userDetailsService">
+            <sec:password-encoder ref="passwordEncoder"/>
         </sec:authentication-provider>
     </sec:authentication-manager>
-    
+
     <!-- User Detail Services -->
     <bean id="userDetailsService" class="zw.org.zvandiri.business.security.provider.UserDetailsServiceImpl"/>
 </beans>

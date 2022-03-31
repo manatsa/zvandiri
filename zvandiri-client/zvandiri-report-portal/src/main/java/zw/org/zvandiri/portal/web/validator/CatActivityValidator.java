@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import java.util.Date;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -24,7 +25,6 @@ import zw.org.zvandiri.business.domain.CatActivity;
 import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
- *
  * @author jmuzinda
  */
 @Component
@@ -55,17 +55,17 @@ public class CatActivityValidator implements Validator {
             errors.rejectValue("district", "field.empty");
         }
         if (item.getAssignedPhone() == null) {
-        	errors.rejectValue("assignedPhone", "field.empty");
+            errors.rejectValue("assignedPhone", "field.empty");
         }
         if (item.getAssignedPhone() != null && item.getAssignedPhone().equals(YesNo.YES)) {
-        	ValidationUtils.rejectIfEmpty(errors, "phoneModel", "field.empty");
-        	ValidationUtils.rejectIfEmpty(errors, "serialNumber", "field.empty");
-        	if (item.getPhoneStatus() == null) {
-        		errors.rejectValue("phoneStatus", "field.empty");
-        	}
+            ValidationUtils.rejectIfEmpty(errors, "phoneModel", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "serialNumber", "field.empty");
+            if (item.getPhoneStatus() == null) {
+                errors.rejectValue("phoneStatus", "field.empty");
+            }
         }
         if (item.getIssuedBicycle() == null) {
-        	errors.rejectValue("issuedBicycle", "field.empty");
+            errors.rejectValue("issuedBicycle", "field.empty");
         }
     }
 

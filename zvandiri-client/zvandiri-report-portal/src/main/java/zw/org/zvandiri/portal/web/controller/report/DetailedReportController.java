@@ -20,6 +20,7 @@ import java.util.concurrent.ForkJoinPool;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -45,7 +46,6 @@ import zw.org.zvandiri.report.api.service.DetailedReportService;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
@@ -93,7 +93,7 @@ public class DetailedReportController extends BaseController {
             if (post) {
                 ForkJoinPool pool = ForkJoinPool.commonPool();
                 if (item.getIsDueForVL() != null) {
-                	item.setTestType(TestType.VIRAL_LOAD);
+                    item.setTestType(TestType.VIRAL_LOAD);
                 }
                 List items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(item)), detailedPatientReportService, item));
                 model.addAttribute("items", items);
@@ -157,7 +157,7 @@ public class DetailedReportController extends BaseController {
         if (item.getMaxViralLoad() == null && item.getMinCd4Count() == null && item.getMinViralLoad() == null) {
             ForkJoinPool pool = ForkJoinPool.commonPool();
             if (item.getIsDueForVL() != null) {
-            	item.setTestType(TestType.VIRAL_LOAD);
+                item.setTestType(TestType.VIRAL_LOAD);
             }
             items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(item)), detailedPatientReportService, item));
         } else {

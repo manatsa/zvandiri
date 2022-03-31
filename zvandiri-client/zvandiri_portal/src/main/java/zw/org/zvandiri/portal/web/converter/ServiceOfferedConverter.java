@@ -16,12 +16,12 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.ServiceOffered;
 import zw.org.zvandiri.business.service.ServiceOfferedService;
 
 /**
- *
  * @author jmuzinda
  */
 public class ServiceOfferedConverter implements Converter<String, ServiceOffered> {

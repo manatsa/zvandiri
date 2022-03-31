@@ -5,7 +5,8 @@
             User Role List
         </div>
         <div class="panel-body">
-            <a href="../index.htm">Option Tables</a> | <a href="item.form">New User Role</a> | <a href="item.list">User Role List</a>
+            <a href="../index.htm">Option Tables</a> | <a href="item.form">New User Role</a> | <a href="item.list">User
+            Role List</a>
             <hr/>
             <%@include file="../template/message.jspf" %>
             <div class="row">
@@ -20,15 +21,17 @@
                         <th>&nbsp</th>
                         </tfoot>
                         <tbody>
-                            <c:forEach var="userRole" items="${items}" >
-                                <tr>
-                                    <td><a href="<c:url value="/admin/user-role/item.form?id=${userRole.id}"/>">${userRole.name}</a></td>
-                                    <td>
-                                        <a href="<c:url value="/admin/user-role/item.form?id=${userRole.id}"/>">Edit | </a>
-                                        <a href="<c:url value="/admin/user-role/item.delete?id=${userRole.id}"/>">Delete</a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                        <c:forEach var="userRole" items="${items}">
+                            <tr>
+                                <td>
+                                    <a href="<c:url value="/admin/user-role/item.form?id=${userRole.id}"/>">${userRole.name}</a>
+                                </td>
+                                <td>
+                                    <a href="<c:url value="/admin/user-role/item.form?id=${userRole.id}"/>">Edit | </a>
+                                    <a href="<c:url value="/admin/user-role/item.delete?id=${userRole.id}"/>">Delete</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
 
@@ -37,7 +40,7 @@
 
         </div>
         <div class="panel-footer">
-            
+
         </div>
     </div>
 </div>

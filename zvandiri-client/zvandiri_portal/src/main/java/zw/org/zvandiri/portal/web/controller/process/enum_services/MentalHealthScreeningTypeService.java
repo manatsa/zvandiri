@@ -12,7 +12,7 @@ import zw.org.zvandiri.business.domain.util.MentalHealthScreeningType;
 @Service("mentalHealthScreeningTypeService")
 public class MentalHealthScreeningTypeService {
 
-    public MentalHealthScreeningType[] mentalHealthScreeningTypes(){
+    public MentalHealthScreeningType[] mentalHealthScreeningTypes() {
         return MentalHealthScreeningType.values();
     }
 }

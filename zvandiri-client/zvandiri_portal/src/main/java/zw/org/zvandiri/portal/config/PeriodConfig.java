@@ -17,26 +17,26 @@ package zw.org.zvandiri.portal.config;
 
 import java.util.Date;
 import javax.annotation.Resource;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 import zw.org.zvandiri.business.service.PeriodService;
 import zw.org.zvandiri.business.util.DateUtil;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Configuration
 public class PeriodConfig {
-    
+
     private static final String SCHEDULE_EXPRESSION = "0 45 20-23 * * MON-FRI";
-    
+
     @Resource
     private PeriodService periodService;
 
     @Scheduled(cron = SCHEDULE_EXPRESSION)
-    public void updateperiod(){
-        if(periodService.getByStartDate(DateUtil.getPeriodStart(new Date())) == null){
+    public void updateperiod() {
+        if (periodService.getByStartDate(DateUtil.getPeriodStart(new Date())) == null) {
             periodService.save(periodService.constructPeriod(new Date()));
         }
     }

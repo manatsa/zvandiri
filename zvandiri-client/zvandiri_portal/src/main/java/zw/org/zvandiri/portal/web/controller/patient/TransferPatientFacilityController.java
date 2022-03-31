@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -36,13 +37,12 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.validator.PatientChangeEventValidator;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
 @RequestMapping("/patient/change-facility")
 public class TransferPatientFacilityController extends BaseController {
-    
+
     @Resource
     private PatientService patientService;
     @Resource
@@ -55,40 +55,40 @@ public class TransferPatientFacilityController extends BaseController {
     private FacilityService facilityService;
     @Resource
     private PatientHistoryService patientHistoryService;
-    
-    public String setUpModel(ModelMap model, PatientDTO item){
-        model.addAttribute("pageTitle", APP_PREFIX+item.getPatient().getName()+" : Transfer to Another Clinic");
+
+    public String setUpModel(ModelMap model, PatientDTO item) {
+        model.addAttribute("pageTitle", APP_PREFIX + item.getPatient().getName() + " : Transfer to Another Clinic");
         model.addAttribute("item", item);
         model.addAttribute("patient", item.getPatient());
         model.addAttribute("provinces", provinceService.getAll());
         getPatientStatus(item.getPatient(), model);
         setViralLoad(model, item.getPatient());
-        if(item.getPatient().getProvince() != null){
+        if (item.getPatient().getProvince() != null) {
             model.addAttribute("districts", districtService.getDistrictByProvince(item.getPatient().getProvince()));
-            if(item.getPatient().getDistrict() != null){
+            if (item.getPatient().getDistrict() != null) {
                 model.addAttribute("facilities", facilityService.getOptByDistrict(item.getPatient().getDistrict()));
             }
         }
         return "patient/patientChangeFacilityForm";
     }
-    
+
     @RequestMapping(value = "/item.form", method = RequestMethod.GET)
-    public String getForm(ModelMap model, @RequestParam String id){     
+    public String getForm(ModelMap model, @RequestParam String id) {
         return setUpModel(model, new PatientDTO(patientService.get(id)));
     }
-    
+
     @RequestMapping(value = "/item", method = RequestMethod.POST)
-    public String saveItem(ModelMap model,@ModelAttribute("item") PatientDTO item, BindingResult result){
+    public String saveItem(ModelMap model, @ModelAttribute("item") PatientDTO item, BindingResult result) {
         if (!item.getPatient().getPatientStatus()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(INACTIVE_MESSAGE).messageType(MessageType.ERROR).build());
             return setUpModel(model, item);
         }
         patientChangeEventValidator.validateChangeFacility(item, result);
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
             return setUpModel(model, item);
         }
         patientHistoryService.saveItem(new PatientHistory(item.getPatient()), item.getFacilityInstance(item));
-        return "redirect:../dashboard/profile.htm?type=1&id="+item.getPatient().getId();
+        return "redirect:../dashboard/profile.htm?type=1&id=" + item.getPatient().getId();
     }
 }

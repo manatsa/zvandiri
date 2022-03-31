@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.Cd4CountResultSource;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class Cd4CountResultSourceConverter implements Converter<String, Cd4CountResultSource> {
 
     @Override
     public Cd4CountResultSource convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return Cd4CountResultSource.get(Integer.valueOf(s));
     }
-    
+
 }

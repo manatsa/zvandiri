@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -23,7 +24,6 @@ import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.util.dto.PatientDTO;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component

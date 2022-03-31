@@ -36,7 +36,6 @@ import zw.org.zvandiri.report.api.service.ContactPivotService;
 import zw.org.zvandiri.report.api.service.parallel.GenericCountReportTask;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Repository

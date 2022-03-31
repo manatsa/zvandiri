@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -25,17 +26,16 @@ import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.MentalHealthScreeningService;
 
 /**
- *
  * @author tasu
  */
 @Component
-public class MentalHealthScreeningValidator implements Validator{
-    
+public class MentalHealthScreeningValidator implements Validator {
+
     @Resource
     private MentalHealthScreeningService service;
-    
+
     @Override
-    public boolean supports(Class<?> type){
+    public boolean supports(Class<?> type) {
         return type.equals(MentalHealthScreening.class);
     }
 
@@ -44,7 +44,7 @@ public class MentalHealthScreeningValidator implements Validator{
         ValidationUtils.rejectIfEmpty(errors, "screenedForMentalHealth", "field.empty");
         MentalHealthScreening item = (MentalHealthScreening) o;
         MentalHealthScreening old = null;
-        if(item.getScreenedForMentalHealth() != null && item.getScreenedForMentalHealth().equals(YesNo.YES)) {
+        if (item.getScreenedForMentalHealth() != null && item.getScreenedForMentalHealth().equals(YesNo.YES)) {
             ValidationUtils.rejectIfEmpty(errors, "screening", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "risk", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "support", "field.empty");
@@ -52,33 +52,33 @@ public class MentalHealthScreeningValidator implements Validator{
             ValidationUtils.rejectIfEmpty(errors, "diagnosis", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "intervention", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "dateScreened", "field.empty");
-            if(item.getRisk() != null && item.getRisk().equals(YesNo.YES)) {
-                if(item.getIdentifiedRisks() == null) {
+            if (item.getRisk() != null && item.getRisk().equals(YesNo.YES)) {
+                if (item.getIdentifiedRisks() == null) {
                     ValidationUtils.rejectIfEmpty(errors, "identifiedRisks", "item.select.one");
                 }
             }
-            if(item.getSupport()!= null && item.getSupport().equals(YesNo.YES)) {
-                if(item.getSupports() == null) {
+            if (item.getSupport() != null && item.getSupport().equals(YesNo.YES)) {
+                if (item.getSupports() == null) {
                     ValidationUtils.rejectIfEmpty(errors, "supports", "item.select.one");
                 }
             }
-            if(item.getReferral()!= null && item.getReferral().equals(YesNo.YES)) {
-                if(item.getReferrals() == null) {
+            if (item.getReferral() != null && item.getReferral().equals(YesNo.YES)) {
+                if (item.getReferrals() == null) {
                     ValidationUtils.rejectIfEmpty(errors, "referrals", "item.select.one");
                     ValidationUtils.rejectIfEmpty(errors, "referralComplete", "field.empty");
                 }
             }
-            if(item.getDiagnosis()!= null && item.getDiagnosis().equals(YesNo.YES)) {
-                if(item.getDiagnoses() == null) {
+            if (item.getDiagnosis() != null && item.getDiagnosis().equals(YesNo.YES)) {
+                if (item.getDiagnoses() == null) {
                     ValidationUtils.rejectIfEmpty(errors, "diagnoses", "item.select.one");
                 }
             }
-            if(item.getIntervention()!= null && item.getIntervention().equals(YesNo.YES)) {
-                if(item.getInterventions() == null) {
+            if (item.getIntervention() != null && item.getIntervention().equals(YesNo.YES)) {
+                if (item.getInterventions() == null) {
                     ValidationUtils.rejectIfEmpty(errors, "interventions", "item.select.one");
                 }
             }
         }
     }
-    
+
 }

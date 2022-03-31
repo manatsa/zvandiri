@@ -24,7 +24,6 @@ public class ReferralListServiceImpl implements ReferralListService {
     private ServicesReferredService servicesReferredService;
 
 
-
     @Override
     public List<ServicesReferred> getHiveSTIPrevention() {
         return servicesReferredService.getByType(ReferalType.HIV_STI_PREVENTION);

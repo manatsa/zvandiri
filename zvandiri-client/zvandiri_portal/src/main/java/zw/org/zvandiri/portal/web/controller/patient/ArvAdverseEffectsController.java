@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -35,7 +36,6 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.validator.ArvAdverseEffectsValidator;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
@@ -92,14 +92,14 @@ public class ArvAdverseEffectsController extends BaseController {
         model.addAttribute("items", arvAdverseEffectService.getByArvHist(item));
         return "patient/arvAdverseEffectList";
     }
-    
+
     @RequestMapping(value = "item.delete", method = RequestMethod.GET)
     public String getDeleteForm(@RequestParam("id") String id, ModelMap model) {
         ArvAdverseEffect item = arvAdverseEffectService.get(id);
-        ItemDeleteDTO dto = new ItemDeleteDTO(id, item.getArvHist().getArvMedicine().getName()+ " : Adverse Effect Item", "item.list?type=3&id=" + item.getArvHist().getId());
+        ItemDeleteDTO dto = new ItemDeleteDTO(id, item.getArvHist().getArvMedicine().getName() + " : Adverse Effect Item", "item.list?type=3&id=" + item.getArvHist().getId());
         model.addAttribute("item", dto);
         model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Are you sure you want to delete this record").messageType(MessageType.WARNING).build());
-        model.addAttribute("pageTitle", APP_PREFIX + "Delete " +item.getArvHist().getArvMedicine().getName() + " :" + dto.getName());
+        model.addAttribute("pageTitle", APP_PREFIX + "Delete " + item.getArvHist().getArvMedicine().getName() + " :" + dto.getName());
         return "admin/deleteItem";
     }
 

@@ -12,7 +12,7 @@ import zw.org.zvandiri.business.domain.util.MaritalStatus;
 public class KeyPopulationConverter implements Converter<String, KeyPopulation> {
     @Override
     public KeyPopulation convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return KeyPopulation.get(Integer.valueOf(s));
     }
 }

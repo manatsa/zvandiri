@@ -16,23 +16,23 @@
 package zw.org.zvandiri.mobile.api.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.ReasonForNotReachingOLevel;
 import zw.org.zvandiri.business.service.ReasonForNotReachingOLevelService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class ReasonForNotReachingOLevelConverter implements Converter<String, ReasonForNotReachingOLevel> {
-    
+
     @Resource
     private ReasonForNotReachingOLevelService reasonForNotReachingOLevelService;
 
     @Override
     public ReasonForNotReachingOLevel convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return reasonForNotReachingOLevelService.get(s);
     }
-    
+
 }

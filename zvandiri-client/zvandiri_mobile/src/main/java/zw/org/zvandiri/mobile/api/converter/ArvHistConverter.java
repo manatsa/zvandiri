@@ -16,23 +16,23 @@
 package zw.org.zvandiri.mobile.api.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.ArvHist;
 import zw.org.zvandiri.business.service.ArvHistService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class ArvHistConverter implements Converter<String, ArvHist> {
- 
+
     @Resource
     private ArvHistService arvHistService;
 
     @Override
     public ArvHist convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return arvHistService.get(s);
     }
-    
+
 }

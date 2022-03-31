@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.CondomUse;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class CondomUseConverter implements Converter<String, CondomUse> {
 
     @Override
     public CondomUse convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return CondomUse.get(Integer.valueOf(s));
     }
-    
+
 }

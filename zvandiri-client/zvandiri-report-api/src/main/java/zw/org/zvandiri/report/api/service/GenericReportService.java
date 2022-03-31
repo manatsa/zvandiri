@@ -18,16 +18,16 @@ package zw.org.zvandiri.report.api.service;
 
 import java.io.Serializable;
 import java.util.List;
+
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
- *
- * @author Judge Muzinda
  * @param <T> Report model representational class
+ * @author Judge Muzinda
  */
-public interface GenericReportService <T extends Serializable> {
-    
+public interface GenericReportService<T extends Serializable> {
+
     public List<T> getDefaultReport(SearchDTO dto);
-    
+
     public List<T> getDefaultReportB(SearchDTO dto);
 }

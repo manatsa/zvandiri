@@ -12,7 +12,7 @@ import zw.org.zvandiri.business.domain.util.IdentifiedRisk;
 @Service("mhIdentifiedRisksService")
 public class MhIdentifiedRisksService {
 
-    public IdentifiedRisk[] getIdentifiedRisks(){
+    public IdentifiedRisk[] getIdentifiedRisks() {
         return IdentifiedRisk.values();
     }
 }

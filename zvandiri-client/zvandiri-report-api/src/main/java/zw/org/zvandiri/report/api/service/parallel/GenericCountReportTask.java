@@ -12,7 +12,6 @@ import zw.org.zvandiri.business.service.GenericReportService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
- *
  * @author tasu
  */
 public class GenericCountReportTask extends RecursiveTask<List> {
@@ -34,7 +33,7 @@ public class GenericCountReportTask extends RecursiveTask<List> {
         } else {
             int mid = arrCount.size() / 2;
 
-            System.err.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> array Size: "+ arrCount.size());
+            System.err.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> array Size: " + arrCount.size());
 
             GenericCountReportTask task = new GenericCountReportTask(arrCount.subList(0, mid), reportService, searchData);
             GenericCountReportTask last = new GenericCountReportTask(arrCount.subList(mid, arrCount.size()), reportService, searchData);

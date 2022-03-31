@@ -41,7 +41,7 @@ import com.jolbox.bonecp.BoneCPDataSource;
  */
 @Configuration
 @ComponentScan(basePackages = {"zw.org.zvandiri.portal.web.*", "zw.org.zvandiri.business.service.impl",
-    "zw.org.zvandiri.report.api.service.impl"})
+        "zw.org.zvandiri.report.api.service.impl"})
 @ImportResource(value = {"classpath:applicationContext.xml", "classpath:securityContext.xml"})
 @PropertySource("classpath:application.properties")
 @EnableScheduling

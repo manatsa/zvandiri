@@ -12,7 +12,7 @@ import zw.org.zvandiri.business.domain.util.Referral;
 @Service("referalEnumService")
 public class ReferralService {
 
-    public Referral[] getReferrals(){
+    public Referral[] getReferrals() {
         return Referral.values();
     }
 }

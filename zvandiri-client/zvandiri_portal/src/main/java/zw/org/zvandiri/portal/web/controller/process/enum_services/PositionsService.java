@@ -19,7 +19,7 @@ public class PositionsService {
     @Resource
     PositionService positionService;
 
-    public List<Position> getPositions(){
+    public List<Position> getPositions() {
         return positionService.getAll();
     }
 }

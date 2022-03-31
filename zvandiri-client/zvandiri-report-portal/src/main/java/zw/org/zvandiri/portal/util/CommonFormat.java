@@ -18,15 +18,14 @@ package zw.org.zvandiri.portal.util;
 import java.io.Serializable;
 
 /**
- *
  * @author jmuzinda
  */
 public final class CommonFormat implements Serializable {
-    
+
     private final String STRING_PATTERN = "^[a-zA-Z]+( [a-zA-z]+)*$";
 
     private CommonFormat() {
         throw new IllegalStateException("Class not meant to create objects");
     }
-    
+
 }

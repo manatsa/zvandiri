@@ -19,10 +19,9 @@ import java.io.FileNotFoundException;
 import java.text.ParseException;
 
 /**
- *
  * @author jmuzinda
  */
 public interface LocalityImporterService {
-    
+
     public void importData(String file) throws FileNotFoundException, ParseException;
 }

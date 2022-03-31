@@ -12,10 +12,9 @@ import zw.org.zvandiri.business.service.InvestigationTestService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
-public class InvalidVLTask extends RecursiveTask<List>{
+public class InvalidVLTask extends RecursiveTask<List> {
 
     private final InvestigationTestService investigationTestService;
     private final SearchDTO searchData;

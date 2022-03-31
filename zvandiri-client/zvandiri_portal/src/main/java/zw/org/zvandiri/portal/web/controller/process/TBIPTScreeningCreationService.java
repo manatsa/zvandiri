@@ -19,13 +19,12 @@ import zw.org.zvandiri.business.domain.MentalHealthScreening;
 import zw.org.zvandiri.business.domain.TbIpt;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 public interface TBIPTScreeningCreationService {
- 
+
     public TbIpt TB_IPTScreening();
-    
+
     public TbIpt saveTB_IPTScreening(TbIpt tbIpt);
-    
+
 }

@@ -16,23 +16,23 @@
 package zw.org.zvandiri.mobile.api.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.HospCause;
 import zw.org.zvandiri.business.service.HospCauseService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class HospCauseConverter implements Converter<String, HospCause> {
-    
+
     @Resource
     private HospCauseService hospCauseService;
 
     @Override
     public HospCause convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return hospCauseService.get(s);
     }
-    
+
 }

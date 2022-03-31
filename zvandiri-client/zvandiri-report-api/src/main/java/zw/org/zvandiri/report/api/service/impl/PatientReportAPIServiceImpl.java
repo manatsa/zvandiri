@@ -18,6 +18,7 @@ package zw.org.zvandiri.report.api.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.util.AgeGroup;
 import zw.org.zvandiri.business.service.PatientReportService;
@@ -26,15 +27,14 @@ import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.PatientReportAPIService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Repository
 public class PatientReportAPIServiceImpl implements PatientReportAPIService {
-    
+
     @Resource
     private PatientReportService patientReportService;
-    
+
     @Override
     public List<GenericReportModel> getPieDefaultData(SearchDTO dto) {
         List<GenericReportModel> list = new ArrayList<>();

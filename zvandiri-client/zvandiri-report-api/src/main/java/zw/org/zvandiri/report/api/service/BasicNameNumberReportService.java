@@ -16,13 +16,13 @@
 package zw.org.zvandiri.report.api.service;
 
 import java.util.Map;
+
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
- *
  * @author Judge Muzinda
  */
 public interface BasicNameNumberReportService {
- 
+
     public Map<String, Long> getHomeStats(SearchDTO dto);
 }

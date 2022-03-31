@@ -6,13 +6,14 @@
         </div>
         <div class="panel-body">
             <a href="item.list">Item List</a><br/><br/>
-            <%@include file="../template/message.jspf" %>            
+            <%@include file="../template/message.jspf" %>
             <div class="row">
                 <div class="col-lg-12">
                     <form:form commandName="item">
                         <form:hidden path="id"/>
                         <form:hidden path="version"/>
-                        <%@include file="../template/participantCBOtoppart.jspf" %><br/>
+                        <%@include file="../template/participantCBOtoppart.jspf" %>
+                        <br/>
                         <%@include file="../template/entry/participantform.jspf" %>
                     </form:form>
                 </div>

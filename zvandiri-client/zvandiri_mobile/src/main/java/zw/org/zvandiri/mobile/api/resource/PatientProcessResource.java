@@ -29,6 +29,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,10 +47,10 @@ import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.service.ReferralService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.DateUtil;
+import zw.org.zvandiri.business.util.dto.MobilePatientDTO;
 import zw.org.zvandiri.business.util.dto.NameIdDTO;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
@@ -75,12 +76,15 @@ public class PatientProcessResource {
     @Path("/cats-patients")
     public List<NameIdDTO> getCatPatients(@QueryParam("email") String email) {
 
-        CatDetail catDetail=catDetailService.getByEmail(email);
+        CatDetail catDetail = catDetailService.getByEmail(email);
         List<NameIdDTO> patients;
         patients = patientService.getCatPatients(catDetail);
-       
+
+        System.err.println("<= User :" + email + " =>\n" + patients);
+
         return patients;
     }
+
 
     @GET
     @Path("/get-cats")
@@ -135,7 +139,7 @@ public class PatientProcessResource {
         try {
             Set<PatientDisability> disabilitys = patient.getDisabilityCategorys();
             Patient item = patientService.get(patient.getId());
-            for(PatientDisability disability : disabilitys) {
+            for (PatientDisability disability : disabilitys) {
                 disability.setPatient(item);
             }
             item.setDisabilityCategorys(disabilitys);
@@ -148,7 +152,7 @@ public class PatientProcessResource {
         response.put("message", "Patient created sucessfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    
+
     @POST
     @Path("/change-facility")
     public ResponseEntity<Map<String, Object>> changeFacility(Patient patient) {
@@ -410,7 +414,6 @@ public class PatientProcessResource {
         }
         return response;
     }
-    
-    
-    
+
+
 }

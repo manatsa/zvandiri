@@ -16,18 +16,17 @@
 package zw.org.zvandiri.report.api;
 
 /**
- *
  * @author Judge Muzinda
  */
 public interface Notifications {
 
-    public final String [] labels = {
-        "Number of new clients registered",
-        "Number of clients with contacts",
-        "Clients About To Graduate",
-        "Cumulative internal referrals initiated",
-        "Cumulative internal referrals confirmed",
-        "Cumulative external referrals initiated",
-        "Cumulative external referrals confirmed",
+    public final String[] labels = {
+            "Number of new clients registered",
+            "Number of clients with contacts",
+            "Clients About To Graduate",
+            "Cumulative internal referrals initiated",
+            "Cumulative internal referrals confirmed",
+            "Cumulative external referrals initiated",
+            "Cumulative external referrals confirmed",
     };
 }

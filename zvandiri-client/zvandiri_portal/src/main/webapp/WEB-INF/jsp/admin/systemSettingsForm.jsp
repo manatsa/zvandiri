@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-lg-10">
                         <form:form commandName="item">
-                            <%@include file="../template/formState.jspf" %>                            
+                            <%@include file="../template/formState.jspf" %>
                             <div class="form-group">
                                 <label>Patient Minimum Age</label>
                                 <form:input path="patientMinAge" class="form-control"/>
@@ -40,9 +40,10 @@
                                 <p class="help-block">
                                     <form:errors path="minAgeToGiveBirth" class="alert-danger"/>
                                 </p>
-                            </div>                                
+                            </div>
                             <div class="form-group">
-                                <label>Number Of Months To Auto Retire Patient After Maximum Age Has Been Reached</label>
+                                <label>Number Of Months To Auto Retire Patient After Maximum Age Has Been
+                                    Reached</label>
                                 <form:input path="patientAutoExpireAfterMaxAge" class="form-control"/>
                                 <p class="help-block">
                                     <form:errors path="patientAutoExpireAfterMaxAge" class="alert-danger"/>
@@ -85,7 +86,9 @@
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Save</button>
-                                <a href="${itemDelete}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <a href="${itemDelete}">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>

@@ -19,14 +19,13 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.Result;
 
 /**
- *
  * @author tasu
  */
 public class ResultConverter implements Converter<String, Result> {
-    
+
     @Override
     public Result convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return Result.get(Integer.valueOf(s));
     }
 }

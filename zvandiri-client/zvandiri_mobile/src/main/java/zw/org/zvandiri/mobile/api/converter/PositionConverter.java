@@ -16,12 +16,12 @@
 package zw.org.zvandiri.mobile.api.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.Position;
 import zw.org.zvandiri.business.service.PositionService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class PositionConverter implements Converter<String, Position> {

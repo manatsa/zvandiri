@@ -9,7 +9,7 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
@@ -81,7 +81,9 @@
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Save</button>
-                                <a href="#"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <a href="#">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>

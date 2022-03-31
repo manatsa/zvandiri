@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.contact;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,7 +32,6 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller

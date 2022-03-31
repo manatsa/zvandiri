@@ -58,10 +58,7 @@ import zw.org.zvandiri.report.api.service.AggregateVisualReportService;
 import zw.org.zvandiri.report.api.service.RandomNumGenService;
 
 /**
- *
  * @author Judge Muzinda
- * @version 1.0.0 Magical 2D data structure where param key will look up any
- * item and gets results thereof
  * @version 1.0.1 patch to getItemRowByMapKey method
  */
 @Repository
@@ -101,7 +98,7 @@ public class AggregateVisualReportServiceImpl implements AggregateVisualReportSe
         }
         return generateTbStatusTrend(item, data, key);
     }
-    
+
     @Override
     public JFreeChart getTbOutcomeTrend(ChartModelItem item, List<GenericReportModel> data, String... key) {
         if (data.size() <= 0) {
@@ -179,7 +176,7 @@ public class AggregateVisualReportServiceImpl implements AggregateVisualReportSe
         dataset.addSeries(completed);
         return dataset;
     }
-    
+
     private TimeSeriesCollection createTbOutcomeMultiTrendDataSet(List<BasicTrendModel> data, ChartModelItem item) {
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         final TimeSeries successful = new TimeSeries("Successful", Month.class);
@@ -436,7 +433,7 @@ public class AggregateVisualReportServiceImpl implements AggregateVisualReportSe
         axis.setDateFormatOverride(new SimpleDateFormat("MMM-yy"));
         return chart;
     }
-    
+
     private JFreeChart generateTbOutcomeTrend(ChartModelItem item, List<GenericReportModel> data, String... key) {
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
                 item.getChartName(),

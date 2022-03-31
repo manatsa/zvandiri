@@ -17,22 +17,22 @@
 package zw.org.zvandiri.mobile.api.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.Facility;
 import zw.org.zvandiri.business.service.FacilityService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class FacilityConverter implements Converter<String, Facility> {
 
     @Resource
     private FacilityService facilityService;
-    
+
     @Override
     public Facility convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return facilityService.get(s);
-    }   
+    }
 }

@@ -1,15 +1,15 @@
-<%@include file="../template/header.jspf"%>
+<%@include file="../template/header.jspf" %>
 <div class="col-lg-12">
     <div class="panel panel-default">
         <div class="panel-heading">${pageTitle}</div>
         <div class="panel-body">
             <a href="${page}/report/index.htm">&DoubleLeftArrow; Back To
-                Reports DashBoard Home</a><br /> 
-            <%@include file="../template/searchClientFragment.jspf"%>
+                Reports DashBoard Home</a><br/>
+            <%@include file="../template/searchClientFragment.jspf" %>
             <div class="row">
                 <div class="panel-footer" style="text-align: right">
                     Export/ View As <a href="${page}${excelExport}"> <img
-                        src="<c:url value="/resources/images/excel.jpeg"/>" />
+                        src="<c:url value="/resources/images/excel.jpeg"/>"/>
                 </a>
                 </div>
             </div>
@@ -17,24 +17,24 @@
                 <div class="col-lg-12">
                     <table id="tableList" class="display" cellspacing="0">
                         <thead>
-                            <th>Name</th>
-                            <th>Gender</th>
-                            <th>Date Of Birth</th>
-                            <th>Facility</th>
-                            <th>District</th>
-                            <th>Region</th>
-                            <th>Cadre Type</th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Date Of Birth</th>
+                        <th>Facility</th>
+                        <th>District</th>
+                        <th>Region</th>
+                        <th>Cadre Type</th>
 
 
                         </thead>
                         <tfoot>
-                            <th>Name</th>
-                            <th>Gender</th>
-                            <th>Date Of Birth</th>
-                            <th>Facility</th>
-                            <th>District</th>
-                            <th>Region</th>
-                            <th>Cadre Type</th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Date Of Birth</th>
+                        <th>Facility</th>
+                        <th>District</th>
+                        <th>Region</th>
+                        <th>Cadre Type</th>
 
                         </tfoot>
                         <tbody>
@@ -42,7 +42,7 @@
                             <tr>
                                 <td>${item.name}</td>
                                 <td>${item.gender}</td>
-                                <td><spring:eval expression="item.dateOfBirth" /></td>
+                                <td><spring:eval expression="item.dateOfBirth"/></td>
                                 <td>${item.primaryClinic.name}</td>
                                 <td>${item.primaryClinic.district.name}</td>
                                 <td>${item.primaryClinic.district.province.name}</td>
@@ -57,12 +57,12 @@
         </div>
         <div class="panel-footer" style="text-align: right">
             Export/ View As <a href="${page}${excelExport}"> <img
-                src="<c:url value="/resources/images/excel.jpeg"/>" />
+                src="<c:url value="/resources/images/excel.jpeg"/>"/>
         </a>
         </div>
     </div>
 </div>
-<%@include file="../template/footer.jspf"%>
+<%@include file="../template/footer.jspf" %>
 <script type="text/javascript">
     $(".sidebar-nav").addClass("custom-side-bar-ref");
     $("#page-wrapper").addClass("main-wrp");

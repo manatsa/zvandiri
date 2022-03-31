@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -24,14 +25,14 @@ import zw.org.zvandiri.business.domain.ReasonForNotReachingOLevel;
 import zw.org.zvandiri.business.service.ReasonForNotReachingOLevelService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
 public class ReasonForNotReachingOLevelValidator implements Validator {
-    
+
     @Resource
     private ReasonForNotReachingOLevelService reasonForNotReachingOLevelService;
+
     @Override
     public boolean supports(Class<?> type) {
         return type.equals(ReasonForNotReachingOLevel.class);

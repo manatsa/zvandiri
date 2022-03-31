@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.validator;
 
 import java.util.Date;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -26,7 +27,6 @@ import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.MentalHealthItemService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
@@ -34,7 +34,7 @@ public class MentalHealthItemValidator implements Validator {
 
     @Resource
     private MentalHealthItemService mentalHealthItemService;
-    
+
     @Override
     public boolean supports(Class<?> type) {
         return type.equals(MentalHealthItem.class);
@@ -46,7 +46,7 @@ public class MentalHealthItemValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "current", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "mentalHistText", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "age", "field.empty");
-        ValidationUtils.rejectIfEmpty(errors, "professionalCareProvidedBy", "field.empty");        
+        ValidationUtils.rejectIfEmpty(errors, "professionalCareProvidedBy", "field.empty");
         MentalHealthItem item = (MentalHealthItem) o;
         MentalHealthItem old = null;
         if (item.getPatient() != null && item.getMentalHealth() != null) {

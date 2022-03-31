@@ -16,7 +16,6 @@ import zw.org.zvandiri.business.repo.ReferralRepo;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
- *
  * @author tasu
  */
 public class PatientReportTask extends RecursiveTask<List<Patient>> {
@@ -25,7 +24,7 @@ public class PatientReportTask extends RecursiveTask<List<Patient>> {
     private final SearchDTO dto;
     private final ContactRepo contactRepo;
     private final ReferralRepo referralRepo;
-            
+
 
     public PatientReportTask(List<Patient> data, SearchDTO dto, ContactRepo contactRepo, ReferralRepo referralRepo) {
         this.data = data;
@@ -37,9 +36,9 @@ public class PatientReportTask extends RecursiveTask<List<Patient>> {
     @Override
     protected List compute() {
         if (data == null || data.isEmpty()) {
-        	return new ArrayList<Patient>();
+            return new ArrayList<Patient>();
         }
-    	if (data.size() <= ReportGenConstants.SEQUENTIAL_THRESHOLD) {
+        if (data.size() <= ReportGenConstants.SEQUENTIAL_THRESHOLD) {
             return process();
         } else {
             int mid = data.size() / 2;

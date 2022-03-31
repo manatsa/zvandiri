@@ -20,7 +20,7 @@
                                         Export/ View As
                                         <a href="${page}${graphUrl}">
                                             <i class="fa fa-bar-chart-o fa-fw"></i>
-                                         </a>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -47,5 +47,5 @@
     });
     $("#facility").change(function () {
         $("form").submit();
-    });    
+    });
 </script>

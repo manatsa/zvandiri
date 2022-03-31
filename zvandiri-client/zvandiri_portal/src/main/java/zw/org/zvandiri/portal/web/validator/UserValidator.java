@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -27,7 +28,6 @@ import zw.org.zvandiri.business.util.dto.ChangePasswordDTO;
 import zw.org.zvandiri.business.util.dto.ChangePrivilegesDTO;
 
 /**
- *
  * @author Edward Zengeni
  */
 @Component
@@ -65,15 +65,15 @@ public class UserValidator implements Validator {
         if (user.getUserType() == null) {
             errors.rejectValue("userType", "field.empty");
         }
-        if(user.getUserLevel() ==  null) {
+        if (user.getUserLevel() == null) {
             errors.rejectValue("userLevel", "field.empty");
         }
-        if(user.getUserLevel() != null) {
-            if (user.getUserLevel().equals(UserLevel.PROVINCE) && 
+        if (user.getUserLevel() != null) {
+            if (user.getUserLevel().equals(UserLevel.PROVINCE) &&
                     user.getProvince() == null) {
                 errors.rejectValue("province", "field.empty");
             }
-            if(user.getUserLevel().equals(UserLevel.DISTRICT) && 
+            if (user.getUserLevel().equals(UserLevel.DISTRICT) &&
                     user.getDistrict() == null) {
                 errors.rejectValue("district", "field.empty");
             }

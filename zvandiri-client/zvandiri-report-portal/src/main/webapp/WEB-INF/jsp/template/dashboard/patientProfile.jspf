@@ -1,42 +1,42 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <table class="table-condensed" id="emp-profile" width="100%" style="font-size: 1.1em;">
     <tbody>
-        <tr>
-            <th>Name :</th>
-            <td>
-                ${patient.name} 
-            </td>
-            <td>UAC</td>
-            <td>${patient.patientNumber}</td>
-            <th>Age</th>
-            <td>
-                ${patient.age}
-            </td>
-            <td><img src="<c:url value="${patient.pic}"/>"/></td>
-        </tr>
-        <tr>
-            <th>HIV Status Known :</th>
-            <td>
-                ${patient.hivStatusKnown.name}
-            </td>
-            <th>Date Joined</th>
-            <td>
-                <spring:eval expression="patient.dateJoined"/>
-            </td>
-            <c:if test="${latestViralLoad != null}">
+    <tr>
+        <th>Name :</th>
+        <td>
+            ${patient.name}
+        </td>
+        <td>UAC</td>
+        <td>${patient.patientNumber}</td>
+        <th>Age</th>
+        <td>
+            ${patient.age}
+        </td>
+        <td><img src="<c:url value="${patient.pic}"/>"/></td>
+    </tr>
+    <tr>
+        <th>HIV Status Known :</th>
+        <td>
+            ${patient.hivStatusKnown.name}
+        </td>
+        <th>Date Joined</th>
+        <td>
+            <spring:eval expression="patient.dateJoined"/>
+        </td>
+        <c:if test="${latestViralLoad != null}">
             <th>Viral Load Status</th>
             <td>${latestViralLoad.viralLoadSuppressionStatus}</td>
-            </c:if>
-        </tr>
-        <c:if test="${latestViralLoad != null}">
+        </c:if>
+    </tr>
+    <c:if test="${latestViralLoad != null}">
         <tr>
             <th>Next Viral Load Date :</th>
             <td><spring:eval expression="latestViralLoad.nextTestDate"/></td>
-                <th>&nbsp;</th>
-                <td>&nbsp;</td>
-                <th>&nbsp;</th>
-                <td>&nbsp;</td>
+            <th>&nbsp;</th>
+            <td>&nbsp;</td>
+            <th>&nbsp;</th>
+            <td>&nbsp;</td>
         </tr>
-        </c:if>
+    </c:if>
     </tbody>
 </table>

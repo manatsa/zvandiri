@@ -1,6 +1,6 @@
 <%@include file="../template/header.jspf" %>
 <style type="text/css">
-    input[type="text"]{
+    input[type="text"] {
         width: 130px;
     }
 </style>
@@ -16,7 +16,8 @@
                     <form:form commandName="item">
                         <form:hidden path="id"/>
                         <form:hidden path="version"/>
-                        <%@include file="../template/entryTopPart.jspf" %><br/>
+                        <%@include file="../template/entryTopPart.jspf" %>
+                        <br/>
                         <%@include file="../template/entry/actionPlanningForm.jspf" %>
                     </form:form>
                 </div>

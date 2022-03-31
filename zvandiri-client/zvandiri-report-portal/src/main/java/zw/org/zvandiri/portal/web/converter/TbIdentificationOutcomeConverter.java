@@ -9,10 +9,9 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.TbIdentificationOutcome;
 
 /**
- *
  * @author tasu
  */
-public class TbIdentificationOutcomeConverter implements Converter<String, TbIdentificationOutcome>{
+public class TbIdentificationOutcomeConverter implements Converter<String, TbIdentificationOutcome> {
     @Override
     public TbIdentificationOutcome convert(String s) {
         if (s.equals("")) {

@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.ReferralActionTaken;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class ReferralActionTakenConverter implements Converter<String, ReferralActionTaken> {
 
     @Override
     public ReferralActionTaken convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return ReferralActionTaken.get(Integer.valueOf(s));
     }
-    
+
 }

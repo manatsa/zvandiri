@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <%@include file="../template/searchNationalFragment.jspf" %>
-                        
+
                     </div>
                 </div>
             </div>
@@ -24,24 +24,24 @@
          * un select district or else un selection will happen after post
          */
         $("#district").val('');
-        $("form").attr("action","index.htm").submit();
+        $("form").attr("action", "index.htm").submit();
     });
     $("#district").change(function () {
-        $("form").attr("action","index.htm").submit();
+        $("form").attr("action", "index.htm").submit();
     });
     $("#organisation").change(function () {
-        $("form").attr("action","index.htm").submit();
+        $("form").attr("action", "index.htm").submit();
     });
     $("#community").change(function () {
-        $("form").attr("action","index.htm").submit();
+        $("form").attr("action", "index.htm").submit();
     });
     $("#orgForm").change(function () {
-        $("form").attr("action","index.htm").submit();
+        $("form").attr("action", "index.htm").submit();
     });
     $("#facility").change(function () {
-        $("form").attr("action","index.htm").submit();
+        $("form").attr("action", "index.htm").submit();
     });
     $("#period").change(function () {
-        $("form").attr("action","index.htm").submit();
+        $("form").attr("action", "index.htm").submit();
     });
 </script>

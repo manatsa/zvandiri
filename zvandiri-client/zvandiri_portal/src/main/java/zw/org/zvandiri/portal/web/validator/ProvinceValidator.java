@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -24,7 +25,6 @@ import zw.org.zvandiri.business.domain.Province;
 import zw.org.zvandiri.business.service.ProvinceService;
 
 /**
- *
  * @author Edward Zengeni
  */
 @Component
@@ -46,13 +46,13 @@ public class ProvinceValidator implements Validator {
          */
         Province current = (Province) o;
         Province old = null;
-        if(current.getId() != null){
-            System.out.println("Current has id :::::: "+current.getId());
-            System.out.println("Service is not nulll ppppppp "+provinceService);
+        if (current.getId() != null) {
+            System.out.println("Current has id :::::: " + current.getId());
+            System.out.println("Service is not nulll ppppppp " + provinceService);
             old = provinceService.get(current.getId());
-            System.out.println("Old is currently populated ******* "+old.getId());
+            System.out.println("Old is currently populated ******* " + old.getId());
         }
-        if(provinceService.checkDuplicate(current, old)){
+        if (provinceService.checkDuplicate(current, old)) {
             errors.rejectValue("name", "item.duplicate");
         }
     }

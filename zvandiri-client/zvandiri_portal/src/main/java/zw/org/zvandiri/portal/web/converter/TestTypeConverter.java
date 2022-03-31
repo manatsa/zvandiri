@@ -20,15 +20,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.TestType;
 
 /**
- *
  * @author Judge Muzinda
  */
-public class TestTypeConverter implements Converter<String, TestType		> {
+public class TestTypeConverter implements Converter<String, TestType> {
 
     @Override
-    public TestType	convert(String s) {
-        if(s.equals("")) return null;
+    public TestType convert(String s) {
+        if (s.equals("")) return null;
         return TestType.get(Integer.valueOf(s));
     }
-    
+
 }

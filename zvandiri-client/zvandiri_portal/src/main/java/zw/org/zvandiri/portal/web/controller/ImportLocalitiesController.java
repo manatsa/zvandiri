@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -35,7 +36,6 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.service.LocalityImporterService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
@@ -68,7 +68,7 @@ public class ImportLocalitiesController extends BaseController {
             }
             int count = 0;
             ArvHist firstRecord = null;
-            for (Iterator<ArvHist> arvHistIterator = hists.iterator(); arvHistIterator.hasNext();) {
+            for (Iterator<ArvHist> arvHistIterator = hists.iterator(); arvHistIterator.hasNext(); ) {
                 if (count == 0) {
                     firstRecord = arvHistIterator.next();
                 } else if (count == 1 && firstRecord != null) {
@@ -78,24 +78,24 @@ public class ImportLocalitiesController extends BaseController {
                 } else if (count == 2 && firstRecord != null) {
                     ArvHist thirdRecord = arvHistIterator.next();
                     firstRecord.setArvMedicine3(thirdRecord.getArvMedicine());
-                   // arvHistService.delete(thirdRecord);
+                    // arvHistService.delete(thirdRecord);
                 }
                 count++;
             }
             arvHistService.save(firstRecord);
         }
     }
-    
+
     @RequestMapping("/graduate-patient")
     public void test() {
 
         SearchDTO dto = new SearchDTO();
         dto.setStatus(PatientChangeEvent.ACTIVE);
-        dto.setEndDate(DateUtil.getDateDiffDate( -14, DateUtil.getDateFromAge(24)));
+        dto.setEndDate(DateUtil.getDateDiffDate(-14, DateUtil.getDateFromAge(24)));
         dto.setStartDate(DateUtil.getDateFromAge(45));
         patientService.updatePatientStatus(patientReportService.getPatientAboutToGraduateList(dto));
     }
-    
+
     @RequestMapping("/add-uac-patient")
     public void addUACToPatient() {
 

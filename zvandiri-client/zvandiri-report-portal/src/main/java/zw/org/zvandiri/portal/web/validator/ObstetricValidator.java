@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -24,7 +25,6 @@ import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.service.ObstercHistService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
@@ -49,18 +49,18 @@ public class ObstetricValidator implements Validator {
             errors.rejectValue("pregnant", "field.empty");
         }
         if (item.getPregnant() != null && item.getPregnant().equals(YesNo.YES)) {
-            if (item.getChildren() == null){
+            if (item.getChildren() == null) {
                 errors.rejectValue("children", "field.empty");
             }
-            if (item.getPregCurrent() == null){
+            if (item.getPregCurrent() == null) {
                 errors.rejectValue("pregCurrent", "field.empty");
             }
             if (item.getBreafFeedingCurrent() == null) {
                 errors.rejectValue("breafFeedingCurrent", "field.empty");
             }
         }
-        if (item.getPregCurrent()!= null && item.getPregCurrent().equals(YesNo.YES)) {
-            if (item.getNumberOfANCVisit()== null) {
+        if (item.getPregCurrent() != null && item.getPregCurrent().equals(YesNo.YES)) {
+            if (item.getNumberOfANCVisit() == null) {
                 errors.rejectValue("numberOfANCVisit", "field.empty");
             }
             if (item.getGestationalAge() == null) {

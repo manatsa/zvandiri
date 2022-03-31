@@ -16,23 +16,23 @@
 package zw.org.zvandiri.mobile.api.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.HivCoInfection;
 import zw.org.zvandiri.business.service.HivCoInfectionService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class HivCoInfectionConverter implements Converter<String, HivCoInfection> {
-    
+
     @Resource
     private HivCoInfectionService hivCoInfectionService;
 
     @Override
     public HivCoInfection convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return hivCoInfectionService.get(s);
     }
-    
+
 }

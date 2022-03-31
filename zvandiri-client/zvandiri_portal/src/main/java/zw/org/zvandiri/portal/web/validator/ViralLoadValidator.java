@@ -27,7 +27,6 @@ import zw.org.zvandiri.business.domain.InvestigationTest;
 import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 @Component
@@ -43,31 +42,30 @@ public class ViralLoadValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "testDone", "field.empty");
         InvestigationTest item = (InvestigationTest) o;
 
-        if(item.getTestDone()!=null && item.getTestDone().equals(YesNo.YES))
-        {
-            ValidationUtils.rejectIfEmpty(errors,"dateTaken", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors,"testType", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors,"source", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors,"nextTestDate", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors,"haveResult", "field.empty");
+        if (item.getTestDone() != null && item.getTestDone().equals(YesNo.YES)) {
+            ValidationUtils.rejectIfEmpty(errors, "dateTaken", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "testType", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "source", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "nextTestDate", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "haveResult", "field.empty");
 
         }
 
-        if(item.getHaveResult()!=null && item.getHaveResult().equals(YesNo.YES)) {
+        if (item.getHaveResult() != null && item.getHaveResult().equals(YesNo.YES)) {
             if (item.getResult() != null && item.getTnd() != null && item.getTnd() != "") {
                 errors.rejectValue("result", "tnd.viralload.both");
                 errors.rejectValue("tnd", "tnd.viralload.both");
             }
-            if(item.getResult()==null && (item.getTnd()==null || item.getTnd()=="")){
+            if (item.getResult() == null && (item.getTnd() == null || item.getTnd() == "")) {
                 errors.rejectValue("result", "tnd.viralload.missing");
                 errors.rejectValue("tnd", "tnd.viralload.missing");
             }
         }
 
 
-            if(item.getNextTestDate() != null && item.getNextTestDate().before(new Date())){
-                errors.rejectValue("nextTestDate","date.to.be.future");
-            }
+        if (item.getNextTestDate() != null && item.getNextTestDate().before(new Date())) {
+            errors.rejectValue("nextTestDate", "date.to.be.future");
+        }
 
         if (item.getDateTaken() != null && item.getDateTaken().after(new Date())) {
             errors.rejectValue("dateTaken", "date.to.be.past");

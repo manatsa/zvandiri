@@ -22,6 +22,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import org.springframework.stereotype.Component;
 import zw.org.zvandiri.business.domain.ActionTaken;
 import zw.org.zvandiri.business.domain.ArvMedicine;
@@ -84,7 +85,6 @@ import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.dto.UserDTO;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
@@ -150,179 +150,179 @@ public class StaticDataResource {
     private LabTaskService labTaskService;
     @Resource
     private UserService userService;
-    
+
     @GET
     @Path("/province")
     public List<Province> getProvinces() {
         return provinceService.getAll();
     }
-    
+
     @GET
     @Path("/district")
     public List<District> getDistricts() {
         return districtService.getAll();
     }
-    
+
     @GET
     @Path("/support-group")
     public List<SupportGroup> getSupportGroups() {
         return supportGroupService.getAll();
     }
-    
+
     @GET
     @Path("/facility")
     public List<Facility> getFacilities() {
         return facilityService.getAll();
     }
-    
+
     @GET
     @Path("/relationship")
     public List<Relationship> getRelationships() {
         return relationshipService.getAll();
     }
-    
+
     @GET
     @Path("/refer")
     public List<Referer> getReferer() {
         return refererService.getAll();
     }
-    
+
     @GET
     @Path("/orphan-status")
     public List<OrphanStatus> getOrphanStatus() {
         return orphanStatusService.getAll();
     }
-    
+
     @GET
     @Path("/education")
     public List<Education> getEducation() {
         return educationService.getAll();
     }
-    
+
     @GET
     @Path("/education-level")
     public List<EducationLevel> getEducationLevel() {
         return educationLevelService.getAll();
     }
-    
+
     @GET
     @Path("/location")
     public List<Location> getLocation() {
         return locationService.getAll();
     }
-    
+
     @GET
     @Path("/position")
     public List<Position> getPosition() {
         return positionService.getAll();
     }
-    
+
     @GET
     @Path("/internal-referral")
     public List<InternalReferral> getInternalReferral() {
         return internalReferralService.getAll();
     }
-    
+
     @GET
     @Path("/external-referral")
     public List<ExternalReferral> getExternalReferral() {
         return externalReferralService.getAll();
     }
-    
+
     @GET
     @Path("/chronic-infection")
     public List<ChronicInfection> getChronicInfection() {
         return chronicInfectionService.getAll();
     }
-    
+
     @GET
     @Path("/standard-follow-up")
     public List<Stable> getStable() {
         return stableService.getAll();
     }
-    
+
     @GET
     @Path("/enhanced-follow-up")
     public List<Enhanced> getEnhanced() {
         return enhancedService.getAll();
     }
-    
+
     @GET
     @Path("/service-referred")
     public List<ServicesReferred> getServicesReferred() {
         return servicesReferredService.getAll();
     }
-    
+
     @GET
     @Path("/hiv-co-infection")
     public List<HivCoInfection> getHivConInfection() {
         return hivCoInfectionService.getAll();
     }
-    
+
     @GET
     @Path("/mental-health")
     public List<MentalHealth> getMentalHealth() {
         return mentalHealthService.getAll();
     }
-    
+
     @GET
     @Path("/disability-category")
     public List<DisabilityCategory> getDisabilityCategory() {
         return disabilityCategoryService.getAll();
     }
-    
+
     @GET
     @Path("/assessment")
     public List<Assessment> getAssessment() {
         return assessmentService.getAll();
     }
-    
+
     @GET
     @Path("/arv-medicine")
     public List<ArvMedicine> getArvMedicine() {
         return arvMedicineService.getAll();
     }
-    
+
     @GET
     @Path("/hospitalisation-cause")
     public List<HospCause> getHospCause() {
         return hospService.getAll();
     }
-    
+
     @GET
     @Path("/substance")
     public List<Substance> getSubstance() {
         return substanceService.getAll();
     }
-    
+
     @GET
     @Path("/action-taken")
     public List<ActionTaken> getActionTaken() {
         return actionTakenService.getAll();
     }
-    
+
     @GET
     @Path("/reason-for-not-reaching-o-level")
     public List<ReasonForNotReachingOLevel> getReasonForNotReachingOLevel() {
         return reasonForNotReachingOLevelService.getAll();
     }
-    
+
     @GET
     @Path("/service-offered")
     public List<ServiceOffered> getServicesOffered() {
         return serviceOfferedService.getAll();
     }
-    
+
     @GET
     @Path("/user")
     public List<UserDTO> getUsers() {
         List<UserDTO> list = new ArrayList<>();
-        for(User user : userService.getAll()) {
+        for (User user : userService.getAll()) {
             list.add(UserDTO.getInstance(user));
         }
         return list;
     }
-    
+
     @GET
     @Path("/lab-task-service")
     public List<LabTask> getLabTaskService() {

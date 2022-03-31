@@ -16,23 +16,23 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.HalfYearPeriod;
 import zw.org.zvandiri.business.service.HalfYearPeriodService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class HalfYearPeriodConverter implements Converter<String, HalfYearPeriod> {
-    
+
     @Resource
     private HalfYearPeriodService halfYearPeriodService;
 
     @Override
     public HalfYearPeriod convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return halfYearPeriodService.get(s);
     }
-    
+
 }

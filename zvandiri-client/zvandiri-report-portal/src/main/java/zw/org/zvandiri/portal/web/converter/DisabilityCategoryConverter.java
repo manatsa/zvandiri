@@ -16,23 +16,23 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.DisabilityCategory;
 import zw.org.zvandiri.business.service.DisabilityCategoryService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class DisabilityCategoryConverter implements Converter<String, DisabilityCategory> {
-    
+
     @Resource
     private DisabilityCategoryService disabilityCategoryService;
 
     @Override
     public DisabilityCategory convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return disabilityCategoryService.get(s);
     }
-    
+
 }

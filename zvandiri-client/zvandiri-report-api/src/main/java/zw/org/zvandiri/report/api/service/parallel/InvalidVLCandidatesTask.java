@@ -12,10 +12,9 @@ import java.util.List;
 import java.util.concurrent.RecursiveTask;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
-public class InvalidVLCandidatesTask extends RecursiveTask<List>{
+public class InvalidVLCandidatesTask extends RecursiveTask<List> {
 
     private final PatientReportService reportService;
     private final SearchDTO searchData;

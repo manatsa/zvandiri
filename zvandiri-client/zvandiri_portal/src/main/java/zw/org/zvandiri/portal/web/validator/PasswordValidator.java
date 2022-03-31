@@ -19,11 +19,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
  * @author Edward Zengeni
  */
 public class PasswordValidator {
-     private final Pattern pattern;
+    private final Pattern pattern;
     private Matcher matcher;
     /*
      * (            # Start of group
@@ -51,7 +50,7 @@ public class PasswordValidator {
     public boolean validate(final String password) {
         if (password == null || password.trim().equals("")) {
             return false;
-        }        
+        }
         matcher = pattern.matcher(password);
         return matcher.matches();
 

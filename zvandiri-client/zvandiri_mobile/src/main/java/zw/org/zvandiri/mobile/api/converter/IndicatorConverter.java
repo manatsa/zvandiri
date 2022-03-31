@@ -19,14 +19,13 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.Indicator;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class IndicatorConverter implements Converter<String, Indicator> {
 
     @Override
     public Indicator convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return Indicator.get(Integer.valueOf(s));
     }
 }

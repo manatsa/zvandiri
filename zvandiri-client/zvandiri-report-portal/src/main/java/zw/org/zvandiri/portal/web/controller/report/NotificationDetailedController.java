@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.report;
 
 import java.util.Date;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,6 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 
 /**
- *
  * @author Judge Muzinda
  */
 @RequestMapping("/report/notification")
@@ -45,7 +45,7 @@ public class NotificationDetailedController extends BaseController {
     @Resource
     private PatientReportService patientReportService;
 
-   @RequestMapping(value = "/new-contacts-past-week", method = RequestMethod.GET)
+    @RequestMapping(value = "/new-contacts-past-week", method = RequestMethod.GET)
     public String getNewContactsPastOneWeek(ModelMap model) {
         model.addAttribute("pageTitle", APP_PREFIX + "New Contacts Received Past 1 Week");
         SearchDTO dto = new SearchDTO();

@@ -15,13 +15,13 @@
  */
 package zw.org.zvandiri.business.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  *
@@ -31,10 +31,10 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @Table(indexes = {
 		@Index(name = "facility_district", columnList = "district")
 })
-@JsonIgnoreProperties(value= {"patients"}, ignoreUnknown = true)
 public class Facility extends BaseName {
 
     @ManyToOne
+    //@JsonIgnoreProperties(value = { "uuid", "createdBy", "modifiedBy", "dateCreated","dateModified","version","deleted","description" })
     private District district;
     @Transient
     private Province province;
@@ -61,5 +61,12 @@ public class Facility extends BaseName {
     public void setProvince(Province province) {
         this.province = province;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Facility{" +
+                "district=" + district +
+                ", province=" + province +
+                '}';
+    }
 }

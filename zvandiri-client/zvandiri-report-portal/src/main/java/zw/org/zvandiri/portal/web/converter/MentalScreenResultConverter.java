@@ -19,14 +19,13 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.MentalScreenResult;
 
 /**
- *
  * @author tasu
  */
-public class MentalScreenResultConverter implements Converter<String, MentalScreenResult>{
+public class MentalScreenResultConverter implements Converter<String, MentalScreenResult> {
 
     @Override
     public MentalScreenResult convert(String s) {
         return s.equals("") ? null : MentalScreenResult.get(Integer.valueOf(s));
     }
-    
+
 }

@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class YesNoConverter implements Converter<String, YesNo> {
 
     @Override
     public YesNo convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return YesNo.get(Integer.valueOf(s));
     }
-    
+
 }

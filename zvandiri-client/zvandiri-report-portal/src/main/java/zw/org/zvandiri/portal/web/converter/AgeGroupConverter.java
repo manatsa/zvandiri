@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.AgeGroup;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class AgeGroupConverter implements Converter<String, AgeGroup> {
 
     @Override
     public AgeGroup convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return AgeGroup.get(Integer.valueOf(s));
     }
-    
+
 }

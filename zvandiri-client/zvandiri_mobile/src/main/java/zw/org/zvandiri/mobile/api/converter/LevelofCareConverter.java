@@ -16,23 +16,23 @@
 package zw.org.zvandiri.mobile.api.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.LevelOfCare;
 import zw.org.zvandiri.business.service.LevelOfCareService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class LevelofCareConverter implements Converter<String, LevelOfCare> {
-    
+
     @Resource
     private LevelOfCareService levelOfCareService;
 
     @Override
     public LevelOfCare convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return levelOfCareService.get(s);
     }
-    
+
 }

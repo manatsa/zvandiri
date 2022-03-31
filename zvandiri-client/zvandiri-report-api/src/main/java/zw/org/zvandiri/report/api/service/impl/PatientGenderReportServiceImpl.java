@@ -18,6 +18,7 @@ package zw.org.zvandiri.report.api.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.service.PatientReportService;
@@ -26,15 +27,14 @@ import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.PatientGenderReportService;
 
 /**
- *
  * @author Tasu Muzinda
  */
 @Repository
-public class PatientGenderReportServiceImpl implements PatientGenderReportService{
+public class PatientGenderReportServiceImpl implements PatientGenderReportService {
 
     @Resource
     private PatientReportService patientReportService;
-    
+
     @Override
     public List<GenericReportModel> getDefaultPieData(SearchDTO dto) {
         List<GenericReportModel> list = new ArrayList<>();
@@ -71,5 +71,5 @@ public class PatientGenderReportServiceImpl implements PatientGenderReportServic
     public List<GenericReportModel> getDefaultReportB(SearchDTO dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

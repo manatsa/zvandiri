@@ -19,15 +19,14 @@ import zw.org.zvandiri.business.domain.Dependent;
 import zw.org.zvandiri.business.domain.Patient;
 
 /**
- *
  * @author Judge Muzinda
  */
 public interface PatientCreationService {
- 
+
     public Patient createPatient();
-    
+
     public Patient savePatient(Patient patient);
-    
+
     public Dependent createDependant(Patient patient);
 
     public Patient getPatientById(String id);

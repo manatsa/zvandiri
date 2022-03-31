@@ -37,7 +37,6 @@ import zw.org.zvandiri.portal.web.controller.report.parallel.MentalHealthTask;
 import zw.org.zvandiri.report.api.DatabaseHeader;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
@@ -57,12 +56,12 @@ public class MentalHealthScreeningReportController extends BaseController {
     @Resource
     private PeriodService periodService;
 
-    
-    List<MentalHealthScreening> mentalHealthScreenings=new ArrayList<>();
+
+    List<MentalHealthScreening> mentalHealthScreenings = new ArrayList<>();
 
     public void setUpModel(ModelMap model, SearchDTO item, Boolean post, Boolean hei) {
         SearchDTO item2 = getUserLevelObjectState(item);
-        
+
         model.addAttribute("provinces", provinceService.getAll());
         model.addAttribute("periods", periodService.getAll());
         if (item2.getProvince() != null) {
@@ -96,7 +95,6 @@ public class MentalHealthScreeningReportController extends BaseController {
     }
 
 
-
     @RequestMapping(value = {"/range"}, method = RequestMethod.POST)
     public String getMentalRangeIndexPost(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item) {
         item = getUserLevelObjectState(item);
@@ -108,7 +106,6 @@ public class MentalHealthScreeningReportController extends BaseController {
     }
 
 
-
     @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Detailed_Mental_Health_Report");
@@ -116,16 +113,13 @@ public class MentalHealthScreeningReportController extends BaseController {
     }
 
 
-
-    public XSSFWorkbook createMentalHealthWorkbook()
-    {
+    public XSSFWorkbook createMentalHealthWorkbook() {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFCellStyle XSSFCellStyle = workbook.createCellStyle();
         XSSFCreationHelper createHelper = workbook.getCreationHelper();
         XSSFCellStyle.setDataFormat(
                 createHelper.createDataFormat().getFormat("dd/MM/yyyy"));
 
-        
 
         // mental health screening
         XSSFSheet mentalHealthScreeningDetails = workbook.createSheet("Patient_Mental_Health_Screening");
@@ -218,13 +212,13 @@ public class MentalHealthScreeningReportController extends BaseController {
 
             XSSFCell diagnoses = mentalHealthScreeningRow.createCell(++count);
             diagnoses.setCellValue((mentalHealthScreening.getDiagnoses() != null && !mentalHealthScreening.getDiagnoses().isEmpty())
-                    ? Reportutil.diagnosisStringsFromList(mentalHealthScreening.getDiagnoses()): "");
+                    ? Reportutil.diagnosisStringsFromList(mentalHealthScreening.getDiagnoses()) : "");
 
             XSSFCell otherDiagnosis = mentalHealthScreeningRow.createCell(++count);
             otherDiagnosis.setCellValue(mentalHealthScreening.getOtherDiagnosis());
 
             XSSFCell intervention = mentalHealthScreeningRow.createCell(++count);
-            intervention.setCellValue(mentalHealthScreening.getIntervention() != null? mentalHealthScreening.getIntervention().getName() : "");
+            intervention.setCellValue(mentalHealthScreening.getIntervention() != null ? mentalHealthScreening.getIntervention().getName() : "");
 
             XSSFCell interventions = mentalHealthScreeningRow.createCell(++count);
             interventions.setCellValue((mentalHealthScreening.getInterventions() != null && !mentalHealthScreening.getInterventions().isEmpty())
@@ -232,18 +226,18 @@ public class MentalHealthScreeningReportController extends BaseController {
 
             XSSFCell otherIntervention = mentalHealthScreeningRow.createCell(++count);
             otherIntervention.setCellValue(mentalHealthScreening.getOtherIntervention());
-            
+
             XSSFCell isCats = mentalHealthScreeningRow.createCell(++count);
             isCats.setCellValue(mentalHealthScreening.getPatient().getCat() != null ? mentalHealthScreening.getPatient().getCat().getName() : null);
 
             XSSFCell youngMumGroup = mentalHealthScreeningRow.createCell(++count);
             youngMumGroup.setCellValue(
-            		mentalHealthScreening.getPatient().getYoungMumGroup() != null ? mentalHealthScreening.getPatient().getYoungMumGroup().getName() : null
+                    mentalHealthScreening.getPatient().getYoungMumGroup() != null ? mentalHealthScreening.getPatient().getYoungMumGroup().getName() : null
             );
 
             XSSFCell ymd = mentalHealthScreeningRow.createCell(++count);
             ymd.setCellValue(
-                    mentalHealthScreening.getPatient().getYoungDadGroup()!= null ? mentalHealthScreening.getPatient().getYoungDadGroup().getName() : null
+                    mentalHealthScreening.getPatient().getYoungDadGroup() != null ? mentalHealthScreening.getPatient().getYoungDadGroup().getName() : null
             );
 
         }

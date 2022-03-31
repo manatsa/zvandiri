@@ -16,21 +16,21 @@
 package zw.org.zvandiri.portal.web.controller.process;
 
 import java.util.Map;
+
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.portal.web.controller.IAppTitle;
 
 /**
- *
  * @author Judge Muzinda
  */
 public interface AppPropService extends IAppTitle {
-    
+
     public User getUserName();
-    
+
     public Map<String, String> getDateYearRanges();
-    
+
     public String processTitle(String name);
-    
+
     public Boolean getHeu(Patient patient);
 }

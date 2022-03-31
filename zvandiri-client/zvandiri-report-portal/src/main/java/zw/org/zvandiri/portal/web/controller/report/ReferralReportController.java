@@ -20,6 +20,7 @@ import java.util.concurrent.ForkJoinPool;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -34,13 +35,14 @@ import zw.org.zvandiri.business.service.ReferalReportService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+
 import zw.org.zvandiri.portal.web.controller.report.parallel.GenericCountReportTask;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 import zw.org.zvandiri.report.api.service.ReferralReportAPIService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
@@ -97,6 +99,6 @@ public class ReferralReportController extends BaseController {
         String name = DateUtil.getFriendlyFileName("Detailed_Referral_Report");
         forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(referralReportAPIService.getDefaultReport(item.getInstance(item)), name), name, response);
     }
-    
-    
+
+
 }

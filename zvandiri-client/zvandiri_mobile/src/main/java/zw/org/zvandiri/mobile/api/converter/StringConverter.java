@@ -18,15 +18,14 @@ package zw.org.zvandiri.mobile.api.converter;
 import org.springframework.core.convert.converter.Converter;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class StringConverter implements Converter<String, String> {
 
     @Override
     public String convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return s.trim();
     }
-    
+
 }

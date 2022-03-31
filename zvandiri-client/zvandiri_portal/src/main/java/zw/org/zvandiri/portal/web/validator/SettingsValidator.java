@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -24,12 +25,11 @@ import zw.org.zvandiri.business.domain.Settings;
 import zw.org.zvandiri.business.service.SettingsService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
 public class SettingsValidator implements Validator {
-    
+
     @Resource
     private SettingsService settingsService;
 
@@ -50,11 +50,11 @@ public class SettingsValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "minAgeToGiveBirth", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "patientAutoExpireAfterMaxAge", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "heuMotherMaxAge", "field.empty");
-        if(item.getId() == null){
-            if(settingsService.getItem() != null){
+        if (item.getId() == null) {
+            if (settingsService.getItem() != null) {
                 errors.rejectValue("uuid", "item.exists");
             }
         }
     }
-    
+
 }

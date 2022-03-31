@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,19 +26,18 @@ import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 
 /**
- *
  * @author jmuzinda
  */
 @Controller
 @RequestMapping("/patient")
 public class PatientDemographicController extends BaseController {
-    
+
     @Resource
     private PatientService patientService;
-    
+
     @RequestMapping(value = "/demographic", method = RequestMethod.GET)
     public String getDemographicForm(ModelMap model, @RequestParam String patientId) {
-        
+
         return "";
     }
 }

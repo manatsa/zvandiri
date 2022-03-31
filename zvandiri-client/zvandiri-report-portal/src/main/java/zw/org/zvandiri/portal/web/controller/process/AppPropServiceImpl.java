@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.process;
 
 import java.util.Map;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.User;
@@ -25,7 +26,6 @@ import zw.org.zvandiri.business.service.DatePropertyService;
 import zw.org.zvandiri.business.service.UserService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Repository("sysPropService")
@@ -35,7 +35,7 @@ public class AppPropServiceImpl implements AppPropService {
     private UserService userService;
     @Resource
     private DatePropertyService datePropertyService;
-    
+
     @Override
     public User getUserName() {
         return userService.getCurrentUser();
@@ -48,12 +48,12 @@ public class AppPropServiceImpl implements AppPropService {
 
     @Override
     public String processTitle(String name) {
-        return APP_PREFIX+name;
+        return APP_PREFIX + name;
     }
 
     @Override
     public Boolean getHeu(Patient patient) {
         return patient.getHei().equals(YesNo.YES);
     }
-    
+
 }

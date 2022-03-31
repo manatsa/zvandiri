@@ -25,6 +25,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -45,7 +46,6 @@ import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 
 /**
- *
  * @author Judge Muzinda
  */
 abstract public class BaseController implements IAppTitle {
@@ -71,37 +71,36 @@ abstract public class BaseController implements IAppTitle {
     public Map<String, String> getDateYearRanges() {
         return datePropertyService.getAllYearRanges();
     }
-    
+
     @ModelAttribute("userLevel")
-    public UserLevel getUserLevel (){
+    public UserLevel getUserLevel() {
         User user = userService.getCurrentUser();
-        if  (user == null){
+        if (user == null) {
             return null;
         } else if (user.getUserLevel() == null) {
             return UserLevel.NATIONAL;
         }
         return userService.getCurrentUser().getUserLevel();
     }
-    
-    public SearchDTO getUserLevelObjectState(SearchDTO dto){
+
+    public SearchDTO getUserLevelObjectState(SearchDTO dto) {
         User user = getUserName();
-        if (user.getUserLevel() == null){
+        if (user.getUserLevel() == null) {
             return dto.getInstance(dto);
-        }
-        else if (user.getUserLevel().equals(UserLevel.PROVINCE)){
+        } else if (user.getUserLevel().equals(UserLevel.PROVINCE)) {
             dto.setProvince(user.getProvince());
-        } else if (user.getUserLevel().equals(UserLevel.DISTRICT)){
+        } else if (user.getUserLevel().equals(UserLevel.DISTRICT)) {
             dto.setDistrict(user.getDistrict());
         }
-       // System.err.println(dto.toString());
+        // System.err.println(dto.toString());
         return dto;
     }
 
-    
+
     public void getPatientStatus(Patient patient, ModelMap model) {
         StringBuilder warning = new StringBuilder();
         model.addAttribute("canEdit", Boolean.FALSE);
-        switch (patient.getStatus()){
+        switch (patient.getStatus()) {
             case DECEASED:
                 warning.append("This client is deceaced therefore this record is read only and cannot be edited any further");
                 model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(warning.toString()).messageType(MessageType.ERROR).build());
@@ -124,7 +123,7 @@ abstract public class BaseController implements IAppTitle {
                 warning.append("");
         }
     }
-    
+
     public AppMessage getMessage(Integer type) {
         switch (type) {
             case 1:
@@ -139,7 +138,7 @@ abstract public class BaseController implements IAppTitle {
     }
 
     public String getTitle(SearchDTO dto, String desc) {
-        if (dto.getPrimaryClinic()!= null) {
+        if (dto.getPrimaryClinic() != null) {
             return dto.getPrimaryClinic().getName() + " Facility " + desc;
         } else if (dto.getDistrict() != null) {
             return dto.getDistrict().getName() + " District " + desc;
@@ -151,7 +150,7 @@ abstract public class BaseController implements IAppTitle {
 
     @ResponseBody
     public void forceDownLoadXLSX(XSSFWorkbook workbook, String name, HttpServletResponse response) {
-        try(ServletOutputStream myOut = response.getOutputStream();) {
+        try (ServletOutputStream myOut = response.getOutputStream();) {
             //Write the workbook in file system
             response.setContentType("application/vnd.ms-excel");
             response.setHeader("Content-Disposition", "filename=" + name + ".xlsx");
@@ -159,7 +158,7 @@ abstract public class BaseController implements IAppTitle {
             myOut.flush();
             myOut.close();
         } catch (IOException e) {
-            System.err.println("ForceDOWNLOAD Method: ");            
+            System.err.println("ForceDOWNLOAD Method: ");
             e.printStackTrace();
         }
     }
@@ -168,9 +167,9 @@ abstract public class BaseController implements IAppTitle {
     @ResponseBody
     public void forceDownLoadDatabase(XSSFWorkbook workbook, String name, HttpServletResponse response) {
 
-            //Write the workbook in file system
-            response.setContentType("application/vnd.ms-excel");
-            response.setHeader("Content-Disposition", "filename=" + name + ".xlsx");
+        //Write the workbook in file system
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "filename=" + name + ".xlsx");
 
         try {
             workbook.write(response.getOutputStream());
@@ -181,13 +180,13 @@ abstract public class BaseController implements IAppTitle {
 
 
     }
-    
+
     public void setViralLoad(ModelMap model, Patient item) {
         model.addAttribute("latestViralLoad", investigationTestService.getLatestTestByTestType(item, TestType.VIRAL_LOAD));
     }
-    
+
     @PostConstruct
-    public void getSystemSettings(){
+    public void getSystemSettings() {
         settings = settings == null ? settingsService.getItem() : settings;
     }
 }

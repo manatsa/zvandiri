@@ -19,14 +19,13 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.IdentifiedRisk;
 
 /**
- *
  * @author tasu
  */
-public class IdentifiedRiskConverter implements Converter<String, IdentifiedRisk>{
+public class IdentifiedRiskConverter implements Converter<String, IdentifiedRisk> {
 
     @Override
     public IdentifiedRisk convert(String s) {
         return s.equals("") ? null : IdentifiedRisk.get(Integer.valueOf(s));
     }
-    
+
 }

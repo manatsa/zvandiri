@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -24,15 +25,14 @@ import zw.org.zvandiri.business.domain.Assessment;
 import zw.org.zvandiri.business.service.AssessmentService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
 public class AssessmentValidator implements Validator {
-    
+
     @Resource
     private AssessmentService assessmentService;
-    
+
     @Override
     public boolean supports(Class<?> type) {
         return type.equals(Assessment.class);

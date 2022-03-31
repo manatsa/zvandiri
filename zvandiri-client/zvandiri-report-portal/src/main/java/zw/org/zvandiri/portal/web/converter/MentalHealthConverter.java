@@ -16,12 +16,12 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.MentalHealth;
 import zw.org.zvandiri.business.service.MentalHealthService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class MentalHealthConverter implements Converter<String, MentalHealth> {

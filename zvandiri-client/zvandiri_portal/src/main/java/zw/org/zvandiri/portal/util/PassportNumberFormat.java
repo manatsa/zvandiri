@@ -5,7 +5,6 @@
 package zw.org.zvandiri.portal.util;
 
 /**
- *
  * @author artwell
  */
 public class PassportNumberFormat {

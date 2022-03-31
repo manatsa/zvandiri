@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -24,12 +25,11 @@ import zw.org.zvandiri.business.domain.Facility;
 import zw.org.zvandiri.business.service.FacilityService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
 public class FacilityValidator implements Validator {
- 
+
     @Resource
     private FacilityService facilityService;
 
@@ -42,11 +42,11 @@ public class FacilityValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Facility facility = (Facility) o;
         ValidationUtils.rejectIfEmpty(errors, "name", "field.empty");
-        if(facility.getDistrict() == null){
+        if (facility.getDistrict() == null) {
             errors.rejectValue("district", "field.empty");
         }
-        if(facility.getDistrict().getProvince() == null){
+        if (facility.getDistrict().getProvince() == null) {
             errors.rejectValue("province", "field.empty");
         }
-    }   
+    }
 }

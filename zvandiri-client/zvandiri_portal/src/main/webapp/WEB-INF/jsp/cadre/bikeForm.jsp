@@ -9,12 +9,13 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../template/dashboard/cadreProfile.jspf" %>
                         </div>
                     </div>
                 </div>
-                <a href="${page}/cadre/view?id=${cadre.id}">&DoubleLeftArrow; Back To ${cadre.name} Dashboard</a><br/><br/>
+                <a href="${page}/cadre/view?id=${cadre.id}">&DoubleLeftArrow; Back To ${cadre.name}
+                    Dashboard</a><br/><br/>
                 <div class="row">
 
                     <div class="col-lg-10">
@@ -52,14 +53,14 @@
 
                             <div class="form-group sec-own-mobile">
                                 <label>Date Issued</label>
-                                <form:input  path="dateIssued"  class="form-control general"/>
+                                <form:input path="dateIssued" class="form-control general"/>
                                 <p class="help-block">
                                     <form:errors path="dateIssued" class="alert-danger"/>
                                 </p>
                             </div>
                             <div class="form-group sec-own-mobile">
                                 <label>Date Recovered</label>
-                                <form:input  path="dateRecovered"  class="form-control general"/>
+                                <form:input path="dateRecovered" class="form-control general"/>
                                 <p class="help-block">
                                     <form:errors path="dateRecovered" class="alert-danger"/>
                                 </p>
@@ -67,7 +68,7 @@
 
                             <div class="form-group">
                                 <label>Bicycle Issues</label>
-                                <form:textarea  path="bikeIssues" size="6" class="form-control word-case"/>
+                                <form:textarea path="bikeIssues" size="6" class="form-control word-case"/>
                                 <p class="help-block">
                                     <form:errors path="bikeIssues" class="alert-danger"/>
                                 </p>
@@ -75,7 +76,9 @@
 
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Save</button>
-                                <a href="${page}/cadre/view?id=${cadre.id}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <a href="${page}/cadre/view?id=${cadre.id}">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>

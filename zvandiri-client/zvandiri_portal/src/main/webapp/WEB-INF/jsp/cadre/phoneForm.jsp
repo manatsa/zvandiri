@@ -9,17 +9,18 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../template/dashboard/cadreProfile.jspf" %>
                         </div>
                     </div>
                 </div>
-                <a href="${page}/cadre/view?id=${cadre.id}">&DoubleLeftArrow; Back To ${cadre.name} Dashboard</a><br/><br/>
+                <a href="${page}/cadre/view?id=${cadre.id}">&DoubleLeftArrow; Back To ${cadre.name}
+                    Dashboard</a><br/><br/>
                 <div class="row">
 
                     <div class="col-lg-10">
                         <form:form commandName="item" id="catPhoneForm" action="${formAction}">
-                            <form:hidden path="cadre" value="${phone.cadre}"/>
+                            <form:hidden path="cadre" value="${item.cadre}"/>
                             <%@include file="../template/formState.jspf" %>
                             <div class="form-group">
                                 <label>Mobile Phone Make</label>
@@ -30,6 +31,13 @@
                             </div>
                             <div class="form-group">
                                 <label>Mobile Phone Model</label>
+                                <form:input path="serialNumber" class="form-control word-case"/>
+                                <p class="help-block">
+                                    <form:errors path="serialNumber" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>Mobile Phone Serial Number</label>
                                 <form:input path="phoneModel" class="form-control word-case"/>
                                 <p class="help-block">
                                     <form:errors path="phoneModel" class="alert-danger"/>
@@ -51,7 +59,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Imei Number 1</label>
-                                <form:input path="imei1"  class="form-control word-case"/>
+                                <form:input path="imei1" class="form-control word-case"/>
                                 <p class="help-block">
                                     <form:errors path="imei1" class="alert-danger"/>
                                 </p>
@@ -87,14 +95,14 @@
 
                             <div class="form-group sec-own-mobile">
                                 <label>Date Issued</label>
-                                <form:input  path="dateIssued"  class="form-control general"/>
+                                <form:input path="dateIssued" class="form-control general"/>
                                 <p class="help-block">
                                     <form:errors path="dateIssued" class="alert-danger"/>
                                 </p>
                             </div>
                             <div class="form-group sec-own-mobile">
                                 <label>Date Recovered</label>
-                                <form:input  path="dateRecovered"  class="form-control general"/>
+                                <form:input path="dateRecovered" class="form-control general"/>
                                 <p class="help-block">
                                     <form:errors path="dateRecovered" class="alert-danger"/>
                                 </p>
@@ -102,7 +110,7 @@
 
                             <div class="form-group">
                                 <label>Phone Issues</label>
-                                <form:textarea  path="phoneIssues" size="6" class="form-control word-case"/>
+                                <form:textarea path="phoneIssues" size="6" class="form-control word-case"/>
                                 <p class="help-block">
                                     <form:errors path="phoneIssues" class="alert-danger"/>
                                 </p>
@@ -110,7 +118,9 @@
 
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Save</button>
-                                <a href="${page}/cadre/view?id=${cadre.id}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <a href="${page}/cadre/view?id=${cadre.id}">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>

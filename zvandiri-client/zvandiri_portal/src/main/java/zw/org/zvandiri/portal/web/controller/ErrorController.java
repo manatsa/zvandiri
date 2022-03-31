@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,19 +25,18 @@ import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 
 /**
- *
  * @author User
  */
 @Controller
-public class ErrorController extends BaseController{
-    
+public class ErrorController extends BaseController {
+
     @RequestMapping(value = "/errors", method = RequestMethod.GET)
-    public String renderErrorPage(HttpServletRequest request, ModelMap map){
+    public String renderErrorPage(HttpServletRequest request, ModelMap map) {
         String errorMsg = "";
         String pageTitle = APP_PREFIX;
         int errorCode = getErrorCode(request);
         final String referer = request.getHeader("referer");
-        switch(errorCode){
+        switch (errorCode) {
             case 400:
                 pageTitle += "User input error";
                 errorMsg = "Application encountered an error due to user input.";
@@ -59,8 +59,8 @@ public class ErrorController extends BaseController{
         map.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(errorMsg).messageType(MessageType.ERROR).build());
         return "error";
     }
-    
-    public int getErrorCode(HttpServletRequest request){
+
+    public int getErrorCode(HttpServletRequest request) {
         return (Integer) request.getAttribute("javax.servlet.error.status_code");
     }
 }

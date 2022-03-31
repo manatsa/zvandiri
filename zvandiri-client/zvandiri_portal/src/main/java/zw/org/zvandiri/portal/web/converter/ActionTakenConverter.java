@@ -16,12 +16,12 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.ActionTaken;
 import zw.org.zvandiri.business.service.ActionTakenService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class ActionTakenConverter implements Converter<String, ActionTaken> {
@@ -31,8 +31,8 @@ public class ActionTakenConverter implements Converter<String, ActionTaken> {
 
     @Override
     public ActionTaken convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return actionTakenService.get(s);
-    }    
+    }
 
 }

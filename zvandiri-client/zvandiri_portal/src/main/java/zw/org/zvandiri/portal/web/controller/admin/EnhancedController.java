@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.admin;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -33,18 +34,17 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.validator.EnhancedValidator;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
 @RequestMapping("/admin/enhanced")
 public class EnhancedController extends BaseController {
-    
+
     @Resource
     private EnhancedService enhancedService;
     @Resource
     private EnhancedValidator enhancedValidator;
-    
+
     public void setUpModel(ModelMap model, Enhanced item) {
         model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit Enhanced Followup");
         model.addAttribute("item", item);

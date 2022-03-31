@@ -18,11 +18,10 @@ package zw.org.zvandiri.report.api;
 import java.io.Serializable;
 
 /**
- *
  * @author Judge Muzinda
  */
 public final class ChartModelItem implements Serializable {
-    
+
     private final String chartName;
     private final String xAxisName;
     private final String yAxisName;
@@ -42,7 +41,7 @@ public final class ChartModelItem implements Serializable {
         this.topValue = topValue;
         this.useCount = useCount;
     }
-    
+
 
     public String getChartName() {
         return chartName;

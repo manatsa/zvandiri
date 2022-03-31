@@ -38,7 +38,6 @@ import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
 /**
- *
  * @author Mana
  */
 @Controller
@@ -97,7 +96,7 @@ public class CadreReportController extends BaseController {
     public String getReportResult(ModelMap model, @ModelAttribute("item") SearchDTO item) {
         item = getUserLevelObjectState(item);
         ForkJoinPool pool = ForkJoinPool.commonPool();
-        cadres=pool.invoke(new CadreToolsReportTask(DateUtil.generateArray(cadreService.getCount(item)), cadreService, item));
+        cadres = pool.invoke(new CadreToolsReportTask(DateUtil.generateArray(cadreService.getCount(item)), cadreService, item));
         //System.err.println("Cadres Size: "+cadres.size());
         //System.err.println("First Cadre: "+cadres.get(0).toString());
         setUpModel(model, item, true);
@@ -131,8 +130,8 @@ public class CadreReportController extends BaseController {
         for (Cadre cadre : cadres) {
             int count = 0;
 
-            MobilePhone phone=mobilePhoneService.getByCadre(cadre);
-            Bicycle bike=bicycleService.getByCadre(cadre);
+            MobilePhone phone = mobilePhoneService.getByCadre(cadre);
+            Bicycle bike = bicycleService.getByCadre(cadre);
 
 //            System.err.println("CADRE: "+cadre+"PHONE: \n"+phone+"\nBIKE: "+bike);
             cadreRow = cadreToolsSheet.createRow(cadreRowNum++);
@@ -151,10 +150,10 @@ public class CadreReportController extends BaseController {
             age.setCellValue(cadre.getAge());
 
             XSSFCell dateOfBirth = cadreRow.createCell(count++);
-            if(cadre.getDateOfBirth()!=null){
+            if (cadre.getDateOfBirth() != null) {
                 dateOfBirth.setCellValue(cadre.getDateOfBirth());
                 dateOfBirth.setCellStyle(cellStyle);
-            }else{
+            } else {
                 dateOfBirth.setCellType(XSSFCell.CELL_TYPE_BLANK);
             }
             //Optional.ofNullable(cadre.getDateOfBirth()).ifPresent(dateOfBirth::setCellValue);
@@ -166,11 +165,11 @@ public class CadreReportController extends BaseController {
 
             XSSFCell cadreStatus = cadreRow.createCell(count++);
             //Optional<PatientChangeEvent> cadreStatusOptional=Optional.ofNullable(cadre.getStatus());
-            cadreStatus.setCellValue(cadre.getStatus()!=null? cadre.getStatus().getName():"");
+            cadreStatus.setCellValue(cadre.getStatus() != null ? cadre.getStatus().getName() : "");
 
             XSSFCell cadreType = cadreRow.createCell(count++);
             //Optional<CaderType> cadreTypeOptional=Optional.ofNullable(cadre.getCaderType());
-            cadreType.setCellValue(cadre.getCaderType()!=null? cadre.getCaderType().getName():"");
+            cadreType.setCellValue(cadre.getCaderType() != null ? cadre.getCaderType().getName() : "");
 
             XSSFCell primaryClinic = cadreRow.createCell(count++);
             //Optional<Facility> facilityOptional=Optional.ofNullable(cadre.getPrimaryClinic());
@@ -185,21 +184,21 @@ public class CadreReportController extends BaseController {
             province.setCellValue(cadre.getProvince().getName());
 
             XSSFCell make = cadreRow.createCell(count++);
-            if(phone!=null){
-             make.setCellValue(phone.getPhoneMake());
+            if (phone != null) {
+                make.setCellValue(phone.getPhoneMake());
             }
 
             XSSFCell model = cadreRow.createCell(count++);
-            if(phone!=null){
+            if (phone != null) {
                 model.setCellValue(phone.getPhoneModel());
             }
 
             XSSFCell phoneDateIssued = cadreRow.createCell(count++);
-            if(phone!=null){
-                if(phone.getDateIssued()!=null){
+            if (phone != null) {
+                if (phone.getDateIssued() != null) {
                     phoneDateIssued.setCellValue(phone.getDateIssued());
                     phoneDateIssued.setCellStyle(cellStyle);
-                }else{
+                } else {
                     phoneDateIssued.setCellType(XSSFCell.CELL_TYPE_BLANK);
                 }
 
@@ -207,11 +206,11 @@ public class CadreReportController extends BaseController {
 
 
             XSSFCell phoneDateRecovered = cadreRow.createCell(count++);
-            if(phone!=null){
-                if(phone.getDateRecovered()!=null){
+            if (phone != null) {
+                if (phone.getDateRecovered() != null) {
                     phoneDateRecovered.setCellValue(phone.getDateRecovered());
                     phoneDateRecovered.setCellStyle(cellStyle);
-                }else{
+                } else {
                     phoneDateRecovered.setCellType(XSSFCell.CELL_TYPE_BLANK);
                 }
 
@@ -219,11 +218,11 @@ public class CadreReportController extends BaseController {
 
 
             XSSFCell dateCreated = cadreRow.createCell(count++);
-            if(phone!=null){
-                if(phone.getDateCreated()!=null){
+            if (phone != null) {
+                if (phone.getDateCreated() != null) {
                     dateCreated.setCellValue(phone.getDateCreated());
                     dateCreated.setCellStyle(cellStyle);
-                }else{
+                } else {
                     dateCreated.setCellType(XSSFCell.CELL_TYPE_BLANK);
                 }
 
@@ -231,55 +230,55 @@ public class CadreReportController extends BaseController {
 
 
             XSSFCell condition = cadreRow.createCell(count++);
-            if(phone!=null){
+            if (phone != null) {
                 //Optional<Condition> conditionOptional=Optional.ofNullable(phone.getPhoneCondition());
-                condition.setCellValue(phone.getPhoneCondition()!=null?phone.getPhoneCondition().getName():"");
+                condition.setCellValue(phone.getPhoneCondition() != null ? phone.getPhoneCondition().getName() : "");
             }
 
 
             XSSFCell phoneStatus = cadreRow.createCell(count++);
-            if(phone!=null){
+            if (phone != null) {
                 //Optional<PhoneStatus> statusOptional=Optional.ofNullable(phone.getPhoneStatus());
-                phoneStatus.setCellValue(phone.getPhoneStatus()!=null?phone.getPhoneStatus().getName():"");
+                phoneStatus.setCellValue(phone.getPhoneStatus() != null ? phone.getPhoneStatus().getName() : "");
             }
 
 
             XSSFCell imei1 = cadreRow.createCell(count++);
-            if(phone!=null){
+            if (phone != null) {
                 imei1.setCellValue(phone.getImei1());
             }
 
             XSSFCell imei2 = cadreRow.createCell(count++);
-            if(phone!=null){
-                imei2.setCellValue(phone.getImei2()!=null?phone.getImei2():"");
+            if (phone != null) {
+                imei2.setCellValue(phone.getImei2() != null ? phone.getImei2() : "");
             }
 
             XSSFCell msisdn1 = cadreRow.createCell(count++);
-            if(phone!=null){
+            if (phone != null) {
                 msisdn1.setCellValue(phone.getMsisdn1());
             }
 
             XSSFCell msisdn2 = cadreRow.createCell(count++);
-            if(phone!=null){
-                msisdn2.setCellValue(phone.getMsisdn2()!=null?phone.getMsisdn2():"");
+            if (phone != null) {
+                msisdn2.setCellValue(phone.getMsisdn2() != null ? phone.getMsisdn2() : "");
             }
 
             XSSFCell issues = cadreRow.createCell(count++);
-            if(phone!=null){
-                issues.setCellValue(phone.getPhoneIssues()!=null?phone.getPhoneIssues():"");
+            if (phone != null) {
+                issues.setCellValue(phone.getPhoneIssues() != null ? phone.getPhoneIssues() : "");
             }
 
             XSSFCell type = cadreRow.createCell(count++);
-            if(bike!=null){
+            if (bike != null) {
                 type.setCellValue(bike.getBikeType());
             }
 
             XSSFCell cadreDateIssued = cadreRow.createCell(count++);
-            if(bike!=null){
-                if(bike.getDateIssued()!=null){
+            if (bike != null) {
+                if (bike.getDateIssued() != null) {
                     cadreDateIssued.setCellValue(bike.getDateIssued());
                     cadreDateIssued.setCellStyle(cellStyle);
-                }else{
+                } else {
                     cadreDateIssued.setCellType(XSSFCell.CELL_TYPE_BLANK);
                 }
                 //Optional.ofNullable(bike.getDateIssued()).ifPresent(cadreDateIssued::setCellValue);
@@ -288,11 +287,11 @@ public class CadreReportController extends BaseController {
 
 
             XSSFCell cadreDateRecovered = cadreRow.createCell(count++);
-            if(bike!=null){
-                if(bike.getDateRecovered()!=null){
+            if (bike != null) {
+                if (bike.getDateRecovered() != null) {
                     cadreDateRecovered.setCellValue(bike.getDateRecovered());
                     cadreDateRecovered.setCellStyle(cellStyle);
-                }else{
+                } else {
                     cadreDateRecovered.setCellType(XSSFCell.CELL_TYPE_BLANK);
                 }
                 //Optional.ofNullable(bike.getDateRecovered()).ifPresent(cadreDateRecovered::setCellValue);
@@ -301,11 +300,11 @@ public class CadreReportController extends BaseController {
 
 
             XSSFCell bikeDateCreated = cadreRow.createCell(count++);
-            if(bike!=null){
-                if(bike.getDateCreated()!=null){
+            if (bike != null) {
+                if (bike.getDateCreated() != null) {
                     bikeDateCreated.setCellValue(bike.getDateCreated());
                     dateCreated.setCellStyle(cellStyle);
-                }else{
+                } else {
 
                 }
                 //Optional.ofNullable(cadre.getDateCreated()).ifPresent(bikeDateCreated::setCellValue);
@@ -314,22 +313,22 @@ public class CadreReportController extends BaseController {
 
 
             XSSFCell bikeCondition = cadreRow.createCell(count++);
-            if(bike!=null){
+            if (bike != null) {
                 //Optional<Condition> conditionOptional=Optional.ofNullable(bike.getBikeCondition());
-                bikeCondition.setCellValue(bike.getBikeCondition()!=null?bike.getBikeCondition().getName():"");
+                bikeCondition.setCellValue(bike.getBikeCondition() != null ? bike.getBikeCondition().getName() : "");
             }
 
 
             XSSFCell bikeStatus = cadreRow.createCell(count++);
-            if(bike!=null){
+            if (bike != null) {
                 //Optional<PhoneStatus> statusOptional=Optional.ofNullable(bike.getBikeStatus());
-                bikeStatus.setCellValue(bike.getBikeStatus()!=null?bike.getBikeStatus().getName():"");
+                bikeStatus.setCellValue(bike.getBikeStatus() != null ? bike.getBikeStatus().getName() : "");
             }
 
 
             XSSFCell bikeIssues = cadreRow.createCell(count++);
-            if(bike!=null){
-                bikeIssues.setCellValue(bike.getBikeIssues()!=null?bike.getBikeIssues():"");
+            if (bike != null) {
+                bikeIssues.setCellValue(bike.getBikeIssues() != null ? bike.getBikeIssues() : "");
             }
 
 

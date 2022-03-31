@@ -22,19 +22,18 @@ import zw.org.zvandiri.business.service.ContactService;
 import javax.annotation.Resource;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 @Repository("contactCreationService")
 public class ContactCreationServiceImpl implements ContactCreationService {
-    
+
     @Resource
     private ContactService contactService;
 
     @Override
     public Contact createContact() {
         //System.err.println("------------ Webflow Contact ------------");
-        Contact contact=new Contact();
+        Contact contact = new Contact();
         //System.err.println("Contact :"+contact.toString());
         return contact;
     }
@@ -45,5 +44,5 @@ public class ContactCreationServiceImpl implements ContactCreationService {
         System.err.println(contact);
         return contactService.save(contact);
     }
-    
+
 }

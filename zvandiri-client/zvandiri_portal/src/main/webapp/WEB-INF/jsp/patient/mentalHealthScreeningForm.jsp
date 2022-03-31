@@ -9,18 +9,19 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
                 </div>
-                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/><br/>
+                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back
+                    To ${patient.name} Dashboard</a><br/><br/>
                 <div class="row">
                     <div class="col-lg-10">
                         <form:form commandName="item" action="${formAction}">
                             <%@include file="../template/formState.jspf" %>
                             <form:hidden path="currentElement"/>
-                            <form:hidden path="patient" value="${item.patient.id}"/>    
+                            <form:hidden path="patient" value="${item.patient.id}"/>
                             <div class="form-group">
                                 <label>Screened For Mental Health</label>
                                 <form:select path="screenedForMentalHealth" class="form-control">
@@ -43,7 +44,8 @@
                                     <label>Screening Type</label>
                                     <form:select path="screening" class="form-control">
                                         <form:option value="" label="--Select Item"/>
-                                        <form:options items="${mentalHealthScreeningType}" itemValue="code" itemLabel="name"/>
+                                        <form:options items="${mentalHealthScreeningType}" itemValue="code"
+                                                      itemLabel="name"/>
                                     </form:select>
                                     <p class="help-block">
                                         <form:errors path="screening" class="alert-danger"/>
@@ -62,7 +64,8 @@
                                 <c:if test="${showRisk}">
                                     <div class="form-group">
                                         <label></label><br/>
-                                        <form:checkboxes path="identifiedRisks" items="${risks}" itemLabel="name" itemValue="code" delimiter="<br/>"/>
+                                        <form:checkboxes path="identifiedRisks" items="${risks}" itemLabel="name"
+                                                         itemValue="code" delimiter="<br/>"/>
                                         <p class="help-block">
                                             <form:errors path="identifiedRisks" class="alert-danger"/>
                                         </p>
@@ -81,7 +84,8 @@
                                 <c:if test="${showSupport}">
                                     <div class="form-group">
                                         <label></label><br/>
-                                        <form:checkboxes path="supports" items="${supports}" itemLabel="name" itemValue="code" delimiter="<br/>"/>
+                                        <form:checkboxes path="supports" items="${supports}" itemLabel="name"
+                                                         itemValue="code" delimiter="<br/>"/>
                                         <p class="help-block">
                                             <form:errors path="supports" class="alert-danger"/>
                                         </p>
@@ -100,7 +104,8 @@
                                 <c:if test="${showReferral}">
                                     <div class="form-group">
                                         <label></label><br/>
-                                        <form:checkboxes path="referrals" items="${referrals}" itemLabel="name" itemValue="code" delimiter="<br/>"/>
+                                        <form:checkboxes path="referrals" items="${referrals}" itemLabel="name"
+                                                         itemValue="code" delimiter="<br/>"/>
                                         <p class="help-block">
                                             <form:errors path="referrals" class="alert-danger"/>
                                         </p>
@@ -129,7 +134,8 @@
                                 <c:if test="${showDiagnosis}">
                                     <div class="form-group">
                                         <label></label><br/>
-                                        <form:checkboxes path="diagnoses" items="${diagnoses}" itemLabel="name" itemValue="code" delimiter="<br/>"/>
+                                        <form:checkboxes path="diagnoses" items="${diagnoses}" itemLabel="name"
+                                                         itemValue="code" delimiter="<br/>"/>
                                         <p class="help-block">
                                             <form:errors path="diagnoses" class="alert-danger"/>
                                         </p>
@@ -155,7 +161,8 @@
                                 <c:if test="${showIntervention}">
                                     <div class="form-group">
                                         <label></label><br/>
-                                        <form:checkboxes path="interventions" items="${interventions}" itemLabel="name" itemValue="code" delimiter="<br/>"/>
+                                        <form:checkboxes path="interventions" items="${interventions}" itemLabel="name"
+                                                         itemValue="code" delimiter="<br/>"/>
                                         <p class="help-block">
                                             <form:errors path="interventions" class="alert-danger"/>
                                         </p>
@@ -171,8 +178,12 @@
                             </c:if>
 
                             <div class="form-group">
-                                <c:if test="${canEdit}"><button class="btn btn-primary" type="submit">Save</button></c:if>
-                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <c:if test="${canEdit}">
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </c:if>
+                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>
@@ -184,27 +195,27 @@
 <%@include file="../template/footer.jspf" %>
 <script type="text/javascript">
     $("#screenedForMentalHealth").change(function () {
-    	$("#currentElement").val($(window).scrollTop());
+        $("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
     });
     $("#risk").change(function () {
-    	$("#currentElement").val($(window).scrollTop());
+        $("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
     });
     $("#support").change(function () {
-    	$("#currentElement").val($(window).scrollTop());
+        $("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
     });
     $("#referral").change(function () {
-    	$("#currentElement").val($(window).scrollTop());
+        $("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
     });
     $("#diagnosis").change(function () {
-    	$("#currentElement").val($(window).scrollTop());
+        $("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
     });
     $("#intervention").change(function () {
-    	$("#currentElement").val($(window).scrollTop());
+        $("#currentElement").val($(window).scrollTop());
         $("form").attr("action", "reload-form").submit();
     });
     $(window).scrollTop("<c:out value="${item.currentElement}"/>");

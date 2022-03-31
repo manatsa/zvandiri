@@ -18,13 +18,12 @@ package zw.org.zvandiri.portal.util;
 import java.io.Serializable;
 
 /**
- *
  * @author Edward Zengeni
  */
-public final class TelNumberFormat implements Serializable{
-    public static String ZIMBABWE="\\d{10}";
-    
-    private TelNumberFormat(){
+public final class TelNumberFormat implements Serializable {
+    public static String ZIMBABWE = "\\d{10}";
+
+    private TelNumberFormat() {
         throw new IllegalStateException("Class not meant to be initialized");
     }
 }

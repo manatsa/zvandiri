@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import java.util.Date;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -23,7 +24,6 @@ import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.Referral;
 
 /**
- *
  * @author Judge Muiznda
  */
 @Component

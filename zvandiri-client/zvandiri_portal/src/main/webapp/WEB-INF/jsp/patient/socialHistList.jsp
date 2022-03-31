@@ -9,27 +9,31 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6"><a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a></div>
+                    <div class="col-lg-6"><a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow;
+                        Back To ${patient.name} Dashboard</a></div>
                     <div class="col-lg-6">
                         <c:if test="${female}">
-                            <a href="${page}/beneficiary/obstetric/item.list?id=${patient.id}">Next To Obstetric History &DoubleRightArrow;</a>
+                            <a href="${page}/beneficiary/obstetric/item.list?id=${patient.id}">Next To Obstetric History
+                                &DoubleRightArrow;</a>
                         </c:if>
                         <c:if test="${!female}">
-                            <a href="${page}/beneficiary/mental-health/item.list?id=${patient.id}">Next To Mental History &DoubleRightArrow;</a>
-                        </c:if>                       
+                            <a href="${page}/beneficiary/mental-health/item.list?id=${patient.id}">Next To Mental
+                                History &DoubleRightArrow;</a>
+                        </c:if>
 
                     </div>
-                </div> 
+                </div>
                 <br/>
                 <div class="row">
                     <div class="col-lg-12">
-                        <b class="titleHeader">Social History Detail</b><hr/>
+                        <b class="titleHeader">Social History Detail</b>
+                        <hr/>
                         <c:if test="${socialHist != null}">
                             <table class="table-condensed" width="100%">
                                 <tr>
@@ -73,14 +77,17 @@
                                 <tr>
                                     <td>&nbsp;</td>
                                     <td>
-                                        <a href="${page}/beneficiary/socialhist/item.form?itemId=${socialHist.id}">Edit</a> | 
-<%--                                        <c:if test="${canEdit}"><a href="${page}/beneficiary/socialhist/item.delete?itemId=${socialHist.id}">Delete</a></c:if>--%>
-                                        </td>
-                                    </tr>
-                                </table>            
+                                        <a href="${page}/beneficiary/socialhist/item.form?itemId=${socialHist.id}">Edit</a>
+                                        |
+                                            <%--                                        <c:if test="${canEdit}"><a href="${page}/beneficiary/socialhist/item.delete?itemId=${socialHist.id}">Delete</a></c:if>--%>
+                                    </td>
+                                </tr>
+                            </table>
                         </c:if>
                         <c:if test="${socialHist == null}">
-                            <c:if test="${canEdit}"><a href="${page}/beneficiary/socialhist/item.form?patientId=${patient.id}">Add Social History </a></c:if>
+                            <c:if test="${canEdit}"><a
+                                    href="${page}/beneficiary/socialhist/item.form?patientId=${patient.id}">Add Social
+                                History </a></c:if>
                         </c:if>
                     </div>
                 </div>

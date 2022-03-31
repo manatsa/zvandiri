@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -36,7 +37,6 @@ import zw.org.zvandiri.business.util.dto.PatientHeuDTO;
 import zw.org.zvandiri.portal.util.MobileNumberFormat;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
@@ -193,14 +193,14 @@ public class PatientValidator implements Validator {
             if (item.getEducationLevel() == null) {
                 errors.rejectValue("educationLevel", "field.empty");
             }
-            if (item.getEducation() != null && item.getEducation().getName().equalsIgnoreCase("Out of School")) {
+           /* if (item.getEducation() != null && item.getEducation().getName().equalsIgnoreCase("Out of School")) {
                 if ((item.getEducationLevel() != null
                         && (item.getEducationLevel().getName().equalsIgnoreCase("N/A")
                         || item.getEducationLevel().getName().equalsIgnoreCase("Primary School")))
                         && item.getReasonForNotReachingOLevel() == null) {
                     errors.rejectValue("reasonForNotReachingOLevel", "field.empty");
                 }
-            }
+            }*/
             if (item.getReferer() == null) {
                 errors.rejectValue("referer", "field.empty");
             }
@@ -210,12 +210,12 @@ public class PatientValidator implements Validator {
             if (item.getDateJoined() != null && item.getDateOfBirth() != null && item.getDateJoined().before(item.getDateOfBirth())) {
                 errors.rejectValue("dateJoined", "date.beforebirth");
             }
-            if(item.getIsKeypopulation()!=null && item.getIsKeypopulation().equals(YesNo.YES)){
-                if(item.getKeyPopulation()==null) {
-                    errors.rejectValue("keyPopulation","field.empty");
+            if (item.getIsKeypopulation() != null && item.getIsKeypopulation().equals(YesNo.YES)) {
+                if (item.getKeyPopulation() == null) {
+                    errors.rejectValue("keyPopulation", "field.empty");
                 }
-            }else{
-               // item.setKeyPopulation(null);
+            } else {
+                // item.setKeyPopulation(null);
             }
 
         }
@@ -224,9 +224,9 @@ public class PatientValidator implements Validator {
     public void validatePatientHivAndHealth(Object o, Errors errors) {
         Patient item = (Patient) o;
         if (item.getHivStatusKnown() == null) {
-         errors.rejectValue("hivStatusKnown", "field.empty");
-         }
-        if(item.getDisability()==null){
+            errors.rejectValue("hivStatusKnown", "field.empty");
+        }
+        if (item.getDisability() == null) {
             errors.rejectValue("disability", "field.empty");
         }
         if (item.getHei().equals(YesNo.NO)) {
@@ -245,12 +245,11 @@ public class PatientValidator implements Validator {
                     errors.rejectValue("disclosureType", "field.empty");
                 }
             }
-            if(item.getDisability()!=null && item.getDisability().equals(YesNo.YES)){
+            if (item.getDisability() != null && item.getDisability().equals(YesNo.YES)) {
                 errors.rejectValue("disablityType", "field.empty");
             }
         }
 
-        //System.err.println("Disclosure Type :"+item.getDisclosureType().getName());
     }
 
     public void validatePrimaryCareGiver(Object o, Errors errors) {
@@ -294,10 +293,10 @@ public class PatientValidator implements Validator {
         validatePatientContactDetails(o, errors);
         validatePatientDemographic(o, errors);
 
-        if(errors.hasErrors()){
-            User user=userService.getCurrentUser();
-            System.err.println(" *** UserName : "+user.getUserName()+", FirstName : "+user.getFirstName()+", LastName : "+user.getLastName()+
-                    ", District : "+user.getDistrict()+", Province : "+user.getProvince()+"\n"+errors);
+        if (errors.hasErrors()) {
+            User user = userService.getCurrentUser();
+            System.err.println(" *** UserName : " + user.getUserName() + ", FirstName : " + user.getFirstName() + ", LastName : " + user.getLastName() +
+                    ", District : " + user.getDistrict() + ", Province : " + user.getProvince() + "\n" + errors);
         }
     }
 }

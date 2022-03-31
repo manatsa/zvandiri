@@ -1,16 +1,16 @@
 <div class="${message.msgType}<c:if test="${!message.exist}"> hidden</c:if>">
-<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-${message.message}
+    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">ï¿½</button>
+    ${message.message}
 </div>
 <div class="${contactsMessage.msgType}<c:if test="${!contactsMessage.exist}"> hidden</c:if>">
-<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-${contactsMessage.message}
+    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">ï¿½</button>
+    ${contactsMessage.message}
 </div>
 <div class="${mentalHealthMessage.msgType}<c:if test="${!mentalHealthMessage.exist}"> hidden</c:if>">
-<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-${mentalHealthMessage.message}
+    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">ï¿½</button>
+    ${mentalHealthMessage.message}
 </div>
 <div class="${tbScreeningMessage.msgType}<c:if test="${!tbScreeningMessage.exist}"> hidden</c:if>">
-<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-${tbScreeningMessage.message}
+    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">ï¿½</button>
+    ${tbScreeningMessage.message}
 </div>

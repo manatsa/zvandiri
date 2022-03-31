@@ -9,14 +9,13 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.Referral;
 
 /**
- *
  * @author tasu
  */
-public class ReferralConverter implements Converter<String, Referral>{
-    
+public class ReferralConverter implements Converter<String, Referral> {
+
     @Override
     public Referral convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return Referral.get(Integer.valueOf(s));
     }
 }

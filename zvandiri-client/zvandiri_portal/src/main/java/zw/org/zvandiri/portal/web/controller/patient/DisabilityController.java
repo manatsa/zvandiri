@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -33,18 +34,19 @@ import zw.org.zvandiri.business.util.dto.ItemDeleteDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.INACTIVE_MESSAGE;
+
 import zw.org.zvandiri.portal.web.validator.DisabilityValidator;
 
 /**
- *
  * @author jmuzinda
  */
 @Controller
 @RequestMapping("/beneficiary/disability")
 public class DisabilityController extends BaseController {
-    
+
     @Resource
     private DisabilityService disabilityService;
     @Resource
@@ -89,13 +91,13 @@ public class DisabilityController extends BaseController {
         disabilityService.save(item);
         return "redirect:item.list?type=1&id=" + item.getPatient().getId();
     }
-    
+
     @RequestMapping(value = "/item.list", method = RequestMethod.GET)
-    public String getItemList(@RequestParam String id, @RequestParam(required = false) Integer type, ModelMap model){
+    public String getItemList(@RequestParam String id, @RequestParam(required = false) Integer type, ModelMap model) {
         Patient item = patientService.get(id);
-        model.addAttribute("pageTitle", APP_PREFIX+" "+ item.getName()+"'s Disability Health History");
+        model.addAttribute("pageTitle", APP_PREFIX + " " + item.getName() + "'s Disability Health History");
         model.addAttribute("patient", item);
-        if(type != null ){
+        if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
         getPatientStatus(item, model);
@@ -103,14 +105,14 @@ public class DisabilityController extends BaseController {
         model.addAttribute("disabilityCategories", disabilityService.getByPatient(item));
         return "patient/disabilityList";
     }
-    
+
     @RequestMapping(value = "item.delete", method = RequestMethod.GET)
     public String getDeleteForm(@RequestParam("id") String id, ModelMap model) {
         PatientDisability item = disabilityService.get(id);
-        ItemDeleteDTO dto = new ItemDeleteDTO(id, item.getPatient().getName()+" : Disability Health History Item", "item.list?type=3&id="+item.getPatient().getId());
+        ItemDeleteDTO dto = new ItemDeleteDTO(id, item.getPatient().getName() + " : Disability Health History Item", "item.list?type=3&id=" + item.getPatient().getId());
         model.addAttribute("item", dto);
         model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Are you sure you want to delete this record").messageType(MessageType.WARNING).build());
-        model.addAttribute("pageTitle", APP_PREFIX + "Delete " + item.getPatient().getName()+" :"+dto.getName());
+        model.addAttribute("pageTitle", APP_PREFIX + "Delete " + item.getPatient().getName() + " :" + dto.getName());
         return "admin/deleteItem";
     }
 
@@ -119,6 +121,6 @@ public class DisabilityController extends BaseController {
         PatientDisability item = disabilityService.get(dto.getId());
         Patient patient = item.getPatient();
         //disabilityService.delete(item);
-        return "redirect:item.list?type=2&id="+patient.getId();
+        return "redirect:item.list?type=2&id=" + patient.getId();
     }
 }

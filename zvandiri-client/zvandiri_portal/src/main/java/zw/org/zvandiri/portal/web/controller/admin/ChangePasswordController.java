@@ -6,6 +6,7 @@ package zw.org.zvandiri.portal.web.controller.admin;
 
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -23,7 +24,6 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.validator.UserValidator;
 
 /**
- *
  * @author Edward Zengeni
  */
 @Controller
@@ -38,20 +38,20 @@ public class ChangePasswordController extends BaseController {
     @RequestMapping(method = RequestMethod.GET, value = "/changepassword")
     public String changeUserPassword(@RequestParam String id, ModelMap model) {
         User user = userService.get(id);
-        if(!user.equals(userService.getCurrentUser())){
+        if (!user.equals(userService.getCurrentUser())) {
             throw new IllegalStateException("User loaded not current user, refer to administrator for details");
         }
         ChangePasswordDTO userProfile = new ChangePasswordDTO(user);
-        model.addAttribute("pageTitle", APP_PREFIX+user.getDisplayName()+" Change Password");
+        model.addAttribute("pageTitle", APP_PREFIX + user.getDisplayName() + " Change Password");
         model.addAttribute("item", userProfile);
         return "admin/changePasswordForm";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/changepassword")
-    public String changeUserPassword(ModelMap model, @ModelAttribute("item") ChangePasswordDTO details, BindingResult result, RedirectAttributes attr) throws Exception  {
+    public String changeUserPassword(ModelMap model, @ModelAttribute("item") ChangePasswordDTO details, BindingResult result, RedirectAttributes attr) throws Exception {
         userValidator.validateChangepassword(details, result);
         if (result.hasErrors()) {
-            model.addAttribute("pageTitle", APP_PREFIX+"Change Password");
+            model.addAttribute("pageTitle", APP_PREFIX + "Change Password");
             model.addAttribute("item", details);
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
             return "admin/changePasswordForm";

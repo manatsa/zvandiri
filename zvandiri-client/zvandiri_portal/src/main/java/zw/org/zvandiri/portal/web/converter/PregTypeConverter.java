@@ -19,14 +19,13 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.PregType;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class PregTypeConverter implements Converter<String, PregType> {
 
     @Override
     public PregType convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return PregType.get(Integer.valueOf(s));
     }
 }

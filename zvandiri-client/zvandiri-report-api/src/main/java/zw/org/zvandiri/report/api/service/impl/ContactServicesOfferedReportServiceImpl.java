@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.Referral;
@@ -29,7 +30,6 @@ import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.ContactServicesOfferedReportService;
 
 /**
- *
  * @author tasu
  */
 @Repository

@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,13 +38,12 @@ import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
 @RequestMapping("/beneficiary/history")
 public class PatientHistoryController extends BaseController {
- 
+
     @Resource
     private PatientService patientService;
     @Resource
@@ -66,13 +66,13 @@ public class PatientHistoryController extends BaseController {
     private SubstanceItemService substanceItemService;
     @Resource
     private FamilyService familyService;
-    
+
     @RequestMapping(value = "/item.htm", method = RequestMethod.GET)
-    public String getProfile(@RequestParam String id, @RequestParam(required = false) Integer type, ModelMap model){
+    public String getProfile(@RequestParam String id, @RequestParam(required = false) Integer type, ModelMap model) {
         Patient item = patientService.get(id);
-        model.addAttribute("pageTitle", APP_PREFIX+" "+ item.getName()+"'s Patient History");
+        model.addAttribute("pageTitle", APP_PREFIX + " " + item.getName() + "'s Patient History");
         model.addAttribute("patient", item);
-        if(type != null ){
+        if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
         model.addAttribute("medHists", medicalHistService.getByPatient(item));

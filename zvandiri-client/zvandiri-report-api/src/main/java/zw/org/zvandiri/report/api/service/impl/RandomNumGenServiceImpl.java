@@ -16,11 +16,11 @@
 package zw.org.zvandiri.report.api.service.impl;
 
 import java.util.Random;
+
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.report.api.service.RandomNumGenService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Repository

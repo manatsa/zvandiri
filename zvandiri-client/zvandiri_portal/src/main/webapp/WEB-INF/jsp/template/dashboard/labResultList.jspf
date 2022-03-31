@@ -1,90 +1,98 @@
 <br/>
-<b class="titleHeader">CD4 Count  Detail</b>  <c:if test="${canEdit}">| <a href="${page}//contact?id=${patient.id}">Add CD4 Count Item </a></c:if>
+<b class="titleHeader">CD4 Count Detail</b> <c:if test="${canEdit}">| <a href="${page}//contact?id=${patient.id}">Add
+    CD4 Count Item </a></c:if>
 <hr/>
 <div class="table-responsive">
     <table class="itemList" class="display" cellspacing="0">
         <thead>
-            <tr>
-                <th>Date Taken</th>
-                <th>Count</th>
-                <th>Next Lab Due</th>
-                <th>Source</th>
-                <%--<th>&nbsp;</th>--%>
-            </tr>
+        <tr>
+            <th>Date Taken</th>
+            <th>Count</th>
+            <th>Next Lab Due</th>
+            <th>Source</th>
+            <%--<th>&nbsp;</th>--%>
+        </tr>
         </thead>
         <tbody>
         <c:forEach var="cd4" items="${cd4counts}">
             <tr>
                 <td><spring:eval expression="cd4.dateTaken"/></td>
-            <td>${cd4.result}</td>
-            <td><c:if test="${cd4.nextTestDate != null}"><spring:eval expression="cd4.nextTestDate"/></c:if></td>
-            <td>${cd4.source.name}</td>
-            <%--<td>
-                <a href="${page}/patient/cd-4-count/item.form?itemId=${cd4.id}">Edit</a> |
-            <c:if test="${canEdit}"><a href="${page}/patient/cd-4-count/item.delete?id=${cd4.id}">Delete</a></c:if>
-            </td>--%>
+                <td>${cd4.result}</td>
+                <td><c:if test="${cd4.nextTestDate != null}"><spring:eval expression="cd4.nextTestDate"/></c:if></td>
+                <td>${cd4.source.name}</td>
+                    <%--<td>
+                        <a href="${page}/patient/cd-4-count/item.form?itemId=${cd4.id}">Edit</a> |
+                    <c:if test="${canEdit}"><a href="${page}/patient/cd-4-count/item.delete?id=${cd4.id}">Delete</a></c:if>
+                    </td>--%>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-</div><br/>
-<b class="titleHeader">Viral Load Detail</b>  <c:if test="${canEdit}">| <a href="${page}/contact?id=${patient.id}">Add Viral Load Item </a></c:if>
+</div>
+<br/>
+<b class="titleHeader">Viral Load Detail</b> <c:if test="${canEdit}">| <a href="${page}/contact?id=${patient.id}">Add
+    Viral Load Item </a></c:if>
 <hr/>
 <div class="table-responsive">
     <table class="itemList" class="display" cellspacing="0">
         <thead>
-            <tr>
-                <th>Date Taken</th>
-                <th>RESULT</th>
-                <th>Next Lab Due</th>
-                <th>Source</th>
-                <%--<th>&nbsp;</th>--%>
-            </tr>
+        <tr>
+            <th>Date Taken</th>
+            <th>RESULT</th>
+            <th>Next Lab Due</th>
+            <th>Source</th>
+            <%--<th>&nbsp;</th>--%>
+        </tr>
         </thead>
         <tbody>
         <c:forEach var="viral" items="${viralLoads}">
             <tr>
                 <td><spring:eval expression="viral.dateTaken"/></td>
-            <td>${viral.result==null?viral.tnd:viral.result}</td>
-            <td><c:if test="${viral.nextTestDate != null}"><spring:eval expression="viral.nextTestDate"/></c:if></td>
-            <td>${viral.source.name}</td>
-            <%--<td>
-                <a href="${page}/patient/viral-load/item.form?itemId=${viral.id}">Edit</a> |
-            <c:if test="${canEdit}"><a href="${page}/patient/viral-load/item.delete?id=${viral.id}">Delete</a></c:if>
-            </td>--%>
+                <td>${viral.result==null?viral.tnd:viral.result}</td>
+                <td><c:if test="${viral.nextTestDate != null}"><spring:eval
+                        expression="viral.nextTestDate"/></c:if></td>
+                <td>${viral.source.name}</td>
+                    <%--<td>
+                        <a href="${page}/patient/viral-load/item.form?itemId=${viral.id}">Edit</a> |
+                    <c:if test="${canEdit}"><a href="${page}/patient/viral-load/item.delete?id=${viral.id}">Delete</a></c:if>
+                    </td>--%>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-</div><br/>
+</div>
+<br/>
 <c:if test="${heu}">
-    <b class="titleHeader">EID Detail</b>  <c:if test="${canEdit}">| <a href="${page}/patient/eid/item.form?patientId=${patient.id}">Add EID Detail </a></c:if>
+    <b class="titleHeader">EID Detail</b> <c:if test="${canEdit}">| <a
+        href="${page}/patient/eid/item.form?patientId=${patient.id}">Add EID Detail </a></c:if>
     <hr/>
     <div class="table-responsive">
         <table class="itemList" class="display" cellspacing="0">
             <thead>
-                <tr>
-                    <th>Date Taken</th>
-                    <th>Result</th>
-                    <th>Next Lab Due</th>
-                    <th>Source</th>
-                    <th>&nbsp;</th>
-                </tr>
+            <tr>
+                <th>Date Taken</th>
+                <th>Result</th>
+                <th>Next Lab Due</th>
+                <th>Source</th>
+                <th>&nbsp;</th>
+            </tr>
             </thead>
             <tbody>
             <c:forEach var="eid" items="${eids}">
                 <tr>
                     <td><spring:eval expression="eid.dateTaken"/></td>
-                <td>${eid.testResult}</td>
-                <td><c:if test="${eid.nextTestDate != null}"><spring:eval expression="eid.nextTestDate"/></c:if></td>
-                <td>${eid.source.name}</td>
-                <td>
-                    <a href="${page}/patient/eid/item.form?itemId=${eid.id}">Edit</a> |
-                <c:if test="${canEdit}"><a href="${page}/patient/eid/item.delete?id=${eid.id}">Delete</a></c:if>
-                </td>
+                    <td>${eid.testResult}</td>
+                    <td><c:if test="${eid.nextTestDate != null}"><spring:eval
+                            expression="eid.nextTestDate"/></c:if></td>
+                    <td>${eid.source.name}</td>
+                    <td>
+                        <a href="${page}/patient/eid/item.form?itemId=${eid.id}">Edit</a> |
+                        <c:if test="${canEdit}"><a href="${page}/patient/eid/item.delete?id=${eid.id}">Delete</a></c:if>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-    </div><br/>
+    </div>
+    <br/>
 </c:if>

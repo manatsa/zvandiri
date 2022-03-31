@@ -18,6 +18,7 @@ package zw.org.zvandiri.portal.web.controller.patient;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -48,7 +49,6 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.validator.PatientValidator;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller

@@ -36,10 +36,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
+
 import zw.org.zvandiri.portal.web.controller.report.parallel.MortalityTask;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 @Controller
@@ -224,14 +224,14 @@ public class MortalityReportController extends BaseController {
 
             XSSFCell actionPlan = mortalityRow.createCell(++count);
             actionPlan.setCellValue(mortality.getActionPlan());
-            
+
             XSSFCell isCats = mortalityRow.createCell(++count);
             isCats.setCellValue(
-            		mortality.getPatient().getCat() != null ? mortality.getPatient().getCat().getName() : null
+                    mortality.getPatient().getCat() != null ? mortality.getPatient().getCat().getName() : null
             );
             XSSFCell youngMumGroup = mortalityRow.createCell(++count);
             youngMumGroup.setCellValue(
-            		mortality.getPatient().getYoungMumGroup() != null ? mortality.getPatient().getYoungMumGroup().getName() : null
+                    mortality.getPatient().getYoungMumGroup() != null ? mortality.getPatient().getYoungMumGroup().getName() : null
             );
             XSSFCell ymd = mortalityRow.createCell(++count);
             ymd.setCellValue(

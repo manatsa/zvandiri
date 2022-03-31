@@ -46,7 +46,6 @@ import zw.org.zvandiri.report.api.service.ReferralReportAPIService;
 import zw.org.zvandiri.report.api.service.parallel.GenericCountReportTask;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Repository
@@ -90,7 +89,7 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
                     sixMonths = patientReportService.getPatientWithContact(dto).intValue();
                     dto.setStartDate(DateUtil.getDateDiffDate(-DateRangeItem.PAST_TWELVE_MONTHS.getEnd()));
                     twelveMonths = patientReportService.getPatientWithContact(dto).intValue();
-                    list.add(new BasicNameNumber(item, threeMonths, "/report/contact-services-offered/three-months", sixMonths, "/report/contact-services-offered/six-months",  twelveMonths, "/report/contact-services-offered/twelve-months"));
+                    list.add(new BasicNameNumber(item, threeMonths, "/report/contact-services-offered/three-months", sixMonths, "/report/contact-services-offered/six-months", twelveMonths, "/report/contact-services-offered/twelve-months"));
                     i++;
                     continue;
                 case 2:
@@ -220,28 +219,28 @@ public class ReferralReportAPIServiceImpl implements ReferralReportAPIService {
 
     @Override
     public List<GenericReportModel> getDefaultReport(SearchDTO dto) {
-        String[] headers = {"Name", "Age", "Gender", "Phone No.", "IS CATS", "In YMM Programme","In YMD Programme", "District", "Clinic","Date Of Entry",
-            "Referral Date", "Organisation", "Services Requested", "Services Received"};
+        String[] headers = {"Name", "Age", "Gender", "Phone No.", "IS CATS", "In YMM Programme", "In YMD Programme", "District", "Clinic", "Date Of Entry",
+                "Referral Date", "Organisation", "Services Requested", "Services Received"};
         List<GenericReportModel> items = new ArrayList<>();
         items.add(new GenericReportModel(Arrays.asList(headers)));
         ForkJoinPool pool = ForkJoinPool.commonPool();
         List<Referral> result = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(referalReportService.getCount(dto)), referalReportService, dto));
         for (Referral item : result) {
             String[] inner = {
-                item.getPatient().getName(),
-                item.getPatient().getAge() + "",
-                item.getPatient().getGender().getName(),
-                item.getPatient().getMobileNumber(),
-                item.getPatient().getCat()!=null?item.getPatient().getCat().getName():"",
-                item.getPatient().getYoungMumGroup()!=null?item.getPatient().getYoungMumGroup().getName():"",
-                item.getPatient().getYoungDadGroup()!=null?item.getPatient().getYoungDadGroup().getName():"",
-                item.getPatient().getPrimaryClinic().getDistrict().getName(),
-                item.getPatient().getPrimaryClinic().getName(),
-                item.getDateCreated()!=null ? item.getDateCreated().toString(): "",
-                DateUtil.getStringFromDate(item.getReferralDate()),
-                item.getOrganisation(),
-                item.getServicesRequested() != null && !item.getServicesRequested().isEmpty() ? item.getServicesRequested().toString() : null,
-                item.getServicesReceived() != null && !item.getServicesReceived().isEmpty() ? item.getServicesReceived().toString() : null
+                    item.getPatient().getName(),
+                    item.getPatient().getAge() + "",
+                    item.getPatient().getGender().getName(),
+                    item.getPatient().getMobileNumber(),
+                    item.getPatient().getCat() != null ? item.getPatient().getCat().getName() : "",
+                    item.getPatient().getYoungMumGroup() != null ? item.getPatient().getYoungMumGroup().getName() : "",
+                    item.getPatient().getYoungDadGroup() != null ? item.getPatient().getYoungDadGroup().getName() : "",
+                    item.getPatient().getPrimaryClinic().getDistrict().getName(),
+                    item.getPatient().getPrimaryClinic().getName(),
+                    item.getDateCreated() != null ? item.getDateCreated().toString() : "",
+                    DateUtil.getStringFromDate(item.getReferralDate()),
+                    item.getOrganisation(),
+                    item.getServicesRequested() != null && !item.getServicesRequested().isEmpty() ? item.getServicesRequested().toString() : null,
+                    item.getServicesReceived() != null && !item.getServicesReceived().isEmpty() ? item.getServicesReceived().toString() : null
             };
             items.add(new GenericReportModel(Arrays.asList(inner)));
         }

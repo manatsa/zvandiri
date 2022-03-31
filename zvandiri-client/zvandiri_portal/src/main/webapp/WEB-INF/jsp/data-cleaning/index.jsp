@@ -32,20 +32,22 @@
                         <th>Possible Duplicates</th>
                         </tfoot>
                         <tbody>
-                            <c:forEach var="item" items="${patients}" >
-                                <tr>
-                                    <td>${item.fullName}</td>
-                                    <td>${item.age}</td>
-                                    <td><spring:eval expression="item.dateOfBirth"/></td>
-                                    <td>${item.gender.name}</td>
-                                    <td>${item.region}</td>
-                                    <td>${item.district}</td>
-                                    <td>${item.primaryFacility}</td>
-                                    <td>
-                                        <a href="patient-duplicates?id=${item.id}" class="duplicate-button btn btn-sm btn-primary">${item.count} Duplicate(s) : View</a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                        <c:forEach var="item" items="${patients}">
+                            <tr>
+                                <td>${item.fullName}</td>
+                                <td>${item.age}</td>
+                                <td><spring:eval expression="item.dateOfBirth"/></td>
+                                <td>${item.gender.name}</td>
+                                <td>${item.region}</td>
+                                <td>${item.district}</td>
+                                <td>${item.primaryFacility}</td>
+                                <td>
+                                    <a href="patient-duplicates?id=${item.id}"
+                                       class="duplicate-button btn btn-sm btn-primary">${item.count} Duplicate(s) :
+                                        View</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -77,7 +79,7 @@
         $("span.toggle-span").addClass("fa-long-arrow-right");
         $("span.toggle-span").removeClass("fa-long-arrow-left");
         // unsafe but wil work for now
-		var clicked_tr = null;
+        var clicked_tr = null;
         $(".duplicate-button").click(function (evt) {
             evt.preventDefault();
             $this = $(this);
@@ -99,7 +101,7 @@
                     duplicateDetails += "<tr><th>Region :</th><td>" + data[i].region + "</td></tr>";
                     duplicateDetails += "<tr><th>District :</th><td>" + data[i].district + "</td></tr>";
                     duplicateDetails += "<tr><th>Primary Clinic :</th><td>" + data[i].primaryFacility + "</td></tr>";
-                    duplicateDetails += "<tr><th>&nbsp;</th><td>" + mergeLink +  "</td></tr>";
+                    duplicateDetails += "<tr><th>&nbsp;</th><td>" + mergeLink + "</td></tr>";
                 }
                 duplicateDetails += "</table>";
                 console.log(duplicateDetails);

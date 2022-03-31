@@ -19,16 +19,15 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.UserType;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class UserTypeConverter implements Converter<String, UserType> {
 
     @Override
     public UserType convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return UserType.get(Integer.valueOf(s));
     }
- 
-    
+
+
 }

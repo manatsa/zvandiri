@@ -16,22 +16,22 @@
 package zw.org.zvandiri.mobile.api.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.Education;
 import zw.org.zvandiri.business.service.EducationService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class EducationConverter implements Converter<String, Education> {
- 
+
     @Resource
     private EducationService educationService;
 
     @Override
     public Education convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return educationService.get(s);
-    }    
+    }
 }

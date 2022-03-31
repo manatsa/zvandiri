@@ -41,7 +41,6 @@ import java.util.concurrent.ForkJoinPool;
 
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 @Repository
@@ -60,19 +59,17 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
     @Resource
     MentalHealthScreeningService mentalHealthScreeningService;
 
-    final static String [] CLIENTS_GENERAL_HEADER = {
-            "Client Name","Date of Birth", "Age", "Gender","Status", "Address","Secondary Address", "Mobile Number", "Second Mobile Number", "Region",
-            "District","Primary Clinic", "IS CATS", "In YMM Programme","In YMD Programme",
-            "LastVL Result","Last VL Date Taken",
+    final static String[] CLIENTS_GENERAL_HEADER = {
+            "Client Name", "Date of Birth", "Age", "Gender", "Status", "Address", "Secondary Address", "Mobile Number", "Second Mobile Number", "Region",
+            "District", "Primary Clinic", "IS CATS", "In YMM Programme", "In YMD Programme",
+            "LastVL Result", "Last VL Date Taken",
     };
-
-
 
 
     @Override
     public XSSFWorkbook exportCaseload(String name, SearchDTO dto) {
 
-       long initially= System.currentTimeMillis();
+        long initially = System.currentTimeMillis();
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFCellStyle XSSFCellStyle = workbook.createCellStyle();
@@ -90,20 +87,18 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
 
         pool.shutdown();
 
-        addSheet(workbook, "Uncontacted Clients",patients,XSSFCellStyle);
-        addSheet(workbook, "Enhanced Clients",enhancedPatients,XSSFCellStyle);
-        addSheet(workbook, "Invalid VL Clients",vlPatients,XSSFCellStyle);
-        addSheet(workbook, "MH Screening Candidates",mhPatients,XSSFCellStyle);
-        addSheet(workbook, "TB Screening Candidates",tbPatients,XSSFCellStyle);
+        addSheet(workbook, "Uncontacted Clients", patients, XSSFCellStyle);
+        addSheet(workbook, "Enhanced Clients", enhancedPatients, XSSFCellStyle);
+        addSheet(workbook, "Invalid VL Clients", vlPatients, XSSFCellStyle);
+        addSheet(workbook, "MH Screening Candidates", mhPatients, XSSFCellStyle);
+        addSheet(workbook, "TB Screening Candidates", tbPatients, XSSFCellStyle);
 
         return workbook;
 
     }
 
 
-
-
-    public XSSFWorkbook  addSheet(XSSFWorkbook workbook, String sheetName, List<Patient> patients, XSSFCellStyle xssfCellStyle){
+    public XSSFWorkbook addSheet(XSSFWorkbook workbook, String sheetName, List<Patient> patients, XSSFCellStyle xssfCellStyle) {
 
         XSSFSheet enhancedClientsDetails = workbook.createSheet(sheetName);
         int assessmentRowNum = 0;
@@ -116,7 +111,7 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
         }
         for (Patient patient : patients) {
 
-            InvestigationTest vlTest=patient.getLastPatientVL(investigationTestService);
+            InvestigationTest vlTest = patient.getLastPatientVL(investigationTestService);
             int count = 0;
 
             enhancedRow = enhancedClientsDetails.createRow(assessmentRowNum++);
@@ -150,10 +145,10 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
             phone1.setCellValue(patient.getSecondaryMobileNumber() == null ? "" : patient.getSecondaryMobileNumber());
 
             Cell province = enhancedRow.createCell(count++);
-            province.setCellValue(patient.getPrimaryClinic()==null|| patient.getPrimaryClinic().getDistrict()==null|| patient.getPrimaryClinic().getDistrict().getProvince()==null?"":patient.getPrimaryClinic().getDistrict().getProvince().getName());
+            province.setCellValue(patient.getPrimaryClinic() == null || patient.getPrimaryClinic().getDistrict() == null || patient.getPrimaryClinic().getDistrict().getProvince() == null ? "" : patient.getPrimaryClinic().getDistrict().getProvince().getName());
 
             Cell district = enhancedRow.createCell(count++);
-            district.setCellValue(patient.getPrimaryClinic()==null|| patient.getPrimaryClinic().getDistrict() == null ? "" : patient.getPrimaryClinic().getDistrict().getName());
+            district.setCellValue(patient.getPrimaryClinic() == null || patient.getPrimaryClinic().getDistrict() == null ? "" : patient.getPrimaryClinic().getDistrict().getName());
 
             Cell primaryClinic = enhancedRow.createCell(count++);
             primaryClinic.setCellValue(patient.getPrimaryClinic() == null ? "" : patient.getPrimaryClinic().getName());
@@ -172,10 +167,9 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
             );
 
             XSSFCell vlresult = enhancedRow.createCell(count++);
-            if(vlTest!=null && vlTest.getResult()!=null)
-            {
+            if (vlTest != null && vlTest.getResult() != null) {
                 vlresult.setCellValue(vlTest.getResult());
-            }else{
+            } else {
                 vlresult.setCellType(Cell.CELL_TYPE_BLANK);
             }
 

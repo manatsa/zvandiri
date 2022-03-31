@@ -9,7 +9,7 @@
                 <%@include file="../../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
@@ -55,7 +55,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Current Level of Care</label>
-                                        <form:select path="careLevel" class="form-control" value="${patient.getCurrentCareLevelObject()}" disabled="true">
+                                        <form:select path="careLevel" class="form-control"
+                                                     value="${patient.getCurrentCareLevelObject()}" disabled="true">
                                             <form:option value="" label="--Select Item"/>
                                             <form:options itemValue="code" itemLabel="name"/>
                                         </form:select>
@@ -74,7 +75,7 @@
                                         </p>
                                     </div>
 
-                                    <%--Place of Contact panel--%>
+                                        <%--Place of Contact panel--%>
                                     <div class="panel-default">
                                         <div class="panel-heading">
                                             <div class="form-group">
@@ -87,6 +88,13 @@
                                                     <form:errors path="location" class="alert-danger"/>
                                                 </p>
                                             </div>
+                                        </div>
+                                        <div class="form-group support-group hide">
+                                            <label>Support Group Theme</label>
+                                            <form:textarea rows="5" path="supportGroupTheme" class="form-control"/>
+                                            <p class="help-block">
+                                                <form:errors path="supportGroupTheme" class="alert-danger"/>
+                                            </p>
                                         </div>
                                         <div class="panel-body">
                                             <div class="form-group locationPhone hide">
@@ -121,7 +129,7 @@
                                         </p>
                                     </div>
 
-                                    <%--EAC Sessions Panel--%>
+                                        <%--EAC Sessions Panel--%>
                                     <div class="panel-default">
                                         <div class="panel-heading eac-head">
                                             <div class="form-group">
@@ -138,7 +146,7 @@
                                         <div class="panel-body">
                                             <div class="form-group eac hide">
                                                 <label>EAC Session 1</label>
-                                                <form:checkbox path="eac1" value="1" class="form-control" />
+                                                <form:checkbox path="eac1" value="1" class="form-control"/>
                                                 <p class="help-block">
                                                     <form:errors path="eac1" class="alert-danger"/>
                                                 </p>
@@ -161,16 +169,13 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Contact Made By: <small><small>&LT;surname middlename firstname&GT;</small></small> </label>
-                                        <form:input path="contactMadeBy" class="form-control" />
+                                        <label>Contact Made By: <small><small>&LT;surname middlename
+                                            firstname&GT;</small></small> </label>
+                                        <form:input path="contactMadeBy" class="form-control"/>
                                         <p class="help-block">
                                             <form:errors path="contactMadeBy" class="alert-danger"/>
                                         </p>
                                     </div>
-
-
-
-
 
 
                                 </div>
@@ -179,35 +184,40 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Services Offered</label><br/>
-                                        <form:checkboxes path="serviceOffereds" items="${servicesOffered}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                        <form:checkboxes path="serviceOffereds" items="${servicesOffered}"
+                                                         itemLabel="name" itemValue="id" delimiter="<br/>"/>
                                         <p class="help-block">
                                             <form:errors path="serviceOffereds" class="alert-danger"/>
                                         </p>
                                     </div>
 
 
-                                        <div class="form-group">
-                                            <label>Clinical Assessment</label><br/>
-                                            <form:checkboxes path="clinicalAssessments" items="${clinicalAssessments}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
-                                            <p class="help-block">
-                                                <form:errors path="clinicalAssessments" class="alert-danger"/>
-                                            </p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Non Clinical Assessment</label><br/>
-                                            <form:checkboxes path="nonClinicalAssessments" items="${nonClinicalAssessments}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
-                                            <p class="help-block">
-                                                <form:errors path="nonClinicalAssessments" class="alert-danger"/>
-                                            </p>
-                                        </div>
-
+                                    <div class="form-group">
+                                        <label>Clinical Assessment</label><br/>
+                                        <form:checkboxes path="clinicalAssessments" items="${clinicalAssessments}"
+                                                         itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                        <p class="help-block">
+                                            <form:errors path="clinicalAssessments" class="alert-danger"/>
+                                        </p>
                                     </div>
+                                    <div class="form-group">
+                                        <label>Non Clinical Assessment</label><br/>
+                                        <form:checkboxes path="nonClinicalAssessments" items="${nonClinicalAssessments}"
+                                                         itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                        <p class="help-block">
+                                            <form:errors path="nonClinicalAssessments" class="alert-danger"/>
+                                        </p>
+                                    </div>
+
+                                </div>
                             </div>
 
                             <div class="form-group row">
                                 <button class="btn btn-primary" type="submit" id="back" name="_eventId_back">&Lt;&Lt;Back</button>
                                 <button class="btn btn-primary " type="submit" id="next" name="_eventId_next">Proceed&Gt;&Gt;</button>
-                                <button class="btn btn-primary " type="submit" id="cancel" name="_eventId_cancel">Cancel</button>
+                                <button class="btn btn-primary " type="submit" id="cancel" name="_eventId_cancel">
+                                    Cancel
+                                </button>
                             </div>
                         </form:form>
                     </div>
@@ -219,11 +229,11 @@
 <%@include file="../../template/footer.jspf" %>
 <script type="text/javascript">
     $("#eac").change(function () {
-        var eac=$("#eac").val();
-        if(eac==1){
+        var eac = $("#eac").val();
+        if (eac == 1) {
             $(".eac").removeClass("hide")
             $("#eac-head").addClass("panel-heading")
-        }else{
+        } else {
             $(".eac").addClass("hide")
             $("#eac-head").removeClass("panel-heading")
         }
@@ -231,11 +241,19 @@
 
     $("#location").change(function () {
         var name = $("#location :selected").text().toLowerCase();
+
         if (name === "phone") {
             $(".locationPhone").removeClass("hide");
         } else {
             $("#contactPhoneOption").val('');
-            $(".locationPhone").addClass("hide");
+            $(".locationPhone").addClass("hide")
+        }
+        let loc = $('#location').val()
+        console.log('Location : ', loc)
+        if (loc === '2ac6420c-52b0-40f7-b1d3-9499d4119b47' || loc === 'f8556945-06a1-469e-bec0-e722c807cec9') {
+            $(".support-group").removeClass('hide');
+        } else {
+            $(".support-group").addClass("hide");
         }
     });
 
@@ -265,15 +283,23 @@
             if (name === "Phone") {
                 $(".locationPhone").removeClass("hide");
             }
+
+            let loc = $('#location').val()
+            if (loc === '2ac6420c-52b0-40f7-b1d3-9499d4119b47' || loc === 'f8556945-06a1-469e-bec0-e722c807cec9') {
+                $(".support-group").removeClass('hide');
+            } else {
+                $(".support-group").addClass("hide");
+            }
+
             var name = $("#contactPhoneOption :selected").text().toLowerCase();
             if (name === "sms") {
                 $(".contactPhoneOptionSms").removeClass("hide");
             }
-            var eac=$("#eac").val();
-            if(eac==1){
+            var eac = $("#eac").val();
+            if (eac == 1) {
                 $(".eac").removeClass("hide")
                 $("#eac-head").addClass("panel-heading")
-            }else{
+            } else {
                 $(".eac").addClass("hide")
                 $("#eac-head").removeClass("panel-heading")
             }

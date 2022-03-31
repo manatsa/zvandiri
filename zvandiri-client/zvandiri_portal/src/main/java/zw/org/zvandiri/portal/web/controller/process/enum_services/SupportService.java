@@ -12,7 +12,7 @@ import zw.org.zvandiri.business.domain.util.Support;
 @Service("supportService")
 public class SupportService {
 
-    public Support[] getSupports(){
+    public Support[] getSupports() {
         return Support.values();
     }
 }

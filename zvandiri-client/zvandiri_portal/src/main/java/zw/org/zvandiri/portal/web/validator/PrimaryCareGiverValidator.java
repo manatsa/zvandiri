@@ -22,7 +22,6 @@ import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.util.dto.PrimaryCareGiverDTO;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
@@ -35,14 +34,14 @@ public class PrimaryCareGiverValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-       PrimaryCareGiverDTO item = (PrimaryCareGiverDTO) o;
+        PrimaryCareGiverDTO item = (PrimaryCareGiverDTO) o;
         ValidationUtils.rejectIfEmpty(errors, "pfirstName", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "plastName", "field.empty");
         ValidationUtils.rejectIfEmpty(errors, "pmobileNumber", "field.empty");
-        if(item.getPgender() == null){
+        if (item.getPgender() == null) {
             errors.rejectValue("pgender", "field.empty");
         }
-        if(item.getRelationship() == null){
+        if (item.getRelationship() == null) {
             errors.rejectValue("relationship", "field.empty");
         }
     }

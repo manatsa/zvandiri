@@ -7,15 +7,15 @@ package zw.org.zvandiri.portal.web.controller.report.parallel;
 
 import java.util.List;
 import java.util.concurrent.RecursiveTask;
+
 import zw.org.zvandiri.business.service.TbIptService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
- *
  * @author tasu
  */
-public class TbIptTask extends RecursiveTask<List>{
-    
+public class TbIptTask extends RecursiveTask<List> {
+
     private final TbIptService reportService;
     private final SearchDTO searchData;
     private final List<Integer> arrCount;

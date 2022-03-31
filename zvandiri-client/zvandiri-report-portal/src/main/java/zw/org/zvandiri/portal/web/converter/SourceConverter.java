@@ -19,14 +19,13 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.Source;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class SourceConverter implements Converter<String, Source> {
 
     @Override
     public Source convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return Source.get(Integer.valueOf(s));
-    }    
+    }
 }

@@ -23,8 +23,8 @@
         <td>&nbsp;</td>
         <td><br/>
 
-                <a href="${page}/cadre/item.form?id=${cadre.id}">Edit</a> |
-                <a href="${page}/cadre/delete?id=${cadre.id}">Delete</a>
+            <a href="${page}/cadre/item.form?id=${cadre.id}">Edit</a> |
+            <a href="${page}/cadre/delete?id=${cadre.id}">Delete</a>
 
         </td>
     </tr>

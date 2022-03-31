@@ -17,14 +17,15 @@
 package zw.org.zvandiri.report.api.service;
 
 import com.itextpdf.text.pdf.PdfPTable;
+
 import java.util.List;
+
 import zw.org.zvandiri.report.api.GenericReportModel;
 
 /**
- *
  * @author Judge Muzinda
  */
 public interface ITextReportService {
-    
+
     public PdfPTable getAggregateDefaultReport(List<GenericReportModel> items, String name);
 }

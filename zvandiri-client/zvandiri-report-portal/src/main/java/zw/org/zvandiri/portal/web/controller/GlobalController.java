@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
@@ -65,10 +64,9 @@ public class GlobalController {
     @ResponseBody
     public List<NameIdDTO> getDistrictsInProvinces(String provinces) {
 
-        List<String> provinceList=new ArrayList<>();
-        for(String pro: provinces.split(","))
-        {
-            if(pro.trim().length()>0){
+        List<String> provinceList = new ArrayList<>();
+        for (String pro : provinces.split(",")) {
+            if (pro.trim().length() > 0) {
                 provinceList.add(pro);
             }
         }
@@ -86,10 +84,9 @@ public class GlobalController {
     @ResponseBody
     public List<NameIdDTO> getFacilitiesInDistricts(String districts) {
 
-        List<String> districtList=new ArrayList<>();
-        for(String d: districts.split(","))
-        {
-            if(d.trim().length()>0){
+        List<String> districtList = new ArrayList<>();
+        for (String d : districts.split(",")) {
+            if (d.trim().length() > 0) {
                 districtList.add(d);
             }
         }
@@ -111,17 +108,17 @@ public class GlobalController {
     public List<NameIdDTO> getDistrictSupportGroups(District district) {
         return formatSupportGroups(supportGroupService.getByDistrict(district));
     }
-    
-    @RequestMapping(value="/getperiods", method= RequestMethod.GET)
+
+    @RequestMapping(value = "/getperiods", method = RequestMethod.GET)
     @ResponseBody
-    public List<NameIdDTO> getPeriods(PeriodType periodType){        
-        if(periodType.equals(PeriodType.MONTHLY)){
+    public List<NameIdDTO> getPeriods(PeriodType periodType) {
+        if (periodType.equals(PeriodType.MONTHLY)) {
             return formatPeriod(periodService.getAll());
-        }else if(periodType.equals(PeriodType.QUARTERLY)){
+        } else if (periodType.equals(PeriodType.QUARTERLY)) {
             return formatPeriod(quarterPeriodService.getAll());
-        }else if(periodType.equals(PeriodType.HALF_YEARLY)){
+        } else if (periodType.equals(PeriodType.HALF_YEARLY)) {
             return formatPeriod(halfYearPeriodService.getAll());
-        }else if(periodType.equals(PeriodType.YEARLY)){
+        } else if (periodType.equals(PeriodType.YEARLY)) {
             return formatPeriod(yearPeriodService.getAll());
         }
         return formatPeriod(periodService.getAll());
@@ -150,30 +147,30 @@ public class GlobalController {
         }
         return items;
     }
-    
-    private List<NameIdDTO> formatPeriod(List<? extends GenericPeriod> periods){
+
+    private List<NameIdDTO> formatPeriod(List<? extends GenericPeriod> periods) {
         List<NameIdDTO> items = new ArrayList<>();
-        for(GenericPeriod p : periods){
+        for (GenericPeriod p : periods) {
             items.add(new NameIdDTO(p.getName(), p.getId()));
         }
         return items;
     }
 
-    private List<Province> stringToProvince(List<String> pros){
-        List<Province> provinces=new ArrayList<>();
-        for(String pro: pros){
-            Province province=provinceService.get(pro);
+    private List<Province> stringToProvince(List<String> pros) {
+        List<Province> provinces = new ArrayList<>();
+        for (String pro : pros) {
+            Province province = provinceService.get(pro);
             provinces.add(province);
         }
         //return pros.stream().map(pro->provinceService.get(pro)).collect(Collectors.toList());
         return provinces;
     }
 
-    private List<District> stringToDistrict(List<String> dists){
-        List<District> districts=new ArrayList<>();
+    private List<District> stringToDistrict(List<String> dists) {
+        List<District> districts = new ArrayList<>();
 
-        for(String d: dists){
-            District district=districtService.get(d);
+        for (String d : dists) {
+            District district = districtService.get(d);
             districts.add(district);
         }
         //return dists.stream().map(d->districtService.get(d)).collect(Collectors.toList());

@@ -26,15 +26,14 @@ import zw.org.zvandiri.business.domain.LabTask;
 import zw.org.zvandiri.business.service.LabTaskService;
 
 /**
- *
  * @author User
  */
 @Component
-public class LabTaskValidator implements Validator{
-    
+public class LabTaskValidator implements Validator {
+
     @Resource
     private LabTaskService labTaskService;
-    
+
     @Override
     public boolean supports(Class<?> type) {
         return type.equals(LabTask.class);

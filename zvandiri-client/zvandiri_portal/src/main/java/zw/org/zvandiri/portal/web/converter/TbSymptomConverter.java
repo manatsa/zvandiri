@@ -9,11 +9,10 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.TbSymptom;
 
 /**
- *
  * @author tasu
  */
-public class TbSymptomConverter implements Converter<String, TbSymptom>{
-     @Override
+public class TbSymptomConverter implements Converter<String, TbSymptom> {
+    @Override
     public TbSymptom convert(String s) {
         if (s.equals("")) {
             return null;

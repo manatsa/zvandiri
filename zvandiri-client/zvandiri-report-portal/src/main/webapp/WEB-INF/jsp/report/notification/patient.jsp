@@ -36,36 +36,36 @@
                         <th>Referrer</th>
                         </tfoot>
                         <tbody>
-                            <c:forEach var="item" items="${items}" >
-                                <tr>
-                                    <td>${item.name}</td>
-                                    <td>${item.age}</td>
-                                    <td><spring:eval expression="item.dateOfBirth"/></td>
-                                    <td>${item.gender.name}</td>
-                                    <td><spring:eval expression="item.dateJoin"/></td>
-                                    <td>${item.primaryClinic.district.province.name}</td>
-                                    <td>${item.primaryClinic.district.name}</td>
-                                    <td>${item.primaryClinic.name}</td>
-                                    <td>${item.supportGroup.name}</td>
-                                    <td>${item.mobileNumber}</td>
-                                    <td>${item.referer.name}</td>
-                                </tr>
-                            </c:forEach>
+                        <c:forEach var="item" items="${items}">
+                            <tr>
+                                <td>${item.name}</td>
+                                <td>${item.age}</td>
+                                <td><spring:eval expression="item.dateOfBirth"/></td>
+                                <td>${item.gender.name}</td>
+                                <td><spring:eval expression="item.dateJoin"/></td>
+                                <td>${item.primaryClinic.district.province.name}</td>
+                                <td>${item.primaryClinic.district.name}</td>
+                                <td>${item.primaryClinic.name}</td>
+                                <td>${item.supportGroup.name}</td>
+                                <td>${item.mobileNumber}</td>
+                                <td>${item.referer.name}</td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
-                </div>
-        <div class="panel-footer">
-            &nbsp;
+            </div>
+            <div class="panel-footer">
+                &nbsp;
+            </div>
         </div>
     </div>
-</div>
 
-<%@include file="../../template/footer.jspf" %>
-<script type="text/javascript">
-    $(".sidebar-nav").addClass("custom-side-bar-ref");
-    $("#page-wrapper").addClass("main-wrp");
-    // ensire toggle side bar is pointing right
-    $("span.toggle-span").addClass("fa-long-arrow-right");
-    $("span.toggle-span").removeClass("fa-long-arrow-left");
-</script>
+    <%@include file="../../template/footer.jspf" %>
+    <script type="text/javascript">
+        $(".sidebar-nav").addClass("custom-side-bar-ref");
+        $("#page-wrapper").addClass("main-wrp");
+        // ensire toggle side bar is pointing right
+        $("span.toggle-span").addClass("fa-long-arrow-right");
+        $("span.toggle-span").removeClass("fa-long-arrow-left");
+    </script>

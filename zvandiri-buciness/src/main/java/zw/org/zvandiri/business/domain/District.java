@@ -10,15 +10,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  *
  * @author Judge Muzinda
  */
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Table(indexes = {
     @Index(name = "district_province", columnList = "province")
 })
@@ -26,6 +25,7 @@ public class District extends BaseName {
 
     private static final long serialVersionUID = 1L;
     @ManyToOne
+    //@JsonIgnoreProperties(value = { "uuid", "createdBy", "modifiedBy", "dateCreated","dateModified","version","deleted","description" })
     private Province province;
     @OneToMany(mappedBy = "district", cascade = CascadeType.REMOVE)
     @JsonIgnore
@@ -65,4 +65,10 @@ public class District extends BaseName {
         this.supportGroups = supportGroups;
     }
 
+    @Override
+    public String toString() {
+        return "District{" +
+                "name=" + getName() +
+                '}';
+    }
 }

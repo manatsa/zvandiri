@@ -25,7 +25,7 @@
                         <th>Phone No.</th>
                         <th>District</th>
                         <th>Clinic</th>
-                        <th>Referral Date</th>                        
+                        <th>Referral Date</th>
                         <th>Organisation</th>
                         <th>Services Received</th>
                         </thead>
@@ -36,28 +36,28 @@
                         <th>Phone No.</th>
                         <th>District</th>
                         <th>Clinic</th>
-                        <th>Referral Date</th>                        
+                        <th>Referral Date</th>
                         <th>Organisation</th>
                         <th>Services Received</th>
                         </tfoot>
                         <tbody>
-                            <c:forEach var="item" items="${items}" >
-                                <tr>
-                                    <td>${item.patient.name}</td>
-                                    <td>${item.patient.age}</td>
-                                    <td>${item.patient.gender.name}</td>
-                                    <td>${item.patient.mobileNumber}</td>
-                                    <td>${item.patient.primaryClinic.district.name}</td>
-                                    <td>${item.patient.primaryClinic.name}</td>
-                                    <td><spring:eval expression="item.referralDate"/></td>
-                                    <td>${item.organisation}</td>
-                                    <td>
-                                        <c:forEach var="service" items="${item.servicesReceived}">
-                                            ${service} <br/>
-                                        </c:forEach>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                        <c:forEach var="item" items="${items}">
+                            <tr>
+                                <td>${item.patient.name}</td>
+                                <td>${item.patient.age}</td>
+                                <td>${item.patient.gender.name}</td>
+                                <td>${item.patient.mobileNumber}</td>
+                                <td>${item.patient.primaryClinic.district.name}</td>
+                                <td>${item.patient.primaryClinic.name}</td>
+                                <td><spring:eval expression="item.referralDate"/></td>
+                                <td>${item.organisation}</td>
+                                <td>
+                                    <c:forEach var="service" items="${item.servicesReceived}">
+                                        ${service} <br/>
+                                    </c:forEach>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

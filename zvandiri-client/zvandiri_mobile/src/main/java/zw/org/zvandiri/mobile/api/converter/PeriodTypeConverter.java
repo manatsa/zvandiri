@@ -19,14 +19,13 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.PeriodType;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class PeriodTypeConverter implements Converter<String, PeriodType> {
 
     @Override
     public PeriodType convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return PeriodType.get(Integer.valueOf(s));
     }
 }

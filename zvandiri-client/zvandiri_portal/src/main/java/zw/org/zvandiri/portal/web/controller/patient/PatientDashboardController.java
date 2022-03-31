@@ -35,12 +35,11 @@ import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
 @RequestMapping("/patient/dashboard")
-public class  PatientDashboardController extends BaseController {
+public class PatientDashboardController extends BaseController {
 
     @Resource
     private PatientService patientService;
@@ -76,7 +75,7 @@ public class  PatientDashboardController extends BaseController {
         model.addAttribute("canEdit", Boolean.TRUE);
         model.addAttribute("canReInstate", Boolean.FALSE);
         model.addAttribute("heu", Boolean.FALSE);
-        if(item.getGender() != null && item.getGender().equals(Gender.FEMALE)){
+        if (item.getGender() != null && item.getGender().equals(Gender.FEMALE)) {
             model.addAttribute("female", Boolean.TRUE);
         }
         if (type != null) {
@@ -88,27 +87,27 @@ public class  PatientDashboardController extends BaseController {
         if (item.getCat() != null && item.getCat().equals(YesNo.YES)) {
             if (!patientService.hasCatDetailRecord(item)) {
                 model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(getPatient(item)).messageType(MessageType.WARNING).build());
-            }else{
+            } else {
                 model.addAttribute("cat", Boolean.TRUE);
                 model.addAttribute("catDetail", catDetailService.getByPatient(item));
             }
         }
-        if(item.getHeuReg()) {
+        if (item.getHeuReg()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(getHeu(item)).messageType(MessageType.WARNING).build());
         }
-        if(item.getContacts().isEmpty()) {
+        if (item.getContacts().isEmpty()) {
             model.addAttribute("contactsMessage", new AppMessage.MessageBuilder(Boolean.TRUE).message(getContacts(item)).messageType(MessageType.WARNING).build());
         }
-        if(item.getMentalHealthScreenings().isEmpty()) {
+        if (item.getMentalHealthScreenings().isEmpty()) {
             model.addAttribute("mentalHealthMessage", new AppMessage.MessageBuilder(Boolean.TRUE).message(getMentalHealth(item)).messageType(MessageType.WARNING).build());
         }
-        if(item.getTbIpts().isEmpty()) {
+        if (item.getTbIpts().isEmpty()) {
             model.addAttribute("tbScreeningMessage", new AppMessage.MessageBuilder(Boolean.TRUE).message(getTbScreening(item)).messageType(MessageType.WARNING).build());
         }
         if (!item.getPatientStatus()) {
             getPatientStatus(item, model);
         }
-        if(item.getHei() != null && item.getHei().equals(YesNo.YES)) {
+        if (item.getHei() != null && item.getHei().equals(YesNo.YES)) {
             model.addAttribute("heu", Boolean.TRUE);
         }
 
@@ -137,7 +136,7 @@ public class  PatientDashboardController extends BaseController {
         warning.append("</ul>");
         return warning.toString();
     }
-    
+
     private String getContacts(Patient patient) {
         StringBuilder warning = new StringBuilder();
         warning.append("Please complete the following before proceeding<br/><ul>");
@@ -147,7 +146,7 @@ public class  PatientDashboardController extends BaseController {
         warning.append("</ul>");
         return warning.toString();
     }
-    
+
     private String getMentalHealth(Patient patient) {
         StringBuilder warning = new StringBuilder();
         warning.append("Please complete the following before proceeding<br/><ul>");
@@ -157,7 +156,7 @@ public class  PatientDashboardController extends BaseController {
         warning.append("</ul>");
         return warning.toString();
     }
-    
+
     private String getTbScreening(Patient patient) {
         StringBuilder warning = new StringBuilder();
         warning.append("Please complete the following before proceeding<br/><ul>");
@@ -167,7 +166,7 @@ public class  PatientDashboardController extends BaseController {
         warning.append("</ul>");
         return warning.toString();
     }
-    
+
     private String getHeu(Patient patient) {
         StringBuilder warning = new StringBuilder();
         warning.append("Please complete the following before proceeding<br/><ul>");

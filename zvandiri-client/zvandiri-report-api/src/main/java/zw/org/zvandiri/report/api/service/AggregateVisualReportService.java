@@ -16,13 +16,13 @@
 package zw.org.zvandiri.report.api.service;
 
 import java.util.List;
+
 import org.jfree.chart.JFreeChart;
 import zw.org.zvandiri.report.api.BasicTrendModel;
 import zw.org.zvandiri.report.api.ChartModelItem;
 import zw.org.zvandiri.report.api.GenericReportModel;
 
 /**
- *
  * @author Judge Muzinda
  */
 public interface AggregateVisualReportService {

@@ -20,13 +20,12 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- *
  * @author Judge Muzinda
  * @version 1.00
  * Magical 2D data structure to represent any tabular data ready for std.out
  */
 public final class GenericReportModel implements Serializable {
-    
+
     private List<String> row;
 
     public GenericReportModel() {
@@ -43,9 +42,9 @@ public final class GenericReportModel implements Serializable {
     public void setRow(List<String> row) {
         this.row = row;
     }
-    
-    public Boolean noData(List<?> items){
-        if(items.size() <=0) return Boolean.TRUE;
+
+    public Boolean noData(List<?> items) {
+        if (items.size() <= 0) return Boolean.TRUE;
         return Boolean.FALSE;
     }
 

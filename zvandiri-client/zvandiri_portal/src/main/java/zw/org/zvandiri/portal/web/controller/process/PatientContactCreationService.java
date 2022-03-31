@@ -21,13 +21,12 @@ import zw.org.zvandiri.business.domain.PatientContact;
 import zw.org.zvandiri.business.domain.util.FollowUp;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 public interface PatientContactCreationService {
- 
+
     public PatientContact createPatientContact();
-    
+
     public PatientContact savePatientContact(PatientContact patientContact);
 
     public Contact getLastPatientContact(Patient patient);

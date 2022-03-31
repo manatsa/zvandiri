@@ -18,6 +18,7 @@ package zw.org.zvandiri.report.api.service.impl;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.Settings;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
@@ -29,12 +30,11 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.service.BasicNameNumberReportService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Repository
 public class BasicNameNumberReportServiceImpl implements BasicNameNumberReportService {
-    
+
     @Resource
     private DetailedPatientReportService detailedPatientReportService;
     @Resource
@@ -80,5 +80,5 @@ public class BasicNameNumberReportServiceImpl implements BasicNameNumberReportSe
         dto.setTestType(TestType.VIRAL_LOAD);
         map.put("DUE_FOR_VL", detailedPatientReportService.getCount(dto));*/
         return map;
-    }    
+    }
 }

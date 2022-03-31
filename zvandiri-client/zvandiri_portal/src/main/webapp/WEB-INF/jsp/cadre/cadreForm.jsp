@@ -9,12 +9,12 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
-<%--                            <%@include file="../template/dashboard/patientProfile.jspf" %>--%>
+                        <div class="panel panel-default">
+                            <%--                            <%@include file="../template/dashboard/patientProfile.jspf" %>--%>
                         </div>
                     </div>
                 </div>
-<%--                <a href="${page}/cadre/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/><br/>--%>
+                <%--                <a href="${page}/cadre/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/><br/>--%>
                 <div class="row">
 
                     <div class="col-lg-10">
@@ -67,7 +67,7 @@
 
                             <div class="form-group sec-own-mobile">
                                 <label>Date Of Birth</label>
-                                <form:input  path="dateOfBirth"  class="form-control general"/>
+                                <form:input path="dateOfBirth" class="form-control general"/>
                                 <p class="help-block">
                                     <form:errors path="dateOfBirth" class="alert-danger"/>
                                 </p>
@@ -129,7 +129,9 @@
 
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Save</button>
-                                <a href="${page}/cadre/view?id=${cadre.id}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <a href="${page}/cadre/view?id=${cadre.id}">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>

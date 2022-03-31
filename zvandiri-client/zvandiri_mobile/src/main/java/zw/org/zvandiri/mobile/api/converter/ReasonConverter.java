@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.Reason;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class ReasonConverter implements Converter<String, Reason> {
 
     @Override
     public Reason convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return Reason.get(Integer.valueOf(s));
     }
-    
+
 }

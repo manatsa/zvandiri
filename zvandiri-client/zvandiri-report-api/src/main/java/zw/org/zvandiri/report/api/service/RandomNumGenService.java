@@ -17,10 +17,9 @@
 package zw.org.zvandiri.report.api.service;
 
 /**
- *
  * @author Judge Muzinda
  */
 public interface RandomNumGenService {
-    
+
     public Integer getRandNum(int min, int max);
 }

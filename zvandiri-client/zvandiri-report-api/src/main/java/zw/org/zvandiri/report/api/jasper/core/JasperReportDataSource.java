@@ -15,7 +15,7 @@ public class JasperReportDataSource<T> {
 
     private Collection<JasperSubReportDataSource<T>> data;
 
-   public String getName() {
+    public String getName() {
         return name;
     }
 

@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.CurrentStatus;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class CurrentStatusConverter implements Converter<String, CurrentStatus> {
 
     @Override
     public CurrentStatus convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return CurrentStatus.get(Integer.valueOf(s));
     }
-    
+
 }

@@ -17,7 +17,7 @@
                             </div>
                             <div class="panel-body">
                                 <img class="img-responsive" src="${page}${patientAgeGroupDistribution}"/>
-                            </div>                        
+                            </div>
                         </div>
                     </div>
                     <!--Start of top right panel -->
@@ -26,7 +26,7 @@
                             <div class="panel-heading">
                                 Notifications
                             </div>
-                            <div class="panel-body">  
+                            <div class="panel-body">
                                 <div class="list-group">
                                     <table class="table table-striped table-hover" cellspacing="0">
                                         <thead>
@@ -36,24 +36,25 @@
                                         <th style="font-size: 13px;">12 Months</th>
                                         </thead>
                                         <tbody>
-                                            <c:set var="count" value="0"/>
-                                            <c:forEach var="d" items="${notifications}">
-                                                <c:if test="${count <= 8}">
-                                                    <tr>
-                                                        <td>${d.name}</td>
-                                                        <td>${d.num}</td>
-                                                        <td>${d.num6Months}</td>
-                                                        <td>${d.num12Months}</td>
-                                                    </tr>
+                                        <c:set var="count" value="0"/>
+                                        <c:forEach var="d" items="${notifications}">
+                                            <c:if test="${count <= 8}">
+                                                <tr>
+                                                    <td>${d.name}</td>
+                                                    <td>${d.num}</td>
+                                                    <td>${d.num6Months}</td>
+                                                    <td>${d.num12Months}</td>
+                                                </tr>
                                             </c:if>
                                             <c:set var="count" value="${count + 1}"/>
                                         </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>                        
+                            </div>
                         </div>
-                    </div><br/>
+                    </div>
+                    <br/>
                     <!-- Start of  bottom left panel-->
                     <div class="col-lg-6">
                         <div class="panel panel-default">
@@ -62,7 +63,7 @@
                             </div>
                             <div class="panel-body">
                                 <img class="img-responsive" src="${page}${contactLevelOfCareDistribution}"/>
-                            </div>                        
+                            </div>
                         </div>
                     </div>
                     <!--Start of bottom right panel -->
@@ -73,9 +74,9 @@
                             </div>
                             <div class="panel-body">
                                 <img class="img-responsive" src="${page}${contactLevelTrend}"/>
-                            </div>                        
+                            </div>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
         </div>

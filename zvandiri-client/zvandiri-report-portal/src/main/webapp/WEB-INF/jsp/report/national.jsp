@@ -21,7 +21,7 @@
                                         Export/ View As
                                         <a href="${page}${trendUrl}">
                                             Trend
-                                        </a> | 
+                                        </a> |
                                         <a href="${page}${pdfExport}">
                                             <img src="<c:url value="/resources/images/pdf.png"/>"/>
                                         </a>

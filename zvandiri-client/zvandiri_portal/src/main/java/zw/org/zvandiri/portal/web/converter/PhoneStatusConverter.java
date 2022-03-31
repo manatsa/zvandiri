@@ -20,15 +20,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.PhoneStatus;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class PhoneStatusConverter implements Converter<String, PhoneStatus> {
 
     @Override
     public PhoneStatus convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return PhoneStatus.get(Integer.valueOf(s));
     }
-    
+
 }

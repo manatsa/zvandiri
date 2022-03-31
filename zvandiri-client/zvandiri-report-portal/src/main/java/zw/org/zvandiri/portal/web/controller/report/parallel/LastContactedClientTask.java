@@ -13,10 +13,9 @@ import java.util.List;
 import java.util.concurrent.RecursiveTask;
 
 /**
- *
  * @author tasu
  */
-public class LastContactedClientTask extends RecursiveTask<List>{
+public class LastContactedClientTask extends RecursiveTask<List> {
 
     private final LastContactedService reportService;
     private final SearchDTO searchData;

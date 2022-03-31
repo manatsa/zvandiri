@@ -16,22 +16,22 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.Relationship;
 import zw.org.zvandiri.business.service.RelationshipService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class RelationshipConverter implements Converter<String, Relationship> {
- 
+
     @Resource
     private RelationshipService relationshipService;
 
     @Override
     public Relationship convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return relationshipService.get(s);
     }
 }

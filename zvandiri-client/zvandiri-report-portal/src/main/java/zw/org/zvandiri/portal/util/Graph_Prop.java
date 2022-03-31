@@ -16,13 +16,12 @@
 package zw.org.zvandiri.portal.util;
 
 /**
- *
  * @author Judge Muzinda
  */
 public interface Graph_Prop {
     public final Integer GRAPH_WIDTH = 800;
     public final Integer GRAPH_HEIGHT = 470;
-    
+
     public final Integer GRAPH_PIE_WIDTH = 500;
     public final Integer GRAPH_PIE_HEIGHT = 300;
 }

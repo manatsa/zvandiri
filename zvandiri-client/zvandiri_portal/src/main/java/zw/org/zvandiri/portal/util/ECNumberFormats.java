@@ -7,9 +7,8 @@ package zw.org.zvandiri.portal.util;
 import java.io.Serializable;
 
 /**
- *
  * @author charlesc
  */
-public class ECNumberFormats implements Serializable{
-    public static String ZIMBABWE="^(\\d{7}[A-Z])$";
+public class ECNumberFormats implements Serializable {
+    public static String ZIMBABWE = "^(\\d{7}[A-Z])$";
 }

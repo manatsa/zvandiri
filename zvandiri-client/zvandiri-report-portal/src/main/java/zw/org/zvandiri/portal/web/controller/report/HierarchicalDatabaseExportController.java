@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 @Controller
@@ -32,14 +31,13 @@ public class HierarchicalDatabaseExportController extends BaseController {
 
     @Resource
     private OfficeExportService officeExportService;
-    
+
     @Resource
     private DistrictService districtService;
     @Resource
     ProvinceService provinceService;
     @Resource
     FacilityService facilityService;
-
 
 
     public void setUpModel(ModelMap model, SearchDTO item) {
@@ -62,12 +60,12 @@ public class HierarchicalDatabaseExportController extends BaseController {
 
     @RequestMapping(value = "/index", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_DATA_CLERK') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
-    public void getExcelExport(ModelMap model,HttpServletResponse response, @ModelAttribute("item") SearchDTO dto) {
+    public void getExcelExport(ModelMap model, HttpServletResponse response, @ModelAttribute("item") SearchDTO dto) {
         dto = getUserLevelObjectState(dto);
         String name = DateUtil.getFriendlyFileName("Zvandiri_Hierarchical_Database_Export");
-        long startTime=System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
         forceDownLoadXLSX(officeExportService.exportDatabase(name, dto), name, response);
-        System.err.println(" >>>>>> >>>>> Time to finish report : "+((System.currentTimeMillis()-startTime)/60000)+" minutes");
+        System.err.println(" >>>>>> >>>>> Time to finish report : " + ((System.currentTimeMillis() - startTime) / 60000) + " minutes");
     }
 
 }

@@ -20,15 +20,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.DifferentiatedService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class DifferentiatedServiceConverter implements Converter<String, DifferentiatedService> {
 
     @Override
     public DifferentiatedService convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return DifferentiatedService.get(Integer.valueOf(s));
     }
-    
+
 }

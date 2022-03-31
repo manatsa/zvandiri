@@ -23,7 +23,6 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.GenericReportModel;
 
 /**
- *
  * @author Judge Muzinda
  */
 public interface OfficeExportService {
@@ -33,6 +32,6 @@ public interface OfficeExportService {
     public XSSFWorkbook exportExcelFile(List<GenericReportModel> rows, String name);
 
     public XSSFWorkbook exportExcelXLSXFile(List<GenericReportModel> rows, String name);
-    
+
     public XSSFWorkbook exportDatabase(String name, SearchDTO dto);
 }

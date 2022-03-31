@@ -16,11 +16,7 @@
 package zw.org.zvandiri.business.service.impl;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.annotation.Resource;
 
@@ -55,6 +51,7 @@ import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.UUIDGen;
+import zw.org.zvandiri.business.util.dto.MobilePatientDTO;
 import zw.org.zvandiri.business.util.dto.NameIdDTO;
 import zw.org.zvandiri.business.util.dto.PatientDuplicateDTO;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -417,6 +414,16 @@ public class PatientServiceImpl implements PatientService {
         
     	return catDetailService.getCatPatients(catDetail);
     }
-   
-    
+
+    @Override
+    public List<MobilePatientDTO> getFacilityPatients(CatDetail catdDetail) {
+        List<Patient> patients=patientRepo.getAllByPrimaryClinicAndActive(catdDetail.getPrimaryClinic(), true);
+        List<MobilePatientDTO> mobilePatientDTOS=new ArrayList<>();
+        for(Patient p: patients){
+            mobilePatientDTOS.add(new MobilePatientDTO(p));
+        }
+        return mobilePatientDTOS;
+    }
+
+
 }

@@ -15,10 +15,12 @@
  */
 
 $('#tableList').dataTable({"aaSorting": []});
-$('#userList').dataTable({"aaSorting": [], 
+$('#userList').dataTable({
+    "aaSorting": [],
     "search": {
         "search": "Xxxxxxxxxx12345"
-    }});
+    }
+});
 
 $('.itemList').dataTable({"aaSorting": []});
 $("#province").change(function () {
@@ -158,6 +160,7 @@ function processDropDown(items) {
     }
     return list;
 }
+
 function processPeriodDropDown(items, elementName, elementLabel) {
     var str = "<label>" + elementLabel + "</label><select name='" + elementName + "' id ='" + elementName + "' class='form-control'>";
     str += processDropDown(items);
@@ -217,10 +220,10 @@ function gup(name, search_url) {
         return results[1];
 }
 
-function normalizeArgs(data){
-    var result=''
-    data.forEach(item =>{
-        result +=item+','
+function normalizeArgs(data) {
+    var result = ''
+    data.forEach(item => {
+        result += item + ','
     });
 
     return result;

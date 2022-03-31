@@ -16,23 +16,23 @@
 package zw.org.zvandiri.mobile.api.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.QuarterPeriod;
 import zw.org.zvandiri.business.service.QuarterPeriodService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class QuarterPeriodConverter implements Converter<String, QuarterPeriod> {
-    
+
     @Resource
     private QuarterPeriodService quarterPeriodService;
 
     @Override
     public QuarterPeriod convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return quarterPeriodService.get(s);
     }
-    
+
 }

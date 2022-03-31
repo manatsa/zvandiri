@@ -13,10 +13,10 @@
                             <a href="${page}/report/index.htm">&DoubleLeftArrow; Back To Reports DashBoard Home</a>
                             <%@include file="../template/searchDateRangeNewFragment.jspf" %>
                             <img class="img-responsive" src="${page}/report/graphs${report}"/>
-                        </div>  
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <%@include file="../template/footer.jspf" %>
+<%@include file="../template/footer.jspf" %>

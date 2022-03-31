@@ -6,6 +6,7 @@ package zw.org.zvandiri.portal.web.controller.admin;
 
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -20,7 +21,6 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.validator.UserValidator;
 
 /**
- *
  * @author Edward Zengeni
  */
 @Controller
@@ -36,16 +36,16 @@ public class ManageUserController extends BaseController {
     public String changeUserPassword(@RequestParam String id, ModelMap model) {
         User user = userService.get(id);
         ChangePasswordDTO userProfile = new ChangePasswordDTO(user);
-        model.addAttribute("pageTitle", APP_PREFIX+user.getDisplayName()+" Change Password");
+        model.addAttribute("pageTitle", APP_PREFIX + user.getDisplayName() + " Change Password");
         model.addAttribute("item", userProfile);
         return "admin/managePasswordForm";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/managepassword")
-    public String changeUser(ModelMap model, @ModelAttribute("item") ChangePasswordDTO details, BindingResult result){
+    public String changeUser(ModelMap model, @ModelAttribute("item") ChangePasswordDTO details, BindingResult result) {
         userValidator.manageChangepassword(details, result);
         if (result.hasErrors()) {
-            model.addAttribute("pageTitle", APP_PREFIX+"Change Password");
+            model.addAttribute("pageTitle", APP_PREFIX + "Change Password");
             model.addAttribute("item", details);
             return "admin/managePasswordForm";
         }

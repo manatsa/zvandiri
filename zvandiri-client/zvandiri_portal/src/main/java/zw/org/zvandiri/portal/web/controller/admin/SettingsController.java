@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.controller.admin;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -30,38 +31,37 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.validator.SettingsValidator;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
 @RequestMapping("/admin/settings")
 public class SettingsController extends BaseController {
-    
+
     @Resource
     private SettingsService settingsService;
     @Resource
     private SettingsValidator settingsValidator;
-    
-    public String setUpModel(ModelMap model, Settings item){
-        model.addAttribute("pageTitle", APP_PREFIX+"Create/ Edit System Settings");
+
+    public String setUpModel(ModelMap model, Settings item) {
+        model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit System Settings");
         model.addAttribute("item", item);
         model.addAttribute("itemDelete", "item.form");
         return "admin/systemSettingsForm";
     }
-    
+
     @RequestMapping(value = {"/item.form", "/"}, method = RequestMethod.GET)
-    public String getForm(ModelMap model){
+    public String getForm(ModelMap model) {
         Settings item = settingsService.getItem();
-        if(item != null){
+        if (item != null) {
             return setUpModel(model, item);
         }
         return setUpModel(model, new Settings());
     }
-    
+
     @RequestMapping(value = {"/item.form", "/"}, method = RequestMethod.POST)
-    public String saveItem(ModelMap model, @ModelAttribute("item") Settings item, BindingResult result){
+    public String saveItem(ModelMap model, @ModelAttribute("item") Settings item, BindingResult result) {
         settingsValidator.validate(item, result);
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
             return setUpModel(model, item);
         }

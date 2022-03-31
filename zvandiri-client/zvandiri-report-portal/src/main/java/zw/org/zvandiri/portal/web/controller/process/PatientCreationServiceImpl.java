@@ -16,18 +16,18 @@
 package zw.org.zvandiri.portal.web.controller.process;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.Dependent;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.service.PatientService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Repository("patientCreationService")
 public class PatientCreationServiceImpl implements PatientCreationService {
-    
+
     @Resource
     private PatientService patientService;
 
@@ -45,5 +45,5 @@ public class PatientCreationServiceImpl implements PatientCreationService {
     public Patient savePatient(Patient patient) {
         return patientService.save(patient);
     }
-    
+
 }

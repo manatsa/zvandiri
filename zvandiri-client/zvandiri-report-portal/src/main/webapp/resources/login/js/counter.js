@@ -1,5 +1,5 @@
-(function($) {
-    $.fn.countTo = function(options) {
+(function ($) {
+    $.fn.countTo = function (options) {
         // merge the default plugin settings with the custom options
         options = $.extend({}, $.fn.countTo.defaults, options || {});
 
@@ -7,7 +7,7 @@
         var loops = Math.ceil(options.speed / options.refreshInterval),
             increment = (options.to - options.from) / loops;
 
-        return $(this).each(function() {
+        return $(this).each(function () {
             var _this = this,
                 loopCount = 0,
                 value = options.from,
@@ -18,7 +18,7 @@
                 loopCount++;
                 $(_this).html(value.toFixed(options.decimals));
 
-                if (typeof(options.onUpdate) == 'function') {
+                if (typeof (options.onUpdate) == 'function') {
                     options.onUpdate.call(_this, value);
                 }
 
@@ -26,7 +26,7 @@
                     clearInterval(interval);
                     value = options.to;
 
-                    if (typeof(options.onComplete) == 'function') {
+                    if (typeof (options.onComplete) == 'function') {
                         options.onComplete.call(_this, value);
                     }
                 }

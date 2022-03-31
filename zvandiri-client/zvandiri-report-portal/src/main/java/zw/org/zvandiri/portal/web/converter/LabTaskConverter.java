@@ -23,7 +23,6 @@ import zw.org.zvandiri.business.domain.LabTask;
 import zw.org.zvandiri.business.service.LabTaskService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class LabTaskConverter implements Converter<String, LabTask> {
@@ -33,8 +32,8 @@ public class LabTaskConverter implements Converter<String, LabTask> {
 
     @Override
     public LabTask convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return labTaskService.get(s);
-    }    
+    }
 
 }

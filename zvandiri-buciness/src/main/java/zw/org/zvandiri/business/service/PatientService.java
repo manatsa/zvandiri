@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 import zw.org.zvandiri.business.domain.CatDetail;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.util.dto.MobilePatientDTO;
 import zw.org.zvandiri.business.util.dto.NameIdDTO;
 import zw.org.zvandiri.business.util.dto.PatientDuplicateDTO;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -50,4 +51,6 @@ public interface PatientService extends GenericService<Patient> {
     public String getPatientUAC(Patient patient);
     
     public List<NameIdDTO> getCatPatients(CatDetail catdDetail);
+
+    public List<MobilePatientDTO> getFacilityPatients(CatDetail catdDetail);
 }

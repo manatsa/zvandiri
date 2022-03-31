@@ -19,7 +19,7 @@ public class LocationsService {
     @Resource
     LocationService locationService;
 
-    public List<Location> getLocations(){
+    public List<Location> getLocations() {
         return locationService.getAll();
     }
 }

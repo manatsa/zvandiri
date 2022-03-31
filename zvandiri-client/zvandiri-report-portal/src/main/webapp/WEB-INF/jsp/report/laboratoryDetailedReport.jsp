@@ -51,24 +51,24 @@
                         <th>Referrer</th>
                         </tfoot>
                         <tbody>
-                            <c:forEach var="item" items="${items}" >
-                                <tr>
-                                    <td>${item.patient.name}</td>
-                                    <td>${item.patient.patientNumber}</td>
-                                    <td>${item.patient.age}</td>
-                                    <td>${item.patient.gender.name}</td>
-                                    <td>${item.result}</td>
-                                    <td>${item.testType.name}</td>
-                                    <td>${item.viralLoadSuppressionStatus}</td>
-                                    <td><spring:eval expression="item.dateTaken"/></td>
-                                    <td><spring:eval expression="item.patient.dateJoin"/></td>
-                                    <td>${item.patient.primaryClinic.district.province.name}</td>
-                                    <td>${item.patient.primaryClinic.district.name}</td>
-                                    <td>${item.patient.primaryClinic.name}</td>
-                                    <td>${item.patient.mobileNumber}</td>
-                                    <td>${item.patient.referer.name}</td>
-                                </tr>
-                            </c:forEach>
+                        <c:forEach var="item" items="${items}">
+                            <tr>
+                                <td>${item.patient.name}</td>
+                                <td>${item.patient.patientNumber}</td>
+                                <td>${item.patient.age}</td>
+                                <td>${item.patient.gender.name}</td>
+                                <td>${item.result}</td>
+                                <td>${item.testType.name}</td>
+                                <td>${item.viralLoadSuppressionStatus}</td>
+                                <td><spring:eval expression="item.dateTaken"/></td>
+                                <td><spring:eval expression="item.patient.dateJoin"/></td>
+                                <td>${item.patient.primaryClinic.district.province.name}</td>
+                                <td>${item.patient.primaryClinic.district.name}</td>
+                                <td>${item.patient.primaryClinic.name}</td>
+                                <td>${item.patient.mobileNumber}</td>
+                                <td>${item.patient.referer.name}</td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

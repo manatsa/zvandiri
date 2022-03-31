@@ -15,7 +15,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="panel panel-default">
-                                    <%@include file="../template/twoVariableCrossTabTable.jspf" %> 
+                                    <%@include file="../template/twoVariableCrossTabTable.jspf" %>
                                     <div class="panel-footer" style="text-align: right">
                                         Export/ View As
                                         <a href="${page}${excelExport}">

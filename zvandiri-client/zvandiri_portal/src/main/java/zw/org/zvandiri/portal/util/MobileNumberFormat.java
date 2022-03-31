@@ -18,14 +18,13 @@ package zw.org.zvandiri.portal.util;
 import java.io.Serializable;
 
 /**
- *
  * @author Edward Zengeni
  */
-public final class MobileNumberFormat implements Serializable{
-    
-    public static String ZIMBABWE="\\d{10}";
-    
-    private MobileNumberFormat(){
+public final class MobileNumberFormat implements Serializable {
+
+    public static String ZIMBABWE = "\\d{10}";
+
+    private MobileNumberFormat() {
         throw new IllegalStateException("Class not meant to be initialized");
     }
 }

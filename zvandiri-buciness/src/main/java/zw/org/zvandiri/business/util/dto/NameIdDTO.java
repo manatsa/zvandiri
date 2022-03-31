@@ -18,6 +18,10 @@ package zw.org.zvandiri.business.util.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import zw.org.zvandiri.business.domain.Facility;
+import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.util.ClientType;
 import zw.org.zvandiri.business.domain.util.Gender;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 
@@ -26,7 +30,7 @@ import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
  * @author Judge Muzinda
  */
 public class NameIdDTO implements Serializable {
-    
+
     private String name;
     private String id;
     private Date dateOfBirth;
@@ -34,6 +38,8 @@ public class NameIdDTO implements Serializable {
     private PatientChangeEvent status;
     private Boolean active;
     private String primaryClinicId;
+
+
 
     public NameIdDTO() {
     }
@@ -52,7 +58,7 @@ public class NameIdDTO implements Serializable {
         this.active = active;
         this.primaryClinicId=facilityId;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -107,5 +113,19 @@ public class NameIdDTO implements Serializable {
 
     public void setPrimaryClinicId(String primaryClinicId) {
         this.primaryClinicId = primaryClinicId;
+    }
+
+
+    @Override
+    public String toString() {
+        return "NameIdDTO{" +
+                "name='" + name + '\'' +
+                ", id='" + id + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", gender=" + gender +
+                ", status=" + status +
+                ", active=" + active +
+                ", primaryClinicId='" + primaryClinicId + '\'' +
+                '}';
     }
 }

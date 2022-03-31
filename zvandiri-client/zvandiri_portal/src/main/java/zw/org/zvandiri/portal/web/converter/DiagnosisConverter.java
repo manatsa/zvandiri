@@ -9,13 +9,12 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.Diagnosis;
 
 /**
- *
  * @author tasu
  */
-public class DiagnosisConverter implements Converter<String, Diagnosis>{
+public class DiagnosisConverter implements Converter<String, Diagnosis> {
     @Override
     public Diagnosis convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return Diagnosis.get(Integer.valueOf(s));
     }
 }

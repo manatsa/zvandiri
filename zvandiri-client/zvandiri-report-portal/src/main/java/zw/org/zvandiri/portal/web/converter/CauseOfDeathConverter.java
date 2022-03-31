@@ -19,7 +19,6 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.CauseOfDeath;
 
 /**
- *
  * @author jmuzinda
  */
 public class CauseOfDeathConverter implements Converter<String, CauseOfDeath> {

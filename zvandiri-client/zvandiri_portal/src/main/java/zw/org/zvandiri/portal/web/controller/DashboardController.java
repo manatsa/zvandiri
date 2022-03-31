@@ -39,7 +39,6 @@ import zw.org.zvandiri.report.api.service.PatientReportAPIService;
 import zw.org.zvandiri.report.api.service.ReferralReportAPIService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
@@ -54,10 +53,10 @@ public class DashboardController extends BaseController {
     @Resource
     private ContactLevelOfCareReportService contactLevelOfCareReportService;
     @Resource
-    private BasicNameNumberReportService basicNameNumberReportService;  
+    private BasicNameNumberReportService basicNameNumberReportService;
     @Resource
     private SettingsService settingsService;
-    
+
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String getIndex(ModelMap model) {
         SearchDTO dto = getUserLevelObjectState(new SearchDTO());
@@ -111,5 +110,5 @@ public class DashboardController extends BaseController {
             ex.printStackTrace();
         }
     }*/
-    
+
 }

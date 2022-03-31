@@ -21,11 +21,10 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class BasicReportItem implements Serializable {
-    
+
     private final Integer count;
     private final Integer total;
 
@@ -41,14 +40,14 @@ public class BasicReportItem implements Serializable {
     public Integer getTotal() {
         return total;
     }
-    
-    public BigDecimal getPercentage(){
-        if(count == 0 || total == 0){
+
+    public BigDecimal getPercentage() {
+        if (count == 0 || total == 0) {
             return BigDecimal.ZERO;
         }
-        if(count.equals(total)){
+        if (count.equals(total)) {
             return BigDecimal.valueOf(100);
         }
-        return BigDecimal.valueOf(((double) count/ (double)total) *100).round(new MathContext(2, RoundingMode.CEILING));
+        return BigDecimal.valueOf(((double) count / (double) total) * 100).round(new MathContext(2, RoundingMode.CEILING));
     }
 }

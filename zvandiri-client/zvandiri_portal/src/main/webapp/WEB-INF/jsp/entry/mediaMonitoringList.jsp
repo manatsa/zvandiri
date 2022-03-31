@@ -29,19 +29,21 @@
                         <th>&nbsp</th>
                         </tfoot>
                         <tbody>
-                            <c:forEach var="item" items="${items}" >
-                                <tr>
-                                    <td><a href="<c:url value="/entry/media-monitoring/item.form?id=${item.id}"/>">${item.organisation.name}</a></td>
-                                    <td><spring:eval expression="item.interviewDate"/></td>
-                                    <td><spring:eval expression="item.monthName"/></td>
-                                    <td><spring:eval expression="item.mediaHouse.name"/></td>
-                                    <td><spring:eval expression="item.writer"/></td>
-                                    <td><spring:eval expression="item.articleTitle"/></td>
-                                    <td>
-                                        <a href="<c:url value="/entry/media-monitoring/item.form?id=${item.id}"/>">Edit</a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                        <c:forEach var="item" items="${items}">
+                            <tr>
+                                <td>
+                                    <a href="<c:url value="/entry/media-monitoring/item.form?id=${item.id}"/>">${item.organisation.name}</a>
+                                </td>
+                                <td><spring:eval expression="item.interviewDate"/></td>
+                                <td><spring:eval expression="item.monthName"/></td>
+                                <td><spring:eval expression="item.mediaHouse.name"/></td>
+                                <td><spring:eval expression="item.writer"/></td>
+                                <td><spring:eval expression="item.articleTitle"/></td>
+                                <td>
+                                    <a href="<c:url value="/entry/media-monitoring/item.form?id=${item.id}"/>">Edit</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

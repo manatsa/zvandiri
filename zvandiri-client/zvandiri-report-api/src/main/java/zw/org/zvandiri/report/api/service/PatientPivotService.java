@@ -16,17 +16,17 @@
 package zw.org.zvandiri.report.api.service;
 
 import java.util.List;
+
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.business.util.pivot.dto.BasePatientExitingProgramPivotDTO;
 import zw.org.zvandiri.business.util.pivot.dto.BasePatientPivotDTO;
 
 /**
- *
  * @author Judge Muzinda
  */
 public interface PatientPivotService {
-    
+
     public List<BasePatientPivotDTO> get(SearchDTO dto);
-    
+
     public List<BasePatientExitingProgramPivotDTO> getInactivePatients(SearchDTO dto);
 }

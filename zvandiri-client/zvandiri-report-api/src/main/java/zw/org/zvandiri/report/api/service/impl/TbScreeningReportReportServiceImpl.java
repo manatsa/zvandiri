@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.District;
 import zw.org.zvandiri.business.domain.Province;
@@ -35,7 +36,6 @@ import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.TbScreeningReportReportService;
 
 /**
- *
  * @author tasu
  */
 @Repository
@@ -166,7 +166,7 @@ public class TbScreeningReportReportServiceImpl implements TbScreeningReportRepo
         }
         return list;
     }
-    
+
     @Override
     public List<GenericReportModel> getTbTreatmentOutcomeTrendReport(SearchDTO dto) {
         List<GenericReportModel> list = new ArrayList<>();

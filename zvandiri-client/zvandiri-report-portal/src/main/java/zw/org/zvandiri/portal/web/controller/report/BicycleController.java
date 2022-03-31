@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
 /**
- *
  * @author Mana
  */
 @Controller
@@ -143,7 +142,7 @@ public class BicycleController extends BaseController {
             sex.setCellValue(bicycle.getCadre().getGender().getName());
 
             XSSFCell cadreStatus = bicycleRow.createCell(count++);
-           // Optional<PatientChangeEvent> cadreStatusOptional=Optional.ofNullable(bicycle.getCadre().getStatus());
+            // Optional<PatientChangeEvent> cadreStatusOptional=Optional.ofNullable(bicycle.getCadre().getStatus());
             cadreStatus.setCellValue(bicycle.getCadre().getStatus().getName());
 
             XSSFCell primaryClinic = bicycleRow.createCell(count++);
@@ -163,30 +162,30 @@ public class BicycleController extends BaseController {
             make.setCellValue(bicycle.getBikeType());
 
             XSSFCell bicycleDateIssued = bicycleRow.createCell(count++);
-            if(bicycle.getDateIssued()!=null){
+            if (bicycle.getDateIssued() != null) {
                 bicycleDateIssued.setCellValue(bicycle.getDateIssued());
                 bicycleDateIssued.setCellStyle(cellStyle);
-            }else{
+            } else {
                 bicycleDateIssued.setCellType(XSSFCell.CELL_TYPE_BLANK);
             }
             //Optional.ofNullable(bicycle.getDateIssued()).ifPresent(bicycleDateIssued::setCellValue);
 
 
             XSSFCell bicycleDateRecovered = bicycleRow.createCell(count++);
-            if(bicycle.getDateRecovered()!=null){
+            if (bicycle.getDateRecovered() != null) {
                 bicycleDateRecovered.setCellValue(bicycle.getDateRecovered());
                 bicycleDateRecovered.setCellStyle(cellStyle);
-            }else{
+            } else {
                 bicycleDateRecovered.setCellType(XSSFCell.CELL_TYPE_BLANK);
             }
             //Optional.ofNullable(bicycle.getDateRecovered()).ifPresent(bicycleDateRecovered::setCellValue);
 
 
             XSSFCell dateCreated = bicycleRow.createCell(count++);
-            if(bicycle.getDateCreated()!=null){
+            if (bicycle.getDateCreated() != null) {
                 dateCreated.setCellValue(bicycle.getDateCreated());
                 dateCreated.setCellStyle(cellStyle);
-            }else{
+            } else {
                 dateCreated.setCellType(XSSFCell.CELL_TYPE_BLANK);
             }
             //Optional.ofNullable(bicycle.getDateCreated()).ifPresent(dateCreated::setCellValue);
@@ -194,15 +193,15 @@ public class BicycleController extends BaseController {
 
             XSSFCell condition = bicycleRow.createCell(count++);
             //Optional<Condition> conditionOptional=Optional.ofNullable(bicycle.getBikeCondition());
-            condition.setCellValue(bicycle.getBikeCondition()!=null?bicycle.getBikeCondition().getName():"");
+            condition.setCellValue(bicycle.getBikeCondition() != null ? bicycle.getBikeCondition().getName() : "");
 
             XSSFCell bicycleStatus = bicycleRow.createCell(count++);
             //Optional<PhoneStatus> statusOptional=Optional.ofNullable(bicycle.getBikeStatus());
-            bicycleStatus.setCellValue(bicycle.getBikeStatus()!=null?bicycle.getBikeStatus().getName():"");
+            bicycleStatus.setCellValue(bicycle.getBikeStatus() != null ? bicycle.getBikeStatus().getName() : "");
 
             XSSFCell issues = bicycleRow.createCell(count++);
             //Optional.ofNullable(bicycle.getBikeIssues()).ifPresent(issues::setCellValue);
-            issues.setCellValue(bicycle.getBikeIssues()!=null?bicycle.getBikeIssues():"");
+            issues.setCellValue(bicycle.getBikeIssues() != null ? bicycle.getBikeIssues() : "");
 
         }
 

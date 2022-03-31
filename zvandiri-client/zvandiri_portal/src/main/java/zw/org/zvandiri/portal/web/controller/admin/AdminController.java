@@ -8,11 +8,11 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController extends BaseController{
+public class AdminController extends BaseController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String showIndex(ModelMap model) {
-        model.addAttribute("pageTitle", APP_PREFIX+"Administration Page Home");
+        model.addAttribute("pageTitle", APP_PREFIX + "Administration Page Home");
         return "admin/index";
     }
 }

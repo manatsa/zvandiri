@@ -1,6 +1,6 @@
 <%@include file="../template/header.jspf" %>
 <style type="text/css">
-    input[type="text"]{
+    input[type="text"] {
         height: 4em;
         font-size: 16px;
     }
@@ -9,7 +9,8 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row" style="margin-right: 10px;">
-                ${pageTitle} <div class="pull-right"> <a href="${page}/cadre/item.form" >Add New Cadre</a></div>
+                ${pageTitle}
+                <div class="pull-right"><a href="${page}/cadre/item.form">Add New Cadre</a></div>
             </div>
         </div>
         <div class="panel-body">
@@ -22,7 +23,9 @@
                     <form method="post">
                         <div class="form-group">
                             <label>Search Cadres</label>
-                            <input type="text" name="search" placeholder="Search by first name or last name or both first name and last name" id="search" class="form-control"/>
+                            <input type="text" name="search"
+                                   placeholder="Search by first name or last name or both first name and last name"
+                                   id="search" class="form-control"/>
                         </div>
                     </form>
                     <table id="cadreListing" class="display" cellspacing="0">
@@ -32,24 +35,26 @@
                         <th>Cadre Type</th>
                         <th>Primary Clinic</th>
                         <th>District</th>
-                        <th> Province </th>
-                        <th> Cadre Management </th>
+                        <th> Province</th>
+                        <th> Cadre Management</th>
                         </thead>
                         <tbody>
-                            <c:forEach var="cadre" items="${cadres}">
-                                <tr>
-                                    <td><a href='/zvandiri/cadre/view.htm?id=${cadre.id}'>${cadre.firstName} ${cadre.lastName}</a></td>
-                                    <td>${cadre.gender.name}</td>
-                                    <td>${cadre.caderType.name}</td>
-                                    <td>${cadre.primaryClinic.name}</td>
-                                    <td>${cadre.district.name}</td>
-                                    <td>${cadre.province.name}</td>
-                                    <td>
-                                        <a href='/zvandiri/cadre/item.form?id=${cadre.id}'>Edit</a> |  <a href='#'>Delete</a>
-<%--                                        <a href='/zvandiri/cadre/delete.htm?id=${cadre.id}'>Delete</a>--%>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                        <c:forEach var="cadre" items="${cadres}">
+                            <tr>
+                                <td>
+                                    <a href='/zvandiri/cadre/view.htm?id=${cadre.id}'>${cadre.firstName} ${cadre.lastName}</a>
+                                </td>
+                                <td>${cadre.gender.name}</td>
+                                <td>${cadre.caderType.name}</td>
+                                <td>${cadre.primaryClinic.name}</td>
+                                <td>${cadre.district.name}</td>
+                                <td>${cadre.province.name}</td>
+                                <td>
+                                    <a href='/zvandiri/cadre/item.form?id=${cadre.id}'>Edit</a> | <a href='#'>Delete</a>
+                                        <%--                                        <a href='/zvandiri/cadre/delete.htm?id=${cadre.id}'>Delete</a>--%>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -87,14 +92,14 @@
                     //var del_url = "<a href='/zvandiri/cadre/delete?id=" + pat[i].id + "'>";
                     var del_url = "<a href='#'>";
 
-                    $("#cadreListing").dataTable().fnAddData([view_url +pat[i].firstName+' '+pat[i].lastName+ "</a>",
+                    $("#cadreListing").dataTable().fnAddData([view_url + pat[i].firstName + ' ' + pat[i].lastName + "</a>",
                         pat[i].gender,
                         pat[i].type,
                         pat[i].primaryClinic,
                         pat[i].district,
                         pat[i].province.name,
                         pat[i].active === true ?
-                            edit_url+" Edit | </a>" + del_url+" Delete  </a>" : " "]);
+                            edit_url + " Edit | </a>" + del_url + " Delete  </a>" : " "]);
                 }
             });
         } else {
@@ -105,13 +110,16 @@
         "bFilter": false,
         "bSort": false,
         "bLengthChange": false,
-        "bInfo": false});
+        "bInfo": false
+    });
     $("form").submit(function (evt) {
         return false;
     });
+
     function cancelAjaxRequest(request) {
         if (request !== null)
             request.abort();
     }
+
     $("#patientListing_paginate").addClass("hide");
 </script>

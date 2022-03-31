@@ -12,7 +12,7 @@ import zw.org.zvandiri.business.domain.util.MaritalStatus;
 public class MaritalStatusConverter implements Converter<String, MaritalStatus> {
     @Override
     public MaritalStatus convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return MaritalStatus.get(Integer.valueOf(s));
     }
 }

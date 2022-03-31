@@ -9,7 +9,7 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
@@ -102,7 +102,8 @@
 
                                     <div class="form-group">
                                         <label>Services Offered</label><br/>
-                                        <form:checkboxes path="serviceOffereds" items="${servicesOffered}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                        <form:checkboxes path="serviceOffereds" items="${servicesOffered}"
+                                                         itemLabel="name" itemValue="id" delimiter="<br/>"/>
                                         <p class="help-block">
                                             <form:errors path="serviceOffereds" class="alert-danger"/>
                                         </p>
@@ -114,7 +115,8 @@
                                     <c:if test="${stable}">
                                         <div class="form-group">
                                             <label>Stable</label><br/><br/>
-                                            <form:checkboxes path="stables" items="${stables}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                            <form:checkboxes path="stables" items="${stables}" itemLabel="name"
+                                                             itemValue="id" delimiter="<br/>"/>
                                             <p class="help-block">
                                                 <form:errors path="stables" class="alert-danger"/>
                                             </p>
@@ -123,7 +125,8 @@
                                     <c:if test="${enhanced}">
                                         <div class="form-group">
                                             <label>Enhanced</label><br/><br/>
-                                            <form:checkboxes path="enhanceds" items="${enhanceds}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                            <form:checkboxes path="enhanceds" items="${enhanceds}" itemLabel="name"
+                                                             itemValue="id" delimiter="<br/>"/>
                                             <p class="help-block">
                                                 <form:errors path="enhanceds" class="alert-danger"/>
                                             </p>
@@ -131,14 +134,16 @@
                                     </c:if>
                                     <div class="form-group">
                                         <label>Clinical Assessment</label><br/>
-                                        <form:checkboxes path="clinicalAssessments" items="${clinicalAssessments}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                        <form:checkboxes path="clinicalAssessments" items="${clinicalAssessments}"
+                                                         itemLabel="name" itemValue="id" delimiter="<br/>"/>
                                         <p class="help-block">
                                             <form:errors path="clinicalAssessments" class="alert-danger"/>
                                         </p>
                                     </div>
                                     <div class="form-group">
                                         <label>Non Clinical Assessment</label><br/>
-                                        <form:checkboxes path="nonClinicalAssessments" items="${nonClinicalAssessments}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
+                                        <form:checkboxes path="nonClinicalAssessments" items="${nonClinicalAssessments}"
+                                                         itemLabel="name" itemValue="id" delimiter="<br/>"/>
                                         <p class="help-block">
                                             <form:errors path="nonClinicalAssessments" class="alert-danger"/>
                                         </p>
@@ -172,7 +177,8 @@
                                         <!-- start investigations section here -->
                                         <div class="form-group">
                                             <label>Viral Load Results Available</label>
-                                            <form:select path="viralLoad.resultTaken" id="viralLoadResultTaken" class="form-control">
+                                            <form:select path="viralLoad.resultTaken" id="viralLoadResultTaken"
+                                                         class="form-control">
                                                 <form:option value="" label="--Select Item"/>
                                                 <form:options itemValue="code" itemLabel="name"/>
                                             </form:select>
@@ -182,7 +188,8 @@
                                         </div>
                                         <div class="form-group viralLoad hide">
                                             <label>Viral Load Date Taken</label>
-                                            <form:input path="viralLoad.dateTaken" class="form-control general viralLoadVal"/>
+                                            <form:input path="viralLoad.dateTaken"
+                                                        class="form-control general viralLoadVal"/>
                                             <p class="help-block">
                                                 <form:errors path="viralLoad.dateTaken" class="alert-danger"/>
                                             </p>
@@ -206,7 +213,8 @@
                                         </div>
                                         <div class="form-group viralLoad hide">
                                             <label>Viral Load Next Lab Due</label>
-                                            <form:input path="viralLoad.nextTestDate" class="form-control otherdate viralLoadVal"/>
+                                            <form:input path="viralLoad.nextTestDate"
+                                                        class="form-control otherdate viralLoadVal"/>
                                             <p class="help-block">
                                                 <form:errors path="viralLoad.nextTestDate" class="alert-danger"/>
                                             </p>
@@ -214,7 +222,8 @@
                                         <!-- start CD4 count section here -->
                                         <div class="form-group">
                                             <label>CD4 Count Results Available</label>
-                                            <form:select path="cd4Count.resultTaken" id="cd4CountResultTaken" class="form-control">
+                                            <form:select path="cd4Count.resultTaken" id="cd4CountResultTaken"
+                                                         class="form-control">
                                                 <form:option value="" label="--Select Item"/>
                                                 <form:options itemValue="code" itemLabel="name"/>
                                             </form:select>
@@ -223,14 +232,15 @@
                                             </p>
                                         </div>
                                         <div class="form-group cd4Count hide">
-                                            <label>CD4 Count  Date Taken</label>
-                                            <form:input path="cd4Count.dateTaken" class="form-control general cd4CountVal"/>
+                                            <label>CD4 Count Date Taken</label>
+                                            <form:input path="cd4Count.dateTaken"
+                                                        class="form-control general cd4CountVal"/>
                                             <p class="help-block">
                                                 <form:errors path="cd4Count.dateTaken" class="alert-danger"/>
                                             </p>
                                         </div>
                                         <div class="form-group cd4Count hide">
-                                            <label>CD4 Count  Result</label>
+                                            <label>CD4 Count Result</label>
                                             <form:input path="cd4Count.result" class="form-control cd4CountVal"/>
                                             <p class="help-block">
                                                 <form:errors path="cd4Count.result" class="alert-danger"/>
@@ -248,7 +258,8 @@
                                         </div>
                                         <div class="form-group cd4Count hide">
                                             <label>CD4 Count Next Lab Due</label>
-                                            <form:input path="cd4Count.nextTestDate" class="form-control otherdate cd4CountVal"/>
+                                            <form:input path="cd4Count.nextTestDate"
+                                                        class="form-control otherdate cd4CountVal"/>
                                             <p class="help-block">
                                                 <form:errors path="cd4Count.nextTestDate" class="alert-danger"/>
                                             </p>
@@ -258,7 +269,9 @@
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Save</button>
-                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>

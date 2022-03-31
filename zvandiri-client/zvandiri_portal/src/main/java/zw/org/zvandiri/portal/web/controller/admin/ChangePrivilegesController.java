@@ -5,6 +5,7 @@
 package zw.org.zvandiri.portal.web.controller.admin;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -20,7 +21,6 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.validator.UserValidator;
 
 /**
- *
  * @author Edward Zengeni
  * @author Judge Muzinda
  */
@@ -49,7 +49,7 @@ public class ChangePrivilegesController extends BaseController {
     public String changeUser(ModelMap model, @ModelAttribute("item") ChangePrivilegesDTO details, BindingResult result) throws Exception {
         userValidator.validateChangeprivileges(details, result);
         if (result.hasErrors()) {
-            model.addAttribute("pageTitle", APP_PREFIX+"Change Privileges");
+            model.addAttribute("pageTitle", APP_PREFIX + "Change Privileges");
             model.addAttribute("item", details);
             return "admin/changePrivilegesForm";
         }

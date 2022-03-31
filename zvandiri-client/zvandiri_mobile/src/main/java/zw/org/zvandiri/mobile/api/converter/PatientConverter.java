@@ -16,23 +16,23 @@
 package zw.org.zvandiri.mobile.api.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.service.PatientService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class PatientConverter implements Converter<String, Patient> {
-    
+
     @Resource
     private PatientService patientService;
 
     @Override
     public Patient convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return patientService.get(s);
     }
-    
+
 }

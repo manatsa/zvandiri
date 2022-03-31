@@ -42,6 +42,13 @@
                                 </p>
                             </div>
                             <div class="form-group">
+                                <label>ID Number</label>
+                                <form:input path="IDNumber" class="form-control"/>
+                                <p class="help-block">
+                                    <form:errors path="IDNumber" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
                                 <label>Gender</label>
                                 <form:select path="gender" class="form-control">
                                     <form:option value="" label="--Select Item"/>
@@ -52,10 +59,58 @@
                                 </p>
                             </div>
                             <div class="form-group">
+                                <label>Marital Status</label>
+                                <form:select path="maritalStatus" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="maritalStatus" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>Orphan Status</label>
+                                <form:select path="orphanStatus" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="orphanStatus" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
                                 <label>Date Of Birth</label>
-                                <form:input path="dateOfBirth" class="form-control beneficiary"/> <c:if test="${item.id != null}"> ( ${item.age} years)</c:if>
+                                <form:input path="dateOfBirth" class="form-control beneficiary"/> <c:if
+                                    test="${item.id != null}"> ( ${item.age} years)</c:if>
                                 <p class="help-block">
                                     <form:errors path="dateOfBirth" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>Has Birth Certificate</label>
+                                <form:select path="haveBirthCertificate" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="haveBirthCertificate" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>Client Type</label>
+                                <form:select path="clientType" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="clientType" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>Art Regimen</label>
+                                <form:input path="artRegimen" class="form-control"/>
+                                <p class="help-block">
+                                    <form:errors path="artRegimen" class="alert-danger"/>
                                 </p>
                             </div>
                             <div class="form-group">
@@ -221,10 +276,31 @@
                                 <label>Reason for not reaching O-Level</label>
                                 <form:select path="reasonForNotReachingOLevel" class="form-control">
                                     <form:option value="" label="--Select Item"/>
-                                    <form:options items="${reasonForNotReachingOLevels}" itemValue="id" itemLabel="name"/>
+                                    <form:options items="${reasonForNotReachingOLevels}" itemValue="id"
+                                                  itemLabel="name"/>
                                 </form:select>
                                 <p class="help-block">
                                     <form:errors path="reasonForNotReachingOLevel" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>Is Key Population</label>
+                                <form:select path="isKeypopulation" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="isKeypopulation" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>Key Population</label>
+                                <form:select path="keyPopulation" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="keyPopulation" class="alert-danger"/>
                                 </p>
                             </div>
                             <div class="form-group">
@@ -232,6 +308,13 @@
                                 <form:input path="dateJoined" class="form-control general"/>
                                 <p class="help-block">
                                     <form:errors path="dateJoined" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group status-known hide">
+                                <label>Date Started Treatment</label>
+                                <form:input path="dateStartedTreatment" class="form-control general"/>
+                                <p class="help-block">
+                                    <form:errors path="dateStartedTreatment" class="alert-danger"/>
                                 </p>
                             </div>
                             <div class="form-group">
@@ -259,6 +342,16 @@
                                 </form:select>
                                 <p class="help-block">
                                     <form:errors path="hivStatusKnown" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>Disclosure Type</label>
+                                <form:select path="disclosureType" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="disclosureType" class="alert-danger"/>
                                 </p>
                             </div>
                             <div class="form-group status-known hide">
@@ -299,6 +392,13 @@
                                 </p>
                             </div>
                             <div class="form-group">
+                                <label>Disability Type</label>
+                                <form:input path="disablityType" class="form-control"/>
+                                <p class="help-block">
+                                    <form:errors path="disablityType" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
                                 <label>Consent M-Health</label>
                                 <form:select path="consentToMHealth" class="form-control">
                                     <form:option value="" label="--Select Item"/>
@@ -319,10 +419,30 @@
                                 </p>
                             </div>
                             <div class="form-group">
+                                <label>On ARVs</label>
+                                <form:select path="onArvs" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="onArvs" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>On Cotrimoxazole</label>
+                                <form:select path="onCotrimoxazole" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="onCotrimoxazole" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
                                 <label>Is In YMM Programme</label>
                                 <form:select path="youngMumGroup" class="form-control">
                                     <form:option value="" label="--Select Item"/>
-                                    <form:options  itemValue="code" itemLabel="name"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
                                 </form:select>
                                 <p class="help-block">
                                     <form:errors path="youngMumGroup" class="alert-danger"/>
@@ -339,8 +459,12 @@
                                 </p>
                             </div>
                             <div class="form-group">
-                                <c:if test="${canEdit}"><button class="btn btn-primary" type="submit">Save</button></c:if>
-                                <a href="${page}/patient/index.htm?type=3"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <c:if test="${canEdit}">
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </c:if>
+                                <a href="${page}/patient/index.htm?type=3">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>

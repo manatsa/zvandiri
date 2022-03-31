@@ -72,9 +72,9 @@ public class GenericPatient extends BaseEntity {
     @ManyToOne
     private Referer referer;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Facility primaryClinic;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private SupportGroup supportGroup;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")

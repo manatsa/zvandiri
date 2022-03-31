@@ -16,11 +16,10 @@
 package zw.org.zvandiri.report.api;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class BasicReportModel extends BasicReportItem {
-    
+
     private final String name;
 
     public BasicReportModel(String name, Integer count, Integer total) {
@@ -31,17 +30,17 @@ public class BasicReportModel extends BasicReportItem {
     public String getName() {
         return name;
     }
-    
-    public String getAltName(){
-        return name+" [N="+getCount()+"]";
+
+    public String getAltName() {
+        return name + " [N=" + getCount() + "]";
     }
-    
-    public String getPlainName(){
-        return name+" [N="+getTotal()+"]";
+
+    public String getPlainName() {
+        return name + " [N=" + getTotal() + "]";
     }
 
     @Override
     public String toString() {
         return "BasicReportModel{" + "name=" + name + ", count=" + getCount() + ", total=" + getCount() + '}';
-    }   
+    }
 }

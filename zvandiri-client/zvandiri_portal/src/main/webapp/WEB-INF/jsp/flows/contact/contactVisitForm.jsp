@@ -9,7 +9,7 @@
                 <%@include file="../../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
@@ -35,8 +35,12 @@
                             </div>
 
                             <div class="form-group">
-                                <button class="btn btn-primary  nextBtn" type="submit" id="next" name="_eventId_next" disabled>Next&Gt;&Gt;</button>
-                                <button class="btn btn-primary " type="submit" id="cancel" name="_eventId_cancel">Cancel</button>
+                                <button class="btn btn-primary  nextBtn" type="submit" id="next" name="_eventId_next"
+                                        disabled>Next&Gt;&Gt;
+                                </button>
+                                <button class="btn btn-primary " type="submit" id="cancel" name="_eventId_cancel">
+                                    Cancel
+                                </button>
                             </div>
                         </form:form>
                     </div>
@@ -51,10 +55,10 @@
     var patientId = "<c:out value="${patient.id}"/>"
     $("#visitOutcome").change(function () {
         var name = $.trim($("#visitOutcome :selected").text().toLowerCase());
-        console.log("NAME:"+name)
-        if(name==="successful"){
+        console.log("NAME:" + name)
+        if (name === "successful") {
             $(".nextBtn").prop('disabled', false);
-        }else{
+        } else {
             $(".nextBtn").prop('disabled', true);
         }
         if (name === "changed location") {

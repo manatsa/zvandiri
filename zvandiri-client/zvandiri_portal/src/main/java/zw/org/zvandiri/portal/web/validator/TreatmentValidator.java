@@ -21,7 +21,6 @@ import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.TreatmentHistory;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
@@ -36,5 +35,5 @@ public class TreatmentValidator implements Validator {
     public void validate(Object o, Errors errors) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

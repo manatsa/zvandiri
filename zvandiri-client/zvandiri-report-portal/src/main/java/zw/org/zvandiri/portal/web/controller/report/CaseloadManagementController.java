@@ -21,7 +21,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 @Controller
@@ -30,14 +29,13 @@ public class CaseloadManagementController extends BaseController {
 
     @Resource
     private CaseloadManagementService caseloadManagementService;
-    
+
     @Resource
     private DistrictService districtService;
     @Resource
     ProvinceService provinceService;
     @Resource
     FacilityService facilityService;
-
 
 
     public void setUpModel(ModelMap model, SearchDTO item) {
@@ -48,8 +46,8 @@ public class CaseloadManagementController extends BaseController {
 
         model.addAttribute("districts", districtService.getAll());
         model.addAttribute("provinces", provinceService.getAll());
-        model.addAttribute("facilities", (getUserName().getUserLevel()== UserLevel.DISTRICT && getUserName().getDistrict()!=null)
-                ?facilityService.getOptByDistrict(getUserName().getDistrict()): facilityService.getAll());
+        model.addAttribute("facilities", (getUserName().getUserLevel() == UserLevel.DISTRICT && getUserName().getDistrict() != null)
+                ? facilityService.getOptByDistrict(getUserName().getDistrict()) : facilityService.getAll());
 
 
     }
@@ -62,13 +60,13 @@ public class CaseloadManagementController extends BaseController {
 
     @RequestMapping(value = "/index", method = RequestMethod.POST)
     //@PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_DATA_CLERK') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
-    public void getExcelExport(ModelMap model,HttpServletResponse response, @ModelAttribute("item") SearchDTO item) {
-        long startTime=System.currentTimeMillis();
+    public void getExcelExport(ModelMap model, HttpServletResponse response, @ModelAttribute("item") SearchDTO item) {
+        long startTime = System.currentTimeMillis();
         item = getUserLevelObjectState(item);
         String name = DateUtil.getFriendlyFileName("Zvandiri_Caseload_Management_Plan");
         forceDownLoadXLSX(caseloadManagementService.exportCaseload(name, item), name, response);
 
-        System.err.println(" >>>> Caseload Mgt Time Taken :"+(System.currentTimeMillis()-startTime)/60000+" minutes.");
+        System.err.println(" >>>> Caseload Mgt Time Taken :" + (System.currentTimeMillis() - startTime) / 60000 + " minutes.");
     }
 
 }

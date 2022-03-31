@@ -29,12 +29,9 @@ import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
 
-
-
- /**
-  *
-  * @author manatsachinyeruse@gmail.com
-  */
+/**
+ * @author manatsachinyeruse@gmail.com
+ */
 
 @Controller
 @RequestMapping("/report/new/contact")
@@ -52,7 +49,7 @@ public class NewContactReportController extends BaseController {
     private OfficeExportService officeExportService;
     @Resource
     private DetailedReportService detailedReportService;
-    List<Contact> contacts=new ArrayList<>();
+    List<Contact> contacts = new ArrayList<>();
 
     public String setUpModel(ModelMap model, SearchDTO item, boolean post) {
         item = getUserLevelObjectState(item);
@@ -97,7 +94,6 @@ public class NewContactReportController extends BaseController {
     public XSSFWorkbook contactedPatients(SearchDTO dto) {
 
 
-
         XSSFWorkbook workbook = new XSSFWorkbook();
         CellStyle cellStyle = workbook.createCellStyle();
         CreationHelper createHelper = workbook.getCreationHelper();
@@ -127,10 +123,10 @@ public class NewContactReportController extends BaseController {
             patientName.setCellValue(contact.getPatient().getName());
 
             Cell dateOfBirth = uncontactedRow.createCell(count++);
-            if(contact.getPatient().getDateOfBirth()!=null){
+            if (contact.getPatient().getDateOfBirth() != null) {
                 dateOfBirth.setCellValue(contact.getPatient().getDateOfBirth());
                 dateOfBirth.setCellStyle(cellStyle);
-            }else{
+            } else {
                 dateOfBirth.setCellType(Cell.CELL_TYPE_BLANK);
             }
             //Optional.ofNullable(contact.getPatient().getDateOfBirth()).ifPresent(dateOfBirth::setCellValue);
@@ -157,20 +153,20 @@ public class NewContactReportController extends BaseController {
             primaryClinic.setCellValue(contact.getPatient().getPrimaryClinic().getName());
 
             Cell entry = uncontactedRow.createCell(count++);
-            if(contact.getDateCreated()!=null){
+            if (contact.getDateCreated() != null) {
                 entry.setCellValue(contact.getDateCreated());
                 entry.setCellStyle(cellStyle);
-            }else{
+            } else {
                 entry.setCellType(Cell.CELL_TYPE_BLANK);
             }
             //Optional.ofNullable(contact.getDateCreated()).ifPresent(entry::setCellValue);
 
 
             Cell contactDate = uncontactedRow.createCell(count++);
-            if(contact.getContactDate()!=null){
+            if (contact.getContactDate() != null) {
                 contactDate.setCellValue(contact.getContactDate());
                 contactDate.setCellStyle(cellStyle);
-            }else{
+            } else {
                 contactDate.setCellType(Cell.CELL_TYPE_BLANK);
             }
             //Optional.ofNullable(contact.getContactDate()).ifPresent(contactDate::setCellValue);
@@ -182,11 +178,11 @@ public class NewContactReportController extends BaseController {
 
             Cell loc = uncontactedRow.createCell(count++);
             //Optional<Location> locOptional=Optional.ofNullable(contact.getLocation());
-            loc.setCellValue(contact.getLocation()!=null?contact.getLocation().getName():"");
+            loc.setCellValue(contact.getLocation() != null ? contact.getLocation().getName() : "");
 
             Cell position = uncontactedRow.createCell(count++);
             //Optional<Position> posOptional=Optional.ofNullable(contact.getPosition());
-            position.setCellValue(contact.getPosition()!=null?contact.getPosition().getName():"");
+            position.setCellValue(contact.getPosition() != null ? contact.getPosition().getName() : "");
 
             Cell reason = uncontactedRow.createCell(count++);
             //Optional<Reason> reasonOptional=Optional.ofNullable(contact.getReason());
@@ -213,10 +209,10 @@ public class NewContactReportController extends BaseController {
             //action.setCellValue(contact.getActionTaken()!=null?contact.getActionTaken().getName():"");
 
             Cell last = uncontactedRow.createCell(count++);
-            if(contact.getLastClinicAppointmentDate()!=null){
+            if (contact.getLastClinicAppointmentDate() != null) {
                 last.setCellValue(contact.getLastClinicAppointmentDate());
                 last.setCellStyle(cellStyle);
-            }else{
+            } else {
                 last.setCellType(Cell.CELL_TYPE_BLANK);
             }
             //Optional.ofNullable(contact.getLastClinicAppointmentDate()).ifPresent(last::setCellValue);
@@ -224,13 +220,13 @@ public class NewContactReportController extends BaseController {
 
             Cell attended = uncontactedRow.createCell(count++);
             //Optional<YesNo> attendedOptional=Optional.ofNullable(contact.getAttendedClinicAppointment());
-            attended.setCellValue(contact.getAttendedClinicAppointment()!=null?contact.getAttendedClinicAppointment().getName():"");
+            attended.setCellValue(contact.getAttendedClinicAppointment() != null ? contact.getAttendedClinicAppointment().getName() : "");
 
             Cell next = uncontactedRow.createCell(count++);
-            if(contact.getNextClinicAppointmentDate()!=null){
+            if (contact.getNextClinicAppointmentDate() != null) {
                 next.setCellValue(contact.getNextClinicAppointmentDate());
                 next.setCellStyle(cellStyle);
-            }else{
+            } else {
                 next.setCellType(Cell.CELL_TYPE_BLANK);
             }
             //Optional.ofNullable(contact.getNextClinicAppointmentDate()).ifPresent(next::setCellValue);
@@ -242,19 +238,19 @@ public class NewContactReportController extends BaseController {
 
             Cell isCats = uncontactedRow.createCell(count++);
             //Optional<YesNo> catOptional=Optional.ofNullable(contact.getPatient().getCat());
-            isCats.setCellValue(contact.getPatient().getCat()!=null?contact.getPatient().getCat().getName():"");
+            isCats.setCellValue(contact.getPatient().getCat() != null ? contact.getPatient().getCat().getName() : "");
 
             Cell youngMumGroup = uncontactedRow.createCell(count++);
             //Optional<YesNo> ymmOptional=Optional.ofNullable(contact.getPatient().getYoungMumGroup());
-            youngMumGroup.setCellValue(contact.getPatient().getYoungMumGroup()!=null?contact.getPatient().getYoungMumGroup().getName():"");
+            youngMumGroup.setCellValue(contact.getPatient().getYoungMumGroup() != null ? contact.getPatient().getYoungMumGroup().getName() : "");
 
             Cell ymd = uncontactedRow.createCell(count++);
             //Optional<YesNo> ymdOptional=Optional.ofNullable(contact.getPatient().getYoungDadGroup());
-            ymd.setCellValue(contact.getPatient().getYoungDadGroup()!=null?contact.getPatient().getYoungDadGroup().getName():"");
+            ymd.setCellValue(contact.getPatient().getYoungDadGroup() != null ? contact.getPatient().getYoungDadGroup().getName() : "");
 
         }
 
-        return  workbook;
+        return workbook;
 
     }
 

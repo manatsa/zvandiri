@@ -20,15 +20,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.NumberOfANCVisit;
 
 /**
- *
  * @author jmuzinda
  */
 public class NumberOfANCVisitConverter implements Converter<String, NumberOfANCVisit> {
 
     @Override
     public NumberOfANCVisit convert(String s) {
-        if(StringUtils.isEmpty(s)) return null;
+        if (StringUtils.isEmpty(s)) return null;
         return NumberOfANCVisit.get(Integer.valueOf(s));
     }
-    
+
 }

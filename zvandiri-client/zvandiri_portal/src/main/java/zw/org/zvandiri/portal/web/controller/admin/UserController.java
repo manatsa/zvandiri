@@ -18,6 +18,7 @@ package zw.org.zvandiri.portal.web.controller.admin;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -40,14 +41,12 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.validator.UserValidator;
 
 /**
- *
  * @author Edward Zengeni
  * @author Judge Muzinda
- * 
  */
 @Controller
 @RequestMapping("/admin/user")
-public class UserController extends BaseController{
+public class UserController extends BaseController {
 
     @Resource
     private UserService userService;
@@ -59,9 +58,9 @@ public class UserController extends BaseController{
     private ProvinceService provinceService;
     @Resource
     private DistrictService districtService;
-    
+
     private String setUpModel(ModelMap model, User item) {
-        model.addAttribute("pageTitle", APP_PREFIX+ "Create/ Edit User");
+        model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit User");
         model.addAttribute("roles", userRoleService.getAll());
         model.addAttribute("showProvince", Boolean.FALSE);
         model.addAttribute("showDistrict", Boolean.FALSE);
@@ -90,7 +89,7 @@ public class UserController extends BaseController{
         User p = new User();
         if (id != null) {
             p = userService.get(id);
-        }        
+        }
         return setUpModel(model, p);
     }
 
@@ -105,7 +104,7 @@ public class UserController extends BaseController{
         userService.save(user);
         return "redirect:user.list?type=1";
     }
-    
+
     @RequestMapping(value = "/reload-form", method = RequestMethod.POST)
     public String reloadForm(ModelMap model, @ModelAttribute("item") @Valid User user) {
         return setUpModel(model, user);
@@ -114,14 +113,14 @@ public class UserController extends BaseController{
     @RequestMapping(value = {"/user.list", "/"}, method = RequestMethod.GET)
     public String userList(ModelMap model, @RequestParam(required = false) Integer type) {
         model.addAttribute("message", new AppMessage.MessageBuilder().build());
-        model.addAttribute("pageTitle", APP_PREFIX+"User List");
+        model.addAttribute("pageTitle", APP_PREFIX + "User List");
         model.addAttribute("items", userService.getAll());
-        if(type != null){
+        if (type != null) {
             model.addAttribute("message", getMessage(type));
         }
         return "admin/userModList";
     }
-    
+
     @RequestMapping(value = "/search-users", method = RequestMethod.GET)
     @ResponseBody
     public List<UserDTO> searchPatient(@RequestParam("search") String search) {
@@ -130,19 +129,19 @@ public class UserController extends BaseController{
         System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& : " + users);
         return users;
     }
-    
+
     @RequestMapping(value = "user.delete", method = RequestMethod.GET)
-    public String getUserDeleteForm(@RequestParam("id") String id, ModelMap model){
+    public String getUserDeleteForm(@RequestParam("id") String id, ModelMap model) {
         User user = userService.get(id);
-       ItemDeleteDTO dto = new ItemDeleteDTO(id, user.getUserName(), "user.list?type=3");
-       model.addAttribute("item", dto);
+        ItemDeleteDTO dto = new ItemDeleteDTO(id, user.getUserName(), "user.list?type=3");
+        model.addAttribute("item", dto);
         model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Are you sure you want to delete this record").messageType(MessageType.WARNING).build());
-       model.addAttribute("pageTitle", APP_PREFIX+"Delete "+user.getUserName()+" User");
+        model.addAttribute("pageTitle", APP_PREFIX + "Delete " + user.getUserName() + " User");
         return "admin/deleteItem";
     }
-    
+
     @RequestMapping(value = "item.delete", method = RequestMethod.POST)
-    public String deleteUser(@Valid ItemDeleteDTO dto){
+    public String deleteUser(@Valid ItemDeleteDTO dto) {
         userService.delete(userService.get(dto.getId()));
         return "redirect:user.list?type=2";
     }

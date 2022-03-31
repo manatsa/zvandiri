@@ -16,14 +16,14 @@
 package zw.org.zvandiri.report.api.service;
 
 import java.util.List;
+
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.GenericReportModel;
 
 /**
- *
  * @author Judge Muzinda
  */
 public interface PatientReportAPIService extends GenericReportService<GenericReportModel> {
-    
+
     public List<GenericReportModel> getPieDefaultData(SearchDTO dto);
 }

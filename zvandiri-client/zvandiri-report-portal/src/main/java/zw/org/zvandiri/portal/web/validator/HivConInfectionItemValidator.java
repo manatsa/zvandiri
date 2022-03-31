@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.validator;
 
 import java.util.Date;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -25,7 +26,6 @@ import zw.org.zvandiri.business.domain.HivConInfectionItem;
 import zw.org.zvandiri.business.service.HivConInfectionItemService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component

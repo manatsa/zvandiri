@@ -36,7 +36,8 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td><br/>
-                        <a class="pull-right" style="margin-right: 20px;" href="${page}/cadre/bike/item.form?id=${cadre.id}"> Edit Bicycle Details </a>
+                        <a class="pull-right" style="margin-right: 20px;"
+                           href="${page}/cadre/bike/item.form?id=${cadre.id}"> Edit Bicycle Details </a>
 
                     </td>
                 </tr>

@@ -18,13 +18,12 @@ package zw.org.zvandiri.portal.web.controller.process;
 import zw.org.zvandiri.business.domain.Contact;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 public interface ContactCreationService {
- 
+
     public Contact createContact();
-    
+
     public Contact saveContact(Contact contact);
 
 }

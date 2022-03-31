@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.FollowUp;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class FollowUpConverter implements Converter<String, FollowUp> {
 
     @Override
     public FollowUp convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return FollowUp.get(Integer.valueOf(s));
     }
-    
+
 }

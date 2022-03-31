@@ -47,22 +47,22 @@
                         <th>Referrer</th>
                         </tfoot>
                         <tbody>
-                            <c:forEach var="item" items="${items}" >
-                                <tr>
-                                    <td>${item.name}</td>
-                                    <td>${item.patientNumber}</td>
-                                    <td>${item.age}</td>
-                                    <td>${item.gender.name}</td>
-                                    <td>${item.viralLoad}</td>
-                                    <td><spring:eval expression="item.lastViralLoadDateTaken"/></td>
-                                    <td><spring:eval expression="item.dateJoin"/></td>
-                                    <td>${item.primaryClinic.district.province.name}</td>
-                                    <td>${item.primaryClinic.district.name}</td>
-                                    <td>${item.primaryClinic.name}</td>
-                                    <td>${item.mobileNumber}</td>
-                                    <td>${item.referer.name}</td>
-                                </tr>
-                            </c:forEach>
+                        <c:forEach var="item" items="${items}">
+                            <tr>
+                                <td>${item.name}</td>
+                                <td>${item.patientNumber}</td>
+                                <td>${item.age}</td>
+                                <td>${item.gender.name}</td>
+                                <td>${item.viralLoad}</td>
+                                <td><spring:eval expression="item.lastViralLoadDateTaken"/></td>
+                                <td><spring:eval expression="item.dateJoin"/></td>
+                                <td>${item.primaryClinic.district.province.name}</td>
+                                <td>${item.primaryClinic.district.name}</td>
+                                <td>${item.primaryClinic.name}</td>
+                                <td>${item.mobileNumber}</td>
+                                <td>${item.referer.name}</td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

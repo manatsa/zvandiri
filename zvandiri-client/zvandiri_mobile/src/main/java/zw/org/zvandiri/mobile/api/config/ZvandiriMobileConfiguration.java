@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.Properties;
+
 import org.hibernate.jpa.HibernatePersistenceProvider;
 
 /**

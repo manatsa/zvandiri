@@ -1,6 +1,6 @@
 <%@include file="template/header.jspf" %>
 <style type="text/css">
-    .removeelement{
+    .removeelement {
         display: none;
     }
 </style>
@@ -31,13 +31,13 @@
 </div>
 <%@include file="template/footer.jspf" %>
 <script type="text/javascript">
-    $(function(){
-       $(".ourdiv").click(function(){
-          $currentElement = $(this) ;
-          $currentElement.addClass("removeelement");
-       });
-       $("#thirdId").click(function(){
-          $("div").removeClass("removeelement") ;
-       });
+    $(function () {
+        $(".ourdiv").click(function () {
+            $currentElement = $(this);
+            $currentElement.addClass("removeelement");
+        });
+        $("#thirdId").click(function () {
+            $("div").removeClass("removeelement");
+        });
     });
 </script>

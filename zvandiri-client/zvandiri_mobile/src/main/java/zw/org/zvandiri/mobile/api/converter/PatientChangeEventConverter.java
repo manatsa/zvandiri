@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class PatientChangeEventConverter implements Converter<String, PatientChangeEvent> {
 
     @Override
     public PatientChangeEvent convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return PatientChangeEvent.get(Integer.valueOf(s));
     }
-    
+
 }

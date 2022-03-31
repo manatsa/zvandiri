@@ -9,12 +9,13 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
                 </div>
-                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/><br/>
+                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back
+                    To ${patient.name} Dashboard</a><br/><br/>
                 <div class="row">
                     <div class="col-lg-10">
                         <form:form commandName="item">
@@ -61,8 +62,12 @@
                                 </p>
                             </div>
                             <div class="form-group">
-                                <c:if test="${canEdit}"><button class="btn btn-primary" type="submit">Save</button></c:if>
-                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <c:if test="${canEdit}">
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </c:if>
+                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>
@@ -80,22 +85,22 @@
         yearRange: caregiver
     });
     $("form").validate({
-       rules: {
-           pfirstName: {
-               required: true
-           },
-           plastName: {
-               required: true
-           },
-           pmobileNumber: {
-               required: true
-           },
-           pgender: {
-               required: true
-           },
-           relationship: {
-               required: true
-           }
-       } 
+        rules: {
+            pfirstName: {
+                required: true
+            },
+            plastName: {
+                required: true
+            },
+            pmobileNumber: {
+                required: true
+            },
+            pgender: {
+                required: true
+            },
+            relationship: {
+                required: true
+            }
+        }
     });
 </script>

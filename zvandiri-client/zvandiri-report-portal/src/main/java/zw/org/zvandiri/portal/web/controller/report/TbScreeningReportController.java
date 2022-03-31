@@ -34,6 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
+
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
@@ -42,7 +43,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import zw.org.zvandiri.portal.web.controller.report.parallel.TbIptTask;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 
@@ -201,7 +201,7 @@ public class TbScreeningReportController extends BaseController {
             onIpt.setCellValue(tbIpt.getOnIpt() != null ? tbIpt.getOnIpt().getName() : "");
 
             XSSFCell dateStartedIpt = tbIptRow.createCell(++count);
-            if (tbIpt.getDateStartedIpt()!= null) {
+            if (tbIpt.getDateStartedIpt() != null) {
                 dateStartedIpt.setCellValue(tbIpt.getDateStartedIpt());
                 dateStartedIpt.setCellStyle(cellStyle);
             } else {

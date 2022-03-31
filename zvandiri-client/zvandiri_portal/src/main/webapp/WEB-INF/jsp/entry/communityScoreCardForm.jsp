@@ -11,7 +11,8 @@
                     <form:form commandName="item">
                         <form:hidden path="id"/>
                         <form:hidden path="version"/>
-                        <%@include file="../template/entryTopPart.jspf" %><br/>
+                        <%@include file="../template/entryTopPart.jspf" %>
+                        <br/>
                         <%@include file="../template/entry/communityScoreCardFormFragment.jspf" %>
                     </form:form>
                 </div>

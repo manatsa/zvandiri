@@ -9,7 +9,7 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
@@ -39,7 +39,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Presence with signs or symptoms of TB</label><br/>
-                                    <form:checkboxes path="tbSymptoms" items="${symptoms}" itemLabel="name" itemValue="code" delimiter="<br/>"/>
+                                    <form:checkboxes path="tbSymptoms" items="${symptoms}" itemLabel="name"
+                                                     itemValue="code" delimiter="<br/>"/>
                                     <p class="help-block">
                                         <form:errors path="tbSymptoms" class="alert-danger"/>
                                     </p>
@@ -59,7 +60,8 @@
                                         <label>Action Taken</label>
                                         <form:select path="tbIdentificationOutcome" class="form-control">
                                             <form:option value="" label="--Select Item"/>
-                                            <form:options items="${tbIdentificationOutcomes}" itemValue="code" itemLabel="name"/>
+                                            <form:options items="${tbIdentificationOutcomes}" itemValue="code"
+                                                          itemLabel="name"/>
                                         </form:select>
                                         <p class="help-block">
                                             <form:errors path="tbIdentificationOutcome" class="alert-danger"/>
@@ -117,7 +119,9 @@
                             </c:if>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Save</button>
-                                <a href="#"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <a href="#">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>

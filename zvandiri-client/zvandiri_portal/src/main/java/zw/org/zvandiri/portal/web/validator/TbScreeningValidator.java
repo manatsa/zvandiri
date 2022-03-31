@@ -28,7 +28,6 @@ import javax.annotation.Resource;
 import java.util.Date;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 @Component
@@ -49,7 +48,7 @@ public class TbScreeningValidator implements Validator {
         if (item.getScreenedForTb() != null && item.getScreenedForTb().equals(YesNo.YES)) {
             ValidationUtils.rejectIfEmpty(errors, "dateScreened", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "identifiedWithTb", "field.empty");
-        }else{
+        } else {
             item.setIdentifiedWithTb(null);
             item.setEligibleForIpt(null);
             item.setScreenedByHcw(null);
@@ -75,8 +74,8 @@ public class TbScreeningValidator implements Validator {
             item.setOnTBTreatment(null);
             item.setOnTBTreatment(null);
         }
-        if (item.getDateScreened() != null && item.getDateScreened().after(new Date()) ) {
-            errors.rejectValue("dateScreened","date.to.be.past");
+        if (item.getDateScreened() != null && item.getDateScreened().after(new Date())) {
+            errors.rejectValue("dateScreened", "date.to.be.past");
         }
         /*if(item.getDateScreened()!=null && item.getDateStartedTreatment()!=null && item.getDateStartedTreatment().after(item.getDateScreened())){
             errors.rejectValue("dateStartedTreatment","dates.after.date.screened");
@@ -92,78 +91,79 @@ public class TbScreeningValidator implements Validator {
         }*/
         if (item.getIdentifiedWithTb() != null && item.getIdentifiedWithTb().equals(YesNo.YES)) {
             ValidationUtils.rejectIfEmpty(errors, "tbSymptoms", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors,"referredForInvestigation","field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "referredForInvestigation", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "screenedByHcw", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "onTBTreatment", "field.empty");
-        }else{
+        } else {
             item.setStartedOnIpt(null);
-            item.setOnIpt(null);;
+            item.setOnIpt(null);
+            ;
             item.setOnTBTreatment(null);
             item.setReferredForInvestigation(null);
             item.setScreenedByHcw(null);
             item.setEligibleForIpt(null);
 
         }
-        if(item.getEligibleForIpt()!=null && item.getEligibleForIpt().equals(YesNo.YES)){
-            ValidationUtils.rejectIfEmpty(errors,"referredForIpt","field.empty");
+        if (item.getEligibleForIpt() != null && item.getEligibleForIpt().equals(YesNo.YES)) {
+            ValidationUtils.rejectIfEmpty(errors, "referredForIpt", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "startedOnIpt", "field.empty");
         }
-        if(item.getScreenedByHcw()!=null && item.getScreenedByHcw().equals(YesNo.YES)){
-            ValidationUtils.rejectIfEmpty(errors,"identifiedWithTbByHcw","field.empty");
+        if (item.getScreenedByHcw() != null && item.getScreenedByHcw().equals(YesNo.YES)) {
+            ValidationUtils.rejectIfEmpty(errors, "identifiedWithTbByHcw", "field.empty");
         }
 
-        if(item.getOnTBTreatment()!=null && item.getOnTBTreatment().equals(YesNo.YES)){
-            ValidationUtils.rejectIfEmpty(errors,"dateStartedTreatment","field.empty");
-            if(item.getDateStartedTreatment()!=null && item.getDateStartedTreatment().after(new Date())){
-                errors.rejectValue("dateStartedTreatment","date.to.be.past");
+        if (item.getOnTBTreatment() != null && item.getOnTBTreatment().equals(YesNo.YES)) {
+            ValidationUtils.rejectIfEmpty(errors, "dateStartedTreatment", "field.empty");
+            if (item.getDateStartedTreatment() != null && item.getDateStartedTreatment().after(new Date())) {
+                errors.rejectValue("dateStartedTreatment", "date.to.be.past");
             }
 
 
-            if(item.getDateStartedTreatment()!=null && item.getDateCompletedTreatment()!=null && item.getDateStartedTreatment().after(item.getDateCompletedTreatment())){
-                errors.rejectValue("dateCompletedTreatment","completion.date.before.start.date");
+            if (item.getDateStartedTreatment() != null && item.getDateCompletedTreatment() != null && item.getDateStartedTreatment().after(item.getDateCompletedTreatment())) {
+                errors.rejectValue("dateCompletedTreatment", "completion.date.before.start.date");
             }
             item.setOnIpt(null);
             item.setEligibleForIpt(null);
-        }else if(item.getOnTBTreatment() !=null && item.getOnTBTreatment().equals(YesNo.NO)){
-            ValidationUtils.rejectIfEmpty(errors,"eligibleForIpt","field.empty");
-            ValidationUtils.rejectIfEmpty(errors,"onIpt","field.empty");
+        } else if (item.getOnTBTreatment() != null && item.getOnTBTreatment().equals(YesNo.NO)) {
+            ValidationUtils.rejectIfEmpty(errors, "eligibleForIpt", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "onIpt", "field.empty");
         }
 
-        if(item.getOnTBTreatment()!=null && item.getOnTBTreatment().equals(YesNo.NO)){
+        if (item.getOnTBTreatment() != null && item.getOnTBTreatment().equals(YesNo.NO)) {
             ValidationUtils.rejectIfEmpty(errors, "eligibleForIpt", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "onIpt", "field.empty");
         }
 
         if (item.getOnIpt() != null && item.getOnIpt().equals(YesNo.YES)) {
             //ValidationUtils.rejectIfEmpty(errors, "dateStartedIpt", "field.empty");
-            if(item.getDateStartedIpt()!=null && item.getDateStartedIpt().after(new Date())){
-                errors.rejectValue("dateStartedIpt","date.to.be.past");
+            if (item.getDateStartedIpt() != null && item.getDateStartedIpt().after(new Date())) {
+                errors.rejectValue("dateStartedIpt", "date.to.be.past");
             }
-            if(item.getDateCompletedIpt()!=null && item.getDateCompletedIpt().after(new Date())){
-                errors.rejectValue("dateCompletedIpt","date.to.be.past");
+            if (item.getDateCompletedIpt() != null && item.getDateCompletedIpt().after(new Date())) {
+                errors.rejectValue("dateCompletedIpt", "date.to.be.past");
             }
-            if(item.getDateStartedIpt()!=null && item.getDateCompletedIpt()!=null && item.getDateStartedIpt().after(item.getDateCompletedIpt())){
-                errors.rejectValue("dateCompletedIpt","completion.date.before.start.date");
+            if (item.getDateStartedIpt() != null && item.getDateCompletedIpt() != null && item.getDateStartedIpt().after(item.getDateCompletedIpt())) {
+                errors.rejectValue("dateCompletedIpt", "completion.date.before.start.date");
             }
         }
 
         if (item.getStartedOnIpt() != null && item.getStartedOnIpt().equals(YesNo.YES)) {
             ValidationUtils.rejectIfEmpty(errors, "dateStartedOnIpt", "field.empty");
-            if(item.getDateStartedIpt()!=null && item.getDateStartedIpt().after(new Date())){
-                errors.rejectValue("dateStartedOnIpt","date.to.be.past");
+            if (item.getDateStartedIpt() != null && item.getDateStartedIpt().after(new Date())) {
+                errors.rejectValue("dateStartedOnIpt", "date.to.be.past");
             }
             /*if(item.getDateCompletedOnIpt()!=null && item.getDateCompletedOnIpt().after(new Date())){
                 errors.rejectValue("dateCompletedOnIpt","date.to.be.past");
             }*/
-            if(item.getDateStartedOnIpt()!=null && item.getDateCompletedOnIpt()!=null && item.getDateStartedOnIpt().after(item.getDateCompletedOnIpt())){
-                errors.rejectValue("dateCompletedOnIpt","completion.date.before.start.date");
+            if (item.getDateStartedOnIpt() != null && item.getDateCompletedOnIpt() != null && item.getDateStartedOnIpt().after(item.getDateCompletedOnIpt())) {
+                errors.rejectValue("dateCompletedOnIpt", "completion.date.before.start.date");
             }
         }
 
-        if(errors.hasErrors()){
-            User user=userService.getCurrentUser();
-            System.err.println(" *** UserName : "+user.getUserName()+", FirstName : "+user.getFirstName()+", LastName : "+user.getLastName()+
-                            ", District : "+user.getDistrict()+", Province : "+user.getProvince()+"\n"+errors);
+        if (errors.hasErrors()) {
+            User user = userService.getCurrentUser();
+            System.err.println(" *** UserName : " + user.getUserName() + ", FirstName : " + user.getFirstName() + ", LastName : " + user.getLastName() +
+                    ", District : " + user.getDistrict() + ", Province : " + user.getProvince() + "\n" + errors);
         }
     }
 }

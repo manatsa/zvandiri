@@ -48,7 +48,6 @@ import zw.org.zvandiri.portal.web.controller.report.parallel.UniqueContactTask;
 import zw.org.zvandiri.report.api.DatabaseHeader;
 
 /**
- *
  * @author jackie muzinda
  */
 @Controller
@@ -64,7 +63,7 @@ public class UniqueContactReportController extends BaseController {
     @Resource
     private ContactReportService contactReportService;
 
-    List<Patient> patients=new ArrayList<>();
+    List<Patient> patients = new ArrayList<>();
 
     public String setUpModel(ModelMap model, SearchDTO item, boolean post) {
         item = getUserLevelObjectState(item);
@@ -101,11 +100,11 @@ public class UniqueContactReportController extends BaseController {
     @RequestMapping(value = "/export/excel", method = RequestMethod.GET)
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Unique_Detailed_Contact_Report");
-        forceDownLoadDatabase(getUniqueContactClients(name, item),name,response);
+        forceDownLoadDatabase(getUniqueContactClients(name, item), name, response);
     }
 
 
-    public XSSFWorkbook getUniqueContactClients(String name, SearchDTO dto){
+    public XSSFWorkbook getUniqueContactClients(String name, SearchDTO dto) {
         XSSFWorkbook workbook = new XSSFWorkbook();
         CellStyle cellStyle = workbook.createCellStyle();
         CreationHelper createHelper = workbook.getCreationHelper();
@@ -142,26 +141,26 @@ public class UniqueContactReportController extends BaseController {
             Cell sex = uncontactedRow.createCell(count++);
             sex.setCellValue(patient.getGender().getName());
 
-            Cell phone=uncontactedRow.createCell(count++);
-            phone.setCellValue(patient.getMobileNumber()==null?"":patient.getMobileNumber());
+            Cell phone = uncontactedRow.createCell(count++);
+            phone.setCellValue(patient.getMobileNumber() == null ? "" : patient.getMobileNumber());
 
-            Cell phone1=uncontactedRow.createCell(count++);
-            phone1.setCellValue(patient.getSecondaryMobileNumber()==null?"":patient.getSecondaryMobileNumber());
+            Cell phone1 = uncontactedRow.createCell(count++);
+            phone1.setCellValue(patient.getSecondaryMobileNumber() == null ? "" : patient.getSecondaryMobileNumber());
 
-            Cell address=uncontactedRow.createCell(count++);
+            Cell address = uncontactedRow.createCell(count++);
             address.setCellValue(patient.getAddress());
 
-            Cell address1=uncontactedRow.createCell(count++);
+            Cell address1 = uncontactedRow.createCell(count++);
             address1.setCellValue(patient.getAddress1());
 
             Cell province = uncontactedRow.createCell(count++);
             province.setCellValue(patient.getPrimaryClinic().getDistrict().getProvince().getName());
 
             Cell district = uncontactedRow.createCell(count++);
-            district.setCellValue(patient.getPrimaryClinic().getDistrict().getName()==null?"":patient.getPrimaryClinic().getDistrict().getName());
+            district.setCellValue(patient.getPrimaryClinic().getDistrict().getName() == null ? "" : patient.getPrimaryClinic().getDistrict().getName());
 
             Cell primaryClinic = uncontactedRow.createCell(count++);
-            primaryClinic.setCellValue(patient.getPrimaryClinic().getName()==null?"":patient.getPrimaryClinic().getName());
+            primaryClinic.setCellValue(patient.getPrimaryClinic().getName() == null ? "" : patient.getPrimaryClinic().getName());
 
             Cell isCats = uncontactedRow.createCell(count++);
             isCats.setCellValue(

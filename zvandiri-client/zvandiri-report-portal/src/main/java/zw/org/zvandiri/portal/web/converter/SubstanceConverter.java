@@ -16,23 +16,23 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.Substance;
 import zw.org.zvandiri.business.service.SubstanceService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class SubstanceConverter implements Converter<String, Substance> {
-    
+
     @Resource
     private SubstanceService substanceService;
 
     @Override
     public Substance convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return substanceService.get(s);
     }
-    
+
 }

@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.report;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,7 +37,6 @@ import zw.org.zvandiri.report.api.service.LocGenderReportService;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller

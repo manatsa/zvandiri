@@ -1,6 +1,6 @@
 <%@include file="../template/header.jspf" %>
 <style type="text/css">
-    input[type="text"]{
+    input[type="text"] {
         height: 4em;
         font-size: 16px;
     }
@@ -17,7 +17,9 @@
                     <form method="post">
                         <div class="form-group">
                             <label>Search Clients</label>
-                            <input type="text" name="search" placeholder="Search by uic first name or last name or both first name and lastname" id="search" class="form-control"/>
+                            <input type="text" name="search"
+                                   placeholder="Search by uic first name or last name or both first name and lastname"
+                                   id="search" class="form-control"/>
                         </div>
                     </form>
                     <table id="patientListing" class="display hide" cellspacing="0">
@@ -67,12 +69,12 @@
                 for (i = 0; i < pat.length; i++) {
                     var part_url = "<a href='dashboard/profile.htm?id=" + pat[i].id + "'>";
                     //var contact_url = "<a href='"+path+"/beneficiary/contact/item.form?patientId=" + pat[i].id + "'>";
-                    var contact_url = "<a href='"+path+"/contact?id=" + pat[i].id + "'>";
-                   /* var referral_url = "<a href='"+path+"/patient/referral/item.list?id=" + pat[i].id + "'>";
-                    var tb_screening_url = "<a href='"+path+"/patient/tb-screening/item.list?id=" + pat[i].id + "'>";
-                    var hiv_self_testing_url = "<a href='"+path+"/patient/hiv-self-testing/item.list?id=" + pat[i].id + "'>";*/
-                    var mental_health_screening_url = "<a href='"+path+"http://localhost:8080/zvandiri/contact?execution=e7s4?id=" + pat[i].id + "'>";
-                    $("#patientListing").dataTable().fnAddData([part_url +pat[i].name+ "</a>",
+                    var contact_url = "<a href='" + path + "/contact?id=" + pat[i].id + "'>";
+                    /* var referral_url = "<a href='"+path+"/patient/referral/item.list?id=" + pat[i].id + "'>";
+                     var tb_screening_url = "<a href='"+path+"/patient/tb-screening/item.list?id=" + pat[i].id + "'>";
+                     var hiv_self_testing_url = "<a href='"+path+"/patient/hiv-self-testing/item.list?id=" + pat[i].id + "'>";*/
+                    var mental_health_screening_url = "<a href='" + path + "http://localhost:8080/zvandiri/contact?execution=e7s4?id=" + pat[i].id + "'>";
+                    $("#patientListing").dataTable().fnAddData([part_url + pat[i].name + "</a>",
                         pat[i].patientNumber,
                         pat[i].gender,
                         pat[i].age,
@@ -80,8 +82,8 @@
                         pat[i].district,
                         pat[i].primaryClinic,
                         pat[i].active === true ?
-                            contact_url+"Add Contact </a>" : ""]);
-                        //contact_url+"Contact | </a>"+referral_url+"Referral | </a>" + tb_screening_url+"TB Screening | </a>" + mental_health_screening_url + "Mental Health Screening</a>" : ""]);
+                            contact_url + "Add Contact </a>" : ""]);
+                    //contact_url+"Contact | </a>"+referral_url+"Referral | </a>" + tb_screening_url+"TB Screening | </a>" + mental_health_screening_url + "Mental Health Screening</a>" : ""]);
                 }
             });
         } else {
@@ -92,13 +94,16 @@
         "bFilter": false,
         "bSort": false,
         "bLengthChange": false,
-        "bInfo": false});
+        "bInfo": false
+    });
     $("form").submit(function (evt) {
         return false;
     });
+
     function cancelAjaxRequest(request) {
         if (request !== null)
             request.abort();
     }
+
     $("#patientListing_paginate").addClass("hide");
 </script>

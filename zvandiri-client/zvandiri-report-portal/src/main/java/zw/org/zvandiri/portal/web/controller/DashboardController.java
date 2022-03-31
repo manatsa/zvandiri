@@ -18,6 +18,7 @@ package zw.org.zvandiri.portal.web.controller;
 import java.io.IOException;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,7 +29,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.service.SettingsService;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
+
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+
 import zw.org.zvandiri.report.api.ChartModelItem;
 import zw.org.zvandiri.report.api.service.AggregateVisualReportService;
 import zw.org.zvandiri.report.api.service.BasicNameNumberReportService;
@@ -37,7 +40,6 @@ import zw.org.zvandiri.report.api.service.PatientReportAPIService;
 import zw.org.zvandiri.report.api.service.ReferralReportAPIService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
@@ -52,10 +54,10 @@ public class DashboardController extends BaseController {
     @Resource
     private ContactLevelOfCareReportService contactLevelOfCareReportService;
     @Resource
-    private BasicNameNumberReportService basicNameNumberReportService;  
+    private BasicNameNumberReportService basicNameNumberReportService;
     @Resource
     private SettingsService settingsService;
-    
+
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String getIndex(ModelMap model) {
         SearchDTO dto = getUserLevelObjectState(new SearchDTO());
@@ -81,7 +83,7 @@ public class DashboardController extends BaseController {
             ex.printStackTrace();
         }
     }
-    
+
     @RequestMapping(value = "/contact-distribution-past-six-months/bar-graph", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_DATA_CLERK') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
     public void displayChart(HttpServletResponse response, SearchDTO dto) {
@@ -95,7 +97,7 @@ public class DashboardController extends BaseController {
             ex.printStackTrace();
         }
     }
-    
+
     @RequestMapping(value = "/contact-trend-by-care-level/trend", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_DATA_CLERK') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
     public void displayTrend(HttpServletResponse response, SearchDTO dto) {
@@ -109,5 +111,5 @@ public class DashboardController extends BaseController {
             //ex.printStackTrace();
         }
     }
-    
+
 }

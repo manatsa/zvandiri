@@ -17,23 +17,22 @@ public class OfficeExportTask extends RecursiveAction {
     XSSFSheet XSSFSheet;
     XSSFWorkbook workbook;
 
-    int XSSFRowNum=0;
+    int XSSFRowNum = 0;
 
-    public OfficeExportTask(List<GenericReportModel> model,XSSFSheet sheet) {
+    public OfficeExportTask(List<GenericReportModel> model, XSSFSheet sheet) {
         this.model = model;
-        this.XSSFSheet=sheet;
+        this.XSSFSheet = sheet;
     }
 
 
     @Override
     protected void compute() {
-        if(model.size()<=ReportGenConstants.SEQUENTIAL_THRESHOLD)
-        {
-           computeDirectly();
-        }else{
-            int mid=model.size() / 2;
-            OfficeExportTask first=new OfficeExportTask(model.subList(0, mid), XSSFSheet);
-            OfficeExportTask second=new OfficeExportTask(model.subList(mid, model.size()), XSSFSheet);
+        if (model.size() <= ReportGenConstants.SEQUENTIAL_THRESHOLD) {
+            computeDirectly();
+        } else {
+            int mid = model.size() / 2;
+            OfficeExportTask first = new OfficeExportTask(model.subList(0, mid), XSSFSheet);
+            OfficeExportTask second = new OfficeExportTask(model.subList(mid, model.size()), XSSFSheet);
 
             first.fork();
             second.compute();
@@ -43,9 +42,9 @@ public class OfficeExportTask extends RecursiveAction {
 
     }
 
-    public void computeDirectly(){
-        List<XSSFRow> rows=new ArrayList<>();
-        System.err.println("**************************************** Now size of model is :"+model.size());
+    public void computeDirectly() {
+        List<XSSFRow> rows = new ArrayList<>();
+        System.err.println("**************************************** Now size of model is :" + model.size());
         for (GenericReportModel model : model) {
             XSSFRow XSSFRow = XSSFSheet.createRow(XSSFRowNum++);
             int XSSFCellNum = 0;

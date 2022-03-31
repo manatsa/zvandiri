@@ -6,6 +6,6 @@
 </c:if>
 <div class="form-group">
     <p class="help-block">
-    <form:errors path="uuid" class="alert-danger"/>
-</p>
+        <form:errors path="uuid" class="alert-danger"/>
+    </p>
 </div>

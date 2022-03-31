@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.AbuseOutcome;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class AbuseOutcomeConverter implements Converter<String, AbuseOutcome> {
 
     @Override
     public AbuseOutcome convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return AbuseOutcome.get(Integer.valueOf(s));
     }
-    
+
 }

@@ -22,11 +22,10 @@ import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.HIVSelfTesting;
 
 /**
- *
  * @author tasu
  */
 @Component
-public class HIVSelfTestingValidator implements Validator{
+public class HIVSelfTestingValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> type) {

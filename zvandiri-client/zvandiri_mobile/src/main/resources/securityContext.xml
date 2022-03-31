@@ -15,15 +15,15 @@
 
     <!-- manager responsible for loading user account with assigned roles -->
     <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-        <constructor-arg name="strength" value="11" />
+        <constructor-arg name="strength" value="11"/>
     </bean>
     <!-- manager responsible for loading user account with assigned roles -->
     <security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider user-service-ref="userDetailsService" >
-            <security:password-encoder ref="passwordEncoder" /> 
+        <security:authentication-provider user-service-ref="userDetailsService">
+            <security:password-encoder ref="passwordEncoder"/>
         </security:authentication-provider>
     </security:authentication-manager>
-    
+
     <!-- User Detail Services -->
     <bean id="userDetailsService" class="zw.org.zvandiri.business.security.provider.UserDetailsServiceImpl"/>
 </beans>

@@ -8,6 +8,7 @@ import zw.org.zvandiri.business.domain.util.PhoneStatus;
 import zw.org.zvandiri.business.domain.util.RecordSource;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @ToString
@@ -39,6 +40,7 @@ public class Bicycle{
     private Boolean deleted = Boolean.FALSE;
     @Enumerated
     private RecordSource recordSource = RecordSource.WEB_APP;
+    @NotNull(message = "Bicycle type cannot be empty.")
     private String bikeType;
     private String bikeIssues;
     @Enumerated

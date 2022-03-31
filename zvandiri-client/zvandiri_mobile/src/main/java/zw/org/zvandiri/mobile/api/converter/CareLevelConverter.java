@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.CareLevel;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class CareLevelConverter implements Converter<String, CareLevel> {
 
     @Override
     public CareLevel convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return CareLevel.get(Integer.valueOf(s));
     }
-    
+
 }

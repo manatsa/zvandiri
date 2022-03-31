@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import javax.annotation.Resource;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,7 +36,6 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.report.api.service.PatientPivotService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
@@ -66,7 +66,7 @@ public class PatientPivotReportController extends BaseController {
         model.addAttribute("item", item);
         return "report/pivot/patient";
     }
-    
+
     @RequestMapping("/patients-exiting-program")
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_DATA_CLERK') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
     public String getPatientExitingProgram(ModelMap model, SearchDTO item) {

@@ -33,13 +33,12 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.report.api.service.ContactPivotService;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
 @RequestMapping("/report/pivot/contact")
 public class ContactPivotReportController extends BaseController {
-    
+
     @Resource
     private ContactPivotService contactPivotService;
     @Resource
@@ -48,11 +47,11 @@ public class ContactPivotReportController extends BaseController {
     private DistrictService districtService;
     @Resource
     private FacilityService facilityService;
-    
+
     @RequestMapping("/index")
-    public String getContactPivotReportIndex(ModelMap model, SearchDTO item){
+    public String getContactPivotReportIndex(ModelMap model, SearchDTO item) {
         item = getUserLevelObjectState(item);
-        model.addAttribute("pageTitle", APP_PREFIX+"Contact Pivot Reports");
+        model.addAttribute("pageTitle", APP_PREFIX + "Contact Pivot Reports");
         model.addAttribute("provinces", provinceService.getAll());
         if (item.getProvince() != null) {
             model.addAttribute("districts", districtService.getDistrictByProvince(item.getProvince()));
@@ -63,10 +62,10 @@ public class ContactPivotReportController extends BaseController {
         model.addAttribute("item", item);
         return "report/pivot/contact";
     }
-    
+
     @RequestMapping("/getcontact")
     @ResponseBody
-    public List<BaseContactPivotDTO> getPatientData(SearchDTO dto){
+    public List<BaseContactPivotDTO> getPatientData(SearchDTO dto) {
         return contactPivotService.get(dto);
     }
 }

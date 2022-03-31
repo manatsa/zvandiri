@@ -37,7 +37,7 @@
 
             <c:if test="${canEdit}">
                 <a href="${page}/patient/item.form?id=${patient.id}">Edit</a> |
-<%--                <a href="${page}/patient/item.delete?id=${patient.id}">Delete</a>--%>
+                <%--                <a href="${page}/patient/item.delete?id=${patient.id}">Delete</a>--%>
             </c:if>
         </td>
     </tr>

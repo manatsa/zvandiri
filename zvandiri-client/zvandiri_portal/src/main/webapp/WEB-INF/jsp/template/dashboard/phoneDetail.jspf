@@ -5,7 +5,7 @@
             <table class="table-condensed" width="100%">
                 <c:if test="${hasPhone}">
                     <tr>
-                        <th>Phone Make </th>
+                        <th>Phone Make</th>
                         <td>${phone.phoneMake}</td>
                         <th>Phone Model</th>
                         <td>${phone.phoneModel}</td>
@@ -50,7 +50,8 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td><br/>
-                        <a class="pull-right" style="margin-right: 20px;" href="${page}/cadre/phone/item.form?id=${cadre.id}"> Edit Phone Details </a>
+                        <a class="pull-right" style="margin-right: 20px;"
+                           href="${page}/cadre/phone/item.form?id=${cadre.id}"> Edit Phone Details </a>
                     </td>
                 </tr>
 

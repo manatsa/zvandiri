@@ -12,7 +12,8 @@
                     <form:form commandName="item">
                         <form:hidden path="id"/>
                         <form:hidden path="version"/>
-                        <%@include file="../template/participantTopPart.jspf" %><br/>
+                        <%@include file="../template/participantTopPart.jspf" %>
+                        <br/>
                         <%@include file="../template/entry/participantform.jspf" %>
                     </form:form>
                 </div>

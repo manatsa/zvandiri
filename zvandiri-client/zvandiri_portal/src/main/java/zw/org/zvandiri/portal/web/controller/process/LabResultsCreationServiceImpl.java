@@ -24,12 +24,11 @@ import zw.org.zvandiri.business.service.MentalHealthScreeningService;
 import javax.annotation.Resource;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 @Repository("labResultCreationService")
 public class LabResultsCreationServiceImpl implements LabResultsCreationService {
-    
+
     @Resource
     private InvestigationTestService investigationTestService;
 

@@ -12,7 +12,7 @@ import zw.org.zvandiri.business.domain.util.TbSymptom;
 @Service("tbSymptomsService")
 public class TBSystmptomsService {
 
-    public TbSymptom[] getTBSymptoms(){
+    public TbSymptom[] getTBSymptoms() {
         return TbSymptom.values();
     }
 }

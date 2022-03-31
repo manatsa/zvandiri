@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -24,7 +25,6 @@ import zw.org.zvandiri.business.domain.UserRole;
 import zw.org.zvandiri.business.service.UserRoleService;
 
 /**
- *
  * @author Edward Zengeni
  */
 @Component
@@ -46,10 +46,10 @@ public class UserRoleValidator implements Validator {
          */
         UserRole current = (UserRole) o;
         UserRole old = null;
-        if(current.getId() != null){
+        if (current.getId() != null) {
             old = provinceService.get(current.getId());
         }
-        if(provinceService.checkDuplicate(current, old)){
+        if (provinceService.checkDuplicate(current, old)) {
             errors.rejectValue("name", "item.duplicate");
         }
     }

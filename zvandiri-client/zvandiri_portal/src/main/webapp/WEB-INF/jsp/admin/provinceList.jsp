@@ -5,7 +5,8 @@
             Regions List
         </div>
         <div class="panel-body">
-            <a href="../index.htm">Option Tables</a> | <a href="item.form">New Region</a> | <a href="item.list">Region List</a>
+            <a href="../index.htm">Option Tables</a> | <a href="item.form">New Region</a> | <a href="item.list">Region
+            List</a>
             <hr/>
             <%@include file="../template/message.jspf" %>
             <div class="row">
@@ -20,15 +21,17 @@
                         <th>&nbsp</th>
                         </tfoot>
                         <tbody>
-                            <c:forEach var="province" items="${items}" >
-                                <tr>
-                                    <td><a href="<c:url value="/admin/province/item.form?id=${province.id}"/>">${province.name}</a></td>
-                                    <td>
-                                        <a href="<c:url value="/admin/province/item.form?id=${province.id}"/>">Edit | </a>
-                                        <a href="<c:url value="/admin/province/item.delete?id=${province.id}"/>">Delete</a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                        <c:forEach var="province" items="${items}">
+                            <tr>
+                                <td>
+                                    <a href="<c:url value="/admin/province/item.form?id=${province.id}"/>">${province.name}</a>
+                                </td>
+                                <td>
+                                    <a href="<c:url value="/admin/province/item.form?id=${province.id}"/>">Edit | </a>
+                                    <a href="<c:url value="/admin/province/item.delete?id=${province.id}"/>">Delete</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

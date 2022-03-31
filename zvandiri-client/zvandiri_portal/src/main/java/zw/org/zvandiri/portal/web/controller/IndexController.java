@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.controller;
 
 import javax.servlet.http.HttpSession;
+
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
@@ -32,7 +32,7 @@ public class IndexController extends BaseController {
 
     @RequestMapping(value = "/login")
     public String getLogin(ModelMap model) {
-        model.addAttribute("pageTitle", APP_PREFIX+"Login");
+        model.addAttribute("pageTitle", APP_PREFIX + "Login");
         return "login";
     }
 
@@ -43,28 +43,28 @@ public class IndexController extends BaseController {
 
     @RequestMapping(value = "/loginerror", method = RequestMethod.GET)
     public String getRedirectError(ModelMap model) {
-        model.addAttribute("pageTitle", APP_PREFIX+"Access Denied");
+        model.addAttribute("pageTitle", APP_PREFIX + "Access Denied");
         model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Error worng username/ password").messageType(MessageType.ERROR).build());
         return "login";
     }
 
     @RequestMapping(value = "/sessiontimeout", method = RequestMethod.GET)
     public String sessionTimeout(ModelMap model) {
-        model.addAttribute("pageTitle", APP_PREFIX+"Session Timed Out");
+        model.addAttribute("pageTitle", APP_PREFIX + "Session Timed Out");
         model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Session has timed out, please login again").messageType(MessageType.ERROR).build());
         return "login";
     }
-    
+
     @RequestMapping(value = "/success")
     public String getSuccess(ModelMap model) {
-        model.addAttribute("message", APP_PREFIX+"Access accepted");
+        model.addAttribute("message", APP_PREFIX + "Access accepted");
         return "index";
     }
 
     @RequestMapping(value = "/logout")
     public String logout(ModelMap model, HttpSession httpSession) {
-        model.addAttribute("message", APP_PREFIX+"Access Failed");
+        model.addAttribute("message", APP_PREFIX + "Access Failed");
         httpSession.invalidate();
         return "redirect:login";
-    } 
+    }
 }

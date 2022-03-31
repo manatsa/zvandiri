@@ -16,15 +16,16 @@
 package zw.org.zvandiri.portal.web.controller.cadre;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
-import zw.org.zvandiri.business.domain.Cadre;
-import zw.org.zvandiri.business.domain.MobilePhone;
-import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.domain.TbIpt;
+import zw.org.zvandiri.business.domain.*;
 import zw.org.zvandiri.business.domain.util.*;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.dto.CadreSearchDTO;
@@ -34,13 +35,17 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+
+import zw.org.zvandiri.portal.web.controller.patient.ContactController;
+import zw.org.zvandiri.portal.web.validator.CadreValidator;
+import zw.org.zvandiri.portal.web.validator.ContactsValidator;
 import zw.org.zvandiri.portal.web.validator.TbScreeningValidator;
 
 import java.util.List;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 
@@ -62,12 +67,22 @@ public class CadreController extends BaseController {
     @Resource
     MobilePhoneService mobilePhoneService;
     @Resource
+    BicycleService bicycleService;
+    @Resource
     SupportGroupService supportGroupService;
+    @Resource
+    CadreValidator cadreValidator;
+
+
+    /*@InitBinder
+    protected void initBinder(final HttpServletRequest request, final ServletRequestDataBinder binder) {
+        binder.addValidators(cadreValidator);
+    }*/
 
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public String getIndex(ModelMap map, @RequestParam(required = false) String id) {
         map.addAttribute("pageTitle", APP_PREFIX + " " + "Cadre Management");
-        map.addAttribute("cadres",cadreService.getAll());
+        map.addAttribute("cadres", cadreService.getAll());
         return "cadre/index";
     }
 
@@ -79,7 +94,7 @@ public class CadreController extends BaseController {
         map.addAttribute("supportGroups", supportGroupService.getAll());
         map.addAttribute("item", item);
         map.addAttribute("formAction", "item.form");
-        map.addAttribute("cadres",cadreService.getAll());
+        map.addAttribute("cadres", cadreService.getAll());
         return "cadre/cadreForm";
     }
 
@@ -91,10 +106,10 @@ public class CadreController extends BaseController {
             item = cadreService.get(id);
             return setUpModel(map, item);
         }
-        if(patientId!=null) {
+        if (patientId != null) {
             item = new Cadre(patientId);
-        }else{
-            item=new Cadre();
+        } else {
+            item = new Cadre();
         }
         return setUpModel(map, item);
     }
@@ -107,7 +122,7 @@ public class CadreController extends BaseController {
             map.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
             return setUpModel(map, item);
         }
-        item=cadreService.save(item);
+        item = cadreService.save(item);
         return "redirect:index?type=1&id=" + item.getId();
         //return "cadre/index";
     }
@@ -131,12 +146,24 @@ public class CadreController extends BaseController {
     }*/
 
     @RequestMapping(value = "/view", method = RequestMethod.GET)
-    public String viewCadre(ModelMap model, @RequestParam("id") String id){
-        Cadre cadre=cadreService.get(id);
+    public String viewCadre(ModelMap model, @RequestParam("id") String id) {
+        Cadre cadre = cadreService.get(id);
         model.addAttribute("cadre", cadre);
+        MobilePhone phone = mobilePhoneService.getByCadre(cadre);
+        Bicycle bike = bicycleService.getByCadre(cadre);
+        if (phone != null) {
+            model.addAttribute("hasPhone", true);
+            model.addAttribute("phone", phone);
+        }
+
+        if (bike != null) {
+            model.addAttribute("hasBike", true);
+            model.addAttribute("bike", bike);
+        }
+
         return "cadre/dashboard";
     }
-    
+
     @RequestMapping(value = "reload-form", method = RequestMethod.POST)
     public String reloadForm(ModelMap model, @ModelAttribute("item") Cadre item) {
         return setUpModel(model, item);

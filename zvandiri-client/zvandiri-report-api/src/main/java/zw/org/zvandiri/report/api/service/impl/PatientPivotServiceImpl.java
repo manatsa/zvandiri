@@ -42,7 +42,6 @@ import zw.org.zvandiri.report.api.service.PatientPivotService;
 import zw.org.zvandiri.report.api.service.parallel.GenericCountReportTask;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Repository
@@ -64,15 +63,15 @@ public class PatientPivotServiceImpl implements PatientPivotService {
     }
 
     private List<BasePatientPivotDTO> convertList(SearchDTO dto) {
-        
+
         List<BasePatientPivotDTO> items = new ArrayList<>();
         ForkJoinPool pool = ForkJoinPool.commonPool();
         List<Patient> patients = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(dto)), detailedPatientReportService, dto));
-        
+
         for (Patient p : patients) {
             String isCats = (p.getCatId() != null && !p.getCatId().isEmpty()) ? "Yes" : "No";
             boolean onTbTreatment = tbIptService.existsOnTbTreatment(p, TbIdentificationOutcome.ON_TB_TREATMENT);
-            boolean hasChildren =  p.getMotherOfHei() != null;
+            boolean hasChildren = p.getMotherOfHei() != null;
             if (dto.getDistrict() != null) {
                 // remove references to parent
                 dto.setProvince(null);

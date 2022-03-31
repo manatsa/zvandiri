@@ -23,7 +23,6 @@ import zw.org.zvandiri.business.util.dto.ContactDetailsDTO;
 import zw.org.zvandiri.portal.util.MobileNumberFormat;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component

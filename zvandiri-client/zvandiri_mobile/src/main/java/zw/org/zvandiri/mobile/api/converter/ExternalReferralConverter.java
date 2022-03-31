@@ -16,23 +16,23 @@
 package zw.org.zvandiri.mobile.api.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.ExternalReferral;
 import zw.org.zvandiri.business.service.ExternalReferralService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class ExternalReferralConverter implements Converter<String, ExternalReferral> {
- 
+
     @Resource
     private ExternalReferralService externalReferralService;
 
     @Override
     public ExternalReferral convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return externalReferralService.get(s);
     }
-    
+
 }

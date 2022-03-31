@@ -177,6 +177,7 @@ public class Contact extends BaseEntity {
     private Integer eac2;
     private Integer eac3;
     private String contactMadeBy;
+    private String supportGroupTheme;
 
 
 
@@ -566,6 +567,14 @@ public class Contact extends BaseEntity {
 
     public void setSystemDeterminedCareLevel(FollowUp systemDeterminedCareLevel) {
         this.systemDeterminedCareLevel = systemDeterminedCareLevel;
+    }
+
+    public String getSupportGroupTheme() {
+        return supportGroupTheme;
+    }
+
+    public void setSupportGroupTheme(String supoortGroupTheme) {
+        this.supportGroupTheme = supoortGroupTheme;
     }
 
     @Override

@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.admin;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -33,7 +34,6 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.validator.ProvinceValidator;
 
 /**
- *
  * @author Edward Zengeni
  * @author Judge Muzinda
  */
@@ -49,7 +49,7 @@ public class ProvinceController extends BaseController {
     @RequestMapping(value = "/item.form", method = RequestMethod.GET)
     public String provinceForm(ModelMap model, @RequestParam(required = false) String id) {
         model.addAttribute("message", new AppMessage.MessageBuilder().build());
-        model.addAttribute("pageTitle", APP_PREFIX+"Create/ Edit Province");
+        model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit Province");
         Province p = new Province();
         if (id != null) {
             p = provinceService.get(id);
@@ -64,7 +64,7 @@ public class ProvinceController extends BaseController {
         provinceValidator.validate(province, result);
         model.addAttribute("message", new AppMessage.MessageBuilder().build());
         if (result.hasErrors()) {
-            model.addAttribute("pageTitle", APP_PREFIX+"Create/ Edit Province");
+            model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit Province");
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
 
             model.addAttribute("item", province);
@@ -77,26 +77,26 @@ public class ProvinceController extends BaseController {
     @RequestMapping(value = {"/item.list", "/"}, method = RequestMethod.GET)
     public String provinceList(ModelMap model, @RequestParam(required = false) Integer type) {
         model.addAttribute("message", new AppMessage.MessageBuilder().build());
-        model.addAttribute("pageTitle", APP_PREFIX+"Province List");
+        model.addAttribute("pageTitle", APP_PREFIX + "Province List");
         model.addAttribute("items", provinceService.getAll());
-        if(type != null){
+        if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
         }
         return "admin/provinceList";
     }
-    
+
     @RequestMapping(value = "item.delete", method = RequestMethod.GET)
-    public String getProvinceDeleteForm(@RequestParam("id") String id, ModelMap model){
+    public String getProvinceDeleteForm(@RequestParam("id") String id, ModelMap model) {
         Province province = provinceService.get(id);
         ItemDeleteDTO dto = new ItemDeleteDTO(id, province.getName(), "item.list?type=3");
         model.addAttribute("item", dto);
         model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Are you sure you want to delete this record").messageType(MessageType.WARNING).build());
-        model.addAttribute("pageTitle", APP_PREFIX+"Delete "+province.getName()+" Province");
+        model.addAttribute("pageTitle", APP_PREFIX + "Delete " + province.getName() + " Province");
         return "admin/deleteItem";
     }
-    
+
     @RequestMapping(value = "item.delete", method = RequestMethod.POST)
-    public String deleteProvince(@Valid ItemDeleteDTO dto){
+    public String deleteProvince(@Valid ItemDeleteDTO dto) {
         provinceService.delete(provinceService.get(dto.getId()));
         return "redirect:item.list?type=2";
     }

@@ -19,6 +19,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,32 +32,31 @@ import zw.org.zvandiri.business.util.dto.PatientFiles;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 
 /**
- *
  * @author Judge Muiznda
  */
 @Controller
 @RequestMapping("/patient/dashboard")
 public class UploadFilesController extends BaseController {
- 
+
     @Resource
     private PatientService patientService;
-    
+
     @RequestMapping(value = "/upload-patient-files", method = RequestMethod.GET)
-    public String getForm(ModelMap model, @RequestParam String id){
+    public String getForm(ModelMap model, @RequestParam String id) {
         Patient patient = patientService.get(id);
-        model.addAttribute("pageTitle", APP_PREFIX+"Upload Patient Files");
+        model.addAttribute("pageTitle", APP_PREFIX + "Upload Patient Files");
         model.addAttribute("patient", patient);
         //model.addAttribute("item", new PatientFiles(patient));
         return "patient/fileUploadForm";
     }
-    
+
     @RequestMapping(value = "/upload-patient-files", method = RequestMethod.POST)
-    public String uploadFiles(@RequestParam("patient") String id ,
-            @RequestParam("photo") String photo,
-            @RequestParam("consent") String consent,
-            @RequestParam("mhealth") String mhealth,
-            @RequestParam("file") MultipartFile[] files){
-        String [] names = {photo,consent,mhealth};
+    public String uploadFiles(@RequestParam("patient") String id,
+                              @RequestParam("photo") String photo,
+                              @RequestParam("consent") String consent,
+                              @RequestParam("mhealth") String mhealth,
+                              @RequestParam("file") MultipartFile[] files) {
+        String[] names = {photo, consent, mhealth};
         PatientFiles item = new PatientFiles(patientService.get(id));
         item.setPhoto(names[0]);
         item.setConsentForm(names[1]);
@@ -66,11 +66,11 @@ public class UploadFilesController extends BaseController {
             String name = names[i];
             try {
                 byte[] bytes = file.getBytes();
-                String rootPath = File.separator+"home"+File.separator+".zvandiriappfiles";
+                String rootPath = File.separator + "home" + File.separator + ".zvandiriappfiles";
                 File dir = new File(rootPath);
                 if (!dir.exists())
                     dir.mkdirs();
- 
+
                 // Create the file on server
                 File serverFile = new File(dir.getAbsolutePath()
                         + File.separator + name);
@@ -81,10 +81,10 @@ public class UploadFilesController extends BaseController {
                 patientService.save(item.getInstance(item));
             } catch (Exception e) {
                 System.out.println("********************************************************");
-                System.out.println("The message :"+e.getMessage());
-                return "redirect:profile.htm?type=5&id="+item.getPatient().getId();
+                System.out.println("The message :" + e.getMessage());
+                return "redirect:profile.htm?type=5&id=" + item.getPatient().getId();
             }
         }
-        return "redirect:profile.htm?type=1&id="+item.getPatient().getId();
+        return "redirect:profile.htm?type=1&id=" + item.getPatient().getId();
     }
 }

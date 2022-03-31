@@ -18,6 +18,7 @@ package zw.org.zvandiri.portal.web.controller.patient;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -35,13 +36,12 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.validator.ViralLoadValidator;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
 @RequestMapping("/patient/viral-load")
 public class ViralLoadController extends BaseController {
-    
+
     @Resource
     private InvestigationTestService investigationTestService;
     @Resource

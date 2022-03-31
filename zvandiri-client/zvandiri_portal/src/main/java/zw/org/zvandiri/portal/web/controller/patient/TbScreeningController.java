@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -36,11 +37,12 @@ import zw.org.zvandiri.business.util.dto.ItemDeleteDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+
 import zw.org.zvandiri.portal.web.validator.TbScreeningValidator;
 
 /**
- *
  * @author tasu
  */
 @Controller
@@ -55,7 +57,7 @@ public class TbScreeningController extends BaseController {
     private TbScreeningValidator validator;
 
     public String setUpModel(ModelMap map, TbIpt item) {
-        map.addAttribute("pageTitle", APP_PREFIX + " " + item.getPatient().getName()+ "'s Tb Screening History");
+        map.addAttribute("pageTitle", APP_PREFIX + " " + item.getPatient().getName() + "'s Tb Screening History");
         map.addAttribute("item", item);
         map.addAttribute("patient", item.getPatient());
         map.addAttribute("yesNo", YesNo.values());
@@ -68,25 +70,25 @@ public class TbScreeningController extends BaseController {
         map.addAttribute("showActionTaken", Boolean.FALSE);
         map.addAttribute("onTbTreatment", Boolean.FALSE);
         map.addAttribute("onIpt", Boolean.FALSE);
-        
-        if(item.getScreenedForTb() != null && item.getScreenedForTb().equals(YesNo.YES)) {
+
+        if (item.getScreenedForTb() != null && item.getScreenedForTb().equals(YesNo.YES)) {
             map.addAttribute("showForm", Boolean.TRUE);
-        }else{
+        } else {
             map.addAttribute("showForm", Boolean.FALSE);
         }
-        if(item.getIdentifiedWithTb()!= null && item.getIdentifiedWithTb().equals(YesNo.YES)) {
+        if (item.getIdentifiedWithTb() != null && item.getIdentifiedWithTb().equals(YesNo.YES)) {
             map.addAttribute("showActionTaken", Boolean.TRUE);
-        }else{
+        } else {
             map.addAttribute("showActionTaken", Boolean.FALSE);
         }
-        if(item.getTbIdentificationOutcome()!= null && item.getTbIdentificationOutcome().equals(TbIdentificationOutcome.ON_TB_TREATMENT)) {
+        if (item.getTbIdentificationOutcome() != null && item.getTbIdentificationOutcome().equals(TbIdentificationOutcome.ON_TB_TREATMENT)) {
             map.addAttribute("onTbTreatment", Boolean.TRUE);
-        }else{
+        } else {
             map.addAttribute("onTbTreatment", Boolean.FALSE);
         }
-        if(item.getOnIpt()!= null && item.getOnIpt().equals(YesNo.YES)) {
+        if (item.getOnIpt() != null && item.getOnIpt().equals(YesNo.YES)) {
             map.addAttribute("onIpt", Boolean.TRUE);
-        }else{
+        } else {
             map.addAttribute("onIpt", Boolean.FALSE);
         }
         return "patient/tbScreeningForm";
@@ -118,7 +120,7 @@ public class TbScreeningController extends BaseController {
     @RequestMapping(value = "/item.list", method = RequestMethod.GET)
     public String getItemList(@RequestParam String id, @RequestParam(required = false) Integer type, ModelMap model) {
         Patient item = patientService.get(id);
-        model.addAttribute("pageTitle", APP_PREFIX + " " + item.getName()+ "'s Tb Screening History");
+        model.addAttribute("pageTitle", APP_PREFIX + " " + item.getName() + "'s Tb Screening History");
         model.addAttribute("patient", item);
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));
@@ -147,7 +149,7 @@ public class TbScreeningController extends BaseController {
         service.delete(item);
         return "redirect:item.list?type=2&id=" + patient.getId();
     }
-    
+
     @RequestMapping(value = "reload-form", method = RequestMethod.POST)
     public String reloadForm(ModelMap model, @ModelAttribute("item") TbIpt item) {
         return setUpModel(model, item);

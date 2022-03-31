@@ -7,7 +7,7 @@
             </div>
             <div class="panel-body">
                 <div class="${message.msgType}<c:if test="${!message.exist}"> hidden</c:if>">
-                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">ï¿½</button>
                     ${message.message}
                     <a href="${referer}" class="alert-link">Go back</a>
                 </div>

@@ -137,7 +137,7 @@
                                     <div class="panel panel-default notreatment hide">
                                         <div class="panel-heading notreatment hide">
                                             <div class="form-group notreatment hide">
-                                                <label>  On TPT or Had TPT in Last 3 Years</label>
+                                                <label> On TPT or Had TPT in Last 3 Years</label>
                                                 <form:select path="onIpt" class="form-control">
                                                     <form:option value="" label="--Select Item"/>
                                                     <form:options items="${yesNo}" itemValue="code" itemLabel="name"/>
@@ -224,8 +224,6 @@
                                     </div>
 
 
-
-
                                 </div>
 
                             </div>
@@ -235,7 +233,9 @@
                                 </button>
                                 <button class="btn btn-primary" type="submit" id="next" name="_eventId_next">Next&Gt;&Gt;
                                 </button>
-                                <button class="btn btn-primary" type="submit" id="cancel" name="_eventId_cancel">Cancel</button>
+                                <button class="btn btn-primary" type="submit" id="cancel" name="_eventId_cancel">
+                                    Cancel
+                                </button>
                             </div>
 
                         </form:form>
@@ -282,21 +282,20 @@
         }
     });
 
-$('#onTBTreatment').change(()=>{
-    var treat = $("#onTBTreatment").val();
-    console.log('Treatment Value:'+treat)
-    if (treat == 1 && $("#onTBTreatment").is(":visible")) {
-        $(".treatment").removeClass("hide")
-    }else {
-        $(".treatment").addClass("hide")
-    }
-    if (treat == 2) {
-        $(".notreatment").removeClass("hide")
-    }else {
-        $(".notreatment").addClass("hide")
-    }
-})
-
+    $('#onTBTreatment').change(() => {
+        var treat = $("#onTBTreatment").val();
+        console.log('Treatment Value:' + treat)
+        if (treat == 1 && $("#onTBTreatment").is(":visible")) {
+            $(".treatment").removeClass("hide")
+        } else {
+            $(".treatment").addClass("hide")
+        }
+        if (treat == 2) {
+            $(".notreatment").removeClass("hide")
+        } else {
+            $(".notreatment").addClass("hide")
+        }
+    })
 
 
     $("#onIpt").change(function () {
@@ -352,7 +351,7 @@ $('#onTBTreatment').change(()=>{
             if (treat == 2) {
                 $(".notreatment").removeClass("hide")
 
-            }else {
+            } else {
 
                 $(".notreatment").addClass("hide")
             }

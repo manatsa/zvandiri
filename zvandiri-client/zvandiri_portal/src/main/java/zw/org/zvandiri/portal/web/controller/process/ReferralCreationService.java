@@ -18,13 +18,12 @@ package zw.org.zvandiri.portal.web.controller.process;
 import zw.org.zvandiri.business.domain.Referral;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 public interface ReferralCreationService {
- 
+
     public Referral createReferral();
-    
+
     public Referral saveReferral(Referral referral);
 
     public String isValid(Referral referral);

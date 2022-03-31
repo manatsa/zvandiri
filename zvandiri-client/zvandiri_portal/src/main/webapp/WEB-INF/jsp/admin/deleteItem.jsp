@@ -15,11 +15,13 @@
                             <form:hidden path="id"/>
                             <div class="form-group">
                                 <label>Name</label>
-                                ${item.name}
+                                    ${item.name}
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Delete</button>
-                                <a href="${item.cancelRedirect}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <a href="${item.cancelRedirect}">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>

@@ -19,10 +19,9 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.TbTreatmentStatus;
 
 /**
- *
  * @author tasu
  */
-public class TbTreatmentStatusConverter implements Converter<String, TbTreatmentStatus>{
+public class TbTreatmentStatusConverter implements Converter<String, TbTreatmentStatus> {
     @Override
     public TbTreatmentStatus convert(String s) {
         if (s.equals("")) {

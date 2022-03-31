@@ -1,101 +1,101 @@
 <form:form commandName="item" role="form">
     <table class="table">
         <tbody>
-            <tr>
-        <c:if test="${userLevel == 'NATIONAL'}">
+        <tr>
+            <c:if test="${userLevel == 'NATIONAL'}">
+                <td>
+                    <div class="form-group">
+                        <label>Region</label>
+                        <form:select path="province" class="form-control">
+                            <form:option value="" label="--Select Item--"/>
+                            <form:options items="${provinces}" itemLabel="name" itemValue="id"/>
+                        </form:select>
+                        <p class="help-block">
+                            <form:errors path="province"/>
+                        </p>
+                    </div>
+                </td>
+            </c:if>
+            <c:if test="${userLevel == 'NATIONAL' or userLevel == 'PROVINCE'}">
+                <td>
+                    <div class="form-group">
+                        <label>District</label>
+                        <form:select path="district" class="form-control">
+                            <form:option value="" label="--Select Item--"/>
+                            <form:options items="${districts}" itemLabel="name" itemValue="id"/>
+                        </form:select>
+                        <p class="help-block">
+                            <form:errors path="district"/>
+                        </p>
+                    </div>
+                </td>
+            </c:if>
             <td>
                 <div class="form-group">
-                    <label>Region</label>
-                    <form:select path="province" class="form-control">
+                    <label>Facility</label>
+                    <form:select path="primaryClinic" class="form-control">
                         <form:option value="" label="--Select Item--"/>
-                        <form:options items="${provinces}" itemLabel="name" itemValue="id"/>
+                        <form:options items="${facilities}" itemLabel="name" itemValue="id"/>
                     </form:select>
                     <p class="help-block">
-                    <form:errors path="province"/>
+                        <form:errors path="primaryClinic"/>
                     </p>
-                </div> 
+                </div>
             </td>
-        </c:if>
-        <c:if test="${userLevel == 'NATIONAL' or userLevel == 'PROVINCE'}">
             <td>
                 <div class="form-group">
-                    <label>District</label>
-                    <form:select path="district" class="form-control">
+                    <label>Period</label>
+                    <form:select path="period" class="form-control">
                         <form:option value="" label="--Select Item--"/>
-                        <form:options items="${districts}" itemLabel="name" itemValue="id"/>
+                        <form:options items="${periods}" itemLabel="name" itemValue="id"/>
                     </form:select>
                     <p class="help-block">
-                    <form:errors path="district"/>
+                        <form:errors path="period"/>
                     </p>
-                </div> 
+                </div>
             </td>
-        </c:if>
-        <td>
-            <div class="form-group">
-                <label>Facility</label>
-                <form:select path="primaryClinic" class="form-control">
-                    <form:option value="" label="--Select Item--"/>
-                    <form:options items="${facilities}" itemLabel="name" itemValue="id"/>
-                </form:select>
-                <p class="help-block">
-                <form:errors path="primaryClinic"/>
-                </p>
-            </div> 
-        </td>        
-        <td>
-            <div class="form-group">
-                <label>Period</label>
-                <form:select path="period" class="form-control">
-                    <form:option value="" label="--Select Item--"/>
-                    <form:options items="${periods}" itemLabel="name" itemValue="id"/>
-                </form:select>
-                <p class="help-block">
-                <form:errors path="period"/>
-                </p>
-            </div> 
-        </td>
-        <td>
-            <div class="form-group">
-                <label>Status</label>
-                <form:select path="status" class="form-control">
-                    <form:option value="" label="--Select Item--"/>
-                    <form:options itemLabel="name" itemValue="code"/>
-                </form:select>
-                <p class="help-block">
-                <form:errors path="status"/>
-                </p>
-            </div> 
-        </td>
-        <td>
-            <div class="form-group">
-                <label>Gender</label>
-                <form:select path="gender" class="form-control">
-                    <form:option value="" label="--Select Item--"/>
-                    <form:options itemLabel="name" itemValue="code"/>
-                </form:select>
-                <p class="help-block">
-                <form:errors path="gender"/>
-                </p>
-            </div> 
-        </td>
-        <td>
-            <div class="form-group">
-                <label>Age Group</label>
-                <form:select path="ageGroup" class="form-control">
-                    <form:option value="" label="--Select Item--"/>
-                    <form:options itemLabel="name" itemValue="start"/>
-                </form:select>
-                <p class="help-block">
-                <form:errors path="ageGroup"/>
-                </p>
-            </div> 
-        </td>
-        <td>
-            <div class="form-group">
-                <label>&nbsp;</label><br/>
-                <button class="btn btn-primary" type="submit">Search</button>
-            </div> 
-        </td>
+            <td>
+                <div class="form-group">
+                    <label>Status</label>
+                    <form:select path="status" class="form-control">
+                        <form:option value="" label="--Select Item--"/>
+                        <form:options itemLabel="name" itemValue="code"/>
+                    </form:select>
+                    <p class="help-block">
+                        <form:errors path="status"/>
+                    </p>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <form:select path="gender" class="form-control">
+                        <form:option value="" label="--Select Item--"/>
+                        <form:options itemLabel="name" itemValue="code"/>
+                    </form:select>
+                    <p class="help-block">
+                        <form:errors path="gender"/>
+                    </p>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <label>Age Group</label>
+                    <form:select path="ageGroup" class="form-control">
+                        <form:option value="" label="--Select Item--"/>
+                        <form:options itemLabel="name" itemValue="start"/>
+                    </form:select>
+                    <p class="help-block">
+                        <form:errors path="ageGroup"/>
+                    </p>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <label>&nbsp;</label><br/>
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>

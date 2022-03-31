@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.validator;
 
 import java.util.Date;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -28,7 +29,6 @@ import zw.org.zvandiri.business.service.UserService;
 import javax.annotation.Resource;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 @Component
@@ -36,6 +36,7 @@ public class ReferralValidator implements Validator {
 
     @Resource
     UserService userService;
+
     @Override
     public boolean supports(Class<?> type) {
         return type.equals(Referral.class);
@@ -45,7 +46,7 @@ public class ReferralValidator implements Validator {
     public void validate(Object o, Errors errors) {
         ValidationUtils.rejectIfEmpty(errors, "hasReferred", "field.empty");
         Referral item = (Referral) o;
-        if(item.getHasReferred()!=null && item.getHasReferred().equals(YesNo.YES)){
+        if (item.getHasReferred() != null && item.getHasReferred().equals(YesNo.YES)) {
             ValidationUtils.rejectIfEmpty(errors, "referralDate", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "organisation", "field.empty");
             if (item.getReferralDate() != null && item.getReferralDate().after(new Date())) {
@@ -70,7 +71,7 @@ public class ReferralValidator implements Validator {
                     errors.rejectValue("actionTaken", "field.empty");
                 }
             }
-        }else{
+        } else {
             item.setReferralDate(null);
             item.setAttendingOfficer(null);
             item.setDateAttended(null);
@@ -94,10 +95,10 @@ public class ReferralValidator implements Validator {
             item.setActionTaken(null);
         }
 
-        if(errors.hasErrors()){
-            User user=userService.getCurrentUser();
-            System.err.println(" *** UserName : "+user.getUserName()+", FirstName : "+user.getFirstName()+", LastName : "+user.getLastName()+
-                    ", District : "+user.getDistrict()+", Province : "+user.getProvince()+"\n"+errors);
+        if (errors.hasErrors()) {
+            User user = userService.getCurrentUser();
+            System.err.println(" *** UserName : " + user.getUserName() + ", FirstName : " + user.getFirstName() + ", LastName : " + user.getLastName() +
+                    ", District : " + user.getDistrict() + ", Province : " + user.getProvince() + "\n" + errors);
         }
 
     }

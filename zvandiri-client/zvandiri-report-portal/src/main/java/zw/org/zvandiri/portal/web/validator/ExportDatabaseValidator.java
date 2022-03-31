@@ -23,7 +23,6 @@ import zw.org.zvandiri.business.domain.ExternalReferral;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
@@ -36,9 +35,9 @@ public class ExportDatabaseValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        
+
         SearchDTO searchDTO = (SearchDTO) o;
-        
+
         if (searchDTO.getProvince() == null) {
             errors.rejectValue("province", "field.empty");
         }

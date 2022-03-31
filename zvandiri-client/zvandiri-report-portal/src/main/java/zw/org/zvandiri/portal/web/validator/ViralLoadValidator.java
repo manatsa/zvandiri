@@ -25,7 +25,6 @@ import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.InvestigationTest;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
@@ -40,10 +39,10 @@ public class ViralLoadValidator implements Validator {
     public void validate(Object o, Errors errors) {
         ValidationUtils.rejectIfEmpty(errors, "dateTaken", "field.empty");
         InvestigationTest item = (InvestigationTest) o;
-        if(item.getResult() != null && item.getTnd() != null){
+        if (item.getResult() != null && item.getTnd() != null) {
             errors.rejectValue("result", "tnd.viralload.both");
         }
-        if(item.getResult() == null && item.getTnd() == null){
+        if (item.getResult() == null && item.getTnd() == null) {
             errors.rejectValue("result", "tnd.viralload.missing");
         }
         if (item.getTestType() == null) {

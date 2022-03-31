@@ -21,7 +21,6 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 
 /**
- *
  * @author jmuzinda
  */
 @Controller
@@ -30,10 +29,9 @@ public class ExportDatabaseByDistrictsController extends BaseController {
 
     @Resource
     private OfficeExportService officeExportService;
-    
+
     @Resource
     private DistrictService districtService;
-
 
 
     public void setUpModel(ModelMap model, SearchDTO item) {
@@ -41,9 +39,9 @@ public class ExportDatabaseByDistrictsController extends BaseController {
         model.addAttribute("item", item);
         model.addAttribute("pageTitle", APP_PREFIX + "Export Database By Districts");
 
-         List<District> districtList=districtService.getAll();
-         // System.err.println(">>>>>>>>>>>>>>>>>>>>>>> Districts <<<<<<< "+ districtList.size());
-         model.addAttribute("districts", districtList);
+        List<District> districtList = districtService.getAll();
+        // System.err.println(">>>>>>>>>>>>>>>>>>>>>>> Districts <<<<<<< "+ districtList.size());
+        model.addAttribute("districts", districtList);
 
 
     }
@@ -56,7 +54,7 @@ public class ExportDatabaseByDistrictsController extends BaseController {
 
     @RequestMapping(value = "/index", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_DATA_CLERK') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
-    public void getExcelExport(ModelMap model,HttpServletResponse response, @ModelAttribute("item") SearchDTO dto) {
+    public void getExcelExport(ModelMap model, HttpServletResponse response, @ModelAttribute("item") SearchDTO dto) {
 
         //System.err.println(">>>>>>>>>>>>>>>>>>>>>> Districts Selected >>>>>>>>>>>>>"+printDistricts(dto.getDistricts()));
         dto = getUserLevelObjectState(dto);

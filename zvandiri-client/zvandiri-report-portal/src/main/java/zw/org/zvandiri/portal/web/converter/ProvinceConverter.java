@@ -17,23 +17,23 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.Province;
 import zw.org.zvandiri.business.service.ProvinceService;
 
 /**
- *
  * @author Edward Zengeni
  */
 public class ProvinceConverter implements Converter<String, Province> {
-    
+
     @Resource
     private ProvinceService provinceService;
 
     @Override
     public Province convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return provinceService.get(s);
     }
-    
+
 }

@@ -25,12 +25,11 @@ import zw.org.zvandiri.report.api.GenericReportModel;
 import java.util.List;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 public interface CaseloadManagementService {
-    
+
     public XSSFWorkbook exportCaseload(String name, SearchDTO dto);
 
-    public XSSFWorkbook  addSheet(XSSFWorkbook workbook, String sheetName, List<Patient> patients, XSSFCellStyle xssfCellStyle);
+    public XSSFWorkbook addSheet(XSSFWorkbook workbook, String sheetName, List<Patient> patients, XSSFCellStyle xssfCellStyle);
 }

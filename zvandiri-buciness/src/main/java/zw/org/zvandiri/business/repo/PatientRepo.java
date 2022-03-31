@@ -131,5 +131,7 @@ public interface PatientRepo extends AbstractRepo<Patient, String> {
             "p.id not in (select c.patient from Contact c  where (c.dateCreated between :start and :end)  and p.primaryClinic.district=:district )")
     public List<Patient> getUncontactedDistrict(@Param("start") Date start, @Param("end") Date date, @Param("district") District district);
 
+    public  List<Patient> getAllByPrimaryClinicAndActive(@Param("facility") Facility primaryClinic, @Param("active") boolean active);
+
     
 }

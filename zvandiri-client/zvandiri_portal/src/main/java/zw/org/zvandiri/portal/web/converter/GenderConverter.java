@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.Gender;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class GenderConverter implements Converter<String, Gender> {
 
     @Override
     public Gender convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return Gender.get(Integer.valueOf(s));
     }
-    
+
 }

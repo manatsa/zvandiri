@@ -19,15 +19,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.TransmissionMode;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class TransmissionModeConverter implements Converter<String, TransmissionMode> {
 
     @Override
     public TransmissionMode convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return TransmissionMode.get(Integer.valueOf(s));
     }
-    
+
 }

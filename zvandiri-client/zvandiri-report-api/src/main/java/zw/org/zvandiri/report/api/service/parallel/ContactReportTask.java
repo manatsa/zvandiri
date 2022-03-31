@@ -12,8 +12,9 @@ import java.util.concurrent.RecursiveTask;
 public class ContactReportTask extends RecursiveTask<List> {
 
     List<Contact> contacts;
-    public ContactReportTask(List<Contact> items ){
-        this.contacts=items;
+
+    public ContactReportTask(List<Contact> items) {
+        this.contacts = items;
     }
 
 
@@ -31,12 +32,11 @@ public class ContactReportTask extends RecursiveTask<List> {
             list.addAll(first.join());
 
 
-
             return list;
         }
     }
 
-    public List<GenericReportModel> process(){
+    public List<GenericReportModel> process() {
         List<GenericReportModel> items = new ArrayList<>();
         for (Contact item : contacts) {
             String[] inner = {
@@ -44,12 +44,12 @@ public class ContactReportTask extends RecursiveTask<List> {
                     item.getPatient().getAge() + "",
                     item.getPatient().getGender().getName(),
                     item.getPatient().getMobileNumber(),
-                    item.getPatient().getCat()!=null?item.getPatient().getCat().getName():"",
-                    item.getPatient().getYoungMumGroup()!=null?item.getPatient().getYoungMumGroup().getName():"",
-                    item.getPatient().getYoungDadGroup()!=null?item.getPatient().getYoungDadGroup().getName():"",
+                    item.getPatient().getCat() != null ? item.getPatient().getCat().getName() : "",
+                    item.getPatient().getYoungMumGroup() != null ? item.getPatient().getYoungMumGroup().getName() : "",
+                    item.getPatient().getYoungDadGroup() != null ? item.getPatient().getYoungDadGroup().getName() : "",
                     item.getPatient().getPrimaryClinic().getDistrict().getName(),
                     item.getPatient().getPrimaryClinic().getName(),
-                    item.getDateCreated()!=null ? item.getDateCreated().toString() : "",
+                    item.getDateCreated() != null ? item.getDateCreated().toString() : "",
                     item.getCareLevel().getName(),
                     DateUtil.getStringFromDate(item.getContactDate()),
                     item.getCareLevelAfterAssessment().getName(),

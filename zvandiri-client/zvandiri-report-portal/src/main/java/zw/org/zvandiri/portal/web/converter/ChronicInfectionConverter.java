@@ -16,22 +16,22 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.ChronicInfection;
 import zw.org.zvandiri.business.service.ChronicInfectionService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class ChronicInfectionConverter implements Converter<String, ChronicInfection> {
-    
+
     @Resource
     private ChronicInfectionService chronicInfectionService;
 
     @Override
     public ChronicInfection convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return chronicInfectionService.get(s);
-    }   
+    }
 }

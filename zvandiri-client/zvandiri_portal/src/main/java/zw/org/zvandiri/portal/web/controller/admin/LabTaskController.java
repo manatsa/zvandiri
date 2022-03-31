@@ -35,14 +35,13 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.portal.web.validator.LabTaskValidator;
 
 /**
- *
  * @author User
  */
 @Controller
 @RequestMapping("/admin/lab-service")
-public class LabTaskController extends BaseController{
-    
-    
+public class LabTaskController extends BaseController {
+
+
     @Resource
     private LabTaskService labTaskService;
     @Resource

@@ -1,6 +1,6 @@
 <%@include file="../template/header.jspf" %>
 <style type="text/css">
-    input[type="text"]{
+    input[type="text"] {
         height: 4em;
         font-size: 16px;
     }
@@ -17,7 +17,9 @@
                     <form method="post">
                         <div class="form-group">
                             <label>Search Users</label>
-                            <input type="text" name="search" placeholder="Search by username or by combination of firstname and lastname" id="search" class="form-control"/>
+                            <input type="text" name="search"
+                                   placeholder="Search by username or by combination of firstname and lastname"
+                                   id="search" class="form-control"/>
                         </div>
                     </form>
                     <table id="userListing" class="display hide" cellspacing="0">
@@ -60,13 +62,13 @@
                 $("#userListing_paginate").removeClass("hide");
                 current++;
                 for (i = 0; i < us.length; i++) {
-                    var user_url = "<a href='"+path+"/admin/user/user.form?id=" + us[i].id + "'>";
-                    var manage_password_url = "<a href='"+path+"/admin/managepassword.htm?id=" + us[i].id + "'>";
-                    var change_priviledges_url = "<a href='"+path+"/admin/changeprivileges.htm?id=" + us[i].id + "'>";
-                    var delete_user_url = "<a href='"+path+"/admin/user/user.delete?id=" + us[i].id + "'>";
-                    $("#userListing").dataTable().fnAddData([user_url +us[i].userName+ "</a>",
-                        us[i].lastName +" "+us[i].firstName,
-                        manage_password_url+"Change Password | </a>"+change_priviledges_url+"Edit Privileges | </a>" + delete_user_url+"Delete </a>"]);
+                    var user_url = "<a href='" + path + "/admin/user/user.form?id=" + us[i].id + "'>";
+                    var manage_password_url = "<a href='" + path + "/admin/managepassword.htm?id=" + us[i].id + "'>";
+                    var change_priviledges_url = "<a href='" + path + "/admin/changeprivileges.htm?id=" + us[i].id + "'>";
+                    var delete_user_url = "<a href='" + path + "/admin/user/user.delete?id=" + us[i].id + "'>";
+                    $("#userListing").dataTable().fnAddData([user_url + us[i].userName + "</a>",
+                        us[i].lastName + " " + us[i].firstName,
+                        manage_password_url + "Change Password | </a>" + change_priviledges_url + "Edit Privileges | </a>" + delete_user_url + "Delete </a>"]);
                 }
             });
         } else {
@@ -77,13 +79,16 @@
         "bFilter": false,
         "bSort": false,
         "bLengthChange": false,
-        "bInfo": false});
+        "bInfo": false
+    });
     $("form").submit(function (evt) {
         return false;
     });
+
     function cancelAjaxRequest(request) {
         if (request !== null)
             request.abort();
     }
+
     $("#userListing_paginate").addClass("hide");
 </script>

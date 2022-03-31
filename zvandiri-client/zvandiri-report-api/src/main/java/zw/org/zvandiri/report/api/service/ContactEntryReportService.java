@@ -18,9 +18,8 @@ package zw.org.zvandiri.report.api.service;
 import zw.org.zvandiri.report.api.GenericReportModel;
 
 /**
- *
  * @author User
  */
-public interface ContactEntryReportService extends GenericReportService<GenericReportModel>{
-    
+public interface ContactEntryReportService extends GenericReportService<GenericReportModel> {
+
 }

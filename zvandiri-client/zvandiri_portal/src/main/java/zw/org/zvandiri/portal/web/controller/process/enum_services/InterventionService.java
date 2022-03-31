@@ -12,7 +12,7 @@ import zw.org.zvandiri.business.domain.util.Intervention;
 @Service("interventionService")
 public class InterventionService {
 
-    public Intervention[] getInterventions(){
+    public Intervention[] getInterventions() {
         return Intervention.values();
     }
 }

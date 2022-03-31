@@ -24,7 +24,6 @@ import zw.org.zvandiri.business.domain.util.TbIdentificationOutcome;
 import zw.org.zvandiri.business.domain.util.YesNo;
 
 /**
- *
  * @author tasu
  */
 @Component

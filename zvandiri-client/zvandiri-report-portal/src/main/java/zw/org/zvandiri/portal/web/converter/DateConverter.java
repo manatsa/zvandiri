@@ -18,10 +18,10 @@ package zw.org.zvandiri.portal.web.converter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import org.springframework.core.convert.converter.Converter;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class DateConverter implements Converter<String, Date> {
@@ -32,7 +32,7 @@ public class DateConverter implements Converter<String, Date> {
         try {
             return format.parse(s);
         } catch (ParseException ex) {
-            System.err.println("Error occured :"+ex.getMessage());
+            System.err.println("Error occured :" + ex.getMessage());
             return null;
         }
     }

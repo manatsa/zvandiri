@@ -8,13 +8,13 @@ package zw.org.zvandiri.report.api.service.parallel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.RecursiveAction;
+
 import zw.org.zvandiri.business.domain.Facility;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.ProblemReportService;
 
 /**
- *
  * @author tasu
  */
 public class CombinedReportTask extends RecursiveAction {
@@ -57,11 +57,11 @@ public class CombinedReportTask extends RecursiveAction {
             GenericReportModel model = new GenericReportModel();
             List<String> row = new ArrayList<>();
             row.add(!contains(facility.getDistrict().getProvince().getName(), provinces) ? facility.getDistrict().getProvince().getName() : "");
-            if(!contains(facility.getDistrict().getProvince().getName(), provinces)) {
+            if (!contains(facility.getDistrict().getProvince().getName(), provinces)) {
                 add(facility.getDistrict().getProvince().getName(), provinces);
             }
             row.add(!contains(facility.getDistrict().getName(), districts) ? facility.getDistrict().getName() : "");
-            if(!contains(facility.getDistrict().getName(), districts)) {
+            if (!contains(facility.getDistrict().getName(), districts)) {
                 add(facility.getDistrict().getName(), districts);
             }
             row.add(facility.getName());

@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.config;
 
 import javax.annotation.Resource;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
@@ -25,7 +26,6 @@ import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Configuration
@@ -43,7 +43,7 @@ public class PatientStatusAutoUpdaterConfig {
 
         SearchDTO dto = new SearchDTO();
         dto.setStatus(PatientChangeEvent.ACTIVE);
-        dto.setEndDate(DateUtil.getDateDiffDate( -14, DateUtil.getDateFromAge(24)));
+        dto.setEndDate(DateUtil.getDateDiffDate(-14, DateUtil.getDateFromAge(24)));
         dto.setStartDate(DateUtil.getDateFromAge(45));
         patientService.updatePatientStatus(patientReportService.getPatientAboutToGraduateList(dto));
     }

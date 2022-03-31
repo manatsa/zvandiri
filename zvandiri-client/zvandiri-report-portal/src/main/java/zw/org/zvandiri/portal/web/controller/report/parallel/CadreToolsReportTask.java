@@ -13,10 +13,9 @@ import java.util.List;
 import java.util.concurrent.RecursiveTask;
 
 /**
- *
  * @author tasu
  */
-public class CadreToolsReportTask extends RecursiveTask<List>{
+public class CadreToolsReportTask extends RecursiveTask<List> {
 
     private final CadreReportService reportService;
     private final SearchDTO searchData;

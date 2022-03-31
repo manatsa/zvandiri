@@ -17,6 +17,7 @@ package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -35,11 +36,12 @@ import zw.org.zvandiri.business.util.dto.ItemDeleteDTO;
 import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
+
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+
 import zw.org.zvandiri.portal.web.validator.HIVSelfTestingValidator;
 
 /**
- *
  * @author tasu
  */
 @Controller
@@ -54,7 +56,7 @@ public class HIVSelfTestingController extends BaseController {
     private HIVSelfTestingValidator validator;
 
     public String setUpModel(ModelMap map, HIVSelfTesting item) {
-        map.addAttribute("pageTitle", APP_PREFIX + " " + item.getPerson().getNameOfClient()+ "'s HIV Self Testing History");
+        map.addAttribute("pageTitle", APP_PREFIX + " " + item.getPerson().getNameOfClient() + "'s HIV Self Testing History");
         map.addAttribute("item", item);
         map.addAttribute("person", item.getPerson());
         map.addAttribute("gender", Gender.values());
@@ -90,7 +92,7 @@ public class HIVSelfTestingController extends BaseController {
     @RequestMapping(value = "/item.list", method = RequestMethod.GET)
     public String getItemList(@RequestParam String id, @RequestParam(required = false) Integer type, ModelMap model) {
         Person item = patientService.get(id);
-        model.addAttribute("pageTitle", APP_PREFIX + " " + item.getNameOfClient()+ "'s HIV Self-Testing History");
+        model.addAttribute("pageTitle", APP_PREFIX + " " + item.getNameOfClient() + "'s HIV Self-Testing History");
         model.addAttribute("patient", item);
         if (type != null) {
             model.addAttribute("message", AppMessage.getMessage(type));

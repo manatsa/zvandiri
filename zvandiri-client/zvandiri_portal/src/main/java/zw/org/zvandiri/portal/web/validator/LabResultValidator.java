@@ -23,6 +23,7 @@ public class LabResultValidator implements Validator {
 
     @Resource
     UserService userService;
+
     @Override
     public boolean supports(Class<?> aClass) {
         return aClass.equals(InvestigationTest.class);
@@ -30,33 +31,32 @@ public class LabResultValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        InvestigationTest item=(InvestigationTest)o;
+        InvestigationTest item = (InvestigationTest) o;
         ValidationUtils.rejectIfEmpty(errors, "testDone", "field.empty");
 
-        if(item.getTestDone()!=null && item.getTestDone().equals(YesNo.YES))
-        {
-            ValidationUtils.rejectIfEmpty(errors,"dateTaken", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors,"testType", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors,"source", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors,"nextTestDate", "field.empty");
-            ValidationUtils.rejectIfEmpty(errors,"haveResult", "field.empty");
+        if (item.getTestDone() != null && item.getTestDone().equals(YesNo.YES)) {
+            ValidationUtils.rejectIfEmpty(errors, "dateTaken", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "testType", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "source", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "nextTestDate", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "haveResult", "field.empty");
 
         }
 
-        if(item.getHaveResult()!=null && item.getHaveResult().equals(YesNo.YES)) {
+        if (item.getHaveResult() != null && item.getHaveResult().equals(YesNo.YES)) {
             if (item.getResult() != null && item.getTnd() != null && item.getTnd() != "") {
                 errors.rejectValue("result", "tnd.viralload.both");
                 errors.rejectValue("tnd", "tnd.viralload.both");
             }
-            if(item.getResult()==null && (item.getTnd()==null || item.getTnd()=="")){
+            if (item.getResult() == null && (item.getTnd() == null || item.getTnd() == "")) {
                 errors.rejectValue("result", "tnd.viralload.missing");
                 errors.rejectValue("tnd", "tnd.viralload.missing");
             }
         }
 
 
-        if(item.getNextTestDate() != null && item.getNextTestDate().before(new Date())){
-            errors.rejectValue("nextTestDate","date.to.be.future");
+        if (item.getNextTestDate() != null && item.getNextTestDate().before(new Date())) {
+            errors.rejectValue("nextTestDate", "date.to.be.future");
         }
 
         if (item.getDateTaken() != null && item.getDateTaken().after(new Date())) {
@@ -67,10 +67,10 @@ public class LabResultValidator implements Validator {
         }
 
 
-        if(errors.hasErrors()){
-            User user=userService.getCurrentUser();
-            System.err.println(" *** UserName : "+user.getUserName()+", FirstName : "+user.getFirstName()+", LastName : "+user.getLastName()+
-                    ", District : "+user.getDistrict()+", Province : "+user.getProvince()+"\n"+errors);
+        if (errors.hasErrors()) {
+            User user = userService.getCurrentUser();
+            System.err.println(" *** UserName : " + user.getUserName() + ", FirstName : " + user.getFirstName() + ", LastName : " + user.getLastName() +
+                    ", District : " + user.getDistrict() + ", Province : " + user.getProvince() + "\n" + errors);
         }
     }
 }

@@ -19,11 +19,10 @@ import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.ContactVisitOutcome;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 public interface ContactVisitOutcomeService {
- 
+
     public ContactVisitOutcome createContactVisitOutcome();
 
 

@@ -9,15 +9,17 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
                 </div>
-                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/><br/>
+                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back
+                    To ${patient.name} Dashboard</a><br/><br/>
                 <div class="row">
                     <div class="col-lg-12">
-                        <b class="titleHeader">SRH History Detail</b><hr/>
+                        <b class="titleHeader">SRH History Detail</b>
+                        <hr/>
                         <c:if test="${srhHist != null}">
                             <table class="table-condensed" width="100%">
                                 <c:if test="${female}">
@@ -50,19 +52,20 @@
                                     <tr>
                                         <th>Do you use any other form of birth control</th>
                                         <td>${srhHist.birthControl.name}</td>
-                                    </tr> 
+                                    </tr>
                                 </c:if>
                                 <tr>
                                     <td>&nbsp;</td>
                                     <td>
-                                        <a href="${page}/beneficiary/srh/item.form?itemId=${srhHist.id}">Edit</a> | 
-<%--                                        <c:if test="${canEdit}"><a href="${page}/beneficiary/srh/item.delete?id=${srhHist.id}">Delete</a></c:if>--%>
+                                        <a href="${page}/beneficiary/srh/item.form?itemId=${srhHist.id}">Edit</a> |
+                                            <%--                                        <c:if test="${canEdit}"><a href="${page}/beneficiary/srh/item.delete?id=${srhHist.id}">Delete</a></c:if>--%>
                                     </td>
                                 </tr>
-                            </table>            
+                            </table>
                         </c:if>
                         <c:if test="${srhHist == null}">
-                            <c:if test="${canEdit}"><a href="${page}/beneficiary/srh/item.form?patientId=${patient.id}">Add SRH Hist</a></c:if>
+                            <c:if test="${canEdit}"><a href="${page}/beneficiary/srh/item.form?patientId=${patient.id}">Add
+                                SRH Hist</a></c:if>
                         </c:if>
                     </div>
                 </div>

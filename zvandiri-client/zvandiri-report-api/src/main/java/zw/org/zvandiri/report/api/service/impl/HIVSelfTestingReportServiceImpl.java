@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.util.Result;
 import zw.org.zvandiri.business.domain.util.YesNo;
@@ -28,15 +29,14 @@ import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.HIVSelfTestingReportService;
 
 /**
- *
  * @author tasu
  */
 @Repository
-public class HIVSelfTestingReportServiceImpl implements HIVSelfTestingReportService{
+public class HIVSelfTestingReportServiceImpl implements HIVSelfTestingReportService {
 
     @Resource
     private SelfTestingReportService reportService;
-    
+
     @Override
     public List<GenericReportModel> getDefaultReport(SearchDTO dto) {
         List<GenericReportModel> list = new ArrayList<>();
@@ -46,7 +46,7 @@ public class HIVSelfTestingReportServiceImpl implements HIVSelfTestingReportServ
         list.add(new GenericReportModel(topHeaderRow));
         List<String> headerRow = new ArrayList<>();
         String[] headerNames = {"Number of individuals mobilised for testing", "Number of individuals tested for HIV", "Number of individuals testing HIV positive",
-                                "Number of individuals initiated on ART", "HIV Self-Testing", "Home based testing", "Facility Testing"};
+                "Number of individuals initiated on ART", "HIV Self-Testing", "Home based testing", "Facility Testing"};
         headerRow.addAll(Arrays.asList(headerNames));
         list.add(new GenericReportModel(headerRow));
         List<String> row = new ArrayList<>();
@@ -67,5 +67,5 @@ public class HIVSelfTestingReportServiceImpl implements HIVSelfTestingReportServ
     public List<GenericReportModel> getDefaultReportB(SearchDTO dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

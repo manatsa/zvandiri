@@ -16,48 +16,34 @@
 package zw.org.zvandiri.mobile.api.resource;
 
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import javax.annotation.Resource;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import zw.org.zvandiri.business.domain.CatDetail;
-import zw.org.zvandiri.business.domain.Contact;
-import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.domain.PatientDisability;
-import zw.org.zvandiri.business.domain.Referral;
-import zw.org.zvandiri.business.domain.util.*;
+import org.springframework.transaction.annotation.Transactional;
+import zw.org.zvandiri.business.domain.*;
+import zw.org.zvandiri.business.domain.util.CareLevel;
+import zw.org.zvandiri.business.domain.util.Gender;
+import zw.org.zvandiri.business.domain.util.YesNo;
 import zw.org.zvandiri.business.repo.PatientRepo;
-import zw.org.zvandiri.business.service.CatDetailService;
-import zw.org.zvandiri.business.service.ContactService;
-import zw.org.zvandiri.business.service.PatientService;
-import zw.org.zvandiri.business.service.ReferralService;
-import zw.org.zvandiri.business.service.UserService;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.MobilePatientDTO;
-import zw.org.zvandiri.business.util.dto.NameIdDTO;
+import zw.org.zvandiri.business.util.dto.MobileStaticsDTO;
+
+import javax.annotation.Resource;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.util.*;
 
 /**
- *
- * @author Judge Muzinda
+ * @author manatsachinyeruse@gmail.com
  */
 @Component
-@Path("/mobile/patient")
+@Path("/mobile/patient/statics/")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class PatientProcessResource {
+public class MobilePatientResource {
 
     @Resource
     private CatDetailService catDetailService;
@@ -72,30 +58,90 @@ public class PatientProcessResource {
     @Resource
     private UserService userService;
 
-    /*@GET
-    @Path("/cats-patients")
-    public List<NameIdDTO> getCatPatients(@QueryParam("email") String email) {
+    @Resource
+    private ProvinceService provinceService;
+    @Resource
+    private DistrictService districtService;
+    @Resource
+    private SupportGroupService supportGroupService;
+    @Resource
+    private FacilityService facilityService;
+    @Resource
+    private RelationshipService relationshipService;
+    @Resource
+    private RefererService refererService;
+    @Resource
+    private OrphanStatusService orphanStatusService;
+    @Resource
+    private EducationService educationService;
+    @Resource
+    private EducationLevelService educationLevelService;
+    @Resource
+    private LocationService locationService;
+    @Resource
+    private PositionService positionService;
+    @Resource
+    private InternalReferralService internalReferralService;
+    @Resource
+    private ExternalReferralService externalReferralService;
+    @Resource
+    private ChronicInfectionService chronicInfectionService;
+    @Resource
+    private StableService stableService;
+    @Resource
+    private EnhancedService enhancedService;
+    @Resource
+    private ServicesReferredService servicesReferredService;
+    @Resource
+    private HivCoInfectionService hivCoInfectionService;
+    @Resource
+    private MentalHealthService mentalHealthService;
+    @Resource
+    private DisabilityCategoryService disabilityCategoryService;
+    @Resource
+    private AssessmentService assessmentService;
+    @Resource
+    private ArvMedicineService arvMedicineService;
+    @Resource
+    private HospCauseService hospService;
+    @Resource
+    private SubstanceService substanceService;
+    @Resource
+    private ActionTakenService actionTakenService;
+    @Resource
+    private ReasonForNotReachingOLevelService reasonForNotReachingOLevelService;
+    @Resource
+    private ServiceOfferedService serviceOfferedService;
+    @Resource
+    private LabTaskService labTaskService;
 
-        CatDetail catDetail=catDetailService.getByEmail(email);
-        List<NameIdDTO> patients;
-        patients = patientService.getCatPatients(catDetail);
-
-        System.err.println("<= User :"+email+" =>\n"+patients);
-       
-        return patients;
-    }*/
 
     @GET
-    @Path("/cats-patients")
-    public List<MobilePatientDTO> getCatPatients(@QueryParam("email") String email) {
+    @Path("/cats-patients-statics")
+    public MobileStaticsDTO getCatPatients(@QueryParam("email") String email) {
+        MobileStaticsDTO mobileStaticsDTO = new MobileStaticsDTO();
 
-        CatDetail catDetail=catDetailService.getByEmail(email);
-        List<MobilePatientDTO> patients;
-        patients = patientService.getFacilityPatients(catDetail);
+        CatDetail catDetail = catDetailService.getByEmail(email);
+        List<MobilePatientDTO> patients = patientService.getFacilityPatients(catDetail);
+        List<District> districts = districtService.getAll();
+        List<Province> provinces = provinceService.getAll();
+        List<ServiceOffered> servicesOffered = serviceOfferedService.getAll();
+        System.err.println("Services Offerred: " + servicesOffered);
+        List<ServicesReferred> servicesReferred = servicesReferredService.getAll();
+        List<Assessment> assessments = assessmentService.getAll();
 
-        System.err.println("<= User :"+email+" =>\n"+patients);
 
-        return patients;
+        mobileStaticsDTO.setPatients(patients);
+        mobileStaticsDTO.setDistricts(districts);
+        mobileStaticsDTO.setProvinces(provinces);
+        mobileStaticsDTO.setServiceOffereds(servicesOffered);
+        mobileStaticsDTO.setServicesReferred(servicesReferred);
+        mobileStaticsDTO.setAssessments(assessments);
+
+        System.err.println("<= User :" + email + " => Statics");
+//        System.err.println(mobileStaticsDTO.toString());
+
+        return mobileStaticsDTO;
     }
 
     @GET
@@ -105,10 +151,14 @@ public class PatientProcessResource {
     }
 
     @POST
-    @Path("/add-contact")
+    @Path("/add-contacts")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Transactional
     public ResponseEntity<Map<String, Object>> addContact(Contact contact) {
+        System.err.println("Sent Contact : " + contact);
         Map<String, Object> response = validateContact(contact);
         if (!response.isEmpty()) {
+            System.err.println(response);
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
         try {
@@ -117,10 +167,15 @@ public class PatientProcessResource {
             }*/
             contactService.save(contact);
         } catch (Exception e) {
+            e.printStackTrace();
             response.put("message", "System error occurred saving contact");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        for (String key : response.keySet()) {
+            System.err.println(response.get(key));
+        }
         response.put("message", "Contact created sucessfully");
+        System.err.println("Response => " + response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -151,7 +206,7 @@ public class PatientProcessResource {
         try {
             Set<PatientDisability> disabilitys = patient.getDisabilityCategorys();
             Patient item = patientService.get(patient.getId());
-            for(PatientDisability disability : disabilitys) {
+            for (PatientDisability disability : disabilitys) {
                 disability.setPatient(item);
             }
             item.setDisabilityCategorys(disabilitys);
@@ -164,7 +219,7 @@ public class PatientProcessResource {
         response.put("message", "Patient created sucessfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    
+
     @POST
     @Path("/change-facility")
     public ResponseEntity<Map<String, Object>> changeFacility(Patient patient) {
@@ -426,7 +481,6 @@ public class PatientProcessResource {
         }
         return response;
     }
-    
-    
-    
+
+
 }

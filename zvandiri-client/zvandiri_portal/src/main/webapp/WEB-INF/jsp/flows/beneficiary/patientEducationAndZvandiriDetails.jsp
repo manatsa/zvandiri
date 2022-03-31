@@ -9,7 +9,7 @@
                 <%@include file="../../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="profileFragment.jspf" %>
                         </div>
                     </div>
@@ -43,7 +43,8 @@
                                 <label>Reason for not reaching O-Level</label>
                                 <form:select path="reasonForNotReachingOLevel" class="form-control">
                                     <form:option value="" label="--Select Item"/>
-                                    <form:options items="${reasonForNotReachingOLevels}" itemValue="id" itemLabel="name"/>
+                                    <form:options items="${reasonForNotReachingOLevels}" itemValue="id"
+                                                  itemLabel="name"/>
                                 </form:select>
                                 <p class="help-block">
                                     <form:errors path="reasonForNotReachingOLevel" class="alert-danger"/>
@@ -85,7 +86,7 @@
                                 <p class="help-block">
                                     <form:errors path="referer" class="alert-danger"/>
                                 </p>
-                            </div> 
+                            </div>
                             <div class="form-group">
                                 <label>Referrer Name</label>
                                 <form:input path="refererName" class="form-control"/>
@@ -96,7 +97,9 @@
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit" id="back" name="_eventId_back">&Lt;&Lt;Back</button>
                                 <button class="btn btn-primary" type="submit" id="next" name="_eventId_next">Next&Gt;&Gt;</button>
-                                <button class="btn btn-primary" type="submit" id="cancel" name="_eventId_cancel">Cancel</button>
+                                <button class="btn btn-primary" type="submit" id="cancel" name="_eventId_cancel">
+                                    Cancel
+                                </button>
                             </div>
                         </form:form>
                     </div>
@@ -118,10 +121,10 @@
     });
     $("#isKeypopulation").change(function () {
 
-        var result=$("#isKeypopulation").val();
-        if(result==1){
+        var result = $("#isKeypopulation").val();
+        if (result == 1) {
             $(".population").removeClass("hide")
-        }else{
+        } else {
             $(".population").addClass("hide")
         }
     })
@@ -135,10 +138,10 @@
             }
             $("#isKeypopulation").change(function () {
 
-                var result=$("#isKeypopulation").val();
-                if(result==1){
+                var result = $("#isKeypopulation").val();
+                if (result == 1) {
                     $(".population").removeClass("hide")
-                }else{
+                } else {
                     $(".population").addClass("hide")
                 }
             })

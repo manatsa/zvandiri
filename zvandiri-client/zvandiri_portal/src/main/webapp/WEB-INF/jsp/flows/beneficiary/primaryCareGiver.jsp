@@ -9,11 +9,12 @@
                 <%@include file="../../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="profileFragment.jspf" %>
                         </div>
                     </div>
-                </div><br/>
+                </div>
+                <br/>
                 <div class="row">
                     <div class="col-lg-10">
                         <form:form commandName="patient" id="primaryCareGiver">
@@ -67,11 +68,14 @@
                                 <p class="help-block">
                                     <form:errors path="pgender" class="alert-danger"/>
                                 </p>
-                            </div>                            
+                            </div>
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit" id="back" name="_eventId_${heuval}">&Lt;&Lt;Back</button>
-                                <button class="btn btn-primary" type="submit" id="save" name="_eventId_save">Save</button>
-                                <button class="btn btn-primary" type="submit" id="cancel" name="_eventId_cancel">Cancel</button>
+                                <button class="btn btn-primary" type="submit" id="save" name="_eventId_save">Save
+                                </button>
+                                <button class="btn btn-primary" type="submit" id="cancel" name="_eventId_cancel">
+                                    Cancel
+                                </button>
                             </div>
                         </form:form>
                     </div>

@@ -16,23 +16,23 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.InternalReferral;
 import zw.org.zvandiri.business.service.InternalReferralService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class InternalReferralConverter implements Converter<String, InternalReferral> {
- 
+
     @Resource
     private InternalReferralService internalReferralService;
 
     @Override
     public InternalReferral convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return internalReferralService.get(s);
     }
-    
+
 }

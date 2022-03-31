@@ -20,10 +20,10 @@
                                         Export/ View As
                                         <a href="${page}${barUrl}">
                                             <i class="fa fa-bar-chart-o fa-fw"></i>
-                                         </a> | 
+                                        </a> |
                                         <a href="${page}${trendExport}">
                                             <img src="<c:url value="/resources/images/pdf.png"/>"/>
-                                         </a>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -50,5 +50,5 @@
     });
     $("#facility").change(function () {
         $("form").submit();
-    });    
+    });
 </script>

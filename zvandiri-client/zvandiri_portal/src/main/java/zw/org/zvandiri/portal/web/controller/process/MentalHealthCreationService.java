@@ -21,13 +21,12 @@ import javax.validation.*;
 import java.util.Set;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 public interface MentalHealthCreationService {
- 
+
     public MentalHealthScreening createMentalHealthScreening();
-    
+
     public MentalHealthScreening saveMentalHealthScreening(MentalHealthScreening mentalHealthScreening);
 
     public String isValid(MentalHealthScreening mentalHealthScreening);

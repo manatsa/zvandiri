@@ -31,20 +31,22 @@
                         <th>&nbsp</th>
                         </tfoot>
                         <tbody>
-                            <c:forEach var="item" items="${items}" >
-                                <tr>
-                                    <td><a href="<c:url value="/entry/hiv-service/item.form?id=${item.id}"/>">${item.organisation.name}</a></td>
-                                    <td><spring:eval expression="item.period.name"/></td>
-                                    <td><spring:eval expression="item.htc"/></td>
-                                    <td><spring:eval expression="item.htcFemale"/></td>
-                                    <td><spring:eval expression="item.vmmc"/></td>
-                                    <td><spring:eval expression="item.pmtct"/></td>
-                                    <td><spring:eval expression="item.familyPlanning"/></td>
-                                    <td>
-                                        <a href="<c:url value="/entry/hiv-service/item.form?id=${item.id}"/>">Edit</a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                        <c:forEach var="item" items="${items}">
+                            <tr>
+                                <td>
+                                    <a href="<c:url value="/entry/hiv-service/item.form?id=${item.id}"/>">${item.organisation.name}</a>
+                                </td>
+                                <td><spring:eval expression="item.period.name"/></td>
+                                <td><spring:eval expression="item.htc"/></td>
+                                <td><spring:eval expression="item.htcFemale"/></td>
+                                <td><spring:eval expression="item.vmmc"/></td>
+                                <td><spring:eval expression="item.pmtct"/></td>
+                                <td><spring:eval expression="item.familyPlanning"/></td>
+                                <td>
+                                    <a href="<c:url value="/entry/hiv-service/item.form?id=${item.id}"/>">Edit</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

@@ -7,15 +7,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  *
  * @author Judge Muzinda
  */
-@Entity 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
 public class Province extends BaseName {
 
     @JsonIgnore
@@ -36,5 +35,11 @@ public class Province extends BaseName {
     public void setDistricts(Set<District> districts) {
         this.districts = districts;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Province{" +
+                "name=" + getName() +
+                '}';
+    }
 }

@@ -5,7 +5,8 @@
             ${pageTitle}
         </div>
         <div class="panel-body">
-            <a href="../index.htm">Option Tables</a> | <a href="item.form">New Item</a> | <a href="item.list">Item List</a>
+            <a href="../index.htm">Option Tables</a> | <a href="item.form">New Item</a> | <a href="item.list">Item
+            List</a>
             <hr/>
             <%@include file="../template/message.jspf" %>
             <div class="row">
@@ -20,7 +21,7 @@
                         <th>&nbsp</th>
                         </tfoot>
                         <tbody>
-                        <c:forEach var="item" items="${items}" >
+                        <c:forEach var="item" items="${items}">
                             <tr>
                                 <td><a href="item.form?id=${item.id}">${item.name}</a></td>
                                 <td>

@@ -9,7 +9,7 @@
                 <%@include file="../../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="profileFragment.jspf" %>
                         </div>
                     </div>
@@ -67,7 +67,9 @@
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit" id="back" name="_eventId_back">Back &Lt;&Lt;</button>
                                 <button class="btn btn-primary" type="submit" id="next" name="_eventId_next">Next &Gt;&Gt;</button>
-                                <button class="btn btn-primary" type="submit" id="cancel" name="_eventId_cancel">Cancel</button>
+                                <button class="btn btn-primary" type="submit" id="cancel" name="_eventId_cancel">
+                                    Cancel
+                                </button>
                             </div>
                         </form:form>
                     </div>

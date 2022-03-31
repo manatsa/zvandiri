@@ -9,12 +9,13 @@
                 <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
-                        <div class="panel panel-default">                            
+                        <div class="panel panel-default">
                             <%@include file="../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
                 </div>
-                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/><br/>
+                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back
+                    To ${patient.name} Dashboard</a><br/><br/>
                 <div class="row">
                     <div class="col-lg-10">
                         <form:form commandName="item" id="chronicInfectionForm">
@@ -29,7 +30,7 @@
                                 <p class="help-block">
                                     <form:errors path="chronicInfection" class="alert-danger"/>
                                 </p>
-                            </div> 
+                            </div>
                             <div class="form-group">
                                 <label>Date of Diagnosis</label>
                                 <form:input path="infectionDate" class="form-control general"/>
@@ -53,10 +54,14 @@
                                 <p class="help-block">
                                     <form:errors path="currentStatus" class="alert-danger"/>
                                 </p>
-                            </div> 
+                            </div>
                             <div class="form-group">
-                                <c:if test="${canEdit}"><button class="btn btn-primary" type="submit">Save</button></c:if>
-                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                <c:if test="${canEdit}">
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </c:if>
+                                <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                </a>
                             </div>
                         </form:form>
                     </div>
@@ -68,19 +73,19 @@
 <%@include file="../template/footer.jspf" %>
 <script type="text/javascript">
     $("#chronicInfectionForm").validate({
-       rules: {
-           infectionDate: {
-               required: true
-           },
-           medication: {
-               required: true
-           },
-           chronicInfection: {
-               required: true
-           },
-           currentStatus: {
-               required: true
-           }
-       } 
+        rules: {
+            infectionDate: {
+                required: true
+            },
+            medication: {
+                required: true
+            },
+            chronicInfection: {
+                required: true
+            },
+            currentStatus: {
+                required: true
+            }
+        }
     });
 </script>

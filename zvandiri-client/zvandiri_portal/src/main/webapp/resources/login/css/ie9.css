@@ -1,9 +1,9 @@
 .dark {
-	right: -25px;	
+    right: -25px;
 }
 
 .btn-overlay {
-	filter: none !important;	
+    filter: none !important;
 }
 
 hr,
@@ -15,9 +15,9 @@ hr,
 .ui-progressbar-value,
 .ui-slider-range,
 .sliderVertical {
-	filter: none !important;
+    filter: none !important;
 }
 
-.verticalChart .singleBar .bar .value span{
-	color: #3b3b41;
+.verticalChart .singleBar .bar .value span {
+    color: #3b3b41;
 }

@@ -17,55 +17,54 @@
 package zw.org.zvandiri.portal.util;
 
 /**
- *
  * @author Edward Zengeni
  */
 public class AppMessage {
-    
+
     private final String message;
-    private final MessageType  messageType;
+    private final MessageType messageType;
     private final Boolean exist;
 
-    private AppMessage(MessageBuilder builder){
+    private AppMessage(MessageBuilder builder) {
         this.message = builder.message;
         this.messageType = builder.messageType;
         this.exist = builder.exist;
     }
-    
-    public static class MessageBuilder{
-        
+
+    public static class MessageBuilder {
+
         private final Boolean exist;
         private MessageType messageType = MessageType.MESSAGE;
         private String message = "";
-        
-        public MessageBuilder(){
+
+        public MessageBuilder() {
             this.exist = Boolean.FALSE;
         }
-        
-        public MessageBuilder(Boolean exist){
+
+        public MessageBuilder(Boolean exist) {
             this.exist = exist;
         }
-        
-        public MessageBuilder messageType(MessageType messageType){
+
+        public MessageBuilder messageType(MessageType messageType) {
             this.messageType = messageType;
             return this;
         }
-        
-        public MessageBuilder message(String message){
+
+        public MessageBuilder message(String message) {
             this.message = message;
             return this;
         }
-        
-        public AppMessage build(){
+
+        public AppMessage build() {
             return new AppMessage(this);
         }
-        
+
     }
-    
+
     public Boolean getExist() {
         return exist;
     }
-    
+
     public String getMessage() {
         return message;
     }
@@ -73,18 +72,18 @@ public class AppMessage {
     public MessageType getMessageType() {
         return messageType;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return message;
     }
-    
-    public String getMsgType(){
+
+    public String getMsgType() {
         return messageType.getMessageType();
     }
-    
-    public static AppMessage getMessage(Integer type){
-        switch(type){
+
+    public static AppMessage getMessage(Integer type) {
+        switch (type) {
             case 1:
                 return new AppMessage.MessageBuilder(Boolean.TRUE).message("Record saved").messageType(MessageType.MESSAGE).build();
             case 2:
@@ -93,10 +92,10 @@ public class AppMessage {
                 return new AppMessage.MessageBuilder(Boolean.TRUE).message("Operation cancelled").messageType(MessageType.MESSAGE).build();
             case 4:
                 return new AppMessage.MessageBuilder(Boolean.TRUE).message("Password successfully changed").messageType(MessageType.MESSAGE).build();
-                case 5:
+            case 5:
                 return new AppMessage.MessageBuilder(Boolean.TRUE).message("Erro occurred").messageType(MessageType.ERROR).build();
             default:
-                throw new IllegalArgumentException("Parameter provided not recognised :"+type);
+                throw new IllegalArgumentException("Parameter provided not recognised :" + type);
         }
     }
 }

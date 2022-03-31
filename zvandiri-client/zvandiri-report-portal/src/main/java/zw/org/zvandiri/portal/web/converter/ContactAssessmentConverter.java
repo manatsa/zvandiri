@@ -19,7 +19,6 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.ContactAssessment;
 
 /**
- *
  * @author jmuzinda
  */
 public class ContactAssessmentConverter implements Converter<String, ContactAssessment> {

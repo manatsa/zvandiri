@@ -25,12 +25,11 @@ import zw.org.zvandiri.business.service.TbIptService;
 import javax.annotation.Resource;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 @Repository("tbIptCreationService")
 public class TBIPTCreationServiceImpl implements TBIPTScreeningCreationService {
-    
+
     @Resource
     private TbIptService tbIptService;
 
@@ -44,5 +43,5 @@ public class TBIPTCreationServiceImpl implements TBIPTScreeningCreationService {
         //System.err.println(tbIpt.toString());
         return tbIptService.save(tbIpt);
     }
-    
+
 }

@@ -35,7 +35,6 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 /**
- *
  * @author mana
  */
 @Controller
@@ -55,33 +54,33 @@ public class CadreBikeController extends BaseController {
 
 
     public String setUpModel(ModelMap model, Bicycle item, Cadre cadre) {
-        model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit Cadre :"+ cadre!=null?cadre.getName():"");
+        model.addAttribute("pageTitle", APP_PREFIX + "Create/ Edit Cadre :" + cadre != null ? cadre.getName() : "");
         model.addAttribute("provinces", provinceService.getAll());
         model.addAttribute("formAction", "item.form");
         model.addAttribute("bikeCondition", Condition.values());
         model.addAttribute("bikeStatus", PhoneStatus.values());
-        if(item!=null){
-            if(cadre!=null){
+        if (item != null) {
+            if (cadre != null) {
                 if (cadre.getPrimaryClinic().getProvince() != null) {
                     model.addAttribute("districts", districtService.getDistrictByProvince(item.getCadre().getProvince()));
                     if (item.getCadre().getDistrict() != null) {
                         model.addAttribute("facilities", facilityService.getOptByDistrict(item.getCadre().getDistrict()));
                     }
                 }
-            }else{
+            } else {
                 item.setCadre(cadre);
             }
 
             model.addAttribute("cadre", cadre);
             model.addAttribute("item", item);
 
-        }else{
-            item=new Bicycle(cadre);
+        } else {
+            item = new Bicycle(cadre);
             model.addAttribute("item", item);
 
         }
 
-        System.err.println("ITEM"+item);
+        System.err.println("ITEM" + item);
         return "cadre/bikeForm";
     }
 
@@ -89,17 +88,17 @@ public class CadreBikeController extends BaseController {
     public String getForm(ModelMap model, @RequestParam(required = false) String id, @ModelAttribute("bike") Bicycle phone1) {
 
         Cadre cadre = cadreService.get(id);
-        Bicycle bike=bicycleService.getByCadre(cadre);
+        Bicycle bike = bicycleService.getByCadre(cadre);
 
-        if(bike!=null){
+        if (bike != null) {
             return setUpModel(model, bike, cadre);
-        }else{
+        } else {
 
-            bike=new Bicycle(cadre);
+            bike = new Bicycle(cadre);
 
 
         }
-        System.err.println("CADRE ID: "+bike.getCadre().toString());
+        System.err.println("CADRE ID: " + bike.getCadre().toString());
         return setUpModel(model, bike, cadre);
     }
 
@@ -109,6 +108,7 @@ public class CadreBikeController extends BaseController {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
             return setUpModel(model, item, item.getCadre());
         }
+        System.err.println(item);
         bicycleService.save(item);
         return "redirect:../../view?id=" + item.getCadre().getId() + "&type=1";
     }

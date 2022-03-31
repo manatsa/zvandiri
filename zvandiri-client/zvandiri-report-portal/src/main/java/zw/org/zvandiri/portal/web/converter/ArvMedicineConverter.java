@@ -16,23 +16,23 @@
 package zw.org.zvandiri.portal.web.converter;
 
 import javax.annotation.Resource;
+
 import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.ArvMedicine;
 import zw.org.zvandiri.business.service.ArvMedicineService;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class ArvMedicineConverter implements Converter<String, ArvMedicine> {
-    
+
     @Resource
     private ArvMedicineService arvMedicineService;
 
     @Override
     public ArvMedicine convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return arvMedicineService.get(s);
     }
-    
+
 }

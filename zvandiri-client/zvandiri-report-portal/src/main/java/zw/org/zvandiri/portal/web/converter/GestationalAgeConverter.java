@@ -20,15 +20,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.GestationalAge;
 
 /**
- *
  * @author jmuzinda
  */
 public class GestationalAgeConverter implements Converter<String, GestationalAge> {
 
     @Override
     public GestationalAge convert(String s) {
-        if(StringUtils.isEmpty(s)) return null;
+        if (StringUtils.isEmpty(s)) return null;
         return GestationalAge.get(Integer.valueOf(s));
     }
-    
+
 }

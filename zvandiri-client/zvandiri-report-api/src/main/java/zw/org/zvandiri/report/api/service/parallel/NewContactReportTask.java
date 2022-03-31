@@ -12,10 +12,9 @@ import java.util.List;
 import java.util.concurrent.RecursiveTask;
 
 /**
- *
  * @author tasu
  */
-public class NewContactReportTask extends RecursiveTask<List>{
+public class NewContactReportTask extends RecursiveTask<List> {
 
     private final ContactReportService reportService;
     private final SearchDTO searchData;

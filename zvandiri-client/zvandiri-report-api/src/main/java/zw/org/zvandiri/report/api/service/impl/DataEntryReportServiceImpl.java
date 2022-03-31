@@ -18,6 +18,7 @@ package zw.org.zvandiri.report.api.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.service.DataEntryService;
@@ -27,17 +28,16 @@ import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.DataEntryReportService;
 
 /**
- *
  * @author jackie muzinda
  */
 @Repository
-public class DataEntryReportServiceImpl implements DataEntryReportService{
+public class DataEntryReportServiceImpl implements DataEntryReportService {
 
     @Resource
     private UserService userService;
     @Resource
     private DataEntryService dataEntryService;
-    
+
     @Override
     public List<GenericReportModel> getDefaultReport(SearchDTO dto) {
         List<GenericReportModel> list = new ArrayList<>();
@@ -49,7 +49,7 @@ public class DataEntryReportServiceImpl implements DataEntryReportService{
         items.add("Referrals Captured");
         items.add("Viral Load Records Captured");
         list.add(new GenericReportModel(items));
-        for(User user : users){
+        for (User user : users) {
             dto.setCreatedBy(user);
             GenericReportModel model = new GenericReportModel();
             List<String> row = new ArrayList<>();
@@ -72,5 +72,5 @@ public class DataEntryReportServiceImpl implements DataEntryReportService{
     public List<GenericReportModel> getDefaultReportB(SearchDTO dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

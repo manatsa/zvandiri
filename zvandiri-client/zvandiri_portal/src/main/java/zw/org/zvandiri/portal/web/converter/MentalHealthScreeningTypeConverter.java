@@ -20,15 +20,14 @@ import org.springframework.core.convert.converter.Converter;
 import zw.org.zvandiri.business.domain.util.MentalHealthScreeningType;
 
 /**
- *
  * @author Judge Muzinda
  */
 public class MentalHealthScreeningTypeConverter implements Converter<String, MentalHealthScreeningType> {
 
     @Override
     public MentalHealthScreeningType convert(String s) {
-        if(s.equals("")) return null;
+        if (s.equals("")) return null;
         return MentalHealthScreeningType.get(Integer.valueOf(s));
     }
-    
+
 }

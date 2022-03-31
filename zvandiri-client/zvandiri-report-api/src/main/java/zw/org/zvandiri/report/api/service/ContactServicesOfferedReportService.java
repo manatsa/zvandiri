@@ -18,9 +18,8 @@ package zw.org.zvandiri.report.api.service;
 import zw.org.zvandiri.report.api.GenericReportModel;
 
 /**
- *
  * @author tasu
  */
 public interface ContactServicesOfferedReportService extends GenericReportService<GenericReportModel> {
-    
+
 }

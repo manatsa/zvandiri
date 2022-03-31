@@ -19,7 +19,7 @@ public class ServiceOfferedsService {
     @Resource
     ServiceOfferedService serviceOfferedService;
 
-    public List<ServiceOffered> getServiceOffereds(){
+    public List<ServiceOffered> getServiceOffereds() {
         return serviceOfferedService.getAll();
     }
 }

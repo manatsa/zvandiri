@@ -34,51 +34,50 @@ import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
 
 /**
- *
  * @author jmuzinda
  */
 @Controller
 @RequestMapping("/report/export-database")
 public class ExportDataBaseController extends BaseController {
 
-	@Resource
-	private OfficeExportService officeExportService;
-	@Resource
-	private ProvinceService provinceService;
-	@Resource
-	private DistrictService districtService;
-	@Resource
-	private FacilityService facilityService;
+    @Resource
+    private OfficeExportService officeExportService;
+    @Resource
+    private ProvinceService provinceService;
+    @Resource
+    private DistrictService districtService;
+    @Resource
+    private FacilityService facilityService;
 
-	public void setUpModel(ModelMap model, SearchDTO item) {
-		item = getUserLevelObjectState(item);
-		model.addAttribute("pageTitle", APP_PREFIX + "Export Database");
-		model.addAttribute("provinces", provinceService.getAll());
-		if (item.getProvince() != null) {
-			model.addAttribute("districts", districtService.getDistrictByProvince(item.getProvince()));
-			if (item.getDistrict() != null) {
-				model.addAttribute("facilities", facilityService.getOptByDistrict(item.getDistrict()));
-			}
-		}
-		model.addAttribute("excelExport",
-				"/report/export-database/excel" + item.getQueryString(item.getInstance(item)));
-		model.addAttribute("item", item);
-	}
+    public void setUpModel(ModelMap model, SearchDTO item) {
+        item = getUserLevelObjectState(item);
+        model.addAttribute("pageTitle", APP_PREFIX + "Export Database");
+        model.addAttribute("provinces", provinceService.getAll());
+        if (item.getProvince() != null) {
+            model.addAttribute("districts", districtService.getDistrictByProvince(item.getProvince()));
+            if (item.getDistrict() != null) {
+                model.addAttribute("facilities", facilityService.getOptByDistrict(item.getDistrict()));
+            }
+        }
+        model.addAttribute("excelExport",
+                "/report/export-database/excel" + item.getQueryString(item.getInstance(item)));
+        model.addAttribute("item", item);
+    }
 
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String getExportDatabaseIndex(ModelMap model) {
-		setUpModel(model, new SearchDTO());
-		return "report/exportDatabase";
-	}
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String getExportDatabaseIndex(ModelMap model) {
+        setUpModel(model, new SearchDTO());
+        return "report/exportDatabase";
+    }
 
-	@RequestMapping(value = "/index", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_DATA_CLERK') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
-	public void getExcelExport(HttpServletResponse response, @ModelAttribute("item") SearchDTO dto) {
-		long begin=System.currentTimeMillis();
-		dto = getUserLevelObjectState(dto);
-		String name = DateUtil.getFriendlyFileName("Zvandiri_Database");
-		forceDownLoadXLSX(officeExportService.exportDatabase(name, dto), name, response);
-		System.err.println(">>>>> Export Database Time Taken: "+(System.currentTimeMillis()-begin)/60000 +" minutes.");
-	}
-	
+    @RequestMapping(value = "/index", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_DATA_CLERK') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
+    public void getExcelExport(HttpServletResponse response, @ModelAttribute("item") SearchDTO dto) {
+        long begin = System.currentTimeMillis();
+        dto = getUserLevelObjectState(dto);
+        String name = DateUtil.getFriendlyFileName("Zvandiri_Database");
+        forceDownLoadXLSX(officeExportService.exportDatabase(name, dto), name, response);
+        System.err.println(">>>>> Export Database Time Taken: " + (System.currentTimeMillis() - begin) / 60000 + " minutes.");
+    }
+
 }

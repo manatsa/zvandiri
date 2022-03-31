@@ -7,18 +7,18 @@ package zw.org.zvandiri.report.api.service.parallel;
 
 import java.util.List;
 import java.util.concurrent.RecursiveTask;
+
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
 
 /**
- *
  * @author tasu
  */
 public class PatientDatabaseExportTask extends RecursiveTask<List<Patient>> {
     private final List<String> data;
     private final DetailedPatientReportService reportService;
-    private final static int SEQUENTIAL_THRESHOLD = 500;
-    
+    private final static int SEQUENTIAL_THRESHOLD = 1000;
+
     public PatientDatabaseExportTask(List<String> data, DetailedPatientReportService reportService) {
         this.data = data;
         this.reportService = reportService;
@@ -38,9 +38,9 @@ public class PatientDatabaseExportTask extends RecursiveTask<List<Patient>> {
             return list;
         }
     }
-    
+
     private List<Patient> process() {
         return reportService.get(data);
     }
-    
+
 }

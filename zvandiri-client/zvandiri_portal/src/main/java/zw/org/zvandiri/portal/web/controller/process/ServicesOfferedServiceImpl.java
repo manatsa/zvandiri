@@ -13,10 +13,11 @@ import java.util.List;
  */
 
 @Service("servicesOfferedService")
-public class ServicesOfferedServiceImpl implements ServicesOfferedService{
+public class ServicesOfferedServiceImpl implements ServicesOfferedService {
 
     @Resource
     ServiceOfferedsService serviceOfferedsService;
+
     @Override
     public List<ServiceOffered> getServicesOffered() {
         return serviceOfferedsService.getServiceOffereds();

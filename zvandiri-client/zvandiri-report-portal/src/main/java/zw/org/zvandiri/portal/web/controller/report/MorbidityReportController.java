@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
+
 import zw.org.zvandiri.portal.web.controller.report.parallel.GenericCountReportTask;
 
 @Controller
@@ -135,18 +136,18 @@ public class MorbidityReportController extends BaseController {
                     primaryClinic.setCellValue(contact.getPatient().getPrimaryClinic().getName());
 
                     XSSFCell entry = assessmentHeader.createCell(++count);
-                    if(contact.getContactDate()!=null){
+                    if (contact.getContactDate() != null) {
                         entry.setCellValue(contact.getDateCreated());
                         entry.setCellStyle(XSSFCellStyle);
-                    }else{
+                    } else {
                         entry.setCellValue("");
                     }
 
                     XSSFCell contactDate = assessmentHeader.createCell(++count);
-                    if(contact.getContactDate()!=null){
+                    if (contact.getContactDate() != null) {
                         contactDate.setCellValue(contact.getContactDate());
                         contactDate.setCellStyle(XSSFCellStyle);
-                    }else{
+                    } else {
                         contactDate.setCellValue("");
                     }
 
@@ -162,11 +163,11 @@ public class MorbidityReportController extends BaseController {
 
                     XSSFCell isCats = assessmentHeader.createCell(++count);
                     isCats.setCellValue(
-                    		contact.getPatient().getCat() != null ? contact.getPatient().getCat().getName() : null
+                            contact.getPatient().getCat() != null ? contact.getPatient().getCat().getName() : null
                     );
                     XSSFCell youngMumGroup = assessmentHeader.createCell(++count);
                     youngMumGroup.setCellValue(
-                    		contact.getPatient().getYoungMumGroup() != null ? contact.getPatient().getYoungMumGroup().getName() : null
+                            contact.getPatient().getYoungMumGroup() != null ? contact.getPatient().getYoungMumGroup().getName() : null
                     );
                     XSSFCell ymd = assessmentHeader.createCell(++count);
                     ymd.setCellValue(

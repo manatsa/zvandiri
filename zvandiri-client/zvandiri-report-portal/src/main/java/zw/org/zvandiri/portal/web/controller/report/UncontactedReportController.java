@@ -35,7 +35,6 @@ import zw.org.zvandiri.portal.web.controller.report.parallel.UnContactedClientTa
 import zw.org.zvandiri.report.api.DatabaseHeader;
 
 /**
- *
  * @author manatsachinyeruse@gmail.com
  */
 
@@ -166,7 +165,6 @@ public class UncontactedReportController extends BaseController {
             ymd.setCellValue(
                     patient.getYoungDadGroup() != null ? patient.getYoungDadGroup().getName() : null
             );
-
 
 
         }

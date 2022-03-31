@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -34,7 +35,6 @@ import zw.org.zvandiri.business.util.dto.PatientHeuDTO;
 import zw.org.zvandiri.portal.util.MobileNumberFormat;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component

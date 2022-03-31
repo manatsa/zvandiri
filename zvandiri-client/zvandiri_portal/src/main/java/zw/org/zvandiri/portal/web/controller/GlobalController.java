@@ -18,6 +18,7 @@ package zw.org.zvandiri.portal.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,7 +40,6 @@ import zw.org.zvandiri.business.service.YearPeriodService;
 import zw.org.zvandiri.business.util.dto.NameIdDTO;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Controller
@@ -89,17 +89,17 @@ public class GlobalController {
     public List<NameIdDTO> getDistrictSupportGroups(District district) {
         return formatSupportGroups(supportGroupService.getByDistrict(district));
     }
-    
-    @RequestMapping(value="/getperiods", method= RequestMethod.GET)
+
+    @RequestMapping(value = "/getperiods", method = RequestMethod.GET)
     @ResponseBody
-    public List<NameIdDTO> getPeriods(PeriodType periodType){        
-        if(periodType.equals(PeriodType.MONTHLY)){
+    public List<NameIdDTO> getPeriods(PeriodType periodType) {
+        if (periodType.equals(PeriodType.MONTHLY)) {
             return formatPeriod(periodService.getAll());
-        }else if(periodType.equals(PeriodType.QUARTERLY)){
+        } else if (periodType.equals(PeriodType.QUARTERLY)) {
             return formatPeriod(quarterPeriodService.getAll());
-        }else if(periodType.equals(PeriodType.HALF_YEARLY)){
+        } else if (periodType.equals(PeriodType.HALF_YEARLY)) {
             return formatPeriod(halfYearPeriodService.getAll());
-        }else if(periodType.equals(PeriodType.YEARLY)){
+        } else if (periodType.equals(PeriodType.YEARLY)) {
             return formatPeriod(yearPeriodService.getAll());
         }
         return formatPeriod(periodService.getAll());
@@ -128,10 +128,10 @@ public class GlobalController {
         }
         return items;
     }
-    
-    private List<NameIdDTO> formatPeriod(List<? extends GenericPeriod> periods){
+
+    private List<NameIdDTO> formatPeriod(List<? extends GenericPeriod> periods) {
         List<NameIdDTO> items = new ArrayList<>();
-        for(GenericPeriod p : periods){
+        for (GenericPeriod p : periods) {
             items.add(new NameIdDTO(p.getName(), p.getId()));
         }
         return items;

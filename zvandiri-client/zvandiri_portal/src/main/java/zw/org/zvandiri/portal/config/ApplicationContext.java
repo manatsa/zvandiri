@@ -1,10 +1,12 @@
 package zw.org.zvandiri.portal.config;
 
 import com.jolbox.bonecp.BoneCPDataSource;
+
 import java.util.List;
 import java.util.Properties;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.*;
@@ -34,7 +36,7 @@ import org.springframework.web.servlet.view.JstlView;
  */
 @Configuration
 @ComponentScan(basePackages = {"zw.org.zvandiri.portal.web.*", "zw.org.zvandiri.business.service.impl",
-    "zw.org.zvandiri.report.api.service.impl"})
+        "zw.org.zvandiri.report.api.service.impl"})
 @ImportResource(value = {"classpath:applicationContext.xml", "classpath:securityContext.xml"})
 @PropertySource("classpath:application.properties")
 @Import(PeriodConfig.class)

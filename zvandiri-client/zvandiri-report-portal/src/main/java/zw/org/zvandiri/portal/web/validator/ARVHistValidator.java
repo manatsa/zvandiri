@@ -22,7 +22,6 @@ import org.springframework.validation.Validator;
 import zw.org.zvandiri.business.domain.ArvHist;
 
 /**
- *
  * @author Judge Muzinda
  */
 @Component
@@ -37,21 +36,21 @@ public class ARVHistValidator implements Validator {
     public void validate(Object o, Errors errors) {
         ValidationUtils.rejectIfEmpty(errors, "startDate", "field.empty");
         ArvHist item = (ArvHist) o;
-        if(item.getArvMedicine() == null){
+        if (item.getArvMedicine() == null) {
             errors.rejectValue("arvMedicine", "field.empty");
         }
-        if(item.getArvMedicine2() == null){
+        if (item.getArvMedicine2() == null) {
             errors.rejectValue("arvMedicine2", "field.empty");
         }
         if (item.getArvMedicine() != null && item.getArvMedicine2() != null) {
-        	if (item.getArvMedicine().getName().equals(item.getArvMedicine2().getName())) {
-        		errors.rejectValue("arvMedicine2", "medicine.duplicate");
-        	}
+            if (item.getArvMedicine().getName().equals(item.getArvMedicine2().getName())) {
+                errors.rejectValue("arvMedicine2", "medicine.duplicate");
+            }
         }
         if (item.getArvMedicine2() != null && item.getArvMedicine3() != null) {
-        	if (item.getArvMedicine2().getName().equals(item.getArvMedicine3().getName())) {
-        		errors.rejectValue("arvMedicine3", "medicine.duplicate");
-        	}
+            if (item.getArvMedicine2().getName().equals(item.getArvMedicine3().getName())) {
+                errors.rejectValue("arvMedicine3", "medicine.duplicate");
+            }
         }
     }
 }
