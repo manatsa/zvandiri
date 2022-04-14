@@ -25,5 +25,5 @@ public interface CadreService {
 
     public Cadre save(Cadre cadre);
 
-    public Boolean checkDuplicate(Cadre current, Cadre old);
+    public Boolean checkDuplicate(Cadre current);
 }

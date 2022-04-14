@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import zw.org.zvandiri.business.domain.Cadre;
 import zw.org.zvandiri.business.domain.District;
+import zw.org.zvandiri.business.domain.Facility;
 import zw.org.zvandiri.business.domain.Province;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,5 +36,6 @@ public interface CadreRepo extends AbstractRepo<Cadre, String> {
     @Query("Select Distinct p from Cadre p left join fetch p.createdBy left join fetch p.modifiedBy  left join fetch p.primaryClinic left join fetch p.supportGroup  where p.active=:active and ((p.firstName Like :first% or p.firstName Like :last%) and (p.lastName Like :last% or p.lastName Like :first%) ) and p.primaryClinic.district=:district order by p.lastName, p.firstName, p.middleName ASC")
     public List<Cadre> findByFirstNameAndLastNameAndDistrict(@Param("first") String first, @Param("last") String last, @Param("active") Boolean active, @Param("district") District district);
 
+    public List<Cadre> getCadresByFirstNameAndLastNameAndPrimaryClinicAndDateOfBirth(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("primaryClinic") Facility primaryClinic, @Param("dateOfBirth") Date dateOfBirth);
 
 }

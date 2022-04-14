@@ -15,30 +15,21 @@
  */
 package zw.org.zvandiri.portal.web.controller.patient;
 
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import zw.org.zvandiri.business.domain.Cadre;
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.util.CaderType;
+import zw.org.zvandiri.business.domain.util.ClientType;
+import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.domain.util.YesNo;
-import zw.org.zvandiri.business.service.DisabilityCategoryService;
-import zw.org.zvandiri.business.service.DistrictService;
-import zw.org.zvandiri.business.service.EducationLevelService;
-import zw.org.zvandiri.business.service.EducationService;
-import zw.org.zvandiri.business.service.FacilityService;
-import zw.org.zvandiri.business.service.PatientService;
-import zw.org.zvandiri.business.service.ProvinceService;
-import zw.org.zvandiri.business.service.ReasonForNotReachingOLevelService;
-import zw.org.zvandiri.business.service.RefererService;
-import zw.org.zvandiri.business.service.RelationshipService;
-import zw.org.zvandiri.business.service.SupportGroupService;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.dto.ItemDeleteDTO;
 import zw.org.zvandiri.business.util.dto.PatientSearchDTO;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -57,6 +48,10 @@ public class PatientController extends BaseController {
 
     @Resource
     private PatientService patientService;
+    @Resource
+    CadreService cadreService;
+    @Resource
+    UserService userService;
     @Resource
     private PatientValidator patientValidator;
     @Resource
@@ -196,4 +191,51 @@ public class PatientController extends BaseController {
         //patientService.delete(item);
         return "redirect:index.htm?type=2";
     }
+
+    @RequestMapping("create-cadre")
+    public String createCadre(@RequestParam("id") String id){
+        Patient patient=patientService.get(id);
+        Cadre cadre=new Cadre();
+        cadre.setActive(true);
+        cadre.setDistrict(patient.getPrimaryClinic().getDistrict());
+        cadre.setAddress(patient.getAddress());
+        cadre.setProvince(patient.getPrimaryClinic().getDistrict().getProvince());
+        CaderType caderType=null;
+        if( (patient.getCat()!=null && patient.getCat().equals(YesNo.YES)) || (patient.getClientType()!=null &&patient.getClientType().equals(ClientType.CAYPLHIV))){
+            caderType=CaderType.CATS;
+        }else if((patient.getClientType()!=null && patient.getClientType().equals(ClientType.YOUNG_MUM)) || (patient.getYoungMumGroup()!=null && patient.getYoungMumGroup().equals(YesNo.YES))){
+            caderType=CaderType.YMM;
+        }else if(patient.getClientType()!=null && patient.getClientType().equals(ClientType.YOUNG_DAD)){
+            caderType=CaderType.YMD;
+        }else{
+            return "redirect:index.htm?type=7";
+        }
+        cadre.setCaderType(caderType);
+        cadre.setCreatedBy(userService.getCurrentUser());
+        cadre.setDateCreated(new Date());
+        cadre.setDateOfBirth(patient.getDateOfBirth());
+        cadre.setFirstName(patient.getFirstName());
+        cadre.setLastName(patient.getLastName());
+        cadre.setGender(patient.getGender());
+        cadre.setPrimaryClinic(patient.getPrimaryClinic());
+        cadre.setHasPatient(YesNo.YES);
+        cadre.setMiddleName(patient.getMiddleName());
+        cadre.setMobileNumber(patient.getMobileNumber());
+        cadre.setStatus(PatientChangeEvent.ACTIVE);
+        cadre.setSupportGroup(patient.getSupportGroup());
+
+        if(cadre.getCaderType()!=null){
+            if(cadreService.checkDuplicate(cadre)){
+                cadreService.save(cadre);
+                return "redirect:index.htm?type=1";
+            }else{
+                return "redirect:index.htm?type=6";
+            }
+        }else{
+            return "redirect:index.htm?type=5";
+        }
+
+
+    }
+
 }

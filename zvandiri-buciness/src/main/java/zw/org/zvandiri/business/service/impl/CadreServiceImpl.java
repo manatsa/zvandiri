@@ -71,7 +71,6 @@ public class CadreServiceImpl implements CadreService {
     public Cadre save(Cadre cadre) {
                 if (cadre.getId() == null || cadre.getId().isEmpty()) {
                     String id=UUIDGen.generateUUID();
-                    System.err.println("***************************** Cadre ID is :"+id);
                     cadre.setId(id);
                     cadre.setCreatedBy(userService.getCurrentUser());
                     cadre.setDateCreated(new Date());
@@ -84,8 +83,9 @@ public class CadreServiceImpl implements CadreService {
     }
 
     @Override
-    public Boolean checkDuplicate(Cadre current, Cadre old) {
-        return null;
+    public Boolean checkDuplicate(Cadre current) {
+        List<Cadre> cadres=cadreRepo.getCadresByFirstNameAndLastNameAndPrimaryClinicAndDateOfBirth(current.getFirstName(), current.getLastName(), current.getPrimaryClinic(), current.getDateOfBirth());
+        return (cadres==null || cadres.size()<1) ;
     }
 
 

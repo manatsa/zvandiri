@@ -22,6 +22,17 @@
                             <form:hidden path="patientId" value="${item.patientId}"/>
                             <%@include file="../template/formState.jspf" %>
 
+                            <div class="form-group sec-own-mobile">
+                                <label>Cadre Type</label>
+                                <form:select path="caderType" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options items="${caderTypes}" itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="caderType" class="alert-danger"/>
+                                </p>
+                            </div>
+
                             <div class="form-group">
                                 <label>First Name</label>
                                 <form:input path="firstName" class="form-control word-case"/>
@@ -70,18 +81,6 @@
                                 <form:input  path="dateOfBirth"  class="form-control general"/>
                                 <p class="help-block">
                                     <form:errors path="dateOfBirth" class="alert-danger"/>
-                                </p>
-                            </div>
-
-
-                            <div class="form-group sec-own-mobile">
-                                <label>Cadre Type</label>
-                                <form:select path="caderType" class="form-control">
-                                    <form:option value="" label="--Select Item"/>
-                                    <form:options items="${caderTypes}" itemValue="code" itemLabel="name"/>
-                                </form:select>
-                                <p class="help-block">
-                                    <form:errors path="caderType" class="alert-danger"/>
                                 </p>
                             </div>
 
@@ -155,6 +154,13 @@
                 required: true
             },
 
+        }
+    });
+
+    $("#caderType").change(function () {
+        var type=$("#caderType").val()
+        if(type && (type==1 || type==2)){
+            window.location="/zvandiri/patient/index.htm?type=8"
         }
     });
 </script>

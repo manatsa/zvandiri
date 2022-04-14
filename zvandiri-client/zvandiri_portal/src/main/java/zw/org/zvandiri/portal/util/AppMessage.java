@@ -93,8 +93,14 @@ public class AppMessage {
                 return new AppMessage.MessageBuilder(Boolean.TRUE).message("Operation cancelled").messageType(MessageType.MESSAGE).build();
             case 4:
                 return new AppMessage.MessageBuilder(Boolean.TRUE).message("Password successfully changed").messageType(MessageType.MESSAGE).build();
-                case 5:
-                return new AppMessage.MessageBuilder(Boolean.TRUE).message("Erro occurred").messageType(MessageType.ERROR).build();
+            case 5:
+                return new AppMessage.MessageBuilder(Boolean.TRUE).message("Error occurred").messageType(MessageType.ERROR).build();
+            case 6:
+                return new AppMessage.MessageBuilder(Boolean.TRUE).message("Could not save a duplicate").messageType(MessageType.WARNING).build();
+            case 7:
+                return new AppMessage.MessageBuilder(Boolean.TRUE).message("Parameter provided not recognized (eg client is not a recognized cadre)").messageType(MessageType.WARNING).build();
+            case 8:
+                return new AppMessage.MessageBuilder(Boolean.TRUE).message("Please search for the cadre and create cadre from client details").messageType(MessageType.WARNING).build();
             default:
                 throw new IllegalArgumentException("Parameter provided not recognised :"+type);
         }
