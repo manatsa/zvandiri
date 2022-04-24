@@ -11,7 +11,7 @@
         <evaluate expression="contactCreationService.createContact()" result="flowScope.contacts" />
         <evaluate expression="mentalHealthCreationService.createMentalHealthScreening()" result="flowScope.mentalHealthScreening" />
         <evaluate expression="tbIptCreationService.TB_IPTScreening()" result="flowScope.tbScreening" />
-        <evaluate expression="labResultCreationService.createResult()" result="flowScope.labResult" />
+<!--        <evaluate expression="labResultCreationService.createResult()" result="flowScope.labResult" />-->
         <evaluate expression="referralCreationService.createReferral()" result="flowScope.referral" />
         <evaluate expression="sysPropService.getUserName()" result="flowScope.currentUser" />
         <evaluate expression="sysPropService.getDateYearRanges()" result="flowScope.yearRanges" />
@@ -40,7 +40,7 @@
 
     <view-state id="contactVisitForm" model="contactvisit">
         <on-render>
-            <evaluate expression="sysPropService.processTitle('Add Client Contact Result Details Step 1 of 7')" result="viewScope.pageTitle"/>
+            <evaluate expression="sysPropService.processTitle('Add Client Contact Result Details Step 1 of 6')" result="viewScope.pageTitle"/>
         </on-render>
         <transition on="next" to="mentalHealthScreeningForm"/>
         <transition on="cancel" to="cancel" bind="false" />
@@ -48,7 +48,7 @@
 
     <view-state id="mentalHealthScreeningForm" model="mentalHealthScreening">
         <on-render>           
-            <evaluate expression="sysPropService.processTitle('Add Mental Health Screening Details Step 2 of 7')" result="viewScope.pageTitle"/>
+            <evaluate expression="sysPropService.processTitle('Add Mental Health Screening Details Step 2 of 6')" result="viewScope.pageTitle"/>
             <set name="mentalHealthScreening.patient" value="patient"></set>
         </on-render>
         <transition on="back" to="contactVisitForm" bind="false" />
@@ -60,17 +60,17 @@
 
     <view-state id="tbScreeningForm" model="tbScreening">
         <on-render>
-            <evaluate expression="sysPropService.processTitle('Add TB/IPT Screening Details Step 3 of 7')" result="viewScope.pageTitle"/>
+            <evaluate expression="sysPropService.processTitle('Add TB/IPT Screening Details Step 3 of 6')" result="viewScope.pageTitle"/>
             <set name="tbScreening.patient" value="patient"></set>
         </on-render>
-        <transition on="next" to="labResultForm">
+        <transition on="next" to="referralForm">
             <set name="patientContact.tbIpt" value="tbScreening"></set>
         </transition>
         <transition on="back" to="mentalHealthScreeningForm" bind="false" />
         <transition on="cancel" to="cancel" bind="false" />
     </view-state>
 
-    <view-state id="labResultForm" model="labResult">
+   <!-- <view-state id="labResultForm" model="labResult">
         <on-render>
             <evaluate expression="sysPropService.processTitle('Add Lab Results Details Step 4 of 7')" result="viewScope.pageTitle"/>
             <set name="labResult.patient" value="patient"></set>
@@ -80,23 +80,23 @@
         </transition>
         <transition on="back" to="tbScreeningForm" bind="false" />
         <transition on="cancel" to="cancel" bind="false" />
-    </view-state>
+    </view-state>-->
 
     <view-state id="referralForm" model="referral">
         <on-render>
-            <evaluate expression="sysPropService.processTitle('Add Referrals Details Step 5 of 7')" result="viewScope.pageTitle"/>
+            <evaluate expression="sysPropService.processTitle('Add Referrals Details Step 4 of 6')" result="viewScope.pageTitle"/>
             <set name="referral.patient" value="patient"></set>
         </on-render>
         <transition on="next" to="contactsForm">
             <set name="patientContact.referral" value="referral"></set>
         </transition>
-        <transition on="back" to="labResultForm" bind="false" />
+        <transition on="back" to="tbScreeningForm" bind="false" />
         <transition on="cancel" to="cancel" bind="false" />
     </view-state>
 
     <view-state id="contactsForm" model="contacts">
         <on-render>
-            <evaluate expression="sysPropService.processTitle('Add Contact Details Step 6 of 7')" result="viewScope.pageTitle"/>
+            <evaluate expression="sysPropService.processTitle('Add Contact Details Step 5 of 6')" result="viewScope.pageTitle"/>
             <set name="contacts.patient" value="patient"></set>
             <set name="contacts.careLevel" value="patient.getCurrentCareLevelObject()"></set>
             <set name="contacts.careLevelAfterAssessment" value="patientContactCreationService.getCurrentCareLevel(patientContact)"></set>
@@ -110,7 +110,7 @@
 
     <view-state id="contactVisitDetails" model="patientContact">
         <on-render>
-            <evaluate expression="sysPropService.processTitle('Add Contact Details Step 7 of 7')" result="viewScope.pageTitle"/>
+            <evaluate expression="sysPropService.processTitle('Add Contact Details Step 6 of 6')" result="viewScope.pageTitle"/>
         </on-render>
         <transition on="save" to="save">
             <evaluate expression="patientContactCreationService.savePatientContact(patientContact)" />

@@ -119,7 +119,6 @@ public class Reportutil {
                     builder.append(" and p.primaryClinic in :facilities");
                 }
             } else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
-                //System.err.println("$$$$$$$$$$$$$$$$$$$$$$$ DTO districts is not null");
                 if (position == 0) {
                     builder.append(" p.district in :districts");
                     position++;
@@ -127,7 +126,6 @@ public class Reportutil {
                     builder.append(" and p.district in :districts");
                 }
             } else if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
-                //System.err.println("^^^^^^^^^^^^^^^^^^^^^^^ DTO provinces is not null");
                 if (position == 0) {
                     builder.append(" p.province in :provinces");
                     position++;

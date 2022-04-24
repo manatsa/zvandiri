@@ -229,53 +229,53 @@
                                             </div>
                                         </div>
 
-                                        <div class="panel panel-success">
-                                            <div class="panel-heading" role="tab" id="vlCD4Panel">
-                                                <h5 class="panel-title">
-                                                    <a  data-toggle="collapse" data-parent="#info" href="#vlAndCD4" class="btn btn-block collapsed text-left" >
-                                                        <span class="white ">Viral Load/CD4 Count Info</span>
-                                                    </a>
-                                                </h5>
-                                            </div>
-                                            <div id="vlAndCD4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="vlAndCD4">
-                                                <div class="panel-body">
-                                                    <table class="table table-striped table-bordered table-responsive">
-                                                        <tr>
-                                                            <th>VL/CD4 COUNT TEST DONE </th>
-                                                            <td>${patientContact.investigationTest.testDone.name}</td>
+<%--                                        <div class="panel panel-success">--%>
+<%--                                            <div class="panel-heading" role="tab" id="vlCD4Panel">--%>
+<%--                                                <h5 class="panel-title">--%>
+<%--                                                    <a  data-toggle="collapse" data-parent="#info" href="#vlAndCD4" class="btn btn-block collapsed text-left" >--%>
+<%--                                                        <span class="white ">Viral Load/CD4 Count Info</span>--%>
+<%--                                                    </a>--%>
+<%--                                                </h5>--%>
+<%--                                            </div>--%>
+<%--                                            <div id="vlAndCD4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="vlAndCD4">--%>
+<%--                                                <div class="panel-body">--%>
+<%--                                                    <table class="table table-striped table-bordered table-responsive">--%>
+<%--                                                        <tr>--%>
+<%--                                                            <th>VL/CD4 COUNT TEST DONE </th>--%>
+<%--                                                            <td>${patientContact.investigationTest.testDone.name}</td>--%>
 
-                                                        </tr>
-                                                        <c:if test="${patientContact.investigationTest.testDone.name=='Yes' || patientContact.investigationTest.testDone.name=='YES'}">
-                                                            <tr>
-                                                                <th>VL/CD4 SAMPLING DATE </th>
-                                                                <td><spring:eval expression="patientContact.investigationTest.dateTaken"/></td>
-                                                                <td> &nbsp; &nbsp;  &nbsp; &nbsp; </td>
-                                                                <td> &nbsp; &nbsp; &nbsp;  &nbsp; </td>
-                                                                <th>TEST TYPE</th>
-                                                                <td>${patientContact.investigationTest.testType}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>VL/CD4 RESULTS AVAILABLE</th>
-                                                                <td>${patientContact.investigationTest.haveResult}</td>
-                                                                <td> &nbsp; &nbsp;  &nbsp; &nbsp; </td>
-                                                                <td> &nbsp; &nbsp; &nbsp;  &nbsp; </td>
-                                                                <th>VL/CD4 RESULT</th>
-                                                                <td><span class="(${patientContact.investigationTest.result!=null && patientContact.investigationTest.result>1000?'text-danger':'text-success'})">${patientContact.investigationTest.result!=null? patientContact.investigationTest.result: patientContact.investigationTest.tnd}</span></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>SOURCE</th>
-                                                                <td>${patientContact.investigationTest.source}</td>
-                                                                <td> &nbsp; &nbsp;  &nbsp; &nbsp; </td>
-                                                                <td> &nbsp; &nbsp; &nbsp;  &nbsp; </td>
-                                                                <th>NEXT LAB DUE</th>
-                                                                <td><spring:eval expression="patientContact.investigationTest.nextTestDate"/></td>
-                                                            </tr>
+<%--                                                        </tr>--%>
+<%--                                                        <c:if test="${patientContact.investigationTest.testDone.name=='Yes' || patientContact.investigationTest.testDone.name=='YES'}">--%>
+<%--                                                            <tr>--%>
+<%--                                                                <th>VL/CD4 SAMPLING DATE </th>--%>
+<%--                                                                <td><spring:eval expression="patientContact.investigationTest.dateTaken"/></td>--%>
+<%--                                                                <td> &nbsp; &nbsp;  &nbsp; &nbsp; </td>--%>
+<%--                                                                <td> &nbsp; &nbsp; &nbsp;  &nbsp; </td>--%>
+<%--                                                                <th>TEST TYPE</th>--%>
+<%--                                                                <td>${patientContact.investigationTest.testType}</td>--%>
+<%--                                                            </tr>--%>
+<%--                                                            <tr>--%>
+<%--                                                                <th>VL/CD4 RESULTS AVAILABLE</th>--%>
+<%--                                                                <td>${patientContact.investigationTest.haveResult}</td>--%>
+<%--                                                                <td> &nbsp; &nbsp;  &nbsp; &nbsp; </td>--%>
+<%--                                                                <td> &nbsp; &nbsp; &nbsp;  &nbsp; </td>--%>
+<%--                                                                <th>VL/CD4 RESULT</th>--%>
+<%--                                                                <td><span class="(${patientContact.investigationTest.result!=null && patientContact.investigationTest.result>1000?'text-danger':'text-success'})">${patientContact.investigationTest.result!=null? patientContact.investigationTest.result: patientContact.investigationTest.tnd}</span></td>--%>
+<%--                                                            </tr>--%>
+<%--                                                            <tr>--%>
+<%--                                                                <th>SOURCE</th>--%>
+<%--                                                                <td>${patientContact.investigationTest.source}</td>--%>
+<%--                                                                <td> &nbsp; &nbsp;  &nbsp; &nbsp; </td>--%>
+<%--                                                                <td> &nbsp; &nbsp; &nbsp;  &nbsp; </td>--%>
+<%--                                                                <th>NEXT LAB DUE</th>--%>
+<%--                                                                <td><spring:eval expression="patientContact.investigationTest.nextTestDate"/></td>--%>
+<%--                                                            </tr>--%>
 
-                                                        </c:if>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
+<%--                                                        </c:if>--%>
+<%--                                                    </table>--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
 
                                         <div class="panel panel-success">
                                             <div class="panel-heading" role="tab" id="referralPanel">
@@ -386,6 +386,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="panel panel-success">
                                             <div class="panel-heading" role="tab" id="contactPanel">
                                                 <h5 class="panel-title">

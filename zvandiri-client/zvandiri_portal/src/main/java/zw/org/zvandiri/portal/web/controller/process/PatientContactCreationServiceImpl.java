@@ -130,7 +130,7 @@ public class PatientContactCreationServiceImpl implements PatientContactCreation
             // get previous latest screening
         }
 
-        if(patientContact.getInvestigationTest().getTestDone().equals(YesNo.YES)){
+        if(patientContact.getInvestigationTest()!=null && patientContact.getInvestigationTest().getTestDone().equals(YesNo.YES)){
             if(patientContact.getInvestigationTest().getResult()!=null && (patientContact.getInvestigationTest().getResult()+"").trim()!="" && patientContact.getInvestigationTest().getResult()>1000){
                 return FollowUp.ENHANCED;
             }
