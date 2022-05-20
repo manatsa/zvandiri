@@ -65,21 +65,19 @@ public class ViralLoadValidator implements Validator {
         }
 
 
-            if(item.getNextTestDate() != null && item.getNextTestDate().before(new Date())){
+            if(item.getNextTestDate() != null && item.getNextTestDate().before(item.getDateTaken())){
                 errors.rejectValue("nextTestDate","date.to.be.future");
             }
 
         if (item.getDateTaken() != null && item.getDateTaken().after(new Date())) {
             errors.rejectValue("dateTaken", "date.to.be.past");
         }
-        if (item.getDateTaken() != null && item.getPatient().getDateOfBirth() != null && item.getDateTaken().before(item.getPatient().getDateOfBirth())) {
-            errors.rejectValue("dateTaken", "date.beforebirth");
-        }
+//        if (item.getDateTaken() != null && item.getPatient().getDateOfBirth() != null && item.getDateTaken().before(item.getPatient().getDateOfBirth())) {
+//            errors.rejectValue("dateTaken", "date.beforebirth");
+//        }
 
-
-       /* ValidationUtils.invokeValidator(this,item,errors);
         for(ObjectError error: errors.getAllErrors()){
-            System.err.println("Error : "+error.getDefaultMessage());
-        }*/
+            System.err.println("Error : "+error.toString());
+        }
     }
 }

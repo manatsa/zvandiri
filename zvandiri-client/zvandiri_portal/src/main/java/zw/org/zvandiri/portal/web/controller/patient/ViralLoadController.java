@@ -21,6 +21,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 import zw.org.zvandiri.business.domain.Patient;
@@ -49,14 +50,16 @@ public class ViralLoadController extends BaseController {
     @Resource
     private ViralLoadValidator viralLoadValidator;
 
-    @InitBinder
-    protected void initBinder(final HttpServletRequest request, final ServletRequestDataBinder binder) {
-        binder.addValidators(viralLoadValidator);
-    }
+    Patient patient;
+
+//    @InitBinder
+//    protected void initBinder(final HttpServletRequest request, final ServletRequestDataBinder binder) {
+//        binder.addValidators(viralLoadValidator);
+//    }
 
     public String setUpModel(ModelMap model, InvestigationTest item) {
         model.addAttribute("pageTitle", APP_PREFIX + " " + item.getPatient().getName() + "'s Viral Load");
-        model.addAttribute("patient", item.getPatient());
+        model.addAttribute("patient", patient);
         model.addAttribute("item", item);
         model.addAttribute("investigationTest", Boolean.TRUE);
         model.addAttribute("eid", Boolean.FALSE);
@@ -70,26 +73,43 @@ public class ViralLoadController extends BaseController {
         InvestigationTest item;
         if (itemId != null) {
             item = investigationTestService.get(itemId);
+            patient=item.getPatient();
+            //System.err.println(patient);
+            item.setPatient(patient);
             return setUpModel(model, item);
         }
-        item = new InvestigationTest(patientService.get(patientId), TestType.VIRAL_LOAD);
+        patient=patientService.get(patientId);
+        item = new InvestigationTest(patient, TestType.VIRAL_LOAD);
         return setUpModel(model, item);
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.POST)
     public String saveItem(ModelMap model, @ModelAttribute("item") @Valid InvestigationTest item, BindingResult result) {
-        if (!item.getPatient().getPatientStatus()) {
+
+        //System.err.println("01 ITEM: "+item.getPatient());
+        if (!patient.getPatientStatus()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(INACTIVE_MESSAGE).messageType(MessageType.ERROR).build());
             return setUpModel(model, item);
         }
+        item.setPatient(patient);
+
         viralLoadValidator.validate(item, result);
         if (result.hasErrors()) {
             setUpModel(model, item);
-            model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
+            model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(makeStringErrors(result)).messageType(MessageType.ERROR).build());
             return setUpModel(model, item);
         }
+
         investigationTestService.save(item);
         return "redirect:../dashboard/profile.htm?type=1&id=" + item.getPatient().getId();
+    }
+
+    private String makeStringErrors(BindingResult errors){
+        String result="";
+        for(ObjectError error:errors.getAllErrors()){
+            result+=error.toString()+"\n";
+        }
+        return result;
     }
 
     @RequestMapping(value = "item.delete", method = RequestMethod.GET)

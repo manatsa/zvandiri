@@ -67,14 +67,14 @@ public class Reportutil {
                     builder.append(" and p.primaryClinic=:primaryClinic");
                 }
             }
-            if (dto.getSupportGroup() != null) {
-                if (position == 0) {
-                    builder.append("p.supportGroup=:supportGroup");
-                    position++;
-                } else {
-                    builder.append(" and p.supportGroup=:supportGroup");
-                }
-            }
+//            if (dto.getSupportGroup() != null) {
+//                if (position == 0) {
+//                    builder.append("p.supportGroup=:supportGroup");
+//                    position++;
+//                } else {
+//                    builder.append(" and p.supportGroup=:supportGroup");
+//                }
+//            }
             if (dto.getGender() != null) {
                 if (position == 0) {
                     builder.append("p.gender=:gender");
@@ -201,9 +201,9 @@ public class Reportutil {
         if (dto.getPrimaryClinic() != null) {
             query.setParameter("primaryClinic", dto.getPrimaryClinic());
         }
-        if (dto.getSupportGroup() != null) {
-            query.setParameter("supportGroup", dto.getSupportGroup());
-        }
+//        if (dto.getSupportGroup() != null) {
+//            query.setParameter("supportGroup", dto.getSupportGroup());
+//        }
         if (dto.getGender() != null) {
             query.setParameter("gender", dto.getGender());
         }

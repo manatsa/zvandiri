@@ -101,16 +101,18 @@
 <%@include file="../../template/footer.jspf" %>
 <script type="text/javascript">
     $("#mobileOwner").change(function () {
-        var name = $("#mobileOwner :selected").text();
-        if (name === "No") {
+        var name = $("#mobileOwner").val();
+        //console.log('Selected : ',name)
+        if (Number(name) === 2) {
             $(".own-mobile").removeClass("hide");
         } else {
             $(".own-mobile").addClass("hide");
         }
     });
     $("#ownSecondaryMobile").change(function () {
-        var name = $("#ownSecondaryMobile :selected").text();
-        if (name === "No") {
+        var name = $("#ownSecondaryMobile").val();
+        //console.log('Selected : ',name)
+        if (Number(name) === 2) {
             $(".sec-own-mobile").removeClass("hide");
         } else {
             $(".sec-own-mobile").addClass("hide");
@@ -118,12 +120,12 @@
     });
     $(function () {
         window.onload = function () {
-            var name = $("#mobileOwner :selected").text();
-            if (name === "No") {
+            var name = $("#mobileOwner").val();
+            if (Number(name) === 2) {
                 $(".own-mobile").removeClass("hide");
             }
-            var name = $("#ownSecondaryMobile :selected").text();
-            if (name === "No") {
+            var name = $("#ownSecondaryMobile").val();
+            if (Number(name) === 2) {
                 $(".sec-own-mobile").removeClass("hide");
             }
         };

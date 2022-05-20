@@ -69,8 +69,8 @@
                     //var contact_url = "<a href='"+path+"/beneficiary/contact/item.form?patientId=" + pat[i].id + "'>";
                     var contact_url = "<a href='"+path+"/contact?id=" + pat[i].id + "'>";
                     var cadre_url = "<a href='"+path+"/patient/create-cadre?id=" + pat[i].id + "'>";
-                   /* var referral_url = "<a href='"+path+"/patient/referral/item.list?id=" + pat[i].id + "'>";
-                    var tb_screening_url = "<a href='"+path+"/patient/tb-screening/item.list?id=" + pat[i].id + "'>";
+                    var vl_url = "<a href='"+path+"/patient/viral-load/item.form?patientId=" + pat[i].id + "'>";
+                    /*var tb_screening_url = "<a href='"+path+"/patient/tb-screening/item.list?id=" + pat[i].id + "'>";
                     var hiv_self_testing_url = "<a href='"+path+"/patient/hiv-self-testing/item.list?id=" + pat[i].id + "'>";*/
                     var mental_health_screening_url = "<a href='"+path+"http://localhost:8080/zvandiri/contact?execution=e7s4?id=" + pat[i].id + "'>";
                     $("#patientListing").dataTable().fnAddData([part_url +pat[i].name+ "</a>",
@@ -81,8 +81,8 @@
                         pat[i].district,
                         pat[i].primaryClinic,
                         pat[i].active === true ?
-                            contact_url+"Add Contact | </a>"+cadre_url+" Create Cadre </a>" : ""]);
-                        //contact_url+"Contact | </a>"+referral_url+"Referral | </a>" + tb_screening_url+"TB Screening | </a>" + mental_health_screening_url + "Mental Health Screening</a>" : ""]);
+                            contact_url+"Add Contact  </a>"+vl_url+"VL/Bleeding | </a>" : ""]);
+                        //contact_url+"Contact | </a>"+referral_url+"Referral | </a>" + vl_url+"VL/Bleeding | </a>" + mental_health_screening_url + "Mental Health Screening</a>" : ""]);
                 }
             });
         } else {

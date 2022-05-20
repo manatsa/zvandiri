@@ -17,6 +17,8 @@ package zw.org.zvandiri.portal.web.controller.cadre;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -68,6 +70,7 @@ public class CadreController extends BaseController {
     public String getIndex(ModelMap map, @RequestParam(required = false) String id) {
         map.addAttribute("pageTitle", APP_PREFIX + " " + "Cadre Management");
         map.addAttribute("cadres",cadreService.getAll());
+        System.err.println(new BCryptPasswordEncoder().encode("Gokwe2022"));
         return "cadre/index";
     }
 

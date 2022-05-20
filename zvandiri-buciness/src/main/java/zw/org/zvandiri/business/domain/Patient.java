@@ -456,8 +456,46 @@ public class Patient extends GenericPatient {
     }
 
     @Override
-    public String toString(){
-        return "Patient:"+this.getId();
+    public String toString() {
+        return "Patient{" +
+                "id="+getId()+
+                "firstName="+getFirstName()+
+                "lastName="+getLastName()+
+                "district=" + district +
+                ", province=" + province +
+                ", disabilityCategorys=" + disabilityCategorys +
+                ", patientHistories=" + patientHistories +
+                ", mobilePhone=" + mobilePhone +
+                ", supportGroupDistrict=" + supportGroupDistrict +
+                ", age=" + age +
+                ", pic='" + pic + '\'' +
+                ", dateJoin='" + dateJoin + '\'' +
+                ", currentElement='" + currentElement + '\'' +
+                ", patientStatus=" + patientStatus +
+                ", patientExist='" + patientExist + '\'' +
+                ", mother='" + mother + '\'' +
+                ", name='" + name + '\'' +
+                ", catId='" + catId + '\'' +
+                ", viralLoad=" + viralLoad +
+                ", lastViralLoad='" + lastViralLoad + '\'' +
+                ", cd4Count=" + cd4Count +
+                ", currentArvRegimen='" + currentArvRegimen + '\'' +
+                ", disabilitySeverity=" + disabilitySeverity +
+                ", enhancedStatus=" + enhancedStatus +
+                ", disabilityStatus=" + disabilityStatus +
+                ", haveBirthCertificate=" + haveBirthCertificate +
+                ", IDNumber='" + IDNumber + '\'' +
+                ", maritalStatus=" + maritalStatus +
+                ", orphanStatus=" + orphanStatus +
+                ", onArvs=" + onArvs +
+                ", onCotrimoxazole=" + onCotrimoxazole +
+                ", dateStartedTreatment=" + dateStartedTreatment +
+                ", disclosureType=" + disclosureType +
+                ", artRegimen='" + artRegimen + '\'' +
+                ", isKeypopulation=" + isKeypopulation +
+                ", keyPopulation=" + keyPopulation +
+                ", disablityType='" + disablityType + '\'' +
+                ", clientType=" + clientType +
+                '}';
     }
-
 }

@@ -22,6 +22,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import zw.org.zvandiri.business.domain.Cadre;
 import zw.org.zvandiri.business.domain.Patient;
@@ -137,7 +138,7 @@ public class PatientController extends BaseController {
         patientValidator.validateAll(item, result);
         if (result.hasErrors()) {
             setUpModel(model, item);
-            model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
+            model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(sortErrors(result.getAllErrors())).messageType(MessageType.ERROR).build());
             return "patient/itemForm";
         }
         Patient p = patientService.save(item);
@@ -232,10 +233,18 @@ public class PatientController extends BaseController {
                 return "redirect:index.htm?type=6";
             }
         }else{
-            return "redirect:index.htm?type=5";
+            return "redirect:/zvandiri/cadre/index.htm?type=5";
         }
 
 
+    }
+
+    private String sortErrors(List<ObjectError> errors){
+        String result="";
+        for(ObjectError error: errors){
+            result+=error.toString();
+        }
+        return  result;
     }
 
 }

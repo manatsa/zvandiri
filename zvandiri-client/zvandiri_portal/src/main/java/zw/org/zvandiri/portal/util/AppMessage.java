@@ -100,7 +100,7 @@ public class AppMessage {
             case 7:
                 return new AppMessage.MessageBuilder(Boolean.TRUE).message("Parameter provided not recognized (eg client is not a recognized cadre)").messageType(MessageType.WARNING).build();
             case 8:
-                return new AppMessage.MessageBuilder(Boolean.TRUE).message("Please search for the cadre and create cadre from client details").messageType(MessageType.WARNING).build();
+                return new AppMessage.MessageBuilder(Boolean.TRUE).message("Please search for the cadre and create cadre from client operations tab").messageType(MessageType.WARNING).build();
             default:
                 throw new IllegalArgumentException("Parameter provided not recognised :"+type);
         }

@@ -1,4 +1,4 @@
-<%@include file="../../template/header.jspf" %>
+<%@include file="../template/header.jspf" %>
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -6,20 +6,20 @@
                 ${pageTitle}
             </div>
             <div class="panel-body">
-                <%@include file="../../template/message.jspf" %>
+                <%@include file="../template/message.jspf" %>
                 <div class="row">
                     <div class="col-lg-10">
                         <div class="panel panel-default">                            
-                            <%@include file="../../template/dashboard/patientProfile.jspf" %>
+                            <%@include file="../template/dashboard/patientProfile.jspf" %>
                         </div>
                     </div>
                 </div>
                 <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/><br/>
                 <div class="row">
                     <div class="col-lg-10">
-                        <form:form commandName="labResult" id="labResultForm">
-                            <%@include file="../../template/formState.jspf" %>
-                            <%--<form:hidden path="patient" value="${item.patient.id}"/>--%>
+                        <form:form commandName="item" id="labResultForm">
+                            <%@include file="../template/formState.jspf" %>
+                            <form:hidden path="patient" value="${item.patient.id}"/>
                             <div class="form-group">
                                 <label>VL/CD4 count Test Done</label>
                                 <form:select path="testDone" class="form-control">
@@ -95,9 +95,8 @@
                             </div>
 
                             <div class="form-group">
-                                <button class="btn btn-primary" type="submit" id="back" name="_eventId_back">&Lt;&Lt;Back</button>
-                                <button class="btn btn-primary" type="submit" id="next" name="_eventId_next">Next&Gt;&Gt;</button>
-                                <button class="btn btn-primary" type="submit" id="cancel" name="_eventId_cancel">Cancel</button>
+                                <button class="btn btn-primary" type="button" id="back" >Cancel</button>
+                                <button class="btn btn-primary" type="submit" id="next" >Save</button>
                             </div>
 
                         </form:form>
@@ -107,7 +106,7 @@
         </div>
     </div>
 </div>
-<%@include file="../../template/footer.jspf" %>
+<%@include file="../template/footer.jspf" %>
 <script type="text/javascript">
    /* $("#labResultForm").validate({
         rules: {

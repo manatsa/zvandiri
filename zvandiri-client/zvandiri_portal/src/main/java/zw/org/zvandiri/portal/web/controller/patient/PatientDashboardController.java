@@ -86,9 +86,11 @@ public class  PatientDashboardController extends BaseController {
             model.addAttribute("caregiver", Boolean.TRUE);
         }
         if (item.getCat() != null && item.getCat().equals(YesNo.YES)) {
+
             if (!patientService.hasCatDetailRecord(item)) {
                 model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(getPatient(item)).messageType(MessageType.WARNING).build());
             }else{
+                //System.err.println("IS CATS? "+item.getCat());
                 model.addAttribute("cat", Boolean.TRUE);
                 model.addAttribute("catDetail", catDetailService.getByPatient(item));
             }

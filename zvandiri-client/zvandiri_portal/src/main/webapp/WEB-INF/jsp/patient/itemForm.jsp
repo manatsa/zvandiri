@@ -278,7 +278,7 @@
                                     <form:errors path="dateTested" class="alert-danger"/>
                                 </p>
                             </div>
-                            <div class="form-group status-known hide">
+                            <div class="form-group status-known ">
                                 <label>HIV Disclosure Location</label>
                                 <form:select path="hIVDisclosureLocation" class="form-control">
                                     <form:option value="" label="--Select Item"/>
@@ -296,6 +296,13 @@
                                 </form:select>
                                 <p class="help-block">
                                     <form:errors path="disability" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group disable hide">
+                                <label>Disability Type</label>
+                                <form:input path="disablityType" class="form-control general"/>
+                                <p class="help-block">
+                                    <form:errors path="disablityType" class="alert-danger"/>
                                 </p>
                             </div>
                             <div class="form-group">
@@ -360,6 +367,7 @@
             $(".education-level").addClass("hide");
         }
     });
+
     $("#mobileOwner").change(function () {
         var name = $("#mobileOwner :selected").text();
         if (name === "No") {
@@ -368,6 +376,7 @@
             $(".own-mobile").addClass("hide");
         }
     });
+
     $("#ownSecondaryMobile").change(function () {
         var name = $("#ownSecondaryMobile :selected").text();
         if (name === "No") {
@@ -376,9 +385,12 @@
             $(".sec-own-mobile").addClass("hide");
         }
     });
+
     $("#hivStatusKnown").change(function () {
-        var name = $("#hivStatusKnown :selected").text();
-        if (name === "Yes") {
+        var name = $("#hivStatusKnown").val();
+        console.log('HIV STATUS KNOWN :', name, ' TYPE:', typeof name)
+        if (name === '1') {
+            console.log('HIV STATUS KNOWN :', name)
             $(".status-known").removeClass("hide");
         } else {
             $("#transmissionMode").val('');
@@ -386,6 +398,15 @@
             $("#hIVDisclosureLocation").val('');
             $(".status-known").addClass("hide");
         }
+    });
+
+    var result=$('#disability').val();
+    if(result==1){
+        $('.disable').removeClass('hide');
+    }else{
+        $('.disable').addClass('hide')
+    }
+
         $(function () {
             window.onload = function () {
                 var name = $("#educationLevel :selected").text();
@@ -393,9 +414,11 @@
                 if (education === "Out of School" && (name === "N/A" || name === "Primary School")) {
                     $(".education-level").removeClass("hide");
                 }
-                var name = $("#hivStatusKnown :selected").text();
-                if (name === "Yes") {
+                var name = $("#hivStatusKnown").val();
+                if (name == '1') {
                     $(".status-known").removeClass("hide");
+                }else{
+                    $(".status-known").addClass("hide");
                 }
                 var name = $("#mobileOwner :selected").text();
                 if (name === "No") {
@@ -405,7 +428,14 @@
                 if (name === "No") {
                     $(".sec-own-mobile").removeClass("hide");
                 }
+
+                var result=$('#disability').val();
+                if(result==1){
+                    $('.disable').removeClass('hide');
+                }else{
+                    $('.disable').addClass('hide')
+                }
             };
         });
-        $(window).scrollTop("<c:out value="${item.currentElement}"/>");
+        <%--$(window).scrollTop("<c:out value="${item.currentElement}"/>");--%>
 </script>

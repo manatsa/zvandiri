@@ -23,8 +23,6 @@
                         <th>UAC</th>
                         <th>Age</th>
                         <th>Gender</th>
-                        <th>Test Result</th>
-                        <th>Date Taken</th>
                         <th>Date Joined</th>
                         <th>Region</th>
                         <th>District</th>
@@ -37,8 +35,6 @@
                         <th>UAC</th>
                         <th>Age</th>
                         <th>Gender</th>
-                        <th>Test Result</th>
-                        <th>Date Taken</th>
                         <th>Date Joined</th>
                         <th>Region</th>
                         <th>District</th>
@@ -53,8 +49,6 @@
                                     <td>${item.patientNumber}</td>
                                     <td>${item.age}</td>
                                     <td>${item.gender.name}</td>
-                                    <td>${item.viralLoad}</td>
-                                    <td><spring:eval expression="item.lastViralLoadDateTaken"/></td>
                                     <td><spring:eval expression="item.dateJoin"/></td>
                                     <td>${item.primaryClinic.district.province.name}</td>
                                     <td>${item.primaryClinic.district.name}</td>

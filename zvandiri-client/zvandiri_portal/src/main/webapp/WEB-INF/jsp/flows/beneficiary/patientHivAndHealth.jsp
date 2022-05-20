@@ -78,7 +78,7 @@
                             </div>
                             <div class="form-group disable hide">
                                 <label>Disability Type</label>
-                                <form:input path="disablityType" class="form-control general"/>
+                                <form:input path="disablityType" class="form-control"/>
                                 <p class="help-block">
                                     <form:errors path="disablityType" class="alert-danger"/>
                                 </p>
@@ -127,6 +127,8 @@
             var name = $("#hivStatusKnown").val();
             if (name == 1) {
                 $(".status-known").removeClass("hide");
+            }else{
+                $(".status-known").addClass("hide");
             }
             var result=$('#disability').val();
             if(result==1){

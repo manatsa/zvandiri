@@ -5,7 +5,7 @@
     <li class=""><a href="#labs" data-toggle="tab">Lab Results</a></li>
     <li class=""><a href="#primary-care-giver" data-toggle="tab">Primary CareGiver</a></li>
     <li class=""><a href="#dependants" data-toggle="tab">Dependants</a></li>
-    <c:if test="${patient.cat.name=='Yes'}">
+    <c:if test="${patient.cat.name=='Yes' || patient.youngMumGroup.name=='Yes'}">
         <li class=""><a href="#phone-detail" data-toggle="tab">Phone Info</a></li>
         <li class=""><a href="#bike-detail" data-toggle="tab">Bicycle Info</a></li>
     </c:if>
