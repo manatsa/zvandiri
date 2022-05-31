@@ -82,7 +82,9 @@ public class NewContactReportController extends BaseController {
     @RequestMapping(value = "/detailed", method = RequestMethod.POST)
     public String getReferralReportIndex(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
         ForkJoinPool pool = ForkJoinPool.commonPool();
+        System.err.println("<<<<<<<<<<<<<<< New Contact Detailed Report >>>>>>>>>>>>>>>>>");
         contacts = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(contactReportService.getCount(item)), contactReportService, item));
+        System.err.println("New Contact Detailed Items::"+contacts.size());
         model.addAttribute("items", contacts);
         return setUpModel(model, item, true);
     }
@@ -91,11 +93,10 @@ public class NewContactReportController extends BaseController {
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Detailed_Contact_Report");
         forceDownLoadDatabase(contactedPatients(item), name, response);
-
+        System.err.println("<<<<<<<<<<<<<<< New Contact Detailed Report Downloaded >>>>>>>>>>>>>>>>>");
     }
 
     public XSSFWorkbook contactedPatients(SearchDTO dto) {
-
 
 
         XSSFWorkbook workbook = new XSSFWorkbook();

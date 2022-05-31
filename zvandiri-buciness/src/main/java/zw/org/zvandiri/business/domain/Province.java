@@ -9,13 +9,15 @@ import javax.persistence.OneToMany;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import zw.org.zvandiri.business.util.dto.DistrictDTO;
+import zw.org.zvandiri.business.util.dto.ProvinceDTO;
 
 /**
  *
  * @author Judge Muzinda
  */
 @Entity 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties({"modifiedBy"})
 public class Province extends BaseName {
 
     @JsonIgnore
@@ -23,6 +25,10 @@ public class Province extends BaseName {
     private Set<District> districts = new HashSet<>();
     
     public Province() {
+    }
+
+    public ProvinceDTO getDistrictDTO(){
+        return new ProvinceDTO(getId(), this.getName(), this.getVersion());
     }
 
     public Province(String id) {

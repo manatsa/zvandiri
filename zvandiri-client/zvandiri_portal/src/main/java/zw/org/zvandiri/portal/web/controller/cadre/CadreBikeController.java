@@ -77,6 +77,7 @@ public class CadreBikeController extends BaseController {
 
         }else{
             item=new Bicycle(cadre);
+            model.addAttribute("cadre", cadre);
             model.addAttribute("item", item);
 
         }

@@ -25,10 +25,7 @@
                         <th>Primary Clinic</th>
                         <th>Date Screened</th>
                         <th>Identified With TB</th>
-                        <th>TB ID Outcome</th>
                         <th>Date Started Treatment</th>
-                        <th>Referral For Sputum</th>
-                        <th>Treatment Outcome</th>
                         <th>Referred For IPT</th>
                         <th>On IPT</th>
                         
@@ -42,10 +39,7 @@
                         <th>Primary Clinic</th>
                         <th>Date Screened</th>
                         <th>Identified With TB</th>
-                        <th>TB ID Outcome</th>
                         <th>Date Started Treatment</th>
-                        <th>Referral For Sputum</th>
-                        <th>Treatment Outcome</th>
                         <th>Referred For IPT</th>
                         <th>On IPT</th>
                        
@@ -61,10 +55,7 @@
                                 <td>${item.patient.primaryClinic.name}</td>
                                 <td><spring:eval expression="item.dateScreened" /></td>
                                 <td>${item.identifiedWithTb.name}</td>
-                                <td>${item.tbIdentificationOutcome.name}</td>
                                 <td><spring:eval expression="item.dateStartedTreatment" /></td>
-                                <td>${item.referralForSputum}</td>
-                                <td>${item.tbTreatmentOutcome.name}</td>
                                 <td>${item.referredForIpt.name}</td>
                                 <td>${item.onIpt.name}</td>
                                 

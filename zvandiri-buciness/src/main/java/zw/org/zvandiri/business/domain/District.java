@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import zw.org.zvandiri.business.util.dto.DistrictDTO;
 
 /**
  *
@@ -35,6 +36,10 @@ public class District extends BaseName {
     private Set<SupportGroup> supportGroups = new HashSet<>();
 
     public District() {
+    }
+
+    public DistrictDTO getDistrictDTO(){
+        return new DistrictDTO(getId(), this.getName(), this.getVersion());
     }
 
     public District(String id) {

@@ -16,7 +16,6 @@ public class PatientContact extends BaseEntity implements Serializable {
    private Patient patient;
    private MentalHealthScreening mentalHealthScreening;
    private TbIpt tbIpt;
-   private InvestigationTest investigationTest;
    private Contact contact;
    private Referral referral;
 
@@ -44,13 +43,6 @@ public class PatientContact extends BaseEntity implements Serializable {
         this.tbIpt = tbIpt;
     }
 
-    public InvestigationTest getInvestigationTest() {
-        return investigationTest;
-    }
-
-    public void setInvestigationTest(InvestigationTest investigationTest) {
-        this.investigationTest = investigationTest;
-    }
 
     public Referral getReferral() {
         return referral;
@@ -77,7 +69,6 @@ public class PatientContact extends BaseEntity implements Serializable {
                 ",province:"+patient.getPrimaryClinic().getDistrict().getProvince().getName()+",Active:"+patient.getActive()+",status"+patient.getStatus()+"]\n\n " +
                 "MH Details["+mentalHealthScreening.toString()+"]\n\n"+
                 "TB Details ["+tbIpt.toString()+"]\n\n"+
-                "VL Details ["+investigationTest.toString()+"]\n\n"+
                 "Referral Details ["+referral.toString()+"]\n\n"+
                 "Contact Details ["+contact.toString()+"]\n\n"
 

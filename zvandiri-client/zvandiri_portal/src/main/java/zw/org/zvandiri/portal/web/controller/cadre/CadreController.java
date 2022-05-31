@@ -22,6 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import zw.org.zvandiri.business.domain.Cadre;
 import zw.org.zvandiri.business.domain.MobilePhone;
@@ -37,6 +38,8 @@ import zw.org.zvandiri.portal.util.AppMessage;
 import zw.org.zvandiri.portal.util.MessageType;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import static zw.org.zvandiri.portal.web.controller.IAppTitle.APP_PREFIX;
+
+import zw.org.zvandiri.portal.web.validator.CadreValidator;
 import zw.org.zvandiri.portal.web.validator.TbScreeningValidator;
 
 import java.util.List;
@@ -65,12 +68,14 @@ public class CadreController extends BaseController {
     MobilePhoneService mobilePhoneService;
     @Resource
     SupportGroupService supportGroupService;
+    @Resource
+    CadreValidator cadreValidator;
 
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public String getIndex(ModelMap map, @RequestParam(required = false) String id) {
         map.addAttribute("pageTitle", APP_PREFIX + " " + "Cadre Management");
         map.addAttribute("cadres",cadreService.getAll());
-        System.err.println(new BCryptPasswordEncoder().encode("Gokwe2022"));
+        //System.err.println(new BCryptPasswordEncoder().encode("Gokwe2022"));
         return "cadre/index";
     }
 
@@ -105,14 +110,23 @@ public class CadreController extends BaseController {
 
     @RequestMapping(value = "item.form", method = RequestMethod.POST)
     public String saveItem(ModelMap map, @ModelAttribute("item") @Valid Cadre item, BindingResult result) {
-        map.addAttribute("message", new AppMessage.MessageBuilder().build());
+
+        cadreValidator.validate(item, result);
         if (result.hasErrors()) {
-            map.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
+            map.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(makeStringErrors(result)).messageType(MessageType.ERROR).build());
             return setUpModel(map, item);
         }
         item=cadreService.save(item);
         return "redirect:index?type=1&id=" + item.getId();
         //return "cadre/index";
+    }
+
+    private String makeStringErrors(BindingResult errors){
+        String result="";
+        for(ObjectError error:errors.getAllErrors()){
+            result+=error.toString()+"\n";
+        }
+        return result;
     }
 
     /*@RequestMapping(value = "item.delete", method = RequestMethod.GET)

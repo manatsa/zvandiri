@@ -72,14 +72,7 @@ public class PatientContactCreationServiceImpl implements PatientContactCreation
             System.err.println(" <<<<<< No TB/TPT item to save!");
         }
 
-        InvestigationTest vl=patientContact.getInvestigationTest();
-        if(vl.getTestDone().equals(YesNo.YES)){
-            vl=investigationTestService.save(vl);
-            patientContact.setInvestigationTest(vl);
-            System.err.println(" >>>>> SAVED VL ITEM :"+vl.toString());
-        }else{
-            System.err.println(" <<<<<< No VL item to save!");
-        }
+
 
         Referral referral=patientContact.getReferral();
         if(referral.getHasReferred().equals(YesNo.YES)){
@@ -124,14 +117,6 @@ public class PatientContactCreationServiceImpl implements PatientContactCreation
 
         if(patientContact.getTbIpt().getScreenedForTb().equals(YesNo.YES)){
             if(patientContact.getTbIpt().getTbSymptoms()!=null && patientContact.getTbIpt().getTbSymptoms().size()>0){
-                return FollowUp.ENHANCED;
-            }
-        }else{
-            // get previous latest screening
-        }
-
-        if(patientContact.getInvestigationTest()!=null && patientContact.getInvestigationTest().getTestDone().equals(YesNo.YES)){
-            if(patientContact.getInvestigationTest().getResult()!=null && (patientContact.getInvestigationTest().getResult()+"").trim()!="" && patientContact.getInvestigationTest().getResult()>1000){
                 return FollowUp.ENHANCED;
             }
         }else{

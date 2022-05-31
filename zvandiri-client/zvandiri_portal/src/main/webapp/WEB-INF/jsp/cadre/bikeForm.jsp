@@ -19,7 +19,7 @@
 
                     <div class="col-lg-10">
                         <form:form commandName="item" id="catPhoneForm" action="${formAction}">
-                            <form:hidden path="cadre" value="${bike.cadre}"/>
+                            <form:hidden path="cadre" value="${cadre}"/>
                             <%@include file="../template/formState.jspf" %>
                             <div class="form-group">
                                 <label>Bicycle Type</label>

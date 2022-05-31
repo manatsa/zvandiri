@@ -54,25 +54,36 @@
             if (count - current >= 1) {
                 cancelAjaxRequest(search_url);
             }
-            search_url = $.get(path + "/admin/user/search-users", {search: $this.val()}, function (us) {
-                $("#userListing").dataTable().fnClearTable(true);
-                $("#userListing").removeClass("hide");
-                $("#userListing_paginate").removeClass("hide");
-                current++;
-                for (i = 0; i < us.length; i++) {
-                    var user_url = "<a href='"+path+"/admin/user/user.form?id=" + us[i].id + "'>";
-                    var manage_password_url = "<a href='"+path+"/admin/managepassword.htm?id=" + us[i].id + "'>";
-                    var change_priviledges_url = "<a href='"+path+"/admin/changeprivileges.htm?id=" + us[i].id + "'>";
-                    var delete_user_url = "<a href='"+path+"/admin/user/user.delete?id=" + us[i].id + "'>";
-                    $("#userListing").dataTable().fnAddData([user_url +us[i].userName+ "</a>",
-                        us[i].lastName +" "+us[i].firstName,
-                        manage_password_url+"Change Password | </a>"+change_priviledges_url+"Edit Privileges | </a>" + delete_user_url+"Delete </a>"]);
-                }
-            });
+            try{
+
+                search_url = $.get(path + "/admin/user/search-users", {search: $this.val()}, function (us) {
+                    $("#userListing").dataTable().fnClearTable(true);
+                    $("#userListing").removeClass("hide");
+                    $("#userListing_paginate").removeClass("hide");
+                    current++;
+                    for (var i = 0; i < us.length; i++) {
+                        var user_url = "<a href='"+path+"/admin/user/user.form?id=" + us[i].id + "'>";
+                        var manage_password_url = "<a href='"+path+"/admin/managepassword.htm?id=" + us[i].id + "'>";
+                        var change_priviledges_url = "<a href='"+path+"/admin/changeprivileges.htm?id=" + us[i].id + "'>";
+                        var delete_user_url = "<a href='"+path+"/admin/user/user.delete?id=" + us[i].id + "'>";
+                        $("#userListing").dataTable().fnAddData([user_url +us[i].userName+ "</a>",
+                            us[i].lastName +" "+us[i].firstName,
+                            manage_password_url+"Change Password | </a>"+change_priviledges_url+"Edit Privileges | </a>" + delete_user_url+"Delete </a>"]);
+                    }
+                });
+
+            }catch (error){
+                console.log(error)
+            }
+
+
         } else {
             $("#userListing").dataTable().fnClearTable(true);
         }
     });
+
+
+
     $("#userListing").dataTable({
         "bFilter": false,
         "bSort": false,

@@ -57,6 +57,8 @@ public class ErrorController extends BaseController{
         map.addAttribute("pageTitle", pageTitle);
         map.addAttribute("referer", referer);
         map.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(errorMsg).messageType(MessageType.ERROR).build());
+        Exception e=(Exception)request.getAttribute("javax.servlet.error.exception");
+        e.printStackTrace();
         return "error";
     }
     

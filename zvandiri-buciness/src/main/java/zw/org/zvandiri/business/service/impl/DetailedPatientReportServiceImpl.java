@@ -31,8 +31,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
 import zw.org.zvandiri.business.service.PatientService;
+import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.PatientInnerJoin;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
@@ -45,8 +47,12 @@ import zw.org.zvandiri.business.util.dto.SearchDTO;
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class DetailedPatientReportServiceImpl implements DetailedPatientReportService {
 
+    @Resource
+    UserService userService;
+
     @PersistenceContext
     private EntityManager entityManager;
+
     @Resource
     private PatientService patientService;
 
@@ -969,19 +975,19 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
     @Override
     public List<Patient> get(List<String> ids) {
         final long start = System.currentTimeMillis();
-        System.err.println("IDs Size::" + ids.size());
+        System.err.println(":: IDs Size::" + ids.size());
         if (ids == null || ids.isEmpty()) {
         	return null;
         }
         String builder = "Select Distinct p from Patient p " + PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH + " where p.id in (:ids)";
         TypedQuery<Patient> query = entityManager.createQuery(builder, Patient.class);
         query.setParameter("ids", ids);
-        query.setHint(QueryHints.HINT_READONLY, true);
+        //query.setHint(QueryHints.HINT_READONLY, true);
         List<Patient> list = query.getResultList();
         final long end = System.currentTimeMillis();
         final long time = end -start;
-        System.err.println("Taken::" + time);
-        System.err.println("Records::" + list.size());
+        System.err.println(":: Taken (mins)::" + (double)(time/6000));
+        System.err.println(":: Patients::" + list.size());
         return list;
     }
     

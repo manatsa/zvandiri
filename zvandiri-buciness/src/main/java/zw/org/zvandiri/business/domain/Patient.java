@@ -94,7 +94,7 @@ public class Patient extends GenericPatient {
     @Formula("(Select i.result From investigation_test i where i.patient = id and i.test_type = 0 order by i.date_created desc limit 0,1)")
     private Integer viralLoad;
 
-    @Formula("(Select i.id From investigation_test i where i.patient = id and i.test_type = 0 order by i.date_created desc limit 0,1)")
+    @Formula("(Select i.id From investigation_test i where i.patient = id and i.test_type = 0 order by i.date_taken desc limit 0,1)")
     private String lastViralLoad;
 
     @Formula("(Select i.result From investigation_test i where i.patient = id and i.test_type = 1 order by i.date_created desc limit 0,1)")

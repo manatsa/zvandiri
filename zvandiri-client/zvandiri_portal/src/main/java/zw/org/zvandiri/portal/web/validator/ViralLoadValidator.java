@@ -24,7 +24,11 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import zw.org.zvandiri.business.domain.InvestigationTest;
+import zw.org.zvandiri.business.domain.User;
 import zw.org.zvandiri.business.domain.util.YesNo;
+import zw.org.zvandiri.business.service.UserService;
+
+import javax.annotation.Resource;
 
 /**
  *
@@ -32,6 +36,9 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  */
 @Component
 public class ViralLoadValidator implements Validator {
+
+    @Resource
+    UserService userService;
 
     @Override
     public boolean supports(Class<?> type) {
@@ -76,8 +83,10 @@ public class ViralLoadValidator implements Validator {
 //            errors.rejectValue("dateTaken", "date.beforebirth");
 //        }
 
-        for(ObjectError error: errors.getAllErrors()){
-            System.err.println("Error : "+error.toString());
+        if(errors.hasErrors()){
+            User user=userService.getCurrentUser();
+            System.err.println(" *** UserName : "+user.getUserName()+", FirstName : "+user.getFirstName()+", LastName : "+user.getLastName()+
+                    ", District : "+user.getDistrict()+", Province : "+user.getProvince()+"\n"+errors);
         }
     }
 }

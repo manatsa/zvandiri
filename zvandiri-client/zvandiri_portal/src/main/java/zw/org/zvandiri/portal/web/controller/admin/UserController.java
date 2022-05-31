@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.portal.web.controller.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -126,8 +127,13 @@ public class UserController extends BaseController{
     @ResponseBody
     public List<UserDTO> searchPatient(@RequestParam("search") String search) {
         String[] names = search.split(" ");
-        List<UserDTO> users = UserDTO.getInstance(userService.searchUsers(names));
-        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& : " + users);
+        List<UserDTO> users=new ArrayList<>();
+        try {
+            users = UserDTO.getInstance(userService.searchUsers(names));
+            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& : " + users);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return users;
     }
     

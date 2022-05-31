@@ -137,8 +137,7 @@ public interface DatabaseHeader {
 
     public final String [] TB_IPT_HEADER = {
             "UIC", "Client Name","Date of Birth", "Age", "Gender","Region", "District","Primary Clinic","Date Of Entry", "Screened for TB",
-            "Date Screened", "Indentified with TB", "TB Identification Outcome", "Date Started Treatment",
-            "Referral for Sputum", "TB Treatment Outcome", "Referred for IPT", "On IPT", "Date Started IPT", "IS CATS", "In YMM Programme", "In YMD Programme"
+            "Date Screened", "Indentified with TB Symptoms",  "Date Started Treatment","Referred for IPT", "On IPT", "Date Started IPT", "IS CATS", "In YMM Programme", "In YMD Programme"
     };
 
     public final String [] LAST_CONTACT_HEADER = {
@@ -148,10 +147,9 @@ public interface DatabaseHeader {
 
     public final String [] MENTAL_HEALTH_SCREENING_HEADER = {
     		"UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic","Date Of Entry", "Screened For Mental Health", "Date Screened",
-            "Mental health Screening Type", "Risk", "Identified Risks", "Received Support", "Support Received", "Referral",
-            "Referrals Received", "Diagnosis", "Diagnosis Done", "Other Diagnosis", "Intervention", "Interventions", "Other Interventions", "IS CATS", "In YMM Programme", "In YMD Programme"
+            "Mental health Screening Type", "Risk", "Identified Risks", "Received Support", "Support Received", "Referral","IS CATS", "In YMM Programme", "In YMD Programme"
     };
-    String[] VLS_CLIENTS_HEADER = {
+    public final String[] VLS_CLIENTS_HEADER = {
             "Client Name","Date of Birth", "Age", "Gender","Test Result","Test Type","Suppression Status","Entry Date","Date Taken",
             "Address","Mobile Phone","Referrer","Region", "District","Primary Clinic",  "IS CATS", "In YMM Programme","In YMD Programme"
     };

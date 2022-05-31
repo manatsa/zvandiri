@@ -19,59 +19,49 @@
 				<div class="col-lg-12">
 					<table id="tableList" class="display" cellspacing="0">
 						<thead>
-							<th>Name</th>
-							<th>Age</th>
-							<th>Gender</th>
-							<th>Phone No.</th>
-							<th>Is CATS</th>
-							<th>In YMM</th>
-							<th>In YMD</th>
-							<th>District</th>
-							<th>Clinic</th>
-							<th>Current Level Of Care</th>
-							<th>Contact Date</th>
-							<th>Follow Up</th>
-							<th>Place of Contact</th>
-							<th>New Level of Care</th>
-							<th>Contacted By</th>
+						<th>Name</th>
+						<th>Age</th>
+						<th>Gender</th>
+						<th>Phone No.</th>
+						<th>District</th>
+						<th>Clinic</th>
+						<th>Contact Date</th>
+						<th>Current Care Level</th>
+						<th>Place of Contact</th>
+						<th>Previous Care Level</th>
+						<th>Contacted By</th>
 						</thead>
 						<tfoot>
-							<th>Name</th>
-							<th>Age</th>
-							<th>Gender</th>
-							<th>Phone No.</th>
-							<th>Is CATS</th>
-							<th>In YMM</th>
-							<th>In YMD</th>
-							<th>District</th>
-							<th>Clinic</th>
-							<th>Current Level Of Care</th>
-							<th>Contact Date</th>
-							<th>Follow Up</th>
-							<th>Place of Contact</th>
-							<th>New Level of Care</th>
-							<th>Contacted By</th>
+						<thead>
+						<th>Name</th>
+						<th>Age</th>
+						<th>Gender</th>
+						<th>Phone No.</th>
+						<th>District</th>
+						<th>Clinic</th>
+						<th>Contact Date</th>
+						<th>Current Care Level</th>
+						<th>Place of Contact</th>
+						<th>Previous Care Level</th>
+						<th>Contacted By</th>
+						</thead>
 						</tfoot>
 						<tbody>
-							<c:forEach var="item" items="${items}">
-								<tr>
-									<td>${item.patient.name}</td>
-									<td>${item.patient.age}</td>
-									<td>${item.patient.gender.name}</td>
-									<td>${item.patient.mobileNumber}</td>
-									<td>${item.patient.cat.name}</td>
-									<td>${item.patient.youngMumGroup.name}</td>
-									<td>${item.patient.youngDadGroup.name}</td>
-									<td>${item.patient.primaryClinic.district.name}</td>
-									<td>${item.patient.primaryClinic.name}</td>
-									<td>${item.currentCareLevel.name}</td>
-									<td><spring:eval expression="item.contactDate" /></td>
-									<td>${item.followUp.name}</td>
-									<td>${item.location.name}</td>
-									<td>${item.careLevel.name}</td>
-									<td>${item.position.name}</td>
-								</tr>
-							</c:forEach>
+						<c:forEach var="item" items="${items}">
+							<tr>
+								<td>${item.patient.name}</td>
+								<td>${item.patient.age}</td>
+								<td>${item.patient.gender.name}</td>
+								<td>${item.patient.mobileNumber}</td>
+								<td>${item.patient.primaryClinic.district.name}</td>
+								<td>${item.patient.primaryClinic.name}</td>
+								<td><spring:eval expression="item.contactDate" /></td>
+								<td>${item.careLevelAfterAssessment.name}</td>
+								<td>${item.location.name}</td>
+								<td>${item.careLevel.name}</td>
+								<td>${item.position.name}</td>
+							</tr>
+						</c:forEach>
 						</tbody>
 					</table>
 				</div>
@@ -81,7 +71,7 @@
 		<div class="panel-footer" style="text-align: right">
 			Export/ View As <a href="${page}${excelExport}"> <img
 				src="<c:url value="/resources/images/excel.jpeg"/>" />
-			</a>
+		</a>
 		</div>
 	</div>
 </div>
@@ -92,15 +82,15 @@
 	// ensire toggle side bar is pointing right
 	$("span.toggle-span").addClass("fa-long-arrow-right");
 	$("span.toggle-span").removeClass("fa-long-arrow-left");
-	
+
 	$("#item").validate({
-	       rules: {
-	           startDate: {
-	               required: true
-	           },
-	           endDate: {
-	               required: true
-	           }
-	       } 
-	    });
+		rules: {
+			startDate: {
+				required: true
+			},
+			endDate: {
+				required: true
+			}
+		}
+	});
 </script>

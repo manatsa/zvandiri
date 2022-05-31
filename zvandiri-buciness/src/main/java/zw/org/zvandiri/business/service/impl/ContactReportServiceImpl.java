@@ -258,10 +258,10 @@ public class ContactReportServiceImpl implements ContactReportService {
             }
             if (dto.getFollowUp() != null) {
                 if (position == 0) {
-                    builder.append("c.followUp=:followUp");
+                    builder.append("c.careLevelAfterAssessment=:followUp");
                     position++;
                 } else {
-                    builder.append(" and c.followUp=:followUp");
+                    builder.append(" and c.careLevelAfterAssessment=:followUp");
                 }
             }
         }
@@ -301,7 +301,9 @@ public class ContactReportServiceImpl implements ContactReportService {
         }
         query.setFirstResult(dto.getFirstResult());
         query.setMaxResults(dto.getPageSize());
-        return query.getResultList();
+        List contactList=query.getResultList();
+        System.err.println("Contact Parts Retrieved :: "+ contactList.size());
+        return contactList;
     }
 
     @Override

@@ -62,7 +62,7 @@ public class CadrePhoneController extends BaseController {
         model.addAttribute("formAction", "item.form");
         model.addAttribute("phoneCondition", Condition.values());
         model.addAttribute("phoneStatus", PhoneStatus.values());
-        if(item.getId()!=null){
+        if(item!=null && item.getId()!=null){
             if(cadre!=null){
                 if (cadre.getPrimaryClinic().getProvince() != null) {
                     model.addAttribute("districts", districtService.getDistrictByProvince(item.getCadre().getProvince()));
@@ -78,6 +78,7 @@ public class CadrePhoneController extends BaseController {
         }else{
             item=new MobilePhone();
             item.setCadre(cadre);
+            model.addAttribute("cadre", cadre);
             model.addAttribute("item", item);
             System.err.println("Mobile phone is new");
 
@@ -87,16 +88,12 @@ public class CadrePhoneController extends BaseController {
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.GET)
-    public String getForm(ModelMap model, @RequestParam(required = false) String id, BindingResult result) {
+    public String getForm(ModelMap model, @RequestParam(required = false) String id) {
 
         Cadre cadre = cadreService.get(id);
+        System.err.println("cadre :"+cadre);
         MobilePhone phone=mobilePhoneService.getByCadre(cadre);
-
-        if (result.hasErrors()) {
-            model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());
-            return setUpModel(model, phone, cadre);
-        }
-
+        System.err.println("phone:"+phone);
         return setUpModel(model, phone, cadre);
     }
 

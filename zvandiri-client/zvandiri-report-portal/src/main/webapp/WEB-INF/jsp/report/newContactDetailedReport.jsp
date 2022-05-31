@@ -25,26 +25,26 @@
 							<th>Phone No.</th>
 							<th>District</th>
 							<th>Clinic</th>
-							<th>Current Level Of Care</th>
 							<th>Contact Date</th>
-							<th>Follow Up</th>
+							<th>Current Care Level</th>
 							<th>Place of Contact</th>
-							<th>New Level of Care</th>
+							<th>Previous Care Level</th>
 							<th>Contacted By</th>
 						</thead>
 						<tfoot>
+						<thead>
 							<th>Name</th>
 							<th>Age</th>
 							<th>Gender</th>
 							<th>Phone No.</th>
 							<th>District</th>
 							<th>Clinic</th>
-							<th>Current Level Of Care</th>
 							<th>Contact Date</th>
-							<th>Follow Up</th>
+							<th>Current Care Level</th>
 							<th>Place of Contact</th>
-							<th>New Level of Care</th>
+							<th>Previous Care Level</th>
 							<th>Contacted By</th>
+						</thead>
 						</tfoot>
 						<tbody>
 							<c:forEach var="item" items="${items}">
@@ -55,9 +55,8 @@
 									<td>${item.patient.mobileNumber}</td>
 									<td>${item.patient.primaryClinic.district.name}</td>
 									<td>${item.patient.primaryClinic.name}</td>
-									<td>${item.currentCareLevel.name}</td>
 									<td><spring:eval expression="item.contactDate" /></td>
-									<td>${item.followUp.name}</td>
+									<td>${item.careLevelAfterAssessment.name}</td>
 									<td>${item.location.name}</td>
 									<td>${item.careLevel.name}</td>
 									<td>${item.position.name}</td>

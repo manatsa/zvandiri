@@ -72,7 +72,9 @@ public class ContactReportController extends BaseController {
         if (post) {
             model.addAttribute("excelExport", "/report/contact/export/excel" + item.getQueryString(item.getInstance(item)));
             ForkJoinPool pool = ForkJoinPool.commonPool();
+            System.err.println("+++++++++++++++++++ New Contact Detailed Report +++++++++++++++++++++");
             List items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(contactReportService.getCount(item)), contactReportService, item));
+            System.err.println("Contact Detailed Items::"+items.size());
             model.addAttribute("items", items);
         }
         model.addAttribute("item", item.getInstance(item));
@@ -93,5 +95,6 @@ public class ContactReportController extends BaseController {
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Detailed_Contact_Report");
         forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(detailedReportService.getDefaultReportB(item.getInstance(item)), name), name, response);
+        System.err.println("<<<<<<<<<<<<<<< Contact Detailed Report Downloaded >>>>>>>>>>>>>>>>>");
     }
 }

@@ -81,7 +81,7 @@
                         pat[i].district,
                         pat[i].primaryClinic,
                         pat[i].active === true ?
-                            contact_url+"Add Contact  </a>"+vl_url+"VL/Bleeding | </a>" : ""]);
+                            contact_url+"Add Contact  </a>" : ""]);
                         //contact_url+"Contact | </a>"+referral_url+"Referral | </a>" + vl_url+"VL/Bleeding | </a>" + mental_health_screening_url + "Mental Health Screening</a>" : ""]);
                 }
             });

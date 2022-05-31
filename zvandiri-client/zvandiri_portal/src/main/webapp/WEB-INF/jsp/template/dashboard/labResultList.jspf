@@ -9,14 +9,24 @@
                 <th>RESULT</th>
                 <th>Next Lab Due</th>
                 <th>Source</th>
-                <%--<th>&nbsp;</th>--%>
+
             </tr>
         </thead>
+        <tfoot>
+        <tr>
+            <th>Date Taken</th>
+            <th>Test Type</th>
+            <th>RESULT</th>
+            <th>Next Lab Due</th>
+            <th>Source</th>
+
+        </tr>
+        </tfoot>
         <tbody>
         <c:forEach var="viral" items="${viralLoads}">
             <tr>
                 <td><spring:eval expression="viral.dateTaken"/></td>
-                <td>${viral.source.name}</td>
+                <td>${viral.testType.name}</td>
                 <td>${viral.result==null?viral.tnd:viral.result}</td>
                 <td><c:if test="${viral.nextTestDate != null}"><spring:eval expression="viral.nextTestDate"/></c:if></td>
                 <td>${viral.source.name}</td>
@@ -43,6 +53,15 @@
                     <th>&nbsp;</th>
                 </tr>
             </thead>
+            <tfoot>
+            <tr>
+                <th>Date Taken</th>
+                <th>Result</th>
+                <th>Next Lab Due</th>
+                <th>Source</th>
+                <th>&nbsp;</th>
+            </tr>
+            </tfoot>
             <tbody>
             <c:forEach var="eid" items="${eids}">
                 <tr>

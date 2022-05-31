@@ -30,6 +30,7 @@ public class GenericCountReportTask extends RecursiveTask<List> {
     @Override
     protected List compute() {
         if (arrCount.size() <= ReportGenConstants.SEQUENTIAL_THRESHOLD) {
+            System.err.println("Contacts Parts Data Size::"+arrCount.size());
             return process();
         } else {
             int mid = arrCount.size() / 2;
@@ -49,6 +50,7 @@ public class GenericCountReportTask extends RecursiveTask<List> {
         searchData.setFirstResult(first);
         Integer pageSize = arrCount.get(arrCount.size() - 1) - searchData.getFirstResult();
         searchData.setPageSize(pageSize);
+        System.err.println("Contact Parts IDS ::"+arrCount.size());
         return reportService.get(searchData.getInstance(searchData));
     }
 }

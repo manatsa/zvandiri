@@ -26,8 +26,8 @@ public class UserDTO implements Serializable{
     private String lastName;
     private String userName;
     private UserLevel userLevel;
-    private Province province;
-    private District district;
+    private ProvinceDTO province;
+    private DistrictDTO district;
     private String roles;
 
     public String getId() {
@@ -78,19 +78,19 @@ public class UserDTO implements Serializable{
         this.userLevel = userLevel;
     }
 
-    public Province getProvince() {
+    public ProvinceDTO getProvince() {
         return province;
     }
 
-    public void setProvince(Province province) {
+    public void setProvince(ProvinceDTO province) {
         this.province = province;
     }
 
-    public District getDistrict() {
+    public DistrictDTO getDistrict() {
         return district;
     }
 
-    public void setDistrict(District district) {
+    public void setDistrict(DistrictDTO district) {
         this.district = district;
     }
 
@@ -110,8 +110,8 @@ public class UserDTO implements Serializable{
         item.setLastName(user.getLastName());
         item.setUserName(user.getUserName());
         item.setUserLevel(user.getUserLevel());
-        item.setDistrict(user.getDistrict());
-        item.setProvince(user.getProvince());
+        item.setDistrict(new DistrictDTO(user.getDistrict()));
+        item.setProvince(new ProvinceDTO(user.getProvince()));
         item.setRoles(getRolesString(user));
         return item;
     }

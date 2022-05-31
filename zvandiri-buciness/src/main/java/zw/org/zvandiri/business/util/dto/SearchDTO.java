@@ -105,6 +105,8 @@ public class SearchDTO implements Serializable {
     private List<District> districts;
     private List<Province> provinces;
     private List<Facility> facilities;
+    private String currentUserName;
+    private String userDistrict;
 
     public SearchDTO() {
     }
@@ -117,7 +119,8 @@ public class SearchDTO implements Serializable {
             User createdBy, Indicator indicator, Integer start, Integer max, Set<PatientChangeEvent> statuses,
             Integer maxViralLoad, Integer minViralLoad, Boolean isDueForVL, Integer minCd4Count, UserType userType, TestType testType, Reason reason, YesNo hei,
             Result result, TbTreatmentStatus tbTreatmentStatus, TbTreatmentOutcome tbTreatmentOutcome,
-            UserLevel userLevel, Set<UserRole> userRoles, Integer firstResult, Integer pageSize, List<Province> provinces, List<District> districts, List<Facility> facilities) {
+            UserLevel userLevel, Set<UserRole> userRoles, Integer firstResult, Integer pageSize, List<Province> provinces,
+            List<District> districts, List<Facility> facilities, String currentUserName, String userDistrict) {
         this.period = period;
         this.province = province;
         this.district = district;
@@ -162,6 +165,8 @@ public class SearchDTO implements Serializable {
         this.provinces=provinces;
         this.districts=districts;
         this.facilities=facilities;
+        this.currentUserName=currentUserName;
+        this.userDistrict=userDistrict;
     }
 
     public List<District> getDistricts() {
@@ -516,6 +521,22 @@ public class SearchDTO implements Serializable {
         this.pageSize = pageSize;
     }
 
+    public String getCurrentUserName() {
+        return currentUserName;
+    }
+
+    public void setCurrentUserName(String currentUserName) {
+        this.currentUserName = currentUserName;
+    }
+
+    public String getUserDistrict() {
+        return userDistrict;
+    }
+
+    public void setUserDistrict(String userDistrict) {
+        this.userDistrict = userDistrict;
+    }
+
     public Boolean getSearch(SearchDTO dto) {
         if ((dto.getStatuses() != null && !dto.getStatuses().isEmpty()) || dto.getProvince() != null
                 || dto.getDistrict() != null || dto.getPrimaryClinic() != null
@@ -831,7 +852,8 @@ public class SearchDTO implements Serializable {
                 dto.getCreatedBy(), dto.getIndicator(), dto.getStart(), dto.getMax(), dto.getStatuses(),
                 dto.getMaxViralLoad(), dto.getMinViralLoad(), dto.getIsDueForVL(), dto.getMinCd4Count(), dto.getUserType(), dto.getTestType(), dto.getReason(),
                 dto.getHei(), dto.getResult(), dto.getTbTreatmentStatus(), dto.getTbTreatmentOutcome(),
-                dto.getUserLevel(), dto.getUserRoles(), dto.getFirstResult(), dto.getPageSize(), dto.getProvinces(), dto.getDistricts(),dto.getFacilities());
+                dto.getUserLevel(), dto.getUserRoles(), dto.getFirstResult(), dto.getPageSize(), dto.getProvinces(),
+                dto.getDistricts(),dto.getFacilities(), dto.getCurrentUserName(), dto.getUserDistrict());
     }
 
     /*public String toString(){
