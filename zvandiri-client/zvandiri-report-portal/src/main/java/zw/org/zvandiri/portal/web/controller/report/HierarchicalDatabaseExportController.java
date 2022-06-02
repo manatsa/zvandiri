@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.District;
 import zw.org.zvandiri.business.domain.Facility;
 import zw.org.zvandiri.business.domain.Province;
+import zw.org.zvandiri.business.domain.User;
+import zw.org.zvandiri.business.domain.util.UserLevel;
+import zw.org.zvandiri.business.domain.util.UserType;
 import zw.org.zvandiri.business.service.DistrictService;
 import zw.org.zvandiri.business.service.FacilityService;
 import zw.org.zvandiri.business.service.ProvinceService;
@@ -67,13 +70,17 @@ public class HierarchicalDatabaseExportController extends BaseController {
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_DATA_CLERK') or hasRole('ROLE_M_AND_E_OFFICER') or hasRole('ROLE_HOD_M_AND_E')")
     public void getExcelExport(ModelMap model,HttpServletResponse response, @ModelAttribute("item") SearchDTO dto) {
         try{
+            String currentUserName=userService.getCurrentUsername();
+            User currentUser=userService.getCurrentUser();
+
             dto = getUserLevelObjectState(dto);
-            //dto.setCurrentUserName(userService.getCurrentUser());
+            dto.setCurrentUserName(currentUserName);
+            dto.setUserLevel(currentUser.getUserLevel());
             System.err.println("Current User: "+userService.getCurrentUsername()+"//// User::"+userService.getCurrentUser());
             String name = DateUtil.getFriendlyFileName("Zvandiri_Hierarchical_Database_Export");
             long startTime=System.currentTimeMillis();
             forceDownLoadXLSX(officeExportService.exportDatabase(name, dto), name, response);
-            System.err.println(" >>>>>> >>>>> Time to finish report : "+((System.currentTimeMillis()-startTime)/60000)+" minutes\n\n");
+            System.err.println(" >>>>>> >>>>>User:"+dto.getCurrentUserName()+" === User Level:"+dto.getUserLevel()+" Time to finish report : "+((System.currentTimeMillis()-startTime)/60000)+" minutes\n\n");
         }catch (Exception e){
             e.printStackTrace();
         }

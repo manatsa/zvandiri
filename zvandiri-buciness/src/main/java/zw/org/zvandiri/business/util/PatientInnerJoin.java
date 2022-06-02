@@ -27,7 +27,7 @@ public interface PatientInnerJoin {
 
     public final String PATIENT_CHILD_INNER_JOIN = "left join fetch c.patient.disabilityCategorys left join fetch c.patient.education left join fetch c.patient.educationLevel left join fetch c.patient.referer left join fetch c.patient.primaryClinic left join fetch c.patient.supportGroup left join fetch c.patient.relationship left join fetch c.patient.mobileOwnerRelation left join fetch c.patient.secondaryMobileownerRelation left join fetch c.patient.createdBy left join fetch c.patient.modifiedBy";
 
-    public final String PATIENT_FULL_ASSOC_FETCH = " left join fetch p.arvHists left join fetch p.investigationTests left join fetch p.tbIpts left join fetch p.mortalitys left join fetch p.mentalHealthScreenings left join fetch p.contacts left join fetch p.referrals ";
+    public final String PATIENT_FULL_ASSOC_FETCH = " left join fetch p.arvHists left join fetch p.investigationTests left join fetch p.tbIpts left join fetch p.mortalitys left join fetch p.mentalHealthScreenings ";
     //public final String PATIENT_FULL_ASSOC_FETCH = " left join fetch p.referrals "; //left join fetch p.tbIpts left join fetch p.mortalitys left join fetch p.mentalHealthScreenings";
 
 }

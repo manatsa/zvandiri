@@ -23,16 +23,14 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.*;
-import zw.org.zvandiri.business.repo.ContactRepo;
-import zw.org.zvandiri.business.repo.ReferralRepo;
+import zw.org.zvandiri.business.repo.*;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.Reportutil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.report.api.DatabaseHeader;
 import zw.org.zvandiri.report.api.GenericReportModel;
 import zw.org.zvandiri.report.api.service.OfficeExportService;
-import zw.org.zvandiri.report.api.service.parallel.PatientDatabaseExportTask;
-import zw.org.zvandiri.report.api.service.parallel.PatientReportTask;
+import zw.org.zvandiri.report.api.service.parallel.*;
 
 import javax.annotation.Resource;
 import java.util.HashSet;
@@ -63,6 +61,21 @@ public class OfficeExportServiceImpl implements OfficeExportService {
     private MentalHealthScreeningService mentalHealthScreeningService;
     @Resource 
     private ReferralRepo referralRepo;
+
+    @Resource
+    InvestigationTestRepo investigationTestRepo;
+
+    @Resource
+    MentalHealthScreeningRepo mentalHealthScreeningRepo;
+
+    @Resource
+    TbIptRepo tbIptRepo;
+
+    @Resource
+    ArvHistRepo arvHistRepo;
+
+    @Resource
+    MortalityRepo mortalityRepo;
 
     @Override
     public XSSFWorkbook exportExcelFile(List<GenericReportModel> XSSFRows, String name) {
@@ -146,49 +159,64 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 XSSFCell XSSFCell = header.createCell(XSSFCellNum++);
                 XSSFCell.setCellValue(title);
             }
-            SearchDTO dto2 = new SearchDTO();
-            dto2.setProvince(dto.getProvince());
-            dto2.setDistrict(dto.getDistrict());
-            dto2.setPrimaryClinic(dto.getPrimaryClinic());
-            dto2.setProvinces(dto.getProvinces());
-            dto2.setDistricts(dto.getDistricts());
-            dto2.setFacilities(dto.getFacilities());
 
-            dto2.setFirstResult(0);
-            dto2.setPageSize(detailedPatientReportService.getCount(dto2).intValue());
-            List<String> ids = detailedPatientReportService.getIds(dto2);
+
+            dto.setFirstResult(0);
+            dto.setPageSize(detailedPatientReportService.getCount(dto).intValue());
+            List<String> ids = detailedPatientReportService.getIds(dto);
             ForkJoinPool pool = ForkJoinPool.commonPool();
-//            List<Patient> patients = pool.invoke(new PatientDatabaseExportTask(ids, detailedPatientReportService));
-            List<Patient> patients=detailedPatientReportService.get(ids);
+            List<Patient> patients = pool.invoke(new PatientDatabaseExportTask(ids, detailedPatientReportService));
+            //List<Patient> patients=detailedPatientReportService.get(ids);
             final long end = System.currentTimeMillis();
             final long time = end - start;
-            System.err.println(":: Fetched all IDs (min)::" + (double)(time/60000));
-            Set<Referral> referrals = new HashSet<>();
-            Set<Contact> contacts = new HashSet<>();
+            System.err.println("User::"+dto.getCurrentUserName()+"==== User Level:"+dto.getUserLevel()+" ==>:: All Patientss (min)::" + (double)(time/60000));
 //        //Set<Dependent> dependents = new HashSet<>();
 //        //Set<ChronicInfectionItem> chronicInfectionItems = new HashSet<>();
 //        //Set<MentalHealthItem> mentalHealthItems = new HashSet<>();
 //        //Set<ObstercHist> obstercHists = new HashSet<>();
 //        //Set<SocialHist> socialHists = new HashSet<>();
 //        //Set<SubstanceItem> substanceItems = new HashSet<>();
-            Set<InvestigationTest> investigationTests = new HashSet<>();
-            Set<ArvHist> arvHists = new HashSet<>();
+
 //        //Set<HivConInfectionItem> hivConInfectionItems = new HashSet<>();
-            Set<TbIpt> tbIpts = new HashSet<>();
-            Set<Mortality> mortalitys = new HashSet<>();
-            Set<MentalHealthScreening> mentalHealthScreenings = new HashSet<>();
+
             int numPatient = 0;
-            patients = pool.invoke(new PatientReportTask(patients, dto, contactRepo, referralRepo));
+//            final long p_end = System.currentTimeMillis();
+//            System.err.println(" :: Finished Collation of Patients Data (min)::" + (double)((p_end-end)/60000));
+            List<Contact> contacts = pool.invoke(new PatientContactsTask(patients, dto, contactRepo));
+            final long contact_end=System.currentTimeMillis();
+            System.err.println("User::"+dto.getCurrentUserName()+"==== User Level:"+dto.getUserLevel()+" ==>:: Collation of DB Contacts Data (min)::" + (double)((contact_end-end)/60000));
+
+            List<Referral> referrals = pool.invoke(new PatientReferralsTask(patients, dto, referralRepo));
+            final long referral_end=System.currentTimeMillis();
+            System.err.println("User::"+dto.getCurrentUserName()+"==== User Level:"+dto.getUserLevel()+" ==> :: Collation of DB Referrals Data (min)::" + (double)((referral_end-contact_end)/60000));
+
+            List<InvestigationTest> investigationTests = pool.invoke(new PatientVLsTask(patients, dto, investigationTestRepo));
+            final long vls_end=System.currentTimeMillis();
+            System.err.println("User::"+dto.getCurrentUserName()+"==== User Level:"+dto.getUserLevel()+" ==> :: Collation of DB VLs Data (min)::" + (double)((vls_end-referral_end)/60000));
+
+            List<MentalHealthScreening> mentalHealthScreenings = pool.invoke(new PatientMentalHealthScreeningTask(patients, dto, mentalHealthScreeningRepo));
+            final long mhs_end=System.currentTimeMillis();
+            System.err.println("User::"+dto.getCurrentUserName()+"==== User Level:"+dto.getUserLevel()+" ==> :: Collation of DB MHs Data (min)::" + (double)((mhs_end-vls_end)/60000));
+
+            List<TbIpt> tbIpts = pool.invoke(new PatientTB_TPTTask(patients, dto, tbIptRepo));
+            final long tbs_end=System.currentTimeMillis();
+            System.err.println("User::"+dto.getCurrentUserName()+"==== User Level:"+dto.getUserLevel()+" ==>:: Collation of DB TBs Data (min)::" + (double)((tbs_end-mhs_end)/60000));
+
+            List<ArvHist> arvHists = pool.invoke(new PatientArvHistTask(patients, dto, arvHistRepo));
+            final long arv_end=System.currentTimeMillis();
+            System.err.println("User::"+dto.getCurrentUserName()+"==== User Level:"+dto.getUserLevel()+" ==> :: Collation of DB ARV_HIST Data (min)::" + (double)((arv_end-tbs_end)/60000));
+
+//            List<Mortality> mortalitys = pool.invoke(new PatientMortalityTask(patients, dto, mortalityRepo));
+//            final long mort_end=System.currentTimeMillis();
+//            System.err.println(" :: Collation of DB MORTALITY Data (min)::" + (double)((mort_end-arv_end)/60000));
             pool.shutdown();
-            final long c_end = System.currentTimeMillis();
-            final long c_final = c_end - end;
-            System.err.println(" :: Finished Collation of Patients Data (min)::" + (double)(c_final/60000));
+
             final long start_patient=System.currentTimeMillis();
             for (Patient patient : patients) {
                 int count = 0;
                 InvestigationTest vlTest = patient.getLastPatientVL(investigationTestService);
                 Contact contact=contactService.findLatestContact(patient);
-                contacts.addAll(patient.getContacts());
+                //contacts.addAll(patient.getContacts());
                 //dependents.addAll(patient.getDependents());
                 //chronicInfectionItems.addAll(patient.getChronicInfectionItems());
                 //hivConInfectionItems.addAll(patient.getHivConInfectionItems());
@@ -196,8 +224,8 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 //obstercHists.addAll(patient.getObstercHists());
                 //socialHists.addAll(patient.getSocialHists());
                 //substanceItems.addAll(patient.getSubstanceItems());
-                investigationTests.addAll(patient.getInvestigationTests());
-                arvHists.addAll(patient.getArvHists());
+                //investigationTests.addAll(patient.getInvestigationTests());
+                //arvHists.addAll(patient.getArvHists());
 //            tbIpts.addAll(patient.getTbIpts());
 //            mortalitys.addAll(patient.getMortalitys());
 //            mentalHealthScreenings.addAll(patient.getMentalHealthScreenings());
@@ -437,8 +465,8 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 );
             }
 
-            final long contact_end=System.currentTimeMillis();
-            System.err.println(" :: Finished Collation of Contacts Details (min)::" + (double)((contact_end-patient_end)/60000));
+            final long conts_end=System.currentTimeMillis();
+            System.err.println(" :: Finished Collation of Contacts Details (min)::" + (double)((conts_end-patient_end)/60000));
             // add contact assessments
             XSSFSheet assessmentDetails = workbook.createSheet("Patient_Contact_Assessments");
             int assessmentXSSFRowNum = 0;
@@ -2488,111 +2516,125 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             System.err.println(" :: Finished Collation of ARV HIST (min)::" + (double)((arv-vl)/60000));
 
             // add mortality here
-            XSSFSheet mortalityDetails = workbook.createSheet("Patient_Mortality");
-            int mortalityXSSFRowNum = 0;
-            XSSFRow mortalityXSSFRow = mortalityDetails.createRow(mortalityXSSFRowNum++);
-            int mortalityXSSFCellNum = 0;
-            for (String title : DatabaseHeader.MORTALITY_HEADER) {
-                XSSFCell XSSFCell = mortalityXSSFRow.createCell(mortalityXSSFCellNum++);
-                XSSFCell.setCellValue(title);
-            }
-
-            for (Mortality mortality : mortalitys) {
-                int count = 0;
-                mortalityXSSFRow = mortalityDetails.createRow(mortalityXSSFRowNum++);
-                XSSFCell id = mortalityXSSFRow.createCell(count);
-                id.setCellValue(mortality.getPatient().getPatientNumber());
-                XSSFCell patientName = mortalityXSSFRow.createCell(++count);
-                patientName.setCellValue(mortality.getPatient().getName());
-                XSSFCell dateOfBirth = mortalityXSSFRow.createCell(++count);
-                dateOfBirth.setCellValue(mortality.getPatient().getDateOfBirth());
-                dateOfBirth.setCellStyle(XSSFCellStyle);
-                XSSFCell age = mortalityXSSFRow.createCell(++count);
-                age.setCellValue(mortality.getPatient().getAge());
-                XSSFCell sex = mortalityXSSFRow.createCell(++count);
-                sex.setCellValue(mortality.getPatient().getGender().getName());
-                XSSFCell province = mortalityXSSFRow.createCell(++count);
-                province.setCellValue(mortality.getPatient().getPrimaryClinic().getDistrict().getProvince().getName());
-                XSSFCell district = mortalityXSSFRow.createCell(++count);
-                district.setCellValue(mortality.getPatient().getPrimaryClinic().getDistrict().getName());
-                XSSFCell primaryClinic = mortalityXSSFRow.createCell(++count);
-                primaryClinic.setCellValue(mortality.getPatient().getPrimaryClinic().getName());
-                XSSFCell entry = mortalityXSSFRow.createCell(++count);
-                if (mortality.getDateCreated() != null) {
-                    entry.setCellValue(mortality.getDateCreated());
-                    entry.setCellStyle(XSSFCellStyle);
-                } else {
-                    entry.setCellValue("");
-                }
-                XSSFCell dateOfDeath = mortalityXSSFRow.createCell(++count);
-                if (mortality.getDateOfDeath() != null) {
-                    dateOfDeath.setCellValue(mortality.getDateOfDeath());
-                    dateOfDeath.setCellStyle(XSSFCellStyle);
-                } else {
-                    dateOfDeath.setCellValue("");
-                }
-                XSSFCell causeOfDeath = mortalityXSSFRow.createCell(++count);
-                causeOfDeath.setCellValue(mortality.getCauseOfDeath() != null ? mortality.getCauseOfDeath().getName() : "");
-                XSSFCell causeOfDeathDetails = mortalityXSSFRow.createCell(++count);
-                causeOfDeathDetails.setCellValue(mortality.getCauseOfDeathDetails());
-                XSSFCell receivingEnhancedCare = mortalityXSSFRow.createCell(++count);
-                receivingEnhancedCare.setCellValue(mortality.getReceivingEnhancedCare() != null ? mortality.getReceivingEnhancedCare().getName() : "");
-                XSSFCell datePutOnEnhancedCare = mortalityXSSFRow.createCell(++count);
-                if (mortality.getDatePutOnEnhancedCare() != null) {
-                    datePutOnEnhancedCare.setCellValue(mortality.getDatePutOnEnhancedCare());
-                    datePutOnEnhancedCare.setCellStyle(XSSFCellStyle);
-                } else {
-                    datePutOnEnhancedCare.setCellValue("");
-                }
-                XSSFCell caseBackground = mortalityXSSFRow.createCell(++count);
-                caseBackground.setCellValue(mortality.getCaseBackground());
-                XSSFCell careProvided = mortalityXSSFRow.createCell(++count);
-                careProvided.setCellValue(mortality.getCareProvided());
-                XSSFCell home = mortalityXSSFRow.createCell(++count);
-                home.setCellValue(mortality.getHome());
-
-                XSSFCell beneficiary = mortalityXSSFRow.createCell(++count);
-                beneficiary.setCellValue(mortality.getBeneficiary());
-                XSSFCell facility = mortalityXSSFRow.createCell(++count);
-                facility.setCellValue(mortality.getFacility());
-                XSSFCell cats = mortalityXSSFRow.createCell(++count);
-                cats.setCellValue(mortality.getCats());
-                XSSFCell zm = mortalityXSSFRow.createCell(++count);
-                zm.setCellValue(mortality.getZm());
-                XSSFCell other = mortalityXSSFRow.createCell(++count);
-                other.setCellValue(mortality.getOther());
-                XSSFCell contactWithZM = mortalityXSSFRow.createCell(++count);
-                contactWithZM.setCellValue(mortality.getContactWithZM() != null ? mortality.getContactWithZM().getName() : "");
-                XSSFCell dateOfContactWithZim = mortalityXSSFRow.createCell(++count);
-                if (mortality.getDateOfContactWithZim() != null) {
-                    dateOfContactWithZim.setCellValue(mortality.getDateOfContactWithZim());
-                    dateOfContactWithZim.setCellStyle(XSSFCellStyle);
-                } else {
-                    dateOfContactWithZim.setCellValue("");
-                }
-                XSSFCell descriptionOfCase = mortalityXSSFRow.createCell(++count);
-                descriptionOfCase.setCellValue(mortality.getDescriptionOfCase());
-                XSSFCell learningPoints = mortalityXSSFRow.createCell(++count);
-                learningPoints.setCellValue(mortality.getLearningPoints());
-                XSSFCell actionPlan = mortalityXSSFRow.createCell(++count);
-                actionPlan.setCellValue(mortality.getActionPlan());
-
-                XSSFCell isCats = mortalityXSSFRow.createCell(++count);
-                isCats.setCellValue(
-                        mortality.getPatient().getCat() != null ? mortality.getPatient().getCat().getName() : null
-                );
-                XSSFCell youngMumGroup = mortalityXSSFRow.createCell(++count);
-                youngMumGroup.setCellValue(
-                        mortality.getPatient().getYoungMumGroup() != null ? mortality.getPatient().getYoungMumGroup().getName() : null
-                );
-                XSSFCell ymd = mortalityXSSFRow.createCell(++count);
-                ymd.setCellValue(
-                        mortality.getPatient().getYoungDadGroup() != null ? mortality.getPatient().getYoungDadGroup().getName() : null
-                );
-
-            }
-            final long mort=System.currentTimeMillis();
-            System.err.println(":: Finished Collation of MORTALITY (min)::" + (double)((mort-arv)/60000));
+//            XSSFSheet mortalityDetails = workbook.createSheet("Patient_Mortality");
+//            int mortalityXSSFRowNum = 0;
+//            XSSFRow mortalityXSSFRow = mortalityDetails.createRow(mortalityXSSFRowNum++);
+//            int mortalityXSSFCellNum = 0;
+//            for (String title : DatabaseHeader.MORTALITY_HEADER) {
+//                XSSFCell XSSFCell = mortalityXSSFRow.createCell(mortalityXSSFCellNum++);
+//                XSSFCell.setCellValue(title);
+//            }
+//
+//            for (Mortality mortality : mortalitys) {
+//                System.err.println("########## Mortality: "+mortality);
+//                if (mortality != null) {
+//                    int count = 0;
+//                    mortalityXSSFRow = mortalityDetails.createRow(mortalityXSSFRowNum++);
+//                    XSSFCell id = mortalityXSSFRow.createCell(count);
+//                    id
+//                            .setCellValue(mortality != null && mortality.getPatient() != null ? mortality.getPatient().getPatientNumber() : "");
+//                    XSSFCell patientName = mortalityXSSFRow.createCell(++count);
+//                    patientName.setCellValue(mortality != null && mortality.getPatient() != null ? mortality.getPatient().getName() : "");
+//                    XSSFCell dateOfBirth = mortalityXSSFRow.createCell(++count);
+//                    if (mortality != null && mortality.getPatient() != null && mortality.getPatient().getDateOfBirth() != null) {
+//                        dateOfBirth.setCellValue(mortality.getPatient().getDateOfBirth());
+//                        dateOfBirth.setCellStyle(XSSFCellStyle);
+//                    } else {
+//                        dateOfBirth.setCellValue("");
+//                    }
+//
+//                    XSSFCell age = mortalityXSSFRow.createCell(++count);
+//                    if (mortality != null && mortality.getPatient() != null) {
+//                        age.setCellValue(mortality.getPatient().getAge());
+//                    } else {
+//                        age.setCellValue("");
+//                    }
+//
+//                    XSSFCell sex = mortalityXSSFRow.createCell(++count);
+//                    sex.setCellValue(mortality != null && mortality.getPatient() != null ? mortality.getPatient().getGender().getName() : "");
+//                    XSSFCell province = mortalityXSSFRow.createCell(++count);
+//                    province.setCellValue(mortality != null && mortality.getPatient() != null ? mortality.getPatient().getPrimaryClinic().getDistrict().getProvince().getName() : "");
+//                    XSSFCell district = mortalityXSSFRow.createCell(++count);
+//                    district.setCellValue(mortality != null && mortality.getPatient() != null ? mortality.getPatient().getPrimaryClinic().getDistrict().getName() : "");
+//                    XSSFCell primaryClinic = mortalityXSSFRow.createCell(++count);
+//                    primaryClinic.setCellValue(mortality != null && mortality.getPatient() != null ? mortality.getPatient().getPrimaryClinic().getName() : "");
+//                    XSSFCell entry = mortalityXSSFRow.createCell(++count);
+//                    if (mortality != null && mortality.getDateCreated() != null) {
+//                        entry.setCellValue(mortality.getDateCreated());
+//                        entry.setCellStyle(XSSFCellStyle);
+//                    } else {
+//                        entry.setCellValue("");
+//                    }
+//                    XSSFCell dateOfDeath = mortalityXSSFRow.createCell(++count);
+//                    if (mortality != null && mortality.getDateOfDeath() != null) {
+//                        dateOfDeath.setCellValue(mortality.getDateOfDeath());
+//                        dateOfDeath.setCellStyle(XSSFCellStyle);
+//                    } else {
+//                        dateOfDeath.setCellValue("");
+//                    }
+//                    XSSFCell causeOfDeath = mortalityXSSFRow.createCell(++count);
+//                    causeOfDeath.setCellValue(mortality != null && mortality.getCauseOfDeath() != null ? mortality.getCauseOfDeath().getName() : "");
+//                    XSSFCell causeOfDeathDetails = mortalityXSSFRow.createCell(++count);
+//                    causeOfDeathDetails.setCellValue(mortality != null ? mortality.getCauseOfDeathDetails() : "");
+//                    XSSFCell receivingEnhancedCare = mortalityXSSFRow.createCell(++count);
+//                    receivingEnhancedCare.setCellValue(mortality != null && mortality.getReceivingEnhancedCare() != null ? mortality.getReceivingEnhancedCare().getName() : "");
+//                    XSSFCell datePutOnEnhancedCare = mortalityXSSFRow.createCell(++count);
+//                    if (mortality != null && mortality.getDatePutOnEnhancedCare() != null) {
+//                        datePutOnEnhancedCare.setCellValue(mortality.getDatePutOnEnhancedCare());
+//                        datePutOnEnhancedCare.setCellStyle(XSSFCellStyle);
+//                    } else {
+//                        datePutOnEnhancedCare.setCellValue("");
+//                    }
+//                    XSSFCell caseBackground = mortalityXSSFRow.createCell(++count);
+//                    caseBackground.setCellValue(mortality != null ? mortality.getCaseBackground() : "");
+//                    XSSFCell careProvided = mortalityXSSFRow.createCell(++count);
+//                    careProvided.setCellValue(mortality != null ? mortality.getCareProvided() : "");
+//                    XSSFCell home = mortalityXSSFRow.createCell(++count);
+//                    home.setCellValue(mortality != null ? mortality.getHome() : "");
+//
+//                    XSSFCell beneficiary = mortalityXSSFRow.createCell(++count);
+//                    beneficiary.setCellValue(mortality != null ? mortality.getBeneficiary() : "");
+//                    XSSFCell facility = mortalityXSSFRow.createCell(++count);
+//                    facility.setCellValue(mortality != null ? mortality.getFacility() : "");
+//                    XSSFCell cats = mortalityXSSFRow.createCell(++count);
+//                    cats.setCellValue(mortality != null ? mortality.getCats() : "");
+//                    XSSFCell zm = mortalityXSSFRow.createCell(++count);
+//                    zm.setCellValue(mortality != null ? mortality.getZm() : "");
+//                    XSSFCell other = mortalityXSSFRow.createCell(++count);
+//                    other.setCellValue(mortality != null ? mortality.getOther() : "");
+//                    XSSFCell contactWithZM = mortalityXSSFRow.createCell(++count);
+//                    contactWithZM.setCellValue(mortality != null && mortality.getContactWithZM() != null ? mortality.getContactWithZM().getName() : "");
+//                    XSSFCell dateOfContactWithZim = mortalityXSSFRow.createCell(++count);
+//                    if (mortality != null && mortality.getDateOfContactWithZim() != null) {
+//                        dateOfContactWithZim.setCellValue(mortality.getDateOfContactWithZim());
+//                        dateOfContactWithZim.setCellStyle(XSSFCellStyle);
+//                    } else {
+//                        dateOfContactWithZim.setCellValue("");
+//                    }
+//                    XSSFCell descriptionOfCase = mortalityXSSFRow.createCell(++count);
+//                    descriptionOfCase.setCellValue(mortality != null ? mortality.getDescriptionOfCase() : "");
+//                    XSSFCell learningPoints = mortalityXSSFRow.createCell(++count);
+//                    learningPoints.setCellValue(mortality != null ? mortality.getLearningPoints() : "");
+//                    XSSFCell actionPlan = mortalityXSSFRow.createCell(++count);
+//                    actionPlan.setCellValue(mortality != null ? mortality.getActionPlan() : "");
+//
+//                    XSSFCell isCats = mortalityXSSFRow.createCell(++count);
+//                    isCats.setCellValue(
+//                            mortality != null && mortality.getPatient().getCat() != null ? mortality.getPatient().getCat().getName() : null
+//                    );
+//                    XSSFCell youngMumGroup = mortalityXSSFRow.createCell(++count);
+//                    youngMumGroup.setCellValue(
+//                            mortality != null && mortality.getPatient().getYoungMumGroup() != null ? mortality.getPatient().getYoungMumGroup().getName() : null
+//                    );
+//                    XSSFCell ymd = mortalityXSSFRow.createCell(++count);
+//                    ymd.setCellValue(
+//                            mortality != null && mortality.getPatient().getYoungDadGroup() != null ? mortality.getPatient().getYoungDadGroup().getName() : null
+//                    );
+//
+//                }
+//            }
+//            final long mort=System.currentTimeMillis();
+//            System.err.println(":: Finished Collation of MORTALITY (min)::" + (double)((mort-arv)/60000));
 
             // tb Ipt here
             XSSFSheet tbIptDetails = workbook.createSheet("Patient_TBIPT");
@@ -2679,7 +2721,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 );
             }
             final long tbs=System.currentTimeMillis();
-            System.err.println(" :: Finished Collation of TB/TPT (min)::" + (double)((tbs-mort)/60000));
+            System.err.println(" :: Finished Collation of TB/TPT (min)::" + (double)((tbs-arv)/60000));
 
             // mental health screening
             XSSFSheet mentalHealthScreeningDetails = workbook.createSheet("Patient_Mental_Health_Screening");

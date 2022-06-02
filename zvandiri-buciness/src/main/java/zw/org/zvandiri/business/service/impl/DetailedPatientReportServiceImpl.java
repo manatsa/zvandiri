@@ -979,7 +979,8 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         if (ids == null || ids.isEmpty()) {
         	return null;
         }
-        String builder = "Select Distinct p from Patient p " + PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH + " where p.id in (:ids)";
+        //String builder = "Select Distinct p from Patient p " + PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH + " where p.id in (:ids)";
+        String builder = "Select Distinct p from Patient p  where p.id in (:ids)";
         TypedQuery<Patient> query = entityManager.createQuery(builder, Patient.class);
         query.setParameter("ids", ids);
         //query.setHint(QueryHints.HINT_READONLY, true);

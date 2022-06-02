@@ -222,5 +222,29 @@ public class Mortality extends BaseEntity {
     public void setZm(String zm) {
         this.zm = zm;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Mortality{" +
+                "dateOfDeath=" + dateOfDeath +
+                ", causeOfDeath=" + causeOfDeath +
+                ", causeOfDeathDetails='" + causeOfDeathDetails + '\'' +
+                ", receivingEnhancedCare=" + receivingEnhancedCare +
+                ", datePutOnEnhancedCare=" + datePutOnEnhancedCare +
+                ", caseBackground='" + caseBackground + '\'' +
+                ", careProvided='" + careProvided + '\'' +
+                ", home='" + home + '\'' +
+                ", beneficiary='" + beneficiary + '\'' +
+                ", facility='" + facility + '\'' +
+                ", cats='" + cats + '\'' +
+                ", zm='" + zm + '\'' +
+                ", other='" + other + '\'' +
+                ", contactWithZM=" + contactWithZM +
+                ", dateOfContactWithZim=" + dateOfContactWithZim +
+                ", descriptionOfCase='" + descriptionOfCase + '\'' +
+                ", learningPoints='" + learningPoints + '\'' +
+                ", actionPlan='" + actionPlan + '\'' +
+                ", patient=" + patient +
+                '}';
+    }
 }

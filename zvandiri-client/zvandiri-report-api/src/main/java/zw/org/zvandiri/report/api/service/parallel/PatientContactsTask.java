@@ -5,33 +5,32 @@
  */
 package zw.org.zvandiri.report.api.service.parallel;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.concurrent.RecursiveTask;
-
+import zw.org.zvandiri.business.domain.Contact;
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.repo.ContactRepo;
 import zw.org.zvandiri.business.repo.ReferralRepo;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.concurrent.RecursiveTask;
+
 /**
  *
  * @author tasu
  */
-public class PatientReportTask extends RecursiveTask<List<Patient>> {
+public class PatientContactsTask extends RecursiveTask<List<Contact>> {
 
     private final List<Patient> data;
     private final SearchDTO dto;
     private final ContactRepo contactRepo;
-    private final ReferralRepo referralRepo;
-            
 
-    public PatientReportTask(List<Patient> data, SearchDTO dto, ContactRepo contactRepo, ReferralRepo referralRepo) {
+
+    public PatientContactsTask(List<Patient> data, SearchDTO dto, ContactRepo contactRepo) {
         this.data = data;
         this.dto = dto;
         this.contactRepo = contactRepo;
-        this.referralRepo = referralRepo;
     }
 
     @Override
@@ -43,27 +42,24 @@ public class PatientReportTask extends RecursiveTask<List<Patient>> {
             return process();
         } else {
             int mid = data.size() / 2;
-            PatientReportTask task = new PatientReportTask(data.subList(0, mid), dto, contactRepo, referralRepo);
-            PatientReportTask last = new PatientReportTask(data.subList(mid, data.size()), dto, contactRepo, referralRepo);
+            PatientContactsTask task = new PatientContactsTask(data.subList(0, mid), dto, contactRepo);
+            PatientContactsTask last = new PatientContactsTask(data.subList(mid, data.size()), dto, contactRepo);
             task.fork();
-            List<Patient> list = last.compute();
+            List<Contact> list = last.compute();
             list.addAll(task.join());
             return list;
         }
     }
 
-    private List<Patient> process() {
-        List<Patient> list = new ArrayList<>();
-        System.err.println(">> DB referrals for patients :<>: "+data.size());
+    private List<Contact> process() {
+        List<Contact> list = new ArrayList<>();
+        System.err.println(">> DB Contacts for patients :<>: "+data.size());
         for (Patient item : data) {
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 item.setContacts(new HashSet<>(contactRepo.findByPatientAndContactDate(item, dto.getStartDate(), dto.getEndDate())));
-                item.setReferrals(new HashSet<>(referralRepo.findByPatientAndContactDate(item, dto.getStartDate(), dto.getEndDate())));
             } else {
-                item.setContacts(new HashSet<>(contactRepo.findByPatient(item)));
-                item.setReferrals((new HashSet<>(referralRepo.findByPatient(item))));
+                list.addAll(contactRepo.findByPatient(item));
             }
-            list.add(item);
         }
         return list;
     }
