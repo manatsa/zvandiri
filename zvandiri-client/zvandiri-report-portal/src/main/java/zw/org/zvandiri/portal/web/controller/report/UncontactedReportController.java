@@ -23,16 +23,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import zw.org.zvandiri.business.domain.Patient;
-import zw.org.zvandiri.business.service.DistrictService;
-import zw.org.zvandiri.business.service.FacilityService;
-import zw.org.zvandiri.business.service.LastContactedService;
-import zw.org.zvandiri.business.service.PatientReportService;
-import zw.org.zvandiri.business.service.ProvinceService;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
-import zw.org.zvandiri.portal.web.controller.report.parallel.UnContactedClientTask;
+
 import zw.org.zvandiri.report.api.DatabaseHeader;
+import zw.org.zvandiri.report.api.service.parallel.UnContactedClientTask;
 
 /**
  *
@@ -49,6 +46,8 @@ public class UncontactedReportController extends BaseController {
     private DistrictService districtService;
     @Resource
     private FacilityService facilityService;
+    @Resource
+    private DetailedPatientReportService detailedPatientReportService;
     @Resource
     PatientReportService patientReportService;
 
@@ -86,7 +85,10 @@ public class UncontactedReportController extends BaseController {
     public String getUncontactedClients(HttpServletResponse response, ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
         item = getUserLevelObjectState(item);
         ForkJoinPool pool = ForkJoinPool.commonPool();
-        patients = pool.invoke(new UnContactedClientTask(DateUtil.generateArray(patientReportService.getCount(item)), patientReportService, item));
+        List<String> patientIDS=detailedPatientReportService.getIds(item);
+        patients = pool.invoke(new UnContactedClientTask(patientIDS, patientReportService, item));
+        final long pat_end=System.currentTimeMillis();
+        //patients = pool.invoke(new UnContactedClientTask(DateUtil.generateArray(patientReportService.getCount(item)), patientReportService, item));
         return setUpModel(model, item, true);
     }
 

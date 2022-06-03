@@ -781,154 +781,78 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         	query.setParameter("start", DateUtil.getDateDiffMonth(new Date(), -12));
         	query.setParameter("end", new Date());
         }
-        query.setFirstResult(dto.getFirstResult());
-        query.setMaxResults(dto.getPageSize());
+//        query.setFirstResult(dto.getFirstResult());
+//        query.setMaxResults(dto.getPageSize());
         return query.getResultList();
     }
     
     
     @Override
     public List<String> getIds(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("Select p.id from Patient p "/* + PatientInnerJoin.PATIENT_FULL_ASSOC_FETCH*/);
-        int position = 0;
-        String startDate = "dateJoined";
-        if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
-            startDate = "dateModified";
-        }
+        StringBuilder builder = new StringBuilder("Select distinct p.id from Patient p ");
+        int position = 1;
+
         if (dto.getSearch(dto)) {
-            builder.append(" where ");
-            if (dto.getProvince() != null) {
-                if (position == 0) {
-                    builder.append("p.primaryClinic.district.province=:province");
-                    position++;
-                } else {
-                    builder.append(" and p.primaryClinic.district.province=:province");
-                }
-            }
-            if (dto.getDistrict() != null) {
-                if (position == 0) {
-                    builder.append("p.primaryClinic.district=:district");
-                    position++;
-                } else {
-                    builder.append(" and p.primaryClinic.district=:district");
-                }
-            }
+            builder.append(" where p.status=5 ");
 
             if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
                 //System.err.println("################# DTO facilities is not null");
                 if (position == 0) {
-                    builder.append(" p.primaryClinic in :facilities");
+                    builder.append(" p.primaryClinic in (:facilities)");
                     position++;
                 } else {
-                    builder.append(" and p.primaryClinic in :facilities");
+                    builder.append(" and p.primaryClinic in (:facilities)");
                 }
             }else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
                 //System.err.println("$$$$$$$$$$$$$$$$$$$$$$$ DTO districts is not null");
                 if (position == 0) {
-                    builder.append(" p.primaryClinic.district in :districts");
+                    builder.append(" p.primaryClinic.district in (:districts) ");
                     position++;
                 } else {
-                    builder.append(" and p.primaryClinic.district in :districts");
+                    builder.append(" and p.primaryClinic.district in (:districts) ");
                 }
             }else  if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
                 //System.err.println("^^^^^^^^^^^^^^^^^^^^^^^ DTO provinces is not null");
                 if (position == 0) {
-                    builder.append(" p.primaryClinic.district.province in :provinces");
+                    builder.append(" p.primaryClinic.district.province in (:provinces)");
                     position++;
                 } else {
-                    builder.append(" and p.primaryClinic.district.province in :provinces");
+                    builder.append(" and p.primaryClinic.district.province in (:provinces)");
                 }
             }
+
             if (dto.getPrimaryClinic() != null) {
+                //System.err.println("################# DTO facilities is not null");
                 if (position == 0) {
-                    builder.append("p.primaryClinic=:primaryClinic");
+                    builder.append(" p.primaryClinic = :facility)");
                     position++;
                 } else {
-                    builder.append(" and p.primaryClinic=:primaryClinic");
+                    builder.append(" and p.primaryClinic = :facility");
                 }
             }
-            if (dto.getSupportGroup() != null) {
+
+            if (dto.getDistrict() != null) {
+                //System.err.println("################# DTO facilities is not null");
                 if (position == 0) {
-                    builder.append("p.supportGroup=:supportGroup");
+                    builder.append(" p.primaryClinic.district = :district ");
                     position++;
                 } else {
-                    builder.append(" and p.supportGroup=:supportGroup");
+                    builder.append(" and p.primaryClinic.district = :district ");
                 }
             }
-            if (dto.getGender() != null) {
+
+            if (dto.getProvince() != null) {
+                //System.err.println("################# DTO facilities is not null");
                 if (position == 0) {
-                    builder.append("p.gender=:gender");
+                    builder.append(" p.primaryClinic.district.province = :province ");
                     position++;
                 } else {
-                    builder.append(" and p.gender=:gender");
-                }
-            }
-            if (dto.getAgeGroup() != null) {
-                if (position == 0) {
-                    builder.append("p.dateOfBirth between :start and :end");
-                    position++;
-                } else {
-                    builder.append(" and p.dateOfBirth between :start and :end");
-                }
-            }
-            if (dto.getPeriod() != null) {
-                if (position == 0) {
-                    builder.append("p.period=:period");
-                    position++;
-                } else {
-                    builder.append(" and p.period=:period");
-                }
-            }
-            if (dto.getStatuses() == null || dto.getStatuses().isEmpty()) {
-                if (dto.getStatus() != null) {
-                    if (position == 0) {
-                        builder.append("p.status=:status");
-                        position++;
-                    } else {
-                        builder.append(" and p.status=:status");
-                    }
-                }
-            }
-            if (dto.getHei() != null) {
-                if (position == 0) {
-                    builder.append("p.hei=:hei");
-                    position++;
-                } else {
-                    builder.append(" and p.hei=:hei");
-                }
-            }
-            if (dto.getStartDate() != null && dto.getEndDate() != null) {
-                if (position == 0) {
-                    builder.append("p.");
-                    builder.append(startDate);
-                    builder.append(" between :startDate and :endDate");
-                    position++;
-                } else {
-                    builder.append(" and (p.");
-                    builder.append(startDate);
-                    builder.append(" between :startDate and :endDate)");
-                }
-            }
-            if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
-                if (position == 0) {
-                    builder.append("p.status in (:statuses)");
-                    position++;
-                } else {
-                    builder.append(" and p.status in (:statuses)");
+                    builder.append(" and p.primaryClinic.district.province = :province ");
                 }
             }
         }
-        builder.append(" order by p.lastName ASC, p.firstName ASC, p.middleName ASC, p.dateModified DESC, p.dateCreated DESC");
-
-
 
         TypedQuery<String> query = entityManager.createQuery(builder.toString(), String.class);
-        if (dto.getProvince() != null) {
-            query.setParameter("province", dto.getProvince());
-        }
-        if (dto.getDistrict() != null) {
-            query.setParameter("district", dto.getDistrict());
-        }
 
         if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
             query.setParameter("facilities", dto.getFacilities());
@@ -937,39 +861,18 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         }else if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
             query.setParameter("provinces", dto.getProvinces());
         }
+        if(dto.getDistrict()!=null){
+            query.setParameter("district", dto.getDistrict());
+        }
+        if(dto.getPrimaryClinic()!=null){
+            query.setParameter("facility", dto.getPrimaryClinic());
+        }
+        if(dto.getProvince()!=null){
+            query.setParameter("province", dto.getProvince());
+        }
 
-        if (dto.getPrimaryClinic() != null) {
-            query.setParameter("primaryClinic", dto.getPrimaryClinic());
-        }
-        if (dto.getSupportGroup() != null) {
-            query.setParameter("supportGroup", dto.getSupportGroup());
-        }
-        if (dto.getGender() != null) {
-            query.setParameter("gender", dto.getGender());
-        }
-        if (dto.getAgeGroup() != null) {
-            query.setParameter("start", DateUtil.getDateFromAge(dto.getAgeGroup().getEnd()));
-            query.setParameter("end", DateUtil.getEndDate(dto.getAgeGroup().getStart()));
-        }
-        if (dto.getPeriod() != null) {
-            query.setParameter("period", dto.getPeriod());
-        }
-        if (dto.getStatus() != null) {
-            query.setParameter("status", dto.getStatus());
-        }
-        if (dto.getHei() != null) {
-            query.setParameter("hei", dto.getHei());
-        }
-        if (dto.getStartDate() != null && dto.getEndDate() != null) {
-            query.setParameter("startDate", dto.getStartDate());
-            query.setParameter("endDate", dto.getEndDate());
-        }
-        if (dto.getStatuses() != null && !dto.getStatuses().isEmpty()) {
-            query.setParameter("statuses", dto.getStatuses());
-        }
-        query.setFirstResult(dto.getFirstResult());
-        query.setMaxResults(dto.getPageSize());
-        return query.getResultList();
+        List<String> patients=query.getResultList();
+        return patients;
     }
 
     @Override

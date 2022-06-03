@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import org.joda.time.DateTime;
 import org.joda.time.Months;
+import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.util.dto.QuarterMod;
 
 /**
@@ -355,4 +356,13 @@ public class DateUtil {
         }
         return list;
     }
+
+    public static List<String> generatePatientIDsArray(List<Patient> patients) {
+        List<String> list = new ArrayList<>();
+        for(Patient p: patients) {
+            list.add(p.getId());
+        }
+        return list;
+    }
+
 }

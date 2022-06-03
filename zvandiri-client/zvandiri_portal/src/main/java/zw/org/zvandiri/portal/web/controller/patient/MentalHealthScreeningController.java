@@ -129,14 +129,15 @@ public class MentalHealthScreeningController extends BaseController{
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.GET)
-    public String getForm(ModelMap model, @RequestParam(required = false) String patientId, @RequestParam(required = false) String itemId) {
+    public String getForm(ModelMap model, @RequestParam(required = false) String id, @RequestParam(required = false) String itemId) {
         MentalHealthScreening item;
         if (itemId != null) {
             item = service.get(itemId);
             return setUpModel(model, item);
+        }else {
+            item = new MentalHealthScreening(patientService.get(id));
+            return setUpModel(model, item);
         }
-        item = new MentalHealthScreening(patientService.get(patientId));
-        return setUpModel(model, item);
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.POST)

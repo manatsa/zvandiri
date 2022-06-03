@@ -19,23 +19,23 @@ public class InvalidVLCandidatesTask extends RecursiveTask<List>{
 
     private final PatientReportService reportService;
     private final SearchDTO searchData;
-    private final List<Integer> arrCount;
+    private final List<String> patientIds;
 
-    public InvalidVLCandidatesTask(List<Integer> arrCount, PatientReportService reportService, SearchDTO searchData) {
+    public InvalidVLCandidatesTask(List<String> patientIds, PatientReportService reportService, SearchDTO searchData) {
         this.reportService = reportService;
         this.searchData = searchData;
-        this.arrCount = arrCount;
+        this.patientIds = patientIds;
 
     }
 
     @Override
     protected List compute() {
-        if (arrCount.size() <= ReportGenConstants.SEQUENTIAL_THRESHOLD) {
+        if (patientIds.size() <= ReportGenConstants.SEQUENTIAL_THRESHOLD) {
             return process();
         } else {
-            int mid = arrCount.size() / 2;
-            InvalidVLCandidatesTask task = new InvalidVLCandidatesTask(arrCount.subList(0, mid), reportService, searchData);
-            InvalidVLCandidatesTask last = new InvalidVLCandidatesTask(arrCount.subList(mid, arrCount.size()), reportService, searchData);
+            int mid = patientIds.size() / 2;
+            InvalidVLCandidatesTask task = new InvalidVLCandidatesTask(patientIds.subList(0, mid), reportService, searchData);
+            InvalidVLCandidatesTask last = new InvalidVLCandidatesTask(patientIds.subList(mid, patientIds.size()), reportService, searchData);
             task.fork();
             List list = last.compute();
             list.addAll(task.join());
@@ -44,11 +44,11 @@ public class InvalidVLCandidatesTask extends RecursiveTask<List>{
     }
 
     private List process() {
-        int first = arrCount.get(0);
-        first = first > 0 ? first - 1 : first;
-        searchData.setFirstResult(first);
-        Integer pageSize = arrCount.get(arrCount.size() - 1) - searchData.getFirstResult();
-        searchData.setPageSize(pageSize);
-        return reportService.getPatientsWithInvalidVL(searchData);
+//        int first = patientIds.get(0);
+//        first = first > 0 ? first - 1 : first;
+//        searchData.setFirstResult(first);
+//        Integer pageSize = patientIds.get(patientIds.size() - 1) - searchData.getFirstResult();
+//        searchData.setPageSize(pageSize);
+        return reportService.getPatientsWithInvalidVL(patientIds, searchData);
     }
 }

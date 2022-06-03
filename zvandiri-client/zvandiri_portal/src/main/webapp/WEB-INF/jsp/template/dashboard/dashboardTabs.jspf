@@ -32,6 +32,8 @@
         <%@include file="contactList.jspf" %>
     </div>
     <div class="tab-pane fade" id="labs">
+        <b class="titleHeader">Viral Load Detail</b>  <c:if test="${canEdit}">| <a href="${page}/patient/viral-load/item.form?patientId=${patient.id}">Add Viral Load Item </a></c:if>
+        <hr/>
         <%@include file="labResultList.jspf" %>
     </div>
     <div class="tab-pane fade" id="primary-care-giver">

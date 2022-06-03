@@ -71,6 +71,8 @@ public class InvalidVLController extends BaseController {
     CaseloadManagementService caseloadManagementService;
 
     @Resource
+    private DetailedPatientReportService detailedPatientReportService;
+    @Resource
     PatientReportService patientReportService;
 
     List<Patient> vlPatients = new ArrayList<>();
@@ -111,7 +113,8 @@ public class InvalidVLController extends BaseController {
     public String getReferralReportIndex(ModelMap model, @RequestParam String type, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
         item = getUserLevelObjectState(item);
         ForkJoinPool pool = ForkJoinPool.commonPool();
-        vlPatients = pool.invoke(new InvalidVLCandidatesTask(DateUtil.generateArray(patientReportService.getCount(item)), patientReportService, item));
+        List<String> patientIDS=detailedPatientReportService.getIds(item);
+        vlPatients = pool.invoke(new InvalidVLCandidatesTask(patientIDS, patientReportService, item));// vlPatients = pool.invoke(new InvalidVLCandidatesTask(DateUtil.generateArray(patientReportService.getCount(item)), patientReportService, item));
 
         return setUpModel(model, item, type, true);
     }

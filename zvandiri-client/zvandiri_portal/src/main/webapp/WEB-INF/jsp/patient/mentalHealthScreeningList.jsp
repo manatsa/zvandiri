@@ -20,7 +20,7 @@
                 <br/>
                 <div class="row">
                     <div class="col-lg-12">
-                        <b class="titleHeader">Mental Health Screening Detail</b>  <c:if test="${canEdit}">| <a href="${page}/contact?id==${patient.id}">Add Mental Health Screening </a></c:if><br/><br/><br/>
+                        <b class="titleHeader">Mental Health Screening Detail</b>  <c:if test="${canEdit}">| <a href="${page}/contact?id=${patient.id}">Add Mental Health Screening </a></c:if><br/><br/><br/>
                         <div class="table-responsive">
                             <table class="itemList" class="display" cellspacing="0">
                                 <thead>
@@ -28,10 +28,11 @@
                                         <th>Screened For Mental Health</th>
                                         <th>Screening Type</th>
                                         <th>Risk</th>
-                                        <td>Support</td>
                                         <th>Referral</th>
-                                        <td>Diagnosis</td>
-                                        <td>Intervention</td>
+                                        <td>Screened By HCW</td>
+                                        <td>HCW Screening Result</td>
+                                        <td>Support</td>
+                                        <td>Supported By</td>
                                         <%--<th>&nbsp;</th>--%>
                                     </tr>
                                 </thead>

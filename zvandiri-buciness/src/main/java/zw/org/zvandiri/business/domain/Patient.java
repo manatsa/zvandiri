@@ -162,12 +162,15 @@ public class Patient extends GenericPatient {
     public InvestigationTest getLastPatientVL(InvestigationTestService investigationTestService) {
 
         if(lastViralLoad!=null) {
+            //System.err.println(lastViralLoad +" is last VL");
             if (investigationTestService == null) {
                 System.err.println("last viral load service is null");
             } else {
                 InvestigationTest test=investigationTestService.get(lastViralLoad);
                 return test;
             }
+        }else{
+            //System.err.println("VL => "+lastViralLoad);
         }
 
         return null;

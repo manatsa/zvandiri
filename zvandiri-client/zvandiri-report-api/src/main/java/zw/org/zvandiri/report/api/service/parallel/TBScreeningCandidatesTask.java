@@ -19,23 +19,23 @@ public class TBScreeningCandidatesTask extends RecursiveTask<List>{
 
     private final PatientReportService reportService;
     private final SearchDTO searchData;
-    private final List<Integer> arrCount;
+    private final List<String> patientIDS;
 
-    public TBScreeningCandidatesTask(List<Integer> arrCount, PatientReportService reportService, SearchDTO searchData) {
+    public TBScreeningCandidatesTask(List<String> patientIDS, PatientReportService reportService, SearchDTO searchData) {
         this.reportService = reportService;
         this.searchData = searchData;
-        this.arrCount = arrCount;
+        this.patientIDS = patientIDS;
 
     }
 
     @Override
     protected List compute() {
-        if (arrCount.size() <= ReportGenConstants.SEQUENTIAL_THRESHOLD) {
+        if (patientIDS.size() <= ReportGenConstants.SEQUENTIAL_THRESHOLD) {
             return process();
         } else {
-            int mid = arrCount.size() / 2;
-            TBScreeningCandidatesTask task = new TBScreeningCandidatesTask(arrCount.subList(0, mid), reportService, searchData);
-            TBScreeningCandidatesTask last = new TBScreeningCandidatesTask(arrCount.subList(mid, arrCount.size()), reportService, searchData);
+            int mid = patientIDS.size() / 2;
+            TBScreeningCandidatesTask task = new TBScreeningCandidatesTask(patientIDS.subList(0, mid), reportService, searchData);
+            TBScreeningCandidatesTask last = new TBScreeningCandidatesTask(patientIDS.subList(mid, patientIDS.size()), reportService, searchData);
             task.fork();
             List list = last.compute();
             list.addAll(task.join());
@@ -44,11 +44,11 @@ public class TBScreeningCandidatesTask extends RecursiveTask<List>{
     }
 
     private List process() {
-        int first = arrCount.get(0);
-        first = first > 0 ? first - 1 : first;
-        searchData.setFirstResult(first);
-        Integer pageSize = arrCount.get(arrCount.size() - 1) - searchData.getFirstResult();
-        searchData.setPageSize(pageSize);
-        return reportService.getTBScreeningCandidates(searchData);
+//        int first = patientIDS.get(0);
+//        first = first > 0 ? first - 1 : first;
+//        searchData.setFirstResult(first);
+//        Integer pageSize = patientIDS.get(patientIDS.size() - 1) - searchData.getFirstResult();
+//        searchData.setPageSize(pageSize);
+        return reportService.getTBScreeningCandidates(patientIDS,searchData);
     }
 }

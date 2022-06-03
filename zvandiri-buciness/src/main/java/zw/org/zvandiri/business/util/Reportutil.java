@@ -6,6 +6,7 @@ import zw.org.zvandiri.business.domain.util.*;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 
 import javax.persistence.Query;
+import java.text.DecimalFormat;
 import java.util.Set;
 
 public class Reportutil {
@@ -50,6 +51,58 @@ public class Reportutil {
                 }
             }
 
+
+            if (dto.getDistrict() != null) {
+                if (position == 0) {
+                    builder.append(" p.primaryClinic.district=:district");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic.district=:district");
+                }
+            }
+            if (dto.getPrimaryClinic() != null) {
+                if (position == 0) {
+                    builder.append("p.primaryClinic=:primaryClinic");
+                    position++;
+                } else {
+                    builder.append(" and p.primaryClinic=:primaryClinic");
+                }
+            }
+//            if (dto.getSupportGroup() != null) {
+//                if (position == 0) {
+//                    builder.append("p.supportGroup=:supportGroup");
+//                    position++;
+//                } else {
+//                    builder.append(" and p.supportGroup=:supportGroup");
+//                }
+//            }
+            if (dto.getGender() != null) {
+                if (position == 0) {
+                    builder.append("p.gender=:gender");
+                    position++;
+                } else {
+                    builder.append(" and p.gender=:gender");
+                }
+            }
+
+            if (dto.getStatus() != null) {
+                if (position == 0) {
+                    builder.append(" p.status=:status");
+                    position++;
+                } else {
+                    builder.append(" and p.status=:status");
+                }
+            }
+        }
+
+        return position;
+    }
+
+    public static final Integer patientReportQuery(StringBuilder builder,SearchDTO dto, int position) {
+        //builder.append() "Select Distinct p from Patient p  ";
+
+        if (dto.getSearch(dto)) {
+            builder.append(" where ");
 
             if (dto.getDistrict() != null) {
                 if (position == 0) {
@@ -214,6 +267,39 @@ public class Reportutil {
         return query;
     }
 
+    public static final Query reportQueryParams(Query query, SearchDTO dto) {
+
+        if (dto.getProvince() != null) {
+            query.setParameter("province", dto.getProvince());
+        }
+
+        if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+            query.setParameter("facilities", dto.getFacilities());
+        } else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+            query.setParameter("districts", dto.getDistricts());
+        }else if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+            query.setParameter("provinces", dto.getProvinces());
+        }
+
+        if (dto.getDistrict() != null) {
+            query.setParameter("district", dto.getDistrict());
+        }
+        if (dto.getPrimaryClinic() != null) {
+            query.setParameter("primaryClinic", dto.getPrimaryClinic());
+        }
+//        if (dto.getSupportGroup() != null) {
+//            query.setParameter("supportGroup", dto.getSupportGroup());
+//        }
+        if (dto.getGender() != null) {
+            query.setParameter("gender", dto.getGender());
+        }
+        if (dto.getStatus() != null) {
+            query.setParameter("status", dto.getStatus());
+        }
+
+        return query;
+    }
+
     public static String StringsFromList(Set<IdentifiedRisk> risks){
         String result="";
         IdentifiedRisk[] risks1=new IdentifiedRisk[risks.size()];
@@ -266,5 +352,6 @@ public class Reportutil {
     }
 
 
+    public static DecimalFormat df=new DecimalFormat("0.00");
 
 }

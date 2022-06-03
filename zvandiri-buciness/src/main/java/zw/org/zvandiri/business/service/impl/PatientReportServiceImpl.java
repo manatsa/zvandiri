@@ -1774,124 +1774,223 @@ public class PatientReportServiceImpl implements PatientReportService {
     }
 
     @Override
-    public List<Patient> getUncontactedClients(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p  ");
-        int position = 0;
-        position=Reportutil.commonPatientQuery(builder, dto, position);
+    public List<Patient> getUncontactedClients(List<String> ids, SearchDTO dto) {
+//        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p  ");
+//        int position = 0;
+//        position=Reportutil.commonPatientQuery(builder, dto, position);
+//
+//        if (position == 0) {
+//            builder.append(" p not in (select distinct c.patient from Contact c ");
+//            position++;
+//        } else {
+//            builder.append(" and p not in (select distinct c.patient from Contact c ");
+//        }
+//        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+//            builder.append(" where c.dateCreated between :startDate and :endDate");
+//        }
+//        builder.append(" )");
+//        builder.append(" order by p.lastName ASC");
+//        TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
+//        Reportutil.commonQueryParams(query, dto);
+//        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+//            query.setParameter("startDate", dto.getStartDate());
+//            query.setParameter("endDate", dto.getEndDate());
+//        }
+//        query.setFirstResult(dto.getFirstResult());
+//
+//        return query.getResultList();
+        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p  where p.id in (:ids)");
+            builder.append(" and p.id not in (select c.patient from Contact c ");
+            if(dto.getStartDate()!=null && dto.getEndDate()!=null){
+                builder.append(" where c.contactDate between :startDate and :endDate");
+            }
+            builder.append(")");
 
-        if (position == 0) {
-            builder.append(" p not in (select distinct c.patient from Contact c ");
-            position++;
-        } else {
-            builder.append(" and p not in (select distinct c.patient from Contact c ");
-        }
-        if (dto.getStartDate() != null && dto.getEndDate() != null) {
-            builder.append(" where c.dateCreated between :startDate and :endDate");
-        }
-        builder.append(" )");
-        builder.append(" order by p.lastName ASC");
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
-        Reportutil.commonQueryParams(query, dto);
-        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+        query.setParameter("ids", ids);
+        if(dto.getStartDate()!=null && dto.getEndDate()!=null){
             query.setParameter("startDate", dto.getStartDate());
             query.setParameter("endDate", dto.getEndDate());
         }
-        query.setFirstResult(dto.getFirstResult());
-
         return query.getResultList();
     }
 
     @Override
-    public List<Patient> getEnhancedClients(SearchDTO dto) {
+    public List<Patient> getEnhancedClients(List<String> ids,SearchDTO dto) {
 
-        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p  ");
-        int position = 0;
-        position=Reportutil.commonPatientQuery(builder, dto, position);
-
-            if (position == 0) {
-                builder.append(" (p.enhancedStatus is null or p.enhancedStatus=1) ");
-                position++;
-            } else {
-                builder.append(" and (p.enhancedStatus is null or p.enhancedStatus= 1) ");
-            }
-
-        builder.append(" order by p.lastName ASC");
+        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p where (p.enhancedStatus is null or p.enhancedStatus=1) and p.id in (:ids) ");
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
-        Reportutil.commonQueryParams(query, dto);
-        query.setFirstResult(dto.getFirstResult());
-
-
+        query.setParameter("ids", ids);
         return query.getResultList();
     }
 
     @Override
-    public List<Patient> getMHScreeningCandidates(SearchDTO dto) {
+    public List<Patient> getMHScreeningCandidates(List<String> ids,SearchDTO dto) {
 
-        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p  ");
-        int position = 0;
-        position=Reportutil.commonPatientQuery(builder, dto, position);
+        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p where p.id in (:ids) and p.id not in ( select m.patient from MentalHealthScreening m where m.dateScreened < :when ) order by p.lastName ASC");
 
-        if (position == 0) {
-            builder.append(" p.id not in ( select m.patient from MentalHealthScreening m where m.dateScreened < :when ) order by p.lastName ASC");
-            position++;
-        } else {
-            builder.append(" and p.id not in ( select m.patient from MentalHealthScreening m where m.dateScreened < :when ) order by p.lastName ASC");
-        }
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
-        Reportutil.commonQueryParams(query, dto);
+        query.setParameter("ids", ids);
         query.setParameter("when", mhDate.toDate());
-        query.setFirstResult(dto.getFirstResult());
         return query.getResultList();
     }
 
     @Override
-    public List<Patient> getTBScreeningCandidates(SearchDTO dto) {
+    public List<Patient> getTBScreeningCandidates(List<String> ids,SearchDTO dto) {
 
-        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p  ");
-        int position = 0;
-        position=Reportutil.commonPatientQuery(builder, dto, position);
-
-        if (position == 0) {
-            builder.append(" p not in (select distinct c.patient from TbIpt c ");
-            position++;
-        } else {
-            builder.append(" and p not in (select distinct c.patient from TbIpt c where c.dateScreened < :when)");
-        }
-
-        builder.append(" order by p.lastName ASC");
+        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p where p.id  in (:ids) and p not in (select distinct t.patient from TbIpt t where t.dateScreened < :when)");
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
-        Reportutil.commonQueryParams(query, dto);
+        query.setParameter("ids",ids);
         query.setParameter("when", tbDate.toDate());
-        query.setFirstResult(dto.getFirstResult());
-
         return query.getResultList();
     }
 
     @Override
-    public List<Patient> getPatientsWithInvalidVL(SearchDTO dto) {
+    public List<Patient> getPatientsWithInvalidVL(List<String> ids, SearchDTO dto) {
 
-        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p  ");
-        int position = 0;
-        position=Reportutil.commonPatientQuery(builder, dto, position);
+        StringBuilder builder = new StringBuilder("Select Distinct p from Patient p where p.id in (:ids) ");
+                builder.append(" and p.id not in (select i.patient from InvestigationTest i where i.dateTaken between :startDate and :endDate)");
 
-        if (position == 0) {
-            builder.append(" p.id not in (select i.patient from InvestigationTest i where i.dateTaken > :when) ");
-            position++;
-        } else {
-            builder.append(" and p.id not in (select i.patient from InvestigationTest i where i.dateTaken > :when) ");
-        }
-        builder.append(" order by p.lastName ASC");
+
         TypedQuery<Patient> query = entityManager.createQuery(builder.toString(), Patient.class);
-        Reportutil.commonQueryParams(query, dto);
-        query.setParameter("when", vlDate.toDate());
-        query.setFirstResult(dto.getFirstResult());
-
+        query.setParameter("ids", ids);
+        query.setParameter("startDate",vlDate.toDate());
+        query.setParameter("endDate",new Date());
         return query.getResultList();
     }
+
+//    @Override
+//    public List<String> UncontactedPatientIds(SearchDTO dto) {
+//        StringBuilder builder = new StringBuilder("Select count(Distinct p.id) from Patient p  ");
+//        int position = 0;
+//
+//        if (dto.getSearch(dto)) {
+//            builder.append(" where ");
+//            if (dto.getProvince() != null) {
+//                if (position == 0) {
+//                    builder.append("p.primaryClinic.district.province=:province");
+//                    position++;
+//                } else {
+//                    builder.append(" and p.primaryClinic.district.province=:province");
+//                }
+//            }
+//
+//            if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+//                //System.err.println("################# DTO facilities is not null");
+//                if (position == 0) {
+//                    builder.append(" p.primaryClinic in :facilities");
+//                    position++;
+//                } else {
+//                    builder.append(" and p.primaryClinic in :facilities");
+//                }
+//            }else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+//                //System.err.println("$$$$$$$$$$$$$$$$$$$$$$$ DTO districts is not null");
+//                if (position == 0) {
+//                    builder.append(" p.primaryClinic.district in :districts");
+//                    position++;
+//                } else {
+//                    builder.append(" and p.primaryClinic.district in :districts");
+//                }
+//            }else  if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+//                //System.err.println("^^^^^^^^^^^^^^^^^^^^^^^ DTO provinces is not null");
+//                if (position == 0) {
+//                    builder.append(" p.primaryClinic.district.province in :provinces");
+//                    position++;
+//                } else {
+//                    builder.append(" and p.primaryClinic.district.province in :provinces");
+//                }
+//            }
+//
+//
+//            if (dto.getDistrict() != null) {
+//                if (position == 0) {
+//                    builder.append(" p.primaryClinic.district=:district");
+//                    position++;
+//                } else {
+//                    builder.append(" and p.primaryClinic.district=:district");
+//                }
+//            }
+//            if (dto.getPrimaryClinic() != null) {
+//                if (position == 0) {
+//                    builder.append("p.primaryClinic=:primaryClinic");
+//                    position++;
+//                } else {
+//                    builder.append(" and p.primaryClinic=:primaryClinic");
+//                }
+//            }
+//            if (dto.getSupportGroup() != null) {
+//                if (position == 0) {
+//                    builder.append("p.supportGroup=:supportGroup");
+//                    position++;
+//                } else {
+//                    builder.append(" and p.supportGroup=:supportGroup");
+//                }
+//            }
+//            if (dto.getGender() != null) {
+//                if (position == 0) {
+//                    builder.append("p.gender=:gender");
+//                    position++;
+//                } else {
+//                    builder.append(" and p.gender=:gender");
+//                }
+//            }
+//
+//            if (position == 0) {
+//                builder.append("p.status="+ PatientChangeEvent.ACTIVE);
+//                position++;
+//            } else {
+//                builder.append(" and p.status="+ PatientChangeEvent.ACTIVE);
+//            }
+//
+//            if (position == 0) {
+//                builder.append(" p.id not in (select c.patient from Contact c ");
+//                position++;
+//            } else {
+//                builder.append(" and p.id not in (select c.patient from Contact c ");
+//            }
+//
+//            if (dto.getStartDate() != null && dto.getEndDate() != null) {
+//                builder.append(" where c.contactDate between :startDate and :endDate");
+//
+//            }
+//            builder.append(" )");
+//        }
+//        TypedQuery<String> query = entityManager.createQuery(builder.toString(), String.class);
+//        if (dto.getProvince() != null) {
+//            query.setParameter("province", dto.getProvince());
+//        }
+//        if (dto.getDistrict() != null) {
+//            query.setParameter("district", dto.getDistrict());
+//        }
+//        if (dto.getPrimaryClinic() != null) {
+//            query.setParameter("primaryClinic", dto.getPrimaryClinic());
+//        }
+//        if (dto.getSupportGroup() != null) {
+//            query.setParameter("supportGroup", dto.getSupportGroup());
+//        }
+//        if (dto.getGender() != null) {
+//            query.setParameter("gender", dto.getGender());
+//        }
+//
+//        if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
+//            query.setParameter("facilities", dto.getFacilities());
+//        } else if (dto.getDistricts() != null && !dto.getDistricts().isEmpty()) {
+//            query.setParameter("districts", dto.getDistricts());
+//        }else if (dto.getProvinces() != null && !dto.getProvinces().isEmpty()) {
+//            query.setParameter("provinces", dto.getProvinces());
+//        }
+//
+//        if (dto.getStartDate() != null && dto.getEndDate() != null) {
+//            query.setParameter("startDate", dto.getStartDate());
+//            query.setParameter("endDate", dto.getEndDate());
+//        }
+//
+//        return query.getResultList();
+//    }
 
     @Override
     public Long countUncontacted(SearchDTO dto) {
-        StringBuilder builder = new StringBuilder("Select count(Distinct p) from Patient p  ");
+        StringBuilder builder = new StringBuilder("Select count(Distinct p.id) from Patient p  ");
         int position = 0;
 
         if (dto.getSearch(dto)) {
@@ -1980,7 +2079,7 @@ public class PatientReportServiceImpl implements PatientReportService {
             }
 
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
-                builder.append(" where c.dateCreated between :startDate and :endDate");
+                builder.append(" where c.contactDate between :startDate and :endDate");
 
             }
             builder.append(" )");
@@ -2018,7 +2117,7 @@ public class PatientReportServiceImpl implements PatientReportService {
         return query.getSingleResult();
     }
 
-	@Override
+    @Override
 	public Long getCountDueForViralLoad(SearchDTO dto) {
 		// TODO Auto-generated method stub
 		return null;

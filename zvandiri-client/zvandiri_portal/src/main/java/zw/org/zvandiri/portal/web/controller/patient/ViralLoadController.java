@@ -50,7 +50,7 @@ public class ViralLoadController extends BaseController {
     @Resource
     private ViralLoadValidator viralLoadValidator;
 
-    Patient patient;
+    //Patient patient;
 
 //    @InitBinder
 //    protected void initBinder(final HttpServletRequest request, final ServletRequestDataBinder binder) {
@@ -59,7 +59,7 @@ public class ViralLoadController extends BaseController {
 
     public String setUpModel(ModelMap model, InvestigationTest item) {
         model.addAttribute("pageTitle", APP_PREFIX + " " + item.getPatient().getName() + "'s Viral Load");
-        model.addAttribute("patient", patient);
+        model.addAttribute("patient", item.getPatient());
         model.addAttribute("item", item);
         model.addAttribute("investigationTest", Boolean.TRUE);
         model.addAttribute("eid", Boolean.FALSE);
@@ -73,18 +73,19 @@ public class ViralLoadController extends BaseController {
         InvestigationTest item;
         if (itemId != null) {
             item = investigationTestService.get(itemId);
-            patient=item.getPatient();
-            //System.err.println(patient);
-            item.setPatient(patient);
+            return setUpModel(model, item);
+        }else{
+            Patient patient=patientService.get(patientId);
+            item = new InvestigationTest(patient, TestType.VIRAL_LOAD);
             return setUpModel(model, item);
         }
-        patient=patientService.get(patientId);
-        item = new InvestigationTest(patient, TestType.VIRAL_LOAD);
-        return setUpModel(model, item);
+
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.POST)
     public String saveItem(ModelMap model, @ModelAttribute("item") @Valid InvestigationTest item, BindingResult result) {
+        Patient patient=item.getPatient();
+        System.err.println(patient);
 
         if (!patient.getPatientStatus()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(INACTIVE_MESSAGE).messageType(MessageType.ERROR).build());

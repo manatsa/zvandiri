@@ -6,18 +6,17 @@
             <th>Current Care Level</th>
             <th>Location</th>
             <th>Position</th>
-            <%--<th>Reason</th>--%>
-            <%--<th>&nbsp;</th>--%>
         </tr>
     </thead>
     <tfoot>
-    <th>Date of Contact</th>
-    <th>Previous Care Level</th>
-    <th>Current Care Level</th>
-    <th>Location</th>
-    <th>Position</th>
-    <%--<th>Reason</th>--%>
-    <%--<th>&nbsp;</th>--%>
+        <tr>
+            <th>Date of Contact</th>
+            <th>Previous Care Level</th>
+            <th>Current Care Level</th>
+            <th>Location</th>
+            <th>Position</th>
+        </tr>
+
 </tfoot>
 <tbody>
 <c:forEach var="contact" items="${contacts}">

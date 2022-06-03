@@ -13,6 +13,7 @@ import zw.org.zvandiri.business.service.FacilityService;
 import zw.org.zvandiri.business.service.ProvinceService;
 import zw.org.zvandiri.business.service.UserService;
 import zw.org.zvandiri.business.util.DateUtil;
+import zw.org.zvandiri.business.util.Reportutil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
 import zw.org.zvandiri.report.api.service.CaseloadManagementService;
@@ -71,7 +72,7 @@ public class CaseloadManagementController extends BaseController {
         String name = DateUtil.getFriendlyFileName("Zvandiri_Caseload_Management_Plan");
         forceDownLoadXLSX(caseloadManagementService.exportCaseload(name, item), name, response);
 
-        System.err.println(" >>>> Caseload Mgt Time Taken :"+(System.currentTimeMillis()-startTime)/60000+" minutes <<<>>> "+userService.getCurrentUsername());
+        System.err.println(" >>>> User:"+userService.getCurrentUsername()+" <=> Caseload Mgt Time Taken :"+ Reportutil.df.format((System.currentTimeMillis()-startTime)/60000)+" minutes <<<>>> ");
     }
 
 }

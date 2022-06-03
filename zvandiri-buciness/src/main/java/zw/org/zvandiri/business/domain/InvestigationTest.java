@@ -86,4 +86,14 @@ public class InvestigationTest extends TestResult {
         }
         return "";
     }
+
+    @Override
+    public String toString() {
+        return "InvestigationTest{" +
+                "testType=" + testType +
+                ", testDone=" + testDone +
+                ", haveResult=" + haveResult +
+                ", viralLoadSuppressionStatus='" + viralLoadSuppressionStatus + '\'' +
+                '}';
+    }
 }

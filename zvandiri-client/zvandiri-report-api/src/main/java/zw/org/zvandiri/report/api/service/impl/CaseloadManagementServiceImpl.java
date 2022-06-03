@@ -21,11 +21,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import zw.org.zvandiri.business.domain.Contact;
-import zw.org.zvandiri.business.domain.InvestigationTest;
-import zw.org.zvandiri.business.domain.MentalHealthScreening;
-import zw.org.zvandiri.business.domain.Patient;
+import zw.org.zvandiri.business.domain.*;
 import zw.org.zvandiri.business.domain.util.FollowUp;
+import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.Reportutil;
@@ -36,6 +34,7 @@ import zw.org.zvandiri.report.api.service.parallel.*;
 
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
@@ -59,6 +58,9 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
     ContactService contactService;
     @Resource
     MentalHealthScreeningService mentalHealthScreeningService;
+    @Resource
+    UserService userService;
+
 
     final static String [] CLIENTS_GENERAL_HEADER = {
             "Client Name","Date of Birth", "Age", "Gender","Status", "Address","Secondary Address", "Mobile Number", "Second Mobile Number", "Region",
@@ -72,7 +74,10 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
     @Override
     public XSSFWorkbook exportCaseload(String name, SearchDTO dto) {
 
+
+
        long initially= System.currentTimeMillis();
+        User currentUser=userService.getCurrentUser();
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFCellStyle XSSFCellStyle = workbook.createCellStyle();
@@ -82,18 +87,37 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
 
         dto.setFirstResult(0);
         ForkJoinPool pool = ForkJoinPool.commonPool();
-        List<Patient> patients = pool.invoke(new UnContactedClientTask(DateUtil.generateArray(patientReportService.getCount(dto)), patientReportService, dto));
-        List<Patient> vlPatients = pool.invoke(new InvalidVLCandidatesTask(DateUtil.generateArray(patientReportService.getCount(dto)), patientReportService, dto));
-        List<Patient> enhancedPatients = pool.invoke(new EnhancedClientsTask(DateUtil.generateArray(patientReportService.getCount(dto)), patientReportService, dto));
-        List<Patient> mhPatients = pool.invoke(new MHScreeningCandidatesTask(DateUtil.generateArray(patientReportService.getCount(dto)), patientReportService, dto));
-        List<Patient> tbPatients = pool.invoke(new TBScreeningCandidatesTask(DateUtil.generateArray(patientReportService.getCount(dto)), patientReportService, dto));
-
+        //System.err.println(dto);
+//        List<Patient> patientz=detailedPatientReportService.get(dto);
+        List<String> patientIDS=detailedPatientReportService.getIds(dto);
+        System.err.println("Total number of clients :: "+patientIDS.size());
+        List<Patient> patients = pool.invoke(new UnContactedClientTask(patientIDS, patientReportService, dto));
+        final long pat_end=System.currentTimeMillis();
+        System.err.println("**** Caseload Uncontacted Patients (sec) :: "+Reportutil.df.format((double)(pat_end-initially)/1000));
+        List<Patient> vlPatients = pool.invoke(new InvalidVLCandidatesTask(patientIDS, patientReportService, dto));
+        final long vl_end=System.currentTimeMillis();
+        System.err.println(" **** Caseload Invalid VLs (sec) :: "+Reportutil.df.format((double)(vl_end-pat_end)/1000));
+        List<Patient> enhancedPatients = pool.invoke(new EnhancedClientsTask(patientIDS, patientReportService, dto));
+        final long enhanced_end=System.currentTimeMillis();
+        System.err.println(" **** Caseload Enhanced Patients (sec) :: "+Reportutil.df.format((double)(enhanced_end-vl_end)/1000));
+        List<Patient> mhPatients = pool.invoke(new MHScreeningCandidatesTask(patientIDS, patientReportService, dto));
+        final long mhs_end=System.currentTimeMillis();
+        System.err.println(" **** Caseload Mental Health Screening Candidates (sec) :: "+Reportutil.df.format((double)(mhs_end-enhanced_end)/1000));
+        List<Patient> tbPatients = pool.invoke(new TBScreeningCandidatesTask(patientIDS, patientReportService, dto));
+        final long tbs_end=System.currentTimeMillis();
+        System.err.println(" **** Caseload TB Screening Candidates (sec) :: "+Reportutil.df.format((double)(tbs_end-mhs_end)/1000));
         pool.shutdown();
 
+        System.err.println("***** Now consolidating uncontacted data to excel sheet");
+
         addSheet(workbook, "Uncontacted Clients",patients,XSSFCellStyle);
+        System.err.println("***** Now consolidating enhanced clients data to excel sheet");
         addSheet(workbook, "Enhanced Clients",enhancedPatients,XSSFCellStyle);
+        System.err.println("***** Now consolidating invalid VL clients data to excel sheet");
         addSheet(workbook, "Invalid VL Clients",vlPatients,XSSFCellStyle);
+        System.err.println("***** Now consolidating MH Screening candidates data to excel sheet");
         addSheet(workbook, "MH Screening Candidates",mhPatients,XSSFCellStyle);
+        System.err.println("***** Now consolidating TB Screening candidates data to excel sheet");
         addSheet(workbook, "TB Screening Candidates",tbPatients,XSSFCellStyle);
 
         return workbook;
@@ -116,7 +140,7 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
         }
         for (Patient patient : patients) {
 
-            InvestigationTest vlTest=patient.getLastPatientVL(investigationTestService);
+            InvestigationTest vlTest=investigationTestService.getLatestTestByTestType(patient, TestType.VIRAL_LOAD);
             int count = 0;
 
             enhancedRow = enhancedClientsDetails.createRow(assessmentRowNum++);

@@ -108,11 +108,11 @@ public class Cadre {
     public Cadre() {
     }
 
-    public Cadre(String patient) {
-        this.patientId = patient;
+    public Cadre(String patientId) {
+        this.patientId = patientId;
     }
 
-    public Cadre(String firstName, String middleName, String lastName, Gender gender, String address,String mobileNumber, Date dateOfBirth, Facility primaryClinic, SupportGroup supportGroup,CaderType caderType) {
+    public Cadre(String firstName, String middleName, String lastName, Gender gender, String address,String mobileNumber, Date dateOfBirth, Facility primaryClinic, SupportGroup supportGroup,CaderType caderType, String patientId) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -123,6 +123,7 @@ public class Cadre {
         this.primaryClinic = primaryClinic;
         this.supportGroup = supportGroup;
         this.caderType = caderType;
+        this.patientId=patientId;
     }
 
     public String getFirstName() {

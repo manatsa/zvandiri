@@ -20,7 +20,7 @@
                 <br/>
                 <div class="row">
                     <div class="col-lg-12">
-                        <b class="titleHeader">TB Screening Detail</b>  <c:if test="${canEdit}">| <a href="${page}/contact?id==${patient.id}">Add TB Screening </a></c:if>
+                        <b class="titleHeader">TB Screening Detail</b>  <c:if test="${canEdit}">| <a href="${page}/contact?id=${patient.id}">Add TB Screening </a></c:if>
                             <hr/>
                             <div class="table-responsive">
                                 <table class="itemList" class="display" cellspacing="0">
@@ -28,27 +28,36 @@
                                         <tr>
                                             <th>Screened For Tb</th>
                                             <th>Date Screened</th>
-                                            <th>Presence with signs or symptoms of TB</th>
-                                            <th>Identified with TB</th>
-                                            <th>Action Taken</th>
+                                            <th>Identified with TB Symptoms</th>
+                                            <th>TB Symptoms Identified</th>
                                             <th>Date Started Treatment</th>
-                                            <th>Outcome</th>
                                             <th>Referred For IPT</th>
                                             <th>On IPT</th>
                                             <th>Date Started On IPT</th>
                                             <%--<th>&nbsp;</th>--%>
                                         </tr>
                                     </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Screened For Tb</th>
+                                        <th>Date Screened</th>
+                                        <th>Identified with TB Symptoms</th>
+                                        <th>TB Symptoms Identified</th>
+                                        <th>Date Started Treatment</th>
+                                        <th>Referred For IPT</th>
+                                        <th>On IPT</th>
+                                        <th>Date Started On IPT</th>
+                                        <%--<th>&nbsp;</th>--%>
+                                    </tr>
+                                    </tfoot>
                                     <tbody>
                                     <c:forEach var="tbScreen" items="${items}">
                                         <tr>
                                             <td>${tbScreen.screenedForTb}</td>
                                             <td>${tbScreen.dateScreened}</td>
-                                            <td>${tbScreen.tbSymptoms}</td>
                                             <td>${tbScreen.identifiedWithTb}</td>
-                                            <td>${tbScreen.tbIdentificationOutcome}</td>
+                                            <td>${tbScreen.tbSymptoms}</td>
                                             <td>${tbScreen.dateStartedTreatment}</td>
-                                            <td>${tbScreen.tbTreatmentOutcome}</td>
                                             <td>${tbScreen.referredForIpt}</td>
                                             <td>${tbScreen.onIpt}</td>
                                             <td>${tbScreen.dateStartedIpt}</td>

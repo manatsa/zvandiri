@@ -196,7 +196,8 @@ public class PatientController extends BaseController {
     @RequestMapping("create-cadre")
     public String createCadre(@RequestParam("id") String id){
         Patient patient=patientService.get(id);
-        Cadre cadre=new Cadre();
+
+        Cadre cadre=new Cadre(id);
         cadre.setActive(true);
         cadre.setDistrict(patient.getPrimaryClinic().getDistrict());
         cadre.setAddress(patient.getAddress());

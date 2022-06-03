@@ -57,16 +57,18 @@ public interface PatientReportService {
 
     public List<Patient> getPatientDeceased(SearchDTO dto);
 
-    public List<Patient> getUncontactedClients(SearchDTO dto);
+    public List<Patient> getUncontactedClients(List<String> ids, SearchDTO dto);
 
-    public List<Patient> getEnhancedClients(SearchDTO dto);
+    public List<Patient> getEnhancedClients(List<String> ids,SearchDTO dto);
 
-    public List<Patient> getMHScreeningCandidates(SearchDTO dto);
+    public List<Patient> getMHScreeningCandidates(List<String> ids,SearchDTO dto);
 
-    public List<Patient> getTBScreeningCandidates(SearchDTO dto);
+    public List<Patient> getTBScreeningCandidates(List<String> ids, SearchDTO dto);
 
-    public List<Patient> getPatientsWithInvalidVL(SearchDTO dto);
-    
+    public List<Patient> getPatientsWithInvalidVL(List<String> ids, SearchDTO dto);
+
+//    public List<String> UncontactedPatientIds(SearchDTO dto);
+
     Long countUncontacted(SearchDTO dto);
     
     public Long getCountDueForViralLoad(SearchDTO dto);
