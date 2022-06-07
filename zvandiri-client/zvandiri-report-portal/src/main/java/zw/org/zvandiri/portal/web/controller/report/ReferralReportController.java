@@ -27,10 +27,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import zw.org.zvandiri.business.service.DistrictService;
-import zw.org.zvandiri.business.service.FacilityService;
-import zw.org.zvandiri.business.service.ProvinceService;
-import zw.org.zvandiri.business.service.ReferalReportService;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
@@ -59,6 +56,8 @@ public class ReferralReportController extends BaseController {
     private OfficeExportService officeExportService;
     @Resource
     private ReferralReportAPIService referralReportAPIService;
+    @Resource
+    UserService userService;
 
     public String setUpModel(ModelMap model, SearchDTO item, boolean post) {
         item = getUserLevelObjectState(item);
@@ -73,7 +72,7 @@ public class ReferralReportController extends BaseController {
         model.addAttribute("excelExport", "/report/referral/export/excel" + item.getQueryString(item.getInstance(item)));
         if (post) {
             ForkJoinPool pool = ForkJoinPool.commonPool();
-            List items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(referalReportService.getCount(item)), referalReportService, item));
+            List items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(referalReportService.getCount(item)), referalReportService, item, userService.getCurrentUser()));
             model.addAttribute("items", items);
         }
         model.addAttribute("item", item.getInstance(item));

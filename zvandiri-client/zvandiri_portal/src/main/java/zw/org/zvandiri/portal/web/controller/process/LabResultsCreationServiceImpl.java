@@ -41,7 +41,7 @@ public class LabResultsCreationServiceImpl implements LabResultsCreationService 
 
     @Override
     public InvestigationTest saveResult(InvestigationTest investigationTest) {
-        System.err.println(investigationTest);
+        //System.err.println(investigationTest);
         return investigationTestService.save(investigationTest);
     }
 }

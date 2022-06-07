@@ -26,10 +26,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import zw.org.zvandiri.business.service.ContactReportService;
-import zw.org.zvandiri.business.service.DistrictService;
-import zw.org.zvandiri.business.service.FacilityService;
-import zw.org.zvandiri.business.service.ProvinceService;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
@@ -58,6 +55,8 @@ public class ContactReportController extends BaseController {
     private OfficeExportService officeExportService;
     @Resource
     private DetailedReportService detailedReportService;
+    @Resource
+    UserService userService;
 
     public String setUpModel(ModelMap model, SearchDTO item, boolean post) {
         item = getUserLevelObjectState(item);
@@ -73,7 +72,7 @@ public class ContactReportController extends BaseController {
             model.addAttribute("excelExport", "/report/contact/export/excel" + item.getQueryString(item.getInstance(item)));
             ForkJoinPool pool = ForkJoinPool.commonPool();
             System.err.println("+++++++++++++++++++ New Contact Detailed Report +++++++++++++++++++++");
-            List items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(contactReportService.getCount(item)), contactReportService, item));
+            List items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(contactReportService.getCount(item)), contactReportService, item, userService.getCurrentUser()));
             System.err.println("Contact Detailed Items::"+items.size());
             model.addAttribute("items", items);
         }

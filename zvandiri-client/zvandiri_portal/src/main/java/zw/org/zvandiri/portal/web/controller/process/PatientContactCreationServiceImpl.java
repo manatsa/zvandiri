@@ -24,6 +24,7 @@ import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.UUIDGen;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  *
@@ -41,7 +42,7 @@ public class PatientContactCreationServiceImpl implements PatientContactCreation
     @Resource
     ReferralService referralService;
     @Resource
-    InvestigationTestService investigationTestService;
+    UserService userService;
 
     @Override
     public PatientContact createPatientContact() {
@@ -58,18 +59,14 @@ public class PatientContactCreationServiceImpl implements PatientContactCreation
         if(mentalHealthScreening.getScreenedForMentalHealth().equals(YesNo.YES)){
             mentalHealthScreening=mentalHealthScreeningService.save(mentalHealthScreening);
             patientContact.setMentalHealthScreening(mentalHealthScreening);
-            System.err.println(" >>>> SAVED MENTAL HEALTH SCREENING :"+mentalHealthScreening.toString());
-        }else{
-            System.err.println(" <<<<<< No MENTAL HEALTH SCREENING item to save!");
+            System.err.println("\n\n>>>>> User:: "+userService.getCurrentUsername()+" >>>>> SAVED MH SCREENING ITEM >>>>> Date::"+new Date()+"\n");
         }
 
         TbIpt tbIpt=patientContact.getTbIpt();
         if(tbIpt.getScreenedForTb().equals(YesNo.YES)){
             tbIpt=tbIptService.save(tbIpt);
             patientContact.setTbIpt(tbIpt);
-            System.err.println(" >>>>> SAVED TB/TPT :"+tbIpt.toString());
-        }else{
-            System.err.println(" <<<<<< No TB/TPT item to save!");
+            System.err.println("\n\n>>>>> User:: "+userService.getCurrentUsername()+" >>>>> SAVED TB/TPT ITEM >>>>> Date::"+new Date()+"\n");
         }
 
 
@@ -77,10 +74,8 @@ public class PatientContactCreationServiceImpl implements PatientContactCreation
         Referral referral=patientContact.getReferral();
         if(referral.getHasReferred().equals(YesNo.YES)){
             referral=referralService.save(referral);
-            System.err.println(" >>>>> SAVED REFERRAL ITEM :"+referral.toString());
+            System.err.println("\n\n>>>>> User:: "+userService.getCurrentUsername()+" >>>>> SAVED REFERRAL ITEM >>>>> Date::"+new Date()+"\n");
             patientContact.setReferral(referral);
-        }else{
-            System.err.println(" <<<<<< No REFERRAL item to save!");
         }
 
         Contact contact=patientContact.getContact();
@@ -91,10 +86,10 @@ public class PatientContactCreationServiceImpl implements PatientContactCreation
         }
 
         contact=contactService.save(contact);
-        System.err.println(" >>>>> SAVED CONTACT ITEM :"+contact.toString());
+        System.err.println("\n\n>>>>> User:: "+userService.getCurrentUsername()+" >>>>> SAVED CONTACT ITEM >>>>> Date::"+new Date()+"\n");
         patientContact.setContact(contact);
 
-        System.err.println(" ********** PATIENT CONTACT :"+patientContact.toString());
+        //System.err.println(" ********** PATIENT CONTACT :"+patientContact.toString());
 
         return patientContact;
     }

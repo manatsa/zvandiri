@@ -35,6 +35,8 @@ public class ArvHistoryController extends BaseController {
     private FacilityService facilityService;
     @Resource
     private ArvHistReportService reportService;
+    @Resource
+    UserService userService;
     List<ArvHist> arvHists = new ArrayList<>();
 
     public String setUpModel(ModelMap model, SearchDTO item, boolean post) {
@@ -64,7 +66,7 @@ public class ArvHistoryController extends BaseController {
     public String getReferralReportIndex(HttpServletResponse response, ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
         item = getUserLevelObjectState(item);
         ForkJoinPool pool = ForkJoinPool.commonPool();
-        arvHists = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(reportService.getCount(item)), reportService, item));
+        arvHists = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(reportService.getCount(item)), reportService, item, userService.getCurrentUser()));
         return setUpModel(model, item, true);
     }
 

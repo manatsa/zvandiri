@@ -680,7 +680,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" and p.period=:period");
                 }
             }
-            if (dto.getStatuses() == null || dto.getStatuses().isEmpty()) {
+            if (dto.getStatus() == null) {
                 if (dto.getStatus() != null) {
                     if (position == 0) {
                         builder.append("p.status=:status");
@@ -692,7 +692,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
             }
             if (dto.getHei() != null) {
                 if (position == 0) {
-                    builder.append("p.hei=:hei");
+                    builder.append(" p.hei=:hei");
                     position++;
                 } else {
                     builder.append(" and p.hei=:hei");
@@ -700,7 +700,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
             }
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
                 if (position == 0) {
-                    builder.append("p.");
+                    builder.append(" p.");
                     builder.append(startDate);
                     builder.append(" between :startDate and :endDate");
                     position++;

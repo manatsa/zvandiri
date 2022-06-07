@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.Contact;
-import zw.org.zvandiri.business.service.ContactReportService;
-import zw.org.zvandiri.business.service.DistrictService;
-import zw.org.zvandiri.business.service.FacilityService;
-import zw.org.zvandiri.business.service.ProvinceService;
+import zw.org.zvandiri.business.domain.User;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
@@ -49,9 +47,9 @@ public class NewContactReportController extends BaseController {
     @Resource
     private ContactReportService contactReportService;
     @Resource
-    private OfficeExportService officeExportService;
+    private UserService userService;
     @Resource
-    private DetailedReportService detailedReportService;
+    CatDetailService catDetailService;
     List<Contact> contacts=new ArrayList<>();
 
     public String setUpModel(ModelMap model, SearchDTO item, boolean post) {
@@ -82,8 +80,9 @@ public class NewContactReportController extends BaseController {
     @RequestMapping(value = "/detailed", method = RequestMethod.POST)
     public String getReferralReportIndex(ModelMap model, @ModelAttribute("item") @Valid SearchDTO item, BindingResult result) {
         ForkJoinPool pool = ForkJoinPool.commonPool();
-        System.err.println("<<<<<<<<<<<<<<< New Contact Detailed Report >>>>>>>>>>>>>>>>>");
-        contacts = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(contactReportService.getCount(item)), contactReportService, item));
+        User user=userService.getCurrentUser();
+        System.err.println("\n\nUser :: "+user.getUserName()+" <=> District:"+(user.getUserLevel()!=null?user.getDistrict(): catDetailService.getByEmail(user.getUserName()).getPrimaryClinic().getDistrict().getName())+" <<<<<<<<<<<<<<< New Contact Detailed Report >>>>>>>>>>>>>>>>>");
+        contacts = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(contactReportService.getCount(item)), contactReportService, item, userService.getCurrentUser()));
         System.err.println("New Contact Detailed Items::"+contacts.size());
         model.addAttribute("items", contacts);
         return setUpModel(model, item, true);

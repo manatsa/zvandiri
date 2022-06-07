@@ -41,6 +41,8 @@ public class MorbidityReportController extends BaseController {
     private ContactReportService contactReportService;
     @Resource
     private DetailedPatientReportService detailedPatientReportService;
+    @Resource
+    UserService userService;
 
     List<Contact> contacts = new ArrayList<>();
 
@@ -57,7 +59,7 @@ public class MorbidityReportController extends BaseController {
         if (post) {
             model.addAttribute("excelExport", "/report/morbidity/export/excel" + item.getQueryString(item.getInstance(item)));
             ForkJoinPool pool = ForkJoinPool.commonPool();
-            contacts = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(contactReportService.getCount(item)), contactReportService, item));
+            contacts = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(contactReportService.getCount(item)), contactReportService, item, userService.getCurrentUser()));
             model.addAttribute("items", contacts);
         }
         model.addAttribute("item", item.getInstance(item));
@@ -92,7 +94,7 @@ public class MorbidityReportController extends BaseController {
         }
 
         ForkJoinPool pool = ForkJoinPool.commonPool();
-        List<Patient> patients = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(dto)), detailedPatientReportService, dto));
+        List<Patient> patients = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(dto)), detailedPatientReportService, dto, userService.getCurrentUser()));
 
         for (Patient patient : patients) {
 

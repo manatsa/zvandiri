@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zw.org.zvandiri.business.domain.CatDetail;
-import zw.org.zvandiri.business.service.CatDetailReportService;
-import zw.org.zvandiri.business.service.DistrictService;
-import zw.org.zvandiri.business.service.FacilityService;
-import zw.org.zvandiri.business.service.ProvinceService;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
@@ -49,6 +46,8 @@ public class CatDetailReportController extends BaseController {
     private OfficeExportService officeExportService;
     @Resource
     private DetailedReportService detailedReportService;
+    @Resource
+    UserService userService;
 
     public String setUpModel(ModelMap model, SearchDTO item, boolean post) {
         item = getUserLevelObjectState(item);
@@ -63,7 +62,7 @@ public class CatDetailReportController extends BaseController {
         if (post) {
             model.addAttribute("excelExport", "/report/cat/export/excel" + item.getQueryString(item.getInstance(item)));
             ForkJoinPool pool = ForkJoinPool.commonPool();
-            List items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(reportService.getCount(item)), reportService, item));
+            List items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(reportService.getCount(item)), reportService, item, userService.getCurrentUser()));
             model.addAttribute("items", items);
         }
         model.addAttribute("item", item.getInstance(item));
@@ -84,7 +83,7 @@ public class CatDetailReportController extends BaseController {
     public void getExcelExport(HttpServletResponse response, SearchDTO item) {
         String name = DateUtil.getFriendlyFileName("Detailed_CATS_Report");
         ForkJoinPool pool = ForkJoinPool.commonPool();
-        List<CatDetail> items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(reportService.getCount(item)), reportService, item));
+        List<CatDetail> items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(reportService.getCount(item)), reportService, item, userService.getCurrentUser()));
         forceDownLoadDatabase(officeExportService.exportExcelXLSXFile(detailedReportService.getCatsDetailExcel(items), name), name, response);
     }
 }

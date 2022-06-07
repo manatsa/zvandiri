@@ -29,13 +29,7 @@ import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.domain.util.YesNo;
-import zw.org.zvandiri.business.service.DetailedPatientReportService;
-import zw.org.zvandiri.business.service.DistrictService;
-import zw.org.zvandiri.business.service.FacilityService;
-import zw.org.zvandiri.business.service.PatientReportService;
-import zw.org.zvandiri.business.service.PeriodService;
-import zw.org.zvandiri.business.service.ProvinceService;
-import zw.org.zvandiri.business.service.SupportGroupService;
+import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.DateUtil;
 import zw.org.zvandiri.business.util.dto.SearchDTO;
 import zw.org.zvandiri.portal.web.controller.BaseController;
@@ -70,6 +64,8 @@ public class DetailedReportController extends BaseController {
     private DetailedPatientReportService detailedPatientReportService;
     @Resource
     private PatientReportService patientReportService;
+    @Resource
+    UserService userService;
 
     public void setUpModel(ModelMap model, SearchDTO item, Boolean post, Boolean hei) {
         item = getUserLevelObjectState(item);
@@ -95,7 +91,7 @@ public class DetailedReportController extends BaseController {
                 if (item.getIsDueForVL() != null) {
                 	item.setTestType(TestType.VIRAL_LOAD);
                 }
-                List items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(item)), detailedPatientReportService, item));
+                List items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(item)), detailedPatientReportService, item, userService.getCurrentUser()));
                 model.addAttribute("items", items);
             }
         } else {
@@ -159,7 +155,7 @@ public class DetailedReportController extends BaseController {
             if (item.getIsDueForVL() != null) {
             	item.setTestType(TestType.VIRAL_LOAD);
             }
-            items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(item)), detailedPatientReportService, item));
+            items = pool.invoke(new GenericCountReportTask(DateUtil.generateArray(detailedPatientReportService.getCount(item)), detailedPatientReportService, item, userService.getCurrentUser()));
         } else {
             if (item.getMaxViralLoad() != null || item.getMinViralLoad() != null) {
                 item.setTestType(TestType.VIRAL_LOAD);

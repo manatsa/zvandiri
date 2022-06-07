@@ -42,7 +42,7 @@ public class ContactCreationServiceImpl implements ContactCreationService {
 
     @Override
     public Contact saveContact(Contact contact) {
-        System.err.println(contact);
+        //System.err.println(contact);
         return contactService.save(contact);
     }
     
