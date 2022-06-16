@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.business.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import zw.org.zvandiri.business.domain.Patient;
 import zw.org.zvandiri.business.domain.User;
+import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.service.DetailedPatientReportService;
 import zw.org.zvandiri.business.service.PatientService;
 import zw.org.zvandiri.business.service.UserService;
@@ -790,10 +792,12 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
     @Override
     public List<String> getIds(SearchDTO dto) {
         StringBuilder builder = new StringBuilder("Select distinct p.id from Patient p ");
-        int position = 1;
+        int position = 0;
+        System.err.println(dto);
 
         if (dto.getSearch(dto)) {
-            builder.append(" where p.status=5 ");
+//            if(dto)
+            builder.append(" where  ");
 
             if (dto.getFacilities() != null && !dto.getFacilities().isEmpty()) {
                 //System.err.println("################# DTO facilities is not null");
@@ -850,6 +854,20 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" and p.primaryClinic.district.province = :province ");
                 }
             }
+            if(dto.getStatuses()!=null && !dto.getStatuses().isEmpty()){
+                if (position == 0) {
+                    builder.append(" p.status in :statuses ");
+                    position++;
+                } else {
+                    builder.append(" and p.status in :statuses ");
+                }
+            }else{
+                if(position==0){
+                    builder.append(" p.status=5 and p.active=1  ");
+                }else{
+                    builder.append(" and  p.status=5 and p.active=1  ");
+                }
+            }
         }
 
         TypedQuery<String> query = entityManager.createQuery(builder.toString(), String.class);
@@ -869,6 +887,9 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         }
         if(dto.getProvince()!=null){
             query.setParameter("province", dto.getProvince());
+        }
+        if(dto.getStatuses()!=null && !dto.getStatuses().isEmpty()){
+            query.setParameter("statuses", dto.getStatuses());
         }
 
         List<String> patients=query.getResultList();

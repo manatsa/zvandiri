@@ -39,8 +39,7 @@ public class PatientContactCreationServiceImpl implements PatientContactCreation
     MentalHealthScreeningService mentalHealthScreeningService;
     @Resource
     TbIptService tbIptService;
-    @Resource
-    ReferralService referralService;
+
     @Resource
     UserService userService;
 
@@ -71,12 +70,12 @@ public class PatientContactCreationServiceImpl implements PatientContactCreation
 
 
 
-        Referral referral=patientContact.getReferral();
-        if(referral.getHasReferred().equals(YesNo.YES)){
-            referral=referralService.save(referral);
-            System.err.println("\n\n>>>>> User:: "+userService.getCurrentUsername()+" >>>>> SAVED REFERRAL ITEM >>>>> Date::"+new Date()+"\n");
-            patientContact.setReferral(referral);
-        }
+//        Referral referral=patientContact.getReferral();
+//        if(referral.getHasReferred().equals(YesNo.YES)){
+//            referral=referralService.save(referral);
+//            System.err.println("\n\n>>>>> User:: "+userService.getCurrentUsername()+" >>>>> SAVED REFERRAL ITEM >>>>> Date::"+new Date()+"\n");
+//            patientContact.setReferral(referral);
+//        }
 
         Contact contact=patientContact.getContact();
         contact.setSystemDeterminedCareLevel(contact.getCareLevelAfterAssessment());

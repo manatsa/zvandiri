@@ -110,7 +110,7 @@ public class ContactServiceImpl implements ContactService {
 
 	@Override
 	public List<Contact> findByPatientAndContactDate(Patient patient, Date start, Date end) {
-		return contactRepo.findByPatientAndContactDate(patient, start, end);
+		return contactRepo.findByPatientAndContactDateBetween(patient, start, end);
 	}
 
 	@Override

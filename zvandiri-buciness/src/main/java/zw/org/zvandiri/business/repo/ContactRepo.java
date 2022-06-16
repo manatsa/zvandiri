@@ -37,8 +37,8 @@ public interface ContactRepo extends AbstractRepo<Contact, String> {
     @Query("Select Distinct(c) from Contact c left join fetch c.clinicalAssessments left join fetch c.nonClinicalAssessments where c.patient=:patient")
     public List<Contact> findByPatient(@Param("patient") Patient patient);
     
-    @Query("Select Distinct(c) from Contact c left join fetch c.clinicalAssessments left join fetch c.nonClinicalAssessments where c.patient=:patient and (c.contactDate) between :start and :end")
-    public List<Contact> findByPatientAndContactDate(
+    @Query("Select Distinct(c) from Contact c left join fetch c.clinicalAssessments left join fetch c.nonClinicalAssessments where c.patient=:patient and (c.contactDate between :start and :end)")
+    public List<Contact> findByPatientAndContactDateBetween(
             @Param("patient") Patient patient,
             @Param("start") Date start, @Param("end") Date end);
     

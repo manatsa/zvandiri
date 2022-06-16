@@ -17,6 +17,7 @@
                 <a href="${page}/patient/dashboard/profile.htm?id=${patient.id}">&DoubleLeftArrow; Back To ${patient.name} Dashboard</a><br/><br/>
                 <div class="row">
                     <div class="col-lg-12">
+
                         <div class="form-group">
                                 <label>Referral Date :</label>
                                 <spring:eval expression="item.referralDate" />

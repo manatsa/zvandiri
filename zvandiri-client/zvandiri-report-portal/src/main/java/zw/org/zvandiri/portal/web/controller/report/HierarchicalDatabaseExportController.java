@@ -11,6 +11,7 @@ import zw.org.zvandiri.business.domain.District;
 import zw.org.zvandiri.business.domain.Facility;
 import zw.org.zvandiri.business.domain.Province;
 import zw.org.zvandiri.business.domain.User;
+import zw.org.zvandiri.business.domain.util.PatientChangeEvent;
 import zw.org.zvandiri.business.domain.util.UserLevel;
 import zw.org.zvandiri.business.domain.util.UserType;
 import zw.org.zvandiri.business.service.DistrictService;
@@ -56,6 +57,7 @@ public class HierarchicalDatabaseExportController extends BaseController {
         model.addAttribute("districts", districtService.getAll());
         model.addAttribute("provinces", provinceService.getAll());
         model.addAttribute("facilities", facilityService.getAll());
+        model.addAttribute("statuses", PatientChangeEvent.values());
 
 
     }

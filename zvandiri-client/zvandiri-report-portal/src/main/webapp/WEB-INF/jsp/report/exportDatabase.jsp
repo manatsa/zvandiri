@@ -50,7 +50,7 @@
                                     </p>
                                 </div> 
                             </td>
-                            <td>
+                            <%--<td>
                                 <div class="form-group">
                                     <label>Start Date</label>
                                     <form:input path="startDate" class="form-control general"/>
@@ -67,7 +67,7 @@
                                         <form:errors path="endDate"/>
                                     </p>
                                 </div>
-                            </td>
+                            </td>--%>
                             <td>
                                 <div class="form-group">
                                     <label>&nbsp;</label><br/>

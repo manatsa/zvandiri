@@ -112,6 +112,12 @@ public class PatientServiceImpl implements PatientService {
             t.setCreatedBy(userService.getCurrentUser());
             t.setDateCreated(new Date());
             t.setPatientNumber(getPatientUAC(t));
+            if(t.getPrimaryClinic()==null){
+                System.err.println("\n\nFacility is null : BY:"+t.getCreatedBy().getFirstName()+" "+t.getCreatedBy().getLastName()+" District: "+t.getCreatedBy().getDistrict());
+                return null;
+            }else if(t.getPatientNumber()==null){
+                System.err.println("\n\n Patient does not have UAC::\n"+t.toString());
+            }
             return patientRepo.save(t);
         }
         if(t.getPrimaryClinic()==null){

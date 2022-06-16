@@ -143,7 +143,7 @@ public class  PatientDashboardController extends BaseController {
     private String getContacts(Patient patient) {
         StringBuilder warning = new StringBuilder();
         warning.append("Please complete the following before proceeding<br/><ul>");
-        warning.append("<li><a class='alert-link' href='../../beneficiary/contact/item.form?patientId=");
+        warning.append("<li><a class='alert-link' href='../../contact?id=");
         warning.append(patient.getId());
         warning.append("'>Add Contacts</a></li>");
         warning.append("</ul>");
@@ -153,7 +153,7 @@ public class  PatientDashboardController extends BaseController {
     private String getMentalHealth(Patient patient) {
         StringBuilder warning = new StringBuilder();
         warning.append("Please complete the following before proceeding<br/><ul>");
-        warning.append("<li><a class='alert-link' href='../../beneficiary/mental-health-screening/item.form?patientId=");
+        warning.append("<li><a class='alert-link' href='../../contact?id=");
         warning.append(patient.getId());
         warning.append("'>Add Mental Health Screening</a></li>");
         warning.append("</ul>");
@@ -163,7 +163,7 @@ public class  PatientDashboardController extends BaseController {
     private String getTbScreening(Patient patient) {
         StringBuilder warning = new StringBuilder();
         warning.append("Please complete the following before proceeding<br/><ul>");
-        warning.append("<li><a class='alert-link' href='../tb-screening/item.form?patientId=");
+        warning.append("<li><a class='alert-link' href='../../contact?id=");
         warning.append(patient.getId());
         warning.append("'>Add TB Screening</a></li>");
         warning.append("</ul>");

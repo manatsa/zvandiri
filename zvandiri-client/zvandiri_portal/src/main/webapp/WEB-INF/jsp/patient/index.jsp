@@ -72,6 +72,7 @@
                     var vl_url = "<a href='"+path+"/patient/viral-load/item.form?patientId=" + pat[i].id + "'>";
                     /*var tb_screening_url = "<a href='"+path+"/patient/tb-screening/item.list?id=" + pat[i].id + "'>";
                     var hiv_self_testing_url = "<a href='"+path+"/patient/hiv-self-testing/item.list?id=" + pat[i].id + "'>";*/
+                    var referral_url = "<a href='"+path+"/patient/referral/item.list?id=" + pat[i].id + "'>";
                     var mental_health_screening_url = "<a href='"+path+"http://localhost:8080/zvandiri/contact?execution=e7s4?id=" + pat[i].id + "'>";
                     $("#patientListing").dataTable().fnAddData([part_url +pat[i].name+ "</a>",
                         pat[i].patientNumber,
@@ -81,7 +82,7 @@
                         pat[i].district,
                         pat[i].primaryClinic,
                         pat[i].active === true ?
-                            contact_url+"Add Contact  </a>" : ""]);
+                            contact_url+"Add Contact | </a>"+referral_url+"Referral </a>" + vl_url+"VL/Bleeding </a>" : ""]);
                         //contact_url+"Contact | </a>"+referral_url+"Referral | </a>" + vl_url+"VL/Bleeding | </a>" + mental_health_screening_url + "Mental Health Screening</a>" : ""]);
                 }
             });

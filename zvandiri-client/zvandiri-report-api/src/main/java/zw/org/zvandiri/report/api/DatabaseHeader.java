@@ -22,11 +22,11 @@ package zw.org.zvandiri.report.api;
 public interface DatabaseHeader {
 
     public final String [] PATIENT_HEADER = {
-            "UIC","Name", "OI/ Art Number", "Date of Birth", "Age","Date Of Entry", "Date Joined", "Gender", "Address", "Mobile Number",
-            "Consent To M-Health","Education", "Highest Education",
-            "Refer", "Region", "District","Primary Clinic", "Support Group", "Date Tested","HIV Disclosure Location",
-            "Has Disability", "IS CATS", "In YMM Programme","In YMD Programme", "HIV Transmission Mode","Current Regimen",
-            "HIV Status Known", "Patient Status", "Date Status Changed","Last Contact Date","Current Care Level","Viral Load","Date Taken"
+            "UIC","Client Name","Client Type", "OI/ Art Number", "Date of Birth", "Age","Date Of Entry", "Date Joined", "Gender", "Address", "Mobile Number",
+            "Consent To M-Health","Education", "Highest Education","Client Type",
+            "Refer", "Region", "District","Primary Clinic", "Support Group", "Date Tested","HIV Disclosure Location","Disclosure Type", "Is Key Population",
+            "Key Population","Has Birth Cert","Has Disability", "IS CATS", "In YMM Programme","In YMD Programme", "HIV Transmission Mode","Current Regimen",
+            "HIV Status Known", "Patient Status","Last Contact Date","Current Care Level","Viral Load","Date Taken"
     };
 
     public final String [] UNIQUE_PATIENT_HEADER = {
@@ -65,9 +65,9 @@ public interface DatabaseHeader {
     };
 
     public final String [] CONTACT_HEADER = {
-            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic","Date Of Entry","Contact Date", "Care Level", 
-            "Location", "Position","Reason", "Followup", "Subjective", "Objective", "Plan", "Action Taken",
-            "Last Clinic Appointment Date", "Attended Clinic Appointment", "Next Clinic Appointment", "Visit Outcome", "IS CATS", "In YMM Programme","In YMD Programme"
+            "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic","Date Of Entry","Contact Date", "Previous Care Level",
+            "Location", "Position", "Current Care Level","Last Clinic Appointment Date", "Attended Clinic Appointment",
+            "Next Clinic Appointment", "Contacted By","EAC Done","Which EAC", "IS CATS", "In YMM Programme","In YMD Programme"
     };
 
     public final String [] ASSESSMENT_HEADER = {

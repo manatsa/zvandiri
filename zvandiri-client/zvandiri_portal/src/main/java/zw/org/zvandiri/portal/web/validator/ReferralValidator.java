@@ -43,9 +43,13 @@ public class ReferralValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        ValidationUtils.rejectIfEmpty(errors, "hasReferred", "field.empty");
         Referral item = (Referral) o;
-        if(item.getHasReferred()!=null && item.getHasReferred().equals(YesNo.YES)){
+//        if(item.getId()==null){
+//            ValidationUtils.rejectIfEmpty(errors, "hasReferred", "field.empty");
+//        }
+
+
+//        if(item.getHasReferred()!=null && item.getHasReferred().equals(YesNo.YES)){
             ValidationUtils.rejectIfEmpty(errors, "referralDate", "field.empty");
             ValidationUtils.rejectIfEmpty(errors, "organisation", "field.empty");
             if (item.getReferralDate() != null && item.getReferralDate().after(new Date())) {
@@ -70,29 +74,44 @@ public class ReferralValidator implements Validator {
                     errors.rejectValue("actionTaken", "field.empty");
                 }
             }
-        }else{
-            item.setReferralDate(null);
-            item.setAttendingOfficer(null);
-            item.setDateAttended(null);
-            item.setExpectedVisitDate(null);
-            item.setHivStiServicesReq(null);
-            item.setHivStiServicesAvailed(null);
-            item.setLaboratoryAvailed(null);
-            item.setLaboratoryReq(null);
-            item.setLegalAvailed(null);
-            item.setLegalReq(null);
-            item.setOiArtAvailed(null);
-            item.setOiArtReq(null);
-            item.setPsychAvailed(null);
-            item.setPsychReq(null);
-            item.setSrhAvailed(null);
-            item.setSrhReq(null);
-            item.setTbAvailed(null);
-            item.setTbReq(null);
-            item.setOrganisation(null);
-            item.setDesignation(null);
-            item.setActionTaken(null);
+        if (item.getAttendingOfficer() != null) {
+            ValidationUtils.rejectIfEmpty(errors, "dateAttended", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "designation", "field.empty");
+            if (item.getActionTaken() == null) {
+                errors.rejectValue("actionTaken", "field.empty");
+            }
         }
+
+        if (item.getDesignation() != null) {
+            ValidationUtils.rejectIfEmpty(errors, "dateAttended", "field.empty");
+            ValidationUtils.rejectIfEmpty(errors, "designation", "field.empty");
+            if (item.getActionTaken() == null) {
+                errors.rejectValue("actionTaken", "field.empty");
+            }
+        }
+//        }else{
+//            item.setReferralDate(null);
+//            item.setAttendingOfficer(null);
+//            item.setDateAttended(null);
+//            item.setExpectedVisitDate(null);
+//            item.setHivStiServicesReq(null);
+//            item.setHivStiServicesAvailed(null);
+//            item.setLaboratoryAvailed(null);
+//            item.setLaboratoryReq(null);
+//            item.setLegalAvailed(null);
+//            item.setLegalReq(null);
+//            item.setOiArtAvailed(null);
+//            item.setOiArtReq(null);
+//            item.setPsychAvailed(null);
+//            item.setPsychReq(null);
+//            item.setSrhAvailed(null);
+//            item.setSrhReq(null);
+//            item.setTbAvailed(null);
+//            item.setTbReq(null);
+//            item.setOrganisation(null);
+//            item.setDesignation(null);
+//            item.setActionTaken(null);
+//        }
 
         if(errors.hasErrors()){
             User user=userService.getCurrentUser();

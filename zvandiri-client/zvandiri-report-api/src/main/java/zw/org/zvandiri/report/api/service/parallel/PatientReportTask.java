@@ -57,7 +57,7 @@ public class PatientReportTask extends RecursiveTask<List<Patient>> {
         System.err.println(">> DB referrals for patients :<>: "+data.size());
         for (Patient item : data) {
             if (dto.getStartDate() != null && dto.getEndDate() != null) {
-                item.setContacts(new HashSet<>(contactRepo.findByPatientAndContactDate(item, dto.getStartDate(), dto.getEndDate())));
+                item.setContacts(new HashSet<>(contactRepo.findByPatientAndContactDateBetween(item, dto.getStartDate(), dto.getEndDate())));
                 item.setReferrals(new HashSet<>(referralRepo.findByPatientAndContactDate(item, dto.getStartDate(), dto.getEndDate())));
             } else {
                 item.setContacts(new HashSet<>(contactRepo.findByPatient(item)));

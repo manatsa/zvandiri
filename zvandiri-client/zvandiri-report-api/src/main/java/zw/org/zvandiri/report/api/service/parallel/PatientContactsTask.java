@@ -55,11 +55,7 @@ public class PatientContactsTask extends RecursiveTask<List<Contact>> {
         List<Contact> list = new ArrayList<>();
         System.err.println(">> DB Contacts for patients :<>: "+data.size());
         for (Patient item : data) {
-            if (dto.getStartDate() != null && dto.getEndDate() != null) {
-                item.setContacts(new HashSet<>(contactRepo.findByPatientAndContactDate(item, dto.getStartDate(), dto.getEndDate())));
-            } else {
                 list.addAll(contactRepo.findByPatient(item));
-            }
         }
         return list;
     }

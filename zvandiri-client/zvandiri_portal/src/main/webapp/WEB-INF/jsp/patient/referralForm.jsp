@@ -19,7 +19,8 @@
                     <div class="col-lg-12">
                         <form:form commandName="item">
                             <form:hidden path="patient" value="${item.patient.id}"/>
-                            <%@include file="../template/formState.jspf" %>                            
+                            <form:hidden path="hasReferred" value="${item.hasReferred}"/>
+                            <%@include file="../template/formState.jspf" %>
                             <div class="form-group">
                                 <label>Referral Date</label>
                                 <form:input path="referralDate" size="10" class="form-control general"/>

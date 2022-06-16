@@ -52,6 +52,18 @@
                             </td>
                             <td>
                                 <div class="form-group">
+                                    <label>Patient Statuses</label>
+                                    <form:select path="statuses" class="form-control" size="15">
+                                        <form:option value="" label="--Select Item--" />
+                                        <form:options items="${statuses}" itemLabel="name" itemValue="code" />
+                                    </form:select>
+                                    <p class="help-block">
+                                        <form:errors path="statuses" />
+                                    </p>
+                                </div>
+                            </td>
+                            <%--<td>
+                                <div class="form-group">
                                     <label>Start Date</label>
                                     <form:input path="startDate" class="form-control general"/>
                                     <p class="help-block">
@@ -67,7 +79,7 @@
                                         <form:errors path="endDate"/>
                                     </p>
                                 </div>
-                            </td>
+                            </td>--%>
                             <td>
                                 <div class="form-group">
                                     <label>&nbsp;</label><br/>
@@ -89,6 +101,7 @@
 </div>
 <%@include file="../template/footer.jspf" %>
 <script type="text/javascript">
+    $("#toggle-rem-side-bar").click()
     $("#item").validate({
        rules: {
            province: {

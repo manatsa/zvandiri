@@ -87,6 +87,7 @@ public class ReferralController extends BaseController {
 
     @RequestMapping(value = "/item.form", method = RequestMethod.POST)
     public String saveItem(ModelMap model, @ModelAttribute("item") Referral item, BindingResult result) {
+        System.err.println("ITEM::"+item);
         if (!item.getPatient().getPatientStatus()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(INACTIVE_MESSAGE).messageType(MessageType.ERROR).build());
             return setUpModel(model, item, "referralForm");
@@ -97,7 +98,7 @@ public class ReferralController extends BaseController {
             return setUpModel(model, item, "referralForm");
         }
         referralService.save(item);
-        return "redirect:item.list?id=" + item.getPatient().getId();
+        return "redirect:item.list?type=1&id=" + item.getPatient().getId();
     }
 
     @RequestMapping(value = "/item.list", method = RequestMethod.GET)
