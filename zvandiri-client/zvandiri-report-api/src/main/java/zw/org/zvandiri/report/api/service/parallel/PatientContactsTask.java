@@ -57,6 +57,7 @@ public class PatientContactsTask extends RecursiveTask<List<Contact>> {
         for (Patient item : data) {
                 list.addAll(contactRepo.findByPatient(item));
         }
+        //System.err.println(">> DB Contacts for patients :<>: "+data.size()+" => "+list.size());
         return list;
     }
 

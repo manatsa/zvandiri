@@ -19,19 +19,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import lombok.ToString;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -49,7 +37,11 @@ import zw.org.zvandiri.business.domain.util.YesNo;
 @Table(indexes = {
 		@Index(name = "referral_patient", columnList = "patient"),
 		@Index(name = "referral_referral_date", columnList = "referralDate")
-})
+} ,
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"patient", "referralDate"})
+    }
+    )
 public class Referral extends BaseEntity {
 
     @ManyToOne

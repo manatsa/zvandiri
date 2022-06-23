@@ -26,7 +26,7 @@ public interface DatabaseHeader {
             "Consent To M-Health","Education", "Highest Education","Client Type",
             "Refer", "Region", "District","Primary Clinic", "Support Group", "Date Tested","HIV Disclosure Location","Disclosure Type", "Is Key Population",
             "Key Population","Has Birth Cert","Has Disability", "IS CATS", "In YMM Programme","In YMD Programme", "HIV Transmission Mode","Current Regimen",
-            "HIV Status Known", "Patient Status","Last Contact Date","Current Care Level","Viral Load","Date Taken"
+            "HIV Status Known", "Patient Status","Viral Load","TND","Date Taken"
     };
 
     public final String [] UNIQUE_PATIENT_HEADER = {

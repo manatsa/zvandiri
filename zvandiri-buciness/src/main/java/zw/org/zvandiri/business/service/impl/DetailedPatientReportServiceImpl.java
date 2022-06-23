@@ -682,7 +682,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
                     builder.append(" and p.period=:period");
                 }
             }
-            if (dto.getStatus() == null) {
+            if (dto.getStatuses() == null || dto.getStatuses().isEmpty()) {
                 if (dto.getStatus() != null) {
                     if (position == 0) {
                         builder.append("p.status=:status");
@@ -763,8 +763,10 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
         if (dto.getPeriod() != null) {
             query.setParameter("period", dto.getPeriod());
         }
-        if (dto.getStatus() != null) {
-            query.setParameter("status", dto.getStatus());
+        if (dto.getStatuses() == null || dto.getStatuses().isEmpty()) {
+            if (dto.getStatus() != null) {
+                query.setParameter("status", dto.getStatus());
+            }
         }
         if (dto.getHei() != null) {
             query.setParameter("hei", dto.getHei());
@@ -793,7 +795,7 @@ public class DetailedPatientReportServiceImpl implements DetailedPatientReportSe
     public List<String> getIds(SearchDTO dto) {
         StringBuilder builder = new StringBuilder("Select distinct p.id from Patient p ");
         int position = 0;
-        System.err.println(dto);
+        //System.err.println(dto);
 
         if (dto.getSearch(dto)) {
 //            if(dto)

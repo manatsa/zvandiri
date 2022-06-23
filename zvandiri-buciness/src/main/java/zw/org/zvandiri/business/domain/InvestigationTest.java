@@ -15,11 +15,7 @@
  */
 package zw.org.zvandiri.business.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.Index;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import lombok.ToString;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -35,7 +31,10 @@ import zw.org.zvandiri.business.domain.util.YesNo;
 @Table(indexes = {
 		@Index(name = "investigation_test_patient", columnList = "patient"),
 		@Index(name = "investigation_test_dateTaken", columnList = "dateTaken"),
-})
+} ,
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"patient", "dateTaken"})
+        })
 @ToString
 public class InvestigationTest extends TestResult {
 
@@ -82,7 +81,7 @@ public class InvestigationTest extends TestResult {
 
     public String getViralLoadSuppressionStatus() {
         if (testType!=null && testType.equals(TestType.VIRAL_LOAD)) {
-            return (getResult() != null && getResult() < 1000) ? "Suppressed" : "Unsuppressed";
+            return (getResult() != null && getResult() < 1000) || (getTnd()!=null && !getTnd().isEmpty()) ? "Suppressed" : "Unsuppressed";
         }
         return "";
     }

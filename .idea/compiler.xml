@@ -19,8 +19,8 @@
       <module name="zvandiri-business" target="1.7" />
       <module name="zvandiri-client" target="1.5" />
       <module name="zvandiri-mobile-api" target="1.7" />
-      <module name="zvandiri-portal" target="1.7" />
-      <module name="zvandiri-report-api" target="1.7" />
+      <module name="zvandiri-portal" target="8" />
+      <module name="zvandiri-report-api" target="8" />
       <module name="zvandiri-report-portal" target="1.7" />
     </bytecodeTargetLevel>
   </component>

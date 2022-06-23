@@ -18,19 +18,7 @@ package zw.org.zvandiri.business.domain;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.ToString;
@@ -53,7 +41,10 @@ import zw.org.zvandiri.business.domain.util.YesNo;
 		@Index(name = "contact_contact_date", columnList = "contactDate"),
 		@Index(name = "contact_location", columnList = "location"),
 		@Index(name = "contact_position", columnList = "position")
-})
+} ,
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"patient", "contactDate"})
+        })
 public class Contact extends BaseEntity {
 
     @JsonIgnore

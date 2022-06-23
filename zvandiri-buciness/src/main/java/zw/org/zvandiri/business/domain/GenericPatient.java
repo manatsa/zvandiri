@@ -147,13 +147,13 @@ public class GenericPatient extends BaseEntity {
     private Set<SubstanceItem> substanceItems = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<Family> familys = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private Set<Contact> contacts = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<EidTest> eidTests = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private Set<Referral> referrals = new HashSet<>();
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private Set<InvestigationTest> investigationTests = new HashSet<>();
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<CatDetail> catDetails = new HashSet<>();

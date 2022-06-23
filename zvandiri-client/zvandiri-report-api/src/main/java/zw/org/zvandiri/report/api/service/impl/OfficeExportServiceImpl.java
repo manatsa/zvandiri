@@ -23,6 +23,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.*;
+import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.repo.*;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.Reportutil;
@@ -33,9 +34,7 @@ import zw.org.zvandiri.report.api.service.OfficeExportService;
 import zw.org.zvandiri.report.api.service.parallel.*;
 
 import javax.annotation.Resource;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ForkJoinPool;
 
 /**
@@ -216,8 +215,19 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 for (Patient patient : patients) {
                     int count = 0;
                     InvestigationTest vlTest = patient.getLastPatientVL(investigationTestService);
-                    Contact contact = contactService.findLatestContact(patient);
-                    //contacts.addAll(patient.getContacts());
+
+                    /*List<Contact> list=contactService.getByPatient(patient);
+                    Contact contact = null;
+                    if(list!=null && !list.isEmpty()) {
+                        contact=Collections.max(list,Comparator.comparing(s -> s.getContactDate()));
+                    }
+                    List<InvestigationTest> vls=investigationTestService.getByPatientAndTestType(patient, TestType.VIRAL_LOAD);
+                    InvestigationTest vlTest  = null;
+
+                    if(vls!=null && !vls.isEmpty()){
+                        vlTest=Collections.max(vls,Comparator.comparing(s -> s.getDateTaken()));
+                    }*/
+
                     //dependents.addAll(patient.getDependents());
                     //chronicInfectionItems.addAll(patient.getChronicInfectionItems());
                     //hivConInfectionItems.addAll(patient.getHivConInfectionItems());
@@ -349,7 +359,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     XSSFCell patientStatus = header.createCell(++count);
                     patientStatus.setCellValue(patient.getStatus() != null ? patient.getStatus().getName() : null);
 
-                    XSSFCell contactDate = header.createCell(++count);
+                   /* XSSFCell contactDate = header.createCell(++count);
                     if (contact != null && contact.getContactDate() != null) {
                         contactDate.setCellValue(contact.getContactDate());
                         contactDate.setCellStyle(XSSFCellStyle);
@@ -359,12 +369,19 @@ public class OfficeExportServiceImpl implements OfficeExportService {
 
                     XSSFCell careLevel = header.createCell(++count);
                     careLevel.setCellValue(contact != null && contact.getCareLevelAfterAssessment() != null ? contact.getCareLevelAfterAssessment().getName() : "");
-
+*/
                     XSSFCell vlresult = header.createCell(++count);
                     if (vlTest != null && vlTest.getResult() != null) {
                         vlresult.setCellValue(vlTest.getResult());
                     } else {
                         vlresult.setCellType(Cell.CELL_TYPE_BLANK);
+                    }
+
+                    XSSFCell vlTnd = header.createCell(++count);
+                    if (vlTest != null && vlTest.getTnd() != null) {
+                        vlTnd.setCellValue(vlTest.getTnd());
+                    } else {
+                        vlTnd.setCellType(Cell.CELL_TYPE_BLANK);
                     }
 
 
@@ -588,8 +605,12 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     entry.setCellValue("");
                 }
                 XSSFCell referralDate = referralXSSFRow.createCell(++count);
-                referralDate.setCellValue(referral.getReferralDate());
-                referralDate.setCellStyle(XSSFCellStyle);
+                if (referral.getReferralDate() != null) {
+                    referralDate.setCellValue(referral.getReferralDate());
+                    referralDate.setCellStyle(XSSFCellStyle);
+                } else {
+                    referralDate.setCellValue("");
+                }
                 XSSFCell expectedVisitDate = referralXSSFRow.createCell(++count);
                 if (referral.getExpectedVisitDate() != null) {
                     expectedVisitDate.setCellValue(referral.getExpectedVisitDate());

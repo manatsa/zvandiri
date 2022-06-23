@@ -85,7 +85,7 @@ public class ViralLoadController extends BaseController {
     @RequestMapping(value = "/item.form", method = RequestMethod.POST)
     public String saveItem(ModelMap model, @ModelAttribute("item") @Valid InvestigationTest item, BindingResult result) {
         Patient patient=item.getPatient();
-        System.err.println(patient);
+        //System.err.println(patient);
 
         if (!patient.getPatientStatus()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(INACTIVE_MESSAGE).messageType(MessageType.ERROR).build());

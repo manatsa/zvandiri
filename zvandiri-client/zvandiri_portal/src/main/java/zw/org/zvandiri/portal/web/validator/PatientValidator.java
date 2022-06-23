@@ -233,6 +233,7 @@ public class PatientValidator implements Validator {
 
     public void validatePatientHivAndHealth(Object o, Errors errors) {
         Patient item = (Patient) o;
+        //System.err.println(o);
         if (item.getHivStatusKnown() == null) {
          errors.rejectValue("hivStatusKnown", "field.empty");
          }
@@ -258,12 +259,12 @@ public class PatientValidator implements Validator {
                     errors.rejectValue("disclosureType", "field.empty");
                 }
             }
-            if(item.getDisability()!=null && item.getDisability().equals(YesNo.YES)){
-                errors.rejectValue("disablityType", "field.empty");
-            }
+//            if(item.getDisability()!=null && item.getDisability().equals(YesNo.YES)){
+//                errors.rejectValue("disablityType", "field.empty");
+//            }
         }
 
-        //System.err.println("Disclosure Type :"+item.getDisclosureType().getName());
+
     }
 
     public void validatePrimaryCareGiver(Object o, Errors errors) {
