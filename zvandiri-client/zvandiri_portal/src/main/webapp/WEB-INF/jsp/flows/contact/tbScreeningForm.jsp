@@ -259,10 +259,13 @@
     });
     $("#identifiedWithTb").change(function () {
         var identified = $("#identifiedWithTb").val();
+        console.log('IDENTIFIED::', identified)
         if (identified == 1) {
             $(".symptoms").removeClass("hide")
+
         } else {
             $(".symptoms").addClass("hide")
+            $(".notreatment").removeClass("hide")
         }
     });
     $("#eligibleForIpt").change(function () {
@@ -284,7 +287,6 @@
 
 $('#onTBTreatment').change(()=>{
     var treat = $("#onTBTreatment").val();
-    console.log('Treatment Value:'+treat)
     if (treat == 1 && $("#onTBTreatment").is(":visible")) {
         $(".treatment").removeClass("hide")
     }else {
@@ -330,10 +332,14 @@ $('#onTBTreatment').change(()=>{
             }
 
             var identified = $("#identifiedWithTb").val();
+            console.log('IDENTIFIED::',identified)
             if (identified == 1) {
                 $(".symptoms").removeClass("hide")
+
             } else {
                 $(".symptoms").addClass("hide")
+                $(".notreatment").removeClass("hide")
+
             }
 
             var eligible = $("#eligibleForIpt").val();

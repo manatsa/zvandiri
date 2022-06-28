@@ -24,10 +24,7 @@ import java.util.Set;
 @Table(indexes = {
 		@Index(name = "mental_health_screening_patient", columnList = "patient"),
         @Index(name = "mental_health_screening_date_screened", columnList = "dateScreened")
-} ,
-  uniqueConstraints = {
-       @UniqueConstraint(columnNames = {"patient", "dateScreened"})
-  })
+})
 
 @ToString
 public class MentalHealthScreening extends BaseEntity {

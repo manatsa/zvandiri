@@ -31,10 +31,7 @@ import zw.org.zvandiri.business.domain.util.YesNo;
 @Table(indexes = {
 		@Index(name = "investigation_test_patient", columnList = "patient"),
 		@Index(name = "investigation_test_dateTaken", columnList = "dateTaken"),
-} ,
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"patient", "dateTaken"})
-        })
+})
 @ToString
 public class InvestigationTest extends TestResult {
 

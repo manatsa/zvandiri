@@ -41,10 +41,7 @@ import zw.org.zvandiri.business.domain.util.YesNo;
 		@Index(name = "contact_contact_date", columnList = "contactDate"),
 		@Index(name = "contact_location", columnList = "location"),
 		@Index(name = "contact_position", columnList = "position")
-} ,
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"patient", "contactDate"})
-        })
+})
 public class Contact extends BaseEntity {
 
     @JsonIgnore

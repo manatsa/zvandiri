@@ -25,11 +25,7 @@ import java.util.Set;
 @Table(indexes = {
 		@Index(name = "tb_ipt_patient", columnList = "patient"),
 		@Index(name = "tb_ipt_created_by", columnList = "created_by")
-}
-        ,
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"patient", "dateScreened"})
-        })
+})
 @ToString()
 public class TbIpt extends BaseEntity {
 

@@ -37,11 +37,7 @@ import zw.org.zvandiri.business.domain.util.YesNo;
 @Table(indexes = {
 		@Index(name = "referral_patient", columnList = "patient"),
 		@Index(name = "referral_referral_date", columnList = "referralDate")
-} ,
-    uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"patient", "referralDate"})
-    }
-    )
+})
 public class Referral extends BaseEntity {
 
     @ManyToOne
