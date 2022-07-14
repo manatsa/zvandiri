@@ -66,6 +66,13 @@
                                 </p>
                             </div>
                             <div class="form-group">
+                                <label>Art Regimen</label>
+                                <form:input path="artRegimen" class="form-control word-case"/>
+                                <p class="help-block">
+                                    <form:errors path="artRegimen" class="alert-danger"/>
+                                </p>
+                            </div>
+                            <div class="form-group">
                                 <label>Mobile Number</label>
                                 <form:input path="mobileNumber" class="form-control"/>
                                 <p class="help-block">
@@ -288,8 +295,18 @@
                                     <form:errors path="hIVDisclosureLocation" class="alert-danger"/>
                                 </p>
                             </div>
+                            <div class="form-group status-known hide">
+                                <label>Type of Disclosure</label>
+                                <form:select path="disclosureType" class="form-control">
+                                    <form:option value="" label="--Select Item"/>
+                                    <form:options itemValue="code" itemLabel="name"/>
+                                </form:select>
+                                <p class="help-block">
+                                    <form:errors path="disclosureType" class="alert-danger"/>
+                                </p>
+                            </div>
                             <div class="form-group">
-                                <label>Has disability ${item.disability}</label>
+                                <label>Has disability</label>
                                 <form:select path="disability" class="form-control">
                                     <form:option value="" label="--Select Item"/>
                                     <form:options itemValue="code" itemLabel="name"/>
@@ -400,12 +417,14 @@
         }
     });
 
-    var result=$('#disability').val();
-    if(result==1){
-        $('.disable').removeClass('hide');
-    }else{
-        $('.disable').addClass('hide')
-    }
+    $('#disability').change(()=>{
+        var dis=$('#disability').val();
+        if(dis==1){
+            $('.disable').removeClass('hide');
+        }else{
+            $('.disable').addClass('hide')
+        }
+    })
 
         $(function () {
             window.onload = function () {

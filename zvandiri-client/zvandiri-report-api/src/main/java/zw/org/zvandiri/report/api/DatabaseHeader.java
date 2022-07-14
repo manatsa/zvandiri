@@ -26,7 +26,7 @@ public interface DatabaseHeader {
             "Consent To M-Health","Education", "Highest Education",
             "Refer", "Region", "District","Primary Clinic", "Support Group", "Date Tested","HIV Disclosure Location",
             "Has Disability", "IS CATS", "In YMM Programme","In YMD Programme", "HIV Transmission Mode","Current Regimen",
-            "HIV Status Known", "Patient Status", "Date Status Changed","Last Contact Date","Current Care Level","Viral Load","Date Taken"
+            "HIV Status Known", "Patient Status", "Date Status Changed","Last Contact Date","Current Care Level","Viral Load", "TND","Date Taken"
     };
 
     public final String [] UNIQUE_PATIENT_HEADER = {
@@ -120,7 +120,7 @@ public interface DatabaseHeader {
 
     public final String [] CD4_COUNT_HEADER =  {
             "UIC", "Client Name","Date of Birth", "Age", "Gender", "Region", "District","Primary Clinic","Date Of Entry", "Test Type", "Date Taken",
-            "Count", "Source", "Next Lab Due","VLSuppressionStatus","Result Taken","TND","Record Source", "IS CATS", "In YMM Programme", "In YMD Programme"
+            "Result", "Source", "Next Lab Due","VLSuppressionStatus","Result Taken","TND","Record Source", "IS CATS", "In YMM Programme", "In YMD Programme"
     };
 
     public final String [] ARV_HISTORY_HEADER = {

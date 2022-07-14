@@ -23,6 +23,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import zw.org.zvandiri.business.domain.*;
+import zw.org.zvandiri.business.domain.util.TestType;
 import zw.org.zvandiri.business.repo.*;
 import zw.org.zvandiri.business.service.*;
 import zw.org.zvandiri.business.util.Reportutil;
@@ -214,7 +215,7 @@ public class OfficeExportServiceImpl implements OfficeExportService {
             final long start_patient=System.currentTimeMillis();
             for (Patient patient : patients) {
                 int count = 0;
-                InvestigationTest vlTest = patient.getLastPatientVL(investigationTestService);
+                InvestigationTest vlTest = investigationTestService.getLatestTestByTestType(patient, TestType.VIRAL_LOAD);
                 Contact contact=contactService.findLatestContact(patient);
                 //contacts.addAll(patient.getContacts());
                 //dependents.addAll(patient.getDependents());
@@ -354,6 +355,14 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     vlresult.setCellValue(vlTest.getResult());
                 }else{
                     vlresult.setCellType(Cell.CELL_TYPE_BLANK);
+                }
+
+                XSSFCell vlTnd = header.createCell(++count);
+                if(vlTest!=null && vlTest.getResult()!=null)
+                {
+                    vlTnd.setCellValue(vlTest.getTnd());
+                }else{
+                    vlTnd.setCellType(Cell.CELL_TYPE_BLANK);
                 }
 
 
@@ -2386,8 +2395,14 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                     dateTaken.setCellValue("");
                 }
                 XSSFCell cd4Load = cd4XSSFRow.createCell(++count);
-                cd4Load.setCellValue(cd4Count.getResult() != null ? cd4Count.getResult() : 0);
-                cd4Load.setCellType(Cell.CELL_TYPE_NUMERIC);
+                if(cd4Count.getResult() != null){
+                    cd4Load.setCellValue( cd4Count.getResult());
+                    cd4Load.setCellType(Cell.CELL_TYPE_NUMERIC);
+                }else{
+                    cd4Load.setCellValue("");
+                }
+
+
                 XSSFCell source = cd4XSSFRow.createCell(++count);
                 source.setCellValue(cd4Count.getSource() != null ? cd4Count.getSource().getName() : "");
                 XSSFCell nextLabDate = cd4XSSFRow.createCell(++count);
@@ -2408,7 +2423,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 XSSFCell resultsTaken = cd4XSSFRow.createCell(++count);
                 if (cd4Count.getResultTaken() != null) {
                     resultsTaken.setCellValue(cd4Count.getResultTaken().getName());
-                    resultsTaken.setCellStyle(XSSFCellStyle);
                 } else {
                     resultsTaken.setCellValue("");
                 }
@@ -2416,7 +2430,6 @@ public class OfficeExportServiceImpl implements OfficeExportService {
                 XSSFCell tnd = cd4XSSFRow.createCell(++count);
                 if (cd4Count.getTnd() != null) {
                     tnd.setCellValue(cd4Count.getTnd());
-                    tnd.setCellStyle(XSSFCellStyle);
                 } else {
                     tnd.setCellValue("");
                 }

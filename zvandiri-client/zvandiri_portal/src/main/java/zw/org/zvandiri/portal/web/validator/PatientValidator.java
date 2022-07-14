@@ -254,6 +254,10 @@ public class PatientValidator implements Validator {
                     errors.rejectValue("hIVDisclosureLocation", "field.empty");
 
                 }
+                if (item.getDisclosureType() == null) {
+                    errors.rejectValue("disclosureType", "field.empty");
+
+                }
                 if(item.getId()==null && item.getDisclosureType()==null){
                     errors.rejectValue("disclosureType", "field.empty");
                 }

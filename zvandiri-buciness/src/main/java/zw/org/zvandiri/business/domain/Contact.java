@@ -47,7 +47,7 @@ import zw.org.zvandiri.business.domain.util.YesNo;
  * @author Judge Muzinda
  */
 @ToString
-@Entity @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
 @Table(indexes = {
 		@Index(name = "contact_patient", columnList = "patient"),
 		@Index(name = "contact_contact_date", columnList = "contactDate"),
