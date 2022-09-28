@@ -23,10 +23,10 @@ public interface DatabaseHeader {
 
     public final String [] PATIENT_HEADER = {
             "UIC","Client Name","Client Type", "OI/ Art Number", "Date of Birth", "Age","Date Of Entry", "Date Joined", "Gender", "Address", "Mobile Number",
-            "Consent To M-Health","Education", "Highest Education","Client Type",
+            "Consent To M-Health","Education", "Highest Education","Client Type"," ART REGIMEN",
             "Refer", "Region", "District","Primary Clinic", "Support Group", "Date Tested","HIV Disclosure Location","Disclosure Type", "Is Key Population",
             "Key Population","Has Birth Cert","Has Disability", "IS CATS", "In YMM Programme","In YMD Programme", "HIV Transmission Mode","Current Regimen",
-            "HIV Status Known", "Patient Status","Viral Load","TND","Date Taken"
+            "HIV Status Known", "Patient Status","Last Contact Date", "Last Care Level","Viral Load","TND","Date Taken"
     };
 
     public final String [] UNIQUE_PATIENT_HEADER = {
@@ -38,7 +38,7 @@ public interface DatabaseHeader {
     };
 
     public final String [] DEPENDANT_HEADER = {
-            "UIC", "Client Name","Clinet Date of Birth", "Client Age", "Client Gender", "Name", "Region", "District","Primary Clinic", "Gender", 
+            "UIC", "Client Name","Client Date of Birth", "Client Age", "Client Gender", "Name", "Region", "District","Primary Clinic", "Gender",
             "Date Of Birth", "HIV Status", "IS CATS", "In YMM Programme", "In YMD Programme"
     };
 

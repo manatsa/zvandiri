@@ -17,7 +17,7 @@ import zw.org.zvandiri.business.service.DetailedPatientReportService;
 public class PatientDatabaseExportTask extends RecursiveTask<List<Patient>> {
     private final List<String> data;
     private final DetailedPatientReportService reportService;
-    private final static int SEQUENTIAL_THRESHOLD = 500;
+//    private final static int SEQUENTIAL_THRESHOLD = 200;
     
     public PatientDatabaseExportTask(List<String> data, DetailedPatientReportService reportService) {
         this.data = data;
@@ -26,7 +26,7 @@ public class PatientDatabaseExportTask extends RecursiveTask<List<Patient>> {
 
     @Override
     protected List<Patient> compute() {
-        if (data.size() <= SEQUENTIAL_THRESHOLD) {
+        if (data.size() <= ReportGenConstants.SEQUENTIAL_THRESHOLD) {
             return process();
         } else {
             int mid = data.size() / 2;

@@ -95,6 +95,13 @@
 										Load Results Report</a></td>
 							</tr>
 							<tr>
+								<td><a href="${page}/report/new/patient/detailed.htm">New Client
+									Detailed Report</a></td>
+								<%--<td><a
+										href="${page}/report/test-results/index.htm?type=viral-load">Viral
+									Load Results Report</a></td>--%>
+							</tr>
+							<tr>
 								<td><a href="${page}/report/hiv-self-testing/detailed.htm">HIV
 										Self Testing Report</a></td>
 								<td><a href="${page}/report/detailed/hei.htm">HEI

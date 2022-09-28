@@ -33,9 +33,7 @@ public class ServiceOfferedServiceImpl implements ServiceOfferedService {
     @Override
     public List<ServiceOffered> getAll() {
         List<ServiceOffered> sos= serviceOfferedRepo.getOptAll(Boolean.TRUE);
-        for(ServiceOffered so:sos){
-            System.err.println(so.getName());
-        }
+
         return sos;
     }
 

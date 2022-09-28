@@ -125,7 +125,7 @@ public class MentalHealthScreeningController extends BaseController{
         }
         getPatientStatus(item.getPatient(), model);
         setViralLoad(model, item.getPatient());
-        return "patient/mentalHealthScreeningForm";
+        return "patient/mentalHealthScreeningForm1";
     }
 
     @RequestMapping(value = "/item.form", method = RequestMethod.GET)
@@ -133,6 +133,7 @@ public class MentalHealthScreeningController extends BaseController{
         MentalHealthScreening item;
         if (itemId != null) {
             item = service.get(itemId);
+            System.err.println(item);
             return setUpModel(model, item);
         }else {
             item = new MentalHealthScreening(patientService.get(id));
@@ -142,6 +143,7 @@ public class MentalHealthScreeningController extends BaseController{
 
     @RequestMapping(value = "/item.form", method = RequestMethod.POST)
     public String saveItem(ModelMap model, @ModelAttribute("item") @Valid MentalHealthScreening item, BindingResult result) {
+        System.err.println("MH ITEM:: "+item);
         if (!item.getPatient().getPatientStatus()) {
             model.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message(INACTIVE_MESSAGE).messageType(MessageType.ERROR).build());
             return setUpModel(model, item);

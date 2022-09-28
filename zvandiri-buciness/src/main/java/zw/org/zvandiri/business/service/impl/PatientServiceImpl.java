@@ -180,17 +180,17 @@ public class PatientServiceImpl implements PatientService {
         if (exp == null) {
             throw new IllegalArgumentException("Provide parameter for search");
         } else if (exp.length == 1 && dto.getProvince() == null && dto.getDistrict() == null) {
-            return patientRepo.findByFirstNameOrLastName(exp[0], Boolean.TRUE);
+            return patientRepo.findByFirstNameOrLastName(exp[0]);
         } else if (exp.length == 1 && dto.getProvince() != null && dto.getDistrict() == null) {
-            return patientRepo.findByFirstNameOrLastNameAndProvince(exp[0], Boolean.TRUE, dto.getProvince());
+            return patientRepo.findByFirstNameOrLastNameAndProvince(exp[0],  dto.getProvince());
         } else if (exp.length == 1 && dto.getProvince() == null && dto.getDistrict() != null) {
-            return patientRepo.findByFirstNameOrLastNameAndDistrict(exp[0], Boolean.TRUE, dto.getDistrict());
+            return patientRepo.findByFirstNameOrLastNameAndDistrict(exp[0],  dto.getDistrict());
         } else if (exp.length > 1 && dto.getProvince() != null && dto.getDistrict() == null) {
-            return patientRepo.findByFirstNameAndLastNameAndProvince(exp[0], exp[1], Boolean.TRUE, dto.getProvince());
+            return patientRepo.findByFirstNameAndLastNameAndProvince(exp[0], exp[1], dto.getProvince());
         } else if (exp.length > 1 && dto.getProvince() == null && dto.getDistrict() != null) {
-            return patientRepo.findByFirstNameAndLastNameAndDistrict(exp[0], exp[1], Boolean.TRUE, dto.getDistrict());
+            return patientRepo.findByFirstNameAndLastNameAndDistrict(exp[0], exp[1],  dto.getDistrict());
         }
-        return patientRepo.findByFirstNameAndLastName(exp[0], exp[1], Boolean.TRUE);
+        return patientRepo.findByFirstNameAndLastName(exp[0], exp[1]);
     }
 
     @Override

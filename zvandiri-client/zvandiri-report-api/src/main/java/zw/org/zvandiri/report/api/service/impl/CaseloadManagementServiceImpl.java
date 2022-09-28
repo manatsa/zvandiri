@@ -16,6 +16,7 @@
 package zw.org.zvandiri.report.api.service.impl;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.*;
@@ -200,7 +201,7 @@ public class CaseloadManagementServiceImpl implements CaseloadManagementService 
             {
                 vlresult.setCellValue(vlTest.getResult());
             }else{
-                vlresult.setCellType(Cell.CELL_TYPE_BLANK);
+                vlresult.setCellType(CellType.BLANK);
             }
 
             XSSFCell vlDateTaken = enhancedRow.createCell(count++);

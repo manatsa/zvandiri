@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.portal.web.controller.report;
 
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -147,7 +148,7 @@ public class LastContactedController extends BaseController {
                 dateOfBirth.setCellValue(contact.getPatient().getDateOfBirth());
                 dateOfBirth.setCellStyle(cellStyle);
             }else{
-                dateOfBirth.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                dateOfBirth.setCellType(CellType.BLANK);
             }
             //Optional.ofNullable(contact.getPatient().getDateOfBirth()).ifPresent(dateOfBirth::setCellValue);
 
@@ -157,7 +158,7 @@ public class LastContactedController extends BaseController {
                 dateJoined.setCellValue(contact.getPatient().getDateJoin());
                 dateJoined.setCellStyle(cellStyle);
             }else{
-                dateJoined.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                dateJoined.setCellType(CellType.BLANK);
             }
             //Optional.ofNullable(contact.getPatient().getDateJoined()).ifPresent(dateJoined::setCellValue);
 
@@ -206,7 +207,7 @@ public class LastContactedController extends BaseController {
                 contactDate.setCellValue(contact.getContactDate());
                 contactDate.setCellStyle(cellStyle);
             }else{
-                contactDate.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                contactDate.setCellType(CellType.BLANK);
             }
             //Optional.ofNullable(contact.getContactDate()).ifPresent(contactDate::setCellValue);
 
@@ -219,7 +220,7 @@ public class LastContactedController extends BaseController {
             if (contact.getCd4Count()!=null) {
                 cd4Count.setCellValue(contact.getCd4Count().getResult());
             } else {
-                cd4Count.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                cd4Count.setCellType(CellType.BLANK);
             }
 
             XSSFCell vl = contactRow.createCell(++count);
@@ -227,7 +228,7 @@ public class LastContactedController extends BaseController {
             if (contact.getViralLoad()!=null) {
                 vl.setCellValue(contact.getViralLoad().getResult());
             } else {
-                vl.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                vl.setCellType(CellType.BLANK);
             }
 
             XSSFCell plan = contactRow.createCell(++count);

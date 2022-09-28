@@ -58,7 +58,7 @@ public class MentalHealthScreeningCreationServiceImpl implements MentalHealthCre
 
         Iterator errorIterator=constraintViolations.iterator();
         while(errorIterator.hasNext()){
-            System.err.println(((ObjectError)(errorIterator.next())).getDefaultMessage());
+            //System.err.println(""+((ObjectError)(errorIterator.next())).getDefaultMessage());
         }
         return constraintViolations.size()<1?"success" : "failure";
     }

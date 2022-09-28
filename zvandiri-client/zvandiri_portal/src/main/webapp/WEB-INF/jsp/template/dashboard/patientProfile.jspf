@@ -12,10 +12,24 @@
             <td>
                 ${patient.age}
             </td>
-            <td><img src="<c:url value="${patient.pic}"/>"/></td>
+<%--            <td><img src="<c:url value="${patient.pic}"/>"/></td>--%>
+            <c:choose>
+                <c:when test="${patient.status.name !='Active'}">
+                    <th>Status</th>
+                    <td style="color: red; font-weight: bold">
+                            ${patient.status.name}
+                    </td>
+                </c:when>
+                <c:when test="${patient.status.name =='Active'}">
+                    <th>Status</th>
+                    <td style="color: green; font-weight: bold">
+                            ${patient.status.name}
+                    </td>
+                </c:when>
+            </c:choose>
         </tr>
         <tr>
-            <th>HIV Status Known :</th>
+            <th>HIV Status Known : </th>
             <td>
                 ${patient.hivStatusKnown.name}
             </td>

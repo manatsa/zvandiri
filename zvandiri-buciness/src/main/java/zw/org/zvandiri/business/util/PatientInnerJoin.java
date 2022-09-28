@@ -21,7 +21,7 @@ package zw.org.zvandiri.business.util;
  */
 public interface PatientInnerJoin {
 
-    public final String PATIENT_INNER_JOIN = "left join fetch p.disabilityCategorys left join fetch p.education left join fetch p.educationLevel left join fetch p.referer left join fetch p.primaryClinic left join fetch p.supportGroup left join fetch p.relationship left join fetch p.mobileOwnerRelation left join fetch p.secondaryMobileownerRelation left join fetch p.createdBy left join fetch p.modifiedBy";
+    public final String PATIENT_INNER_JOIN = "left join fetch p.disabilityCategorys left join fetch p.education left join fetch p.educationLevel left join fetch p.referer left join fetch p.primaryClinic left join fetch p.supportGroup left join fetch p.relationship left join fetch p.mobileOwnerRelation left join fetch p.secondaryMobileownerRelation left join fetch p.createdBy";
 
     public final String SIMMPLE_PATIENT_INNER_JOIN = " left join fetch p.primaryClinic left join fetch p.supportGroup  left join fetch p.createdBy left join fetch p.modifiedBy";
 

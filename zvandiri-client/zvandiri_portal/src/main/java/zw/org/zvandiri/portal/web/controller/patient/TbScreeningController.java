@@ -16,6 +16,7 @@
 package zw.org.zvandiri.portal.web.controller.patient;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -54,7 +55,11 @@ public class TbScreeningController extends BaseController {
     @Resource
     private TbScreeningValidator validator;
 
+    static int counter=0;
+
     public String setUpModel(ModelMap map, TbIpt item) {
+        ++counter;
+        //System.err.println("Counter"+ counter+"\t  NAME"+item.getPatient().getName());
         map.addAttribute("pageTitle", APP_PREFIX + " " + item.getPatient().getName()+ "'s Tb Screening History");
         map.addAttribute("item", item);
         map.addAttribute("patient", item.getPatient());
@@ -89,7 +94,7 @@ public class TbScreeningController extends BaseController {
         }else{
             map.addAttribute("onIpt", Boolean.FALSE);
         }
-        return "patient/tbScreeningForm";
+        return "patient/tbScreeningForm1";
     }
 
     @RequestMapping(value = "item.form", method = RequestMethod.GET)
@@ -100,12 +105,15 @@ public class TbScreeningController extends BaseController {
             return setUpModel(map, item);
         }
         item = new TbIpt(patientService.get(patientId));
+        System.err.println("TB TPT ITEM:: "+item);
         return setUpModel(map, item);
     }
 
     @RequestMapping(value = "item.form", method = RequestMethod.POST)
     public String saveItem(ModelMap map, @ModelAttribute("item") @Valid TbIpt item, BindingResult result) {
         validator.validate(item, result);
+
+        System.err.println("ITEM TO SAVE::"+ item);
         map.addAttribute("message", new AppMessage.MessageBuilder().build());
         if (result.hasErrors()) {
             map.addAttribute("message", new AppMessage.MessageBuilder(Boolean.TRUE).message("Data entry error has occurred").messageType(MessageType.ERROR).build());

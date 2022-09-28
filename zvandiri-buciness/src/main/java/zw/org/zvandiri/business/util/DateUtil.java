@@ -75,7 +75,7 @@ public class DateUtil {
         try {
             return restFmt.parse(date);
         } catch (ParseException ex) {
-            System.out.println("Error occurred");
+            //System.out.println("Error occurred");
         }
         throw new IllegalArgumentException("Un expected parameter provided :" + date);
     }
@@ -237,7 +237,14 @@ public class DateUtil {
     }
 
     public static String getStringFromDate(Date date) {
-        return restFmt.format(date);
+        String formattedDate="";
+        try{
+            formattedDate=restFmt.format(date);
+            //System.err.println("Date Formatted::"+date);
+        }catch (Exception e){
+            System.err.println("***** Wrong Date Format::"+date+" ======> ");
+        }
+        return formattedDate;
     }
 
     public static Date getDateFromAge(Integer age) {

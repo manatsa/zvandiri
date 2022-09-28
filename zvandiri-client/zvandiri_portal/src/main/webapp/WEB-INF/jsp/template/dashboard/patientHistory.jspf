@@ -10,8 +10,10 @@
     <a href="${page}/beneficiary/arv-hist/item.list?id=${patient.id}">ARV History</a><br/><br/>
     <a href="${page}/beneficiary/chronic-infection/item.list?id=${patient.id}">Opportunistic Infections History</a><br/><br/>
     <a href="${page}/beneficiary/medhist/item.list?id=${patient.id}">Hospitalisation History</a><br/><br/>    
-    <a href="${page}/beneficiary/srh/item.list?id=${patient.id}">SRH History</a><br/><br/>    
-    <a href="${page}/beneficiary/mental-health-screening/item.list?id=${patient.id}">Mental Health Screening</a><br/><br/>
-    <a href="${page}/patient/tb-screening/item.list?id=${patient.id}">TB Screening</a><br/><br/>
+    <a href="${page}/beneficiary/srh/item.list?id=${patient.id}">SRH History</a><br/><br/>
+<%--    <c:if test="${patient.status.name=='Active'}">--%>
+        <a href="${page}/beneficiary/mental-health-screening/item.list?id=${patient.id}">Mental Health Screening</a><br/><br/>
+        <a href="${page}/patient/tb-screening/item.list?id=${patient.id}">TB Screening</a><br/><br/>
+<%--    </c:if>--%>
     <a href="${page}/beneficiary/disability/item.list?id=${patient.id}">Disability</a><br/><br/>
 </div>

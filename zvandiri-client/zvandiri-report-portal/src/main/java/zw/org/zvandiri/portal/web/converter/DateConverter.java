@@ -32,7 +32,7 @@ public class DateConverter implements Converter<String, Date> {
         try {
             return format.parse(s);
         } catch (ParseException ex) {
-            System.err.println("Error occured :"+ex.getMessage());
+            //System.err.println("Error occured :"+ex.getMessage());
             return null;
         }
     }

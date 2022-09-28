@@ -27,12 +27,12 @@
     <div class="tab-pane fade" id="treatment-detail">
         <br/>
         <%--<b class="titleHeader">Contact Detail</b>  <c:if test="${canEdit}">| <a href="${page}/beneficiary/contact/item.form?patientId=${patient.id}">Add Contact</a></c:if>--%>
-        <b class="titleHeader">Contact Detail</b>  <c:if test="${canEdit}">| <a href="${page}/contact?id=${patient.id}">Add Contact</a></c:if>
+        <b class="titleHeader">Contact Detail</b>  <c:if test="${canEdit && patient.status.name=='Active'}">| <a href="${page}/contact?id=${patient.id}">Add Contact</a></c:if>
             <hr/>
         <%@include file="contactList.jspf" %>
     </div>
     <div class="tab-pane fade" id="labs">
-        <b class="titleHeader">Viral Load Detail</b>  <c:if test="${canEdit}">| <a href="${page}/patient/viral-load/item.form?patientId=${patient.id}">Add Viral Load Item </a></c:if>
+        <b class="titleHeader">Viral Load Detail</b>  <c:if test="${canEdit && patient.status.name=='Active'}">| <a href="${page}/patient/viral-load/item.form?patientId=${patient.id}">Add Viral Load Item </a></c:if>
         <hr/>
         <%@include file="labResultList.jspf" %>
     </div>

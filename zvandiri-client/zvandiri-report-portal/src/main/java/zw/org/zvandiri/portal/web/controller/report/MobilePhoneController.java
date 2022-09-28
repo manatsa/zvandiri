@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.portal.web.controller.report;
 
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -140,7 +141,7 @@ public class MobilePhoneController extends BaseController {
                 dateOfBirth.setCellValue(phone.getCadre().getDateOfBirth());
                 dateOfBirth.setCellStyle(cellStyle);
             }else{
-                dateOfBirth.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                dateOfBirth.setCellType(CellType.BLANK);
             }
             //Optional.ofNullable(phone.getCadre().getDateOfBirth()).ifPresent(dateOfBirth::setCellValue);
 
@@ -182,7 +183,7 @@ public class MobilePhoneController extends BaseController {
                 phoneDateIssued.setCellValue(phone.getDateIssued());
                 phoneDateIssued.setCellStyle(cellStyle);
             }else{
-                phoneDateIssued.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                phoneDateIssued.setCellType(CellType.BLANK);
             }
             //Optional.ofNullable(phone.getDateIssued()).ifPresent(phoneDateIssued::setCellValue);
 
@@ -192,7 +193,7 @@ public class MobilePhoneController extends BaseController {
                 phoneDateRecovered.setCellValue(phone.getDateRecovered());
                 phoneDateRecovered.setCellStyle(cellStyle);
             }else{
-                phoneDateRecovered.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                phoneDateRecovered.setCellType(CellType.BLANK);
             }
             //Optional.ofNullable(phone.getDateRecovered()).ifPresent(phoneDateRecovered::setCellValue);
 
@@ -202,7 +203,7 @@ public class MobilePhoneController extends BaseController {
                 dateCreated.setCellValue(phone.getDateCreated());
                 dateCreated.setCellStyle(cellStyle);
             }else{
-                dateCreated.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                dateCreated.setCellType(CellType.BLANK);
             }
             //Optional.ofNullable(phone.getDateCreated()).ifPresent(dateCreated::setCellValue);
 

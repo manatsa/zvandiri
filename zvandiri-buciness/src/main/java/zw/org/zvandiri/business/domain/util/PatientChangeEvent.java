@@ -44,7 +44,7 @@ public enum PatientChangeEvent {
                 return item;
             }
         }
-        throw new IllegalArgumentException("Illegal parameter passed tp method :" + code);
+        throw new IllegalArgumentException("Illegal parameter passed tp method ::" + code);
     }
 
     public String getName() {

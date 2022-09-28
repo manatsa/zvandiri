@@ -75,16 +75,16 @@
                                         </div>
                                     </c:if>
                                 </c:if>
-                                <div class="form-group">
-                                    <label>Outcome</label>
-                                    <form:select path="tbTreatmentOutcome" class="form-control">
-                                        <form:option value="" label="--Select Item"/>
-                                        <form:options items="${outcomes}" itemValue="code" itemLabel="name"/>
-                                    </form:select>
-                                    <p class="help-block">
-                                        <form:errors path="tbTreatmentOutcome" class="alert-danger"/>
-                                    </p>
-                                </div>
+<%--                                <div class="form-group">--%>
+<%--                                    <label>Outcome</label>--%>
+<%--                                    <form:select path="tbTreatmentOutcome" class="form-control">--%>
+<%--                                        <form:option value="" label="--Select Item"/>--%>
+<%--                                        <form:options items="${outcomes}" itemValue="code" itemLabel="name"/>--%>
+<%--                                    </form:select>--%>
+<%--                                    <p class="help-block">--%>
+<%--                                        <form:errors path="tbTreatmentOutcome" class="alert-danger"/>--%>
+<%--                                    </p>--%>
+<%--                                </div>--%>
                                 <div class="form-group">
                                     <label>Referred For IPT</label>
                                     <form:select path="referredForIpt" class="form-control">

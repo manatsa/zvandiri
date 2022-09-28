@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.portal.web.controller.report;
 
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -155,7 +156,7 @@ public class CadreReportController extends BaseController {
                 dateOfBirth.setCellValue(cadre.getDateOfBirth());
                 dateOfBirth.setCellStyle(cellStyle);
             }else{
-                dateOfBirth.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                dateOfBirth.setCellType(CellType.BLANK);
             }
             //Optional.ofNullable(cadre.getDateOfBirth()).ifPresent(dateOfBirth::setCellValue);
 
@@ -200,7 +201,7 @@ public class CadreReportController extends BaseController {
                     phoneDateIssued.setCellValue(phone.getDateIssued());
                     phoneDateIssued.setCellStyle(cellStyle);
                 }else{
-                    phoneDateIssued.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                    phoneDateIssued.setCellType(CellType.BLANK);
                 }
 
             }
@@ -212,7 +213,7 @@ public class CadreReportController extends BaseController {
                     phoneDateRecovered.setCellValue(phone.getDateRecovered());
                     phoneDateRecovered.setCellStyle(cellStyle);
                 }else{
-                    phoneDateRecovered.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                    phoneDateRecovered.setCellType(CellType.BLANK);
                 }
 
             }
@@ -224,7 +225,7 @@ public class CadreReportController extends BaseController {
                     dateCreated.setCellValue(phone.getDateCreated());
                     dateCreated.setCellStyle(cellStyle);
                 }else{
-                    dateCreated.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                    dateCreated.setCellType(CellType.BLANK);
                 }
 
             }
@@ -280,7 +281,7 @@ public class CadreReportController extends BaseController {
                     cadreDateIssued.setCellValue(bike.getDateIssued());
                     cadreDateIssued.setCellStyle(cellStyle);
                 }else{
-                    cadreDateIssued.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                    cadreDateIssued.setCellType(CellType.BLANK);
                 }
                 //Optional.ofNullable(bike.getDateIssued()).ifPresent(cadreDateIssued::setCellValue);
 
@@ -293,7 +294,7 @@ public class CadreReportController extends BaseController {
                     cadreDateRecovered.setCellValue(bike.getDateRecovered());
                     cadreDateRecovered.setCellStyle(cellStyle);
                 }else{
-                    cadreDateRecovered.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                    cadreDateRecovered.setCellType(CellType.BLANK);
                 }
                 //Optional.ofNullable(bike.getDateRecovered()).ifPresent(cadreDateRecovered::setCellValue);
 

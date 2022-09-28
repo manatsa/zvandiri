@@ -15,6 +15,7 @@
  */
 package zw.org.zvandiri.portal.web.controller.report;
 
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -167,7 +168,7 @@ public class BicycleController extends BaseController {
                 bicycleDateIssued.setCellValue(bicycle.getDateIssued());
                 bicycleDateIssued.setCellStyle(cellStyle);
             }else{
-                bicycleDateIssued.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                bicycleDateIssued.setCellType(CellType.BLANK);
             }
             //Optional.ofNullable(bicycle.getDateIssued()).ifPresent(bicycleDateIssued::setCellValue);
 
@@ -177,7 +178,7 @@ public class BicycleController extends BaseController {
                 bicycleDateRecovered.setCellValue(bicycle.getDateRecovered());
                 bicycleDateRecovered.setCellStyle(cellStyle);
             }else{
-                bicycleDateRecovered.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                bicycleDateRecovered.setCellType(CellType.BLANK);
             }
             //Optional.ofNullable(bicycle.getDateRecovered()).ifPresent(bicycleDateRecovered::setCellValue);
 
@@ -187,7 +188,7 @@ public class BicycleController extends BaseController {
                 dateCreated.setCellValue(bicycle.getDateCreated());
                 dateCreated.setCellStyle(cellStyle);
             }else{
-                dateCreated.setCellType(XSSFCell.CELL_TYPE_BLANK);
+                dateCreated.setCellType(CellType.BLANK);
             }
             //Optional.ofNullable(bicycle.getDateCreated()).ifPresent(dateCreated::setCellValue);
 

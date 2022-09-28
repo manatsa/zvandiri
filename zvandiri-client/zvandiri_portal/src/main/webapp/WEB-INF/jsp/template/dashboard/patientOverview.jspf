@@ -35,7 +35,7 @@
         <td>&nbsp;</td>
         <td><br/>
 
-            <c:if test="${canEdit}">
+            <c:if test="${canEdit && patient.status.name=='Active'}">
                 <a href="${page}/patient/item.form?id=${patient.id}">Edit</a> |
 <%--                <a href="${page}/patient/item.delete?id=${patient.id}">Delete</a>--%>
             </c:if>

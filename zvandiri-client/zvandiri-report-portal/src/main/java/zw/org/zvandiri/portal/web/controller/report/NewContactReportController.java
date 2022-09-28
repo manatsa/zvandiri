@@ -131,7 +131,7 @@ public class NewContactReportController extends BaseController {
                 dateOfBirth.setCellValue(contact.getPatient().getDateOfBirth());
                 dateOfBirth.setCellStyle(cellStyle);
             }else{
-                dateOfBirth.setCellType(Cell.CELL_TYPE_BLANK);
+                dateOfBirth.setCellType(CellType.BLANK);
             }
             //Optional.ofNullable(contact.getPatient().getDateOfBirth()).ifPresent(dateOfBirth::setCellValue);
 
@@ -161,7 +161,7 @@ public class NewContactReportController extends BaseController {
                 entry.setCellValue(contact.getDateCreated());
                 entry.setCellStyle(cellStyle);
             }else{
-                entry.setCellType(Cell.CELL_TYPE_BLANK);
+                entry.setCellType(CellType.BLANK);
             }
             //Optional.ofNullable(contact.getDateCreated()).ifPresent(entry::setCellValue);
 
@@ -171,7 +171,7 @@ public class NewContactReportController extends BaseController {
                 contactDate.setCellValue(contact.getContactDate());
                 contactDate.setCellStyle(cellStyle);
             }else{
-                contactDate.setCellType(Cell.CELL_TYPE_BLANK);
+                contactDate.setCellType(CellType.BLANK);
             }
             //Optional.ofNullable(contact.getContactDate()).ifPresent(contactDate::setCellValue);
 
@@ -217,7 +217,7 @@ public class NewContactReportController extends BaseController {
                 last.setCellValue(contact.getLastClinicAppointmentDate());
                 last.setCellStyle(cellStyle);
             }else{
-                last.setCellType(Cell.CELL_TYPE_BLANK);
+                last.setCellType(CellType.BLANK);
             }
             //Optional.ofNullable(contact.getLastClinicAppointmentDate()).ifPresent(last::setCellValue);
 
@@ -231,7 +231,7 @@ public class NewContactReportController extends BaseController {
                 next.setCellValue(contact.getNextClinicAppointmentDate());
                 next.setCellStyle(cellStyle);
             }else{
-                next.setCellType(Cell.CELL_TYPE_BLANK);
+                next.setCellType(CellType.BLANK);
             }
             //Optional.ofNullable(contact.getNextClinicAppointmentDate()).ifPresent(next::setCellValue);
 

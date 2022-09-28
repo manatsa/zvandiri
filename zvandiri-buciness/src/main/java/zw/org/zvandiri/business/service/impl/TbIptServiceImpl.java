@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
@@ -76,6 +77,9 @@ public class TbIptServiceImpl implements TbIptService {
         }
         t.setModifiedBy(userService.getCurrentUser());
         t.setDateModified(new Date());
+        TbIpt old=repo.findOne(t.getId());
+        long v= old!=null?old.getVersion():0;
+        t.setVersion(v);
         return repo.save(t);
     }
 

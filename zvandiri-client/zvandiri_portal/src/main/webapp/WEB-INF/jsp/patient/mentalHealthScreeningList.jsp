@@ -20,36 +20,37 @@
                 <br/>
                 <div class="row">
                     <div class="col-lg-12">
-                        <b class="titleHeader">Mental Health Screening Detail</b>  <c:if test="${canEdit}">| <a href="${page}/contact?id=${patient.id}">Add Mental Health Screening </a></c:if><br/><br/><br/>
+                        <b class="titleHeader">Mental Health Screening Detail</b>  <c:if test="${canEdit && patient.status.name=='Active'}">| <a href="${page}/contact?id=${patient.id}">Add Mental Health Screening </a></c:if><br/><br/><br/>
                         <div class="table-responsive">
                             <table class="itemList" class="display" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>Screened For Mental Health</th>
-                                        <th>Screening Type</th>
+                                        <th>Screened</th>
+                                        <th>Date Screened</th>
+                                        <th>Entry Date</th>
                                         <th>Risk</th>
+                                        <th>Risks</th>
                                         <th>Referral</th>
-                                        <td>Screened By HCW</td>
-                                        <td>HCW Screening Result</td>
-                                        <td>Support</td>
-                                        <td>Supported By</td>
-                                        <%--<th>&nbsp;</th>--%>
+                                        <th>Support</th>
+                                        <th>Supported By</th>
+                                        <th>Action &nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach var="mental" items="${screens}">
                                         <tr>
                                             <td>${mental.screenedForMentalHealth}</td>
-                                            <td>${mental.screening}</td>
+                                            <td>${mental.dateScreened}</td>
+                                            <td>${mental.dateCreated}</td>
                                             <td>${mental.risk}</td>
-                                            <td>${mental.support}</td>
+                                            <td>${mental.identifiedRisks}</td>
                                             <td>${mental.referral}</td>
-                                            <td>${mental.diagnosis}</td>
-                                            <td>${mental.intervention}</td>
-                                            <%--<td>
+                                            <td>${mental.support}</td>
+                                            <td>${mental.supports}</td>
+                                            <td>
                                                 <a href="${page}/beneficiary/mental-health-screening/item.form?itemId=${mental.id}">Edit</a> |
-&lt;%&ndash;                                                <c:if test="${canEdit}"><a href="${page}/beneficiary/mental-health-screening/item.delete?id=${mental.id}">Delete</a></c:if>&ndash;%&gt;
-                                            </td>--%>
+                                               <c:if test="${canEdit}"><a href="${page}/beneficiary/mental-health-screening/item.delete?id=${mental.id}">Delete</a></c:if>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
